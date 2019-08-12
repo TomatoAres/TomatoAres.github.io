@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>TomatoAres Site</title>
+    <title>My New Hugo Site</title>
     <link>https://TomatoAres.github.io/</link>
-    <description>Recent content on TomatoAres Site</description>
+    <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 12 Aug 2019 17:13:32 +0800</lastBuildDate>
