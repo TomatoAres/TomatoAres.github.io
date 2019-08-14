@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Awesome TomatoAres</title>
+    <title>Thinking</title>
     <link>https://TomatoAres.github.io/</link>
-    <description>Recent content on Awesome TomatoAres</description>
+    <description>Recent content on Thinking</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Wed, 14 Aug 2019 23:22:38 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
