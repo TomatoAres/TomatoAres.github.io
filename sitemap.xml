@@ -3,20 +3,40 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/my-first-post/</loc>
-    <lastmod>2019-08-12T17:13:32+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-08-12T17:13:32+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://TomatoAres.github.io/posts/about/</loc>
+    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/</loc>
-    <lastmod>2019-08-12T17:13:32+08:00</lastmod>
+    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/</loc>
+    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/no-article/</loc>
+    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</loc>
+    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/microservices-in-go/</loc>
+    <lastmod>2019-08-14T23:04:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/my-first-post/</loc>
+    <lastmod>2019-08-12T17:13:32+08:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Awesome TomatoAres  | Why Go Is Good Language for Microservices</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.56.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Why Go Is Good Language for Microservices" />
+<meta property="og:description" content="为什么 Go 适合微服务 去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
+// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &quot;xyz&quot;, oldDoc: &quot;blah blah&quot;, newDocument: &quot;new doc&quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+2.可读性 清晰好过聪明（Clear is better than clever）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/" />
+<meta property="article:published_time" content="2019-08-14T23:10:09+08:00" />
+<meta property="article:modified_time" content="2019-08-14T23:10:09+08:00" />
+<meta itemprop="name" content="Why Go Is Good Language for Microservices">
+<meta itemprop="description" content="为什么 Go 适合微服务 去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
+// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &quot;xyz&quot;, oldDoc: &quot;blah blah&quot;, newDocument: &quot;new doc&quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+2.可读性 清晰好过聪明（Clear is better than clever）">
+
+
+<meta itemprop="datePublished" content="2019-08-14T23:10:09&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-14T23:10:09&#43;08:00" />
+<meta itemprop="wordCount" content="149">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Why Go Is Good Language for Microservices"/>
+<meta name="twitter:description" content="为什么 Go 适合微服务 去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
+// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &quot;xyz&quot;, oldDoc: &quot;blah blah&quot;, newDocument: &quot;new doc&quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+2.可读性 清晰好过聪明（Clear is better than clever）"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://TomatoAres.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Awesome TomatoAres
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Why Go Is Good Language for Microservices</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-08-14T23:10:09&#43;08:00">August 14, 2019</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="为什么-go-适合微服务">为什么 Go 适合微服务</h1>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*K95qdWukzkEadEpxqiNdEQ.jpeg" alt="Go Crew at SafetyCulture" /></p>
+
+<p>去年早些时候，我们决定改用 Go(Golang) 作为我们（<a href="https://safetyculture.com/">SafetyCulture</a>）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。</p>
+
+<h2 id="1-静态类型">1.静态类型</h2>
+
+<p>Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。</p>
+
+<h3 id="生产事故的故事">生产事故的故事</h3>
+
+<p>去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。</p>
+
+<pre><code class="language-typescript">// 函数定义
+function saveDocument({id, oldDocument, newDocument}) {}
+
+// 函数调用
+saveDocument({
+    id: &quot;xyz&quot;,
+    oldDoc: &quot;blah blah&quot;,
+    newDocument: &quot;new doc&quot;
+})
+</code></pre>
+
+<p>我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。</p>
+
+<p>当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。<a href="https://www.reddit.com/r/typescript/comments/aofcik/38_of_bugs_at_airbnb_could_have_been_prevented_by/">Airbnb 表示，使用类型可以预防 38％ 的漏洞</a>。</p>
+
+<h2 id="2-可读性">2.可读性</h2>
+
+<p><strong><em>清晰好过聪明（Clear is better than clever）</em></strong></p>
+
+<p>Go 的原作者在设计时非常注重可读性。Go 是一种易于学习的语言，并且针对大多数问题，都有一种惯用方式。而在 NodeJS ，您可以在同一代码库中遇到回调，约定和异步/等待（不同方式实现同一件事）。人们抱怨 Go 很冗长，但我们认为这对 SafetyCulture 来说是一件好事。当然，你可以在 Python/Node 中编写复杂的，很少有人能够理解的 1-liners（一行代码实现），但这并不能形成一个可读的代码库，不便他人维护。</p>
+
+<h2 id="3-标准库">3.标准库</h2>
+
+<p>Go 的标准库设计的很棒，你可以用它做很多事情。维护巨大的外部依赖树是一项挑战。您添加到应用程序的每个依赖项都会带来许多其他依赖项，需要对其进行性能和安全性审计。在某些情况下，它甚至会妨碍您对应用程序的更改，，比如<a href="https://www.davidhaney.io/npm-left-pad-have-we-forgotten-how-to-program/">leftpad incident</a>。</p>
+
+<p><strong><em><a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=9m28s">小复制好于小依赖 (A little copying is better than a little dependency)</a></em></strong></p>
+
+<p>Go 的作者和社区希望开发人员注意他们的应用程序的依赖关系。</p>
+
+<h2 id="4-性能">4.性能</h2>
+
+<p>Go 对并发编程有很好的支持，可以很好地利用多个内核。这对于繁重的计算以及网络 I/O 和磁盘搜索等都是有益的。想了解更多关于优化内存和 CPU 使用，可以看看项目：<a href="https://medium.com/safetycultureengineering/why-we-moved-our-graphql-server-from-node-js-to-golang-645b00571535">Why we moved our GraphQL server to Go.</a></p>
+
+<h2 id="5-代码格式化">5.代码格式化</h2>
+
+<p><strong><em><a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=8m43s">Gofmt 的风格没有人喜欢, 但是 gofmt 是每个人的最爱(Gofmt’s style is no one’s favorite, yet gofmt is everyone’s favorite)</a></em></strong></p>
+
+<p>Go 有固定的代码格式和工具（gofmt），帮你自动化格式化代码，因此你不需要花费时间讨论设置 ESLint 或 Prettier。</p>
+
+<h2 id="结论">结论</h2>
+
+<p>相比其他动态编程语言，Go 提供了很多优良特性。但是，没有一个语言是完美的。比如：Go中的并发代码很容易编写，但新手却并不能很好上手使用。这是因为，数据经常出现竞争状态，代码不好调试。这一点上，<a href="https://www.rust-lang.org/">Rust</a> 做的更好一些，因为它提供了权衡机制防止数据出现竞争状态，但你必须了解更复杂的系统。</p>
+
+<p>参考连接：<a href="https://go-proverbs.github.io/">https://go-proverbs.github.io/</a></p>
+
+<hr />
+
+<p>via: <a href="https://medium.com/safetycultureengineering/why-go-is-a-good-language-for-microservices-b4fc6a5a532c">https://medium.com/safetycultureengineering/why-go-is-a-good-language-for-microservices-b4fc6a5a532c</a></p>
+
+<p>作者：<a href="https://medium.com/@pawan_rawal">Pawan Rawal</a>
+译者：<a href="https://github.com/TomatoAres">TomatoAres</a>
+校对：<a href="https://github.com/magichan">magichan</a></p>
+
+<p>本文由 <a href="https://github.com/studygolang/GCTT">GCTT</a> 原创编译，<a href="https://studygolang.com/">Go 中文网</a> 荣誉推出</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://TomatoAres.github.io/" >
+    &copy; 2019 Awesome TomatoAres
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
