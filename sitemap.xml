@@ -3,20 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/about/</loc>
-    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/posts/go-test/</loc>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/</loc>
-    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/benchmark/</loc>
+    <lastmod>2019-08-15T01:09:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/about/</loc>
+    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
   </url>
   
   <url>
