@@ -3,18 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/go-test/</loc>
-    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/posts/how-to-ask-questions/</loc>
+    <lastmod>2019-08-15T17:02:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
+    <lastmod>2019-08-15T17:02:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/</loc>
+    <lastmod>2019-08-15T17:02:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/go-test/</loc>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/</loc>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/go/</loc>
+    <lastmod>2019-08-15T01:12:53+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/test/</loc>
     <lastmod>2019-08-15T01:12:53+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -22,6 +45,12 @@
   <url>
     <loc>https://TomatoAres.github.io/posts/benchmark/</loc>
     <lastmod>2019-08-15T01:09:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/about/</loc>
+    <lastmod>2019-08-14T23:22:38+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -40,6 +69,18 @@
   </url>
   
   <url>
+    <loc>https://TomatoAres.github.io/tags/hugo/</loc>
+    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/microservice/</loc>
+    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://TomatoAres.github.io/posts/microservices-in-go/</loc>
     <lastmod>2019-08-14T23:04:12+08:00</lastmod>
   </url>
@@ -50,12 +91,7 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/</loc>
+    <loc>https://TomatoAres.github.io/topics/</loc>
     <priority>0</priority>
   </url>
   

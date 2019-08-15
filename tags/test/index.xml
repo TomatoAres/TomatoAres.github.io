@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/tags/test/</link>
+    <description>Recent content in test on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>All rights reserved - TomatoAres 2019</copyright>
+    <lastBuildDate>Thu, 15 Aug 2019 01:12:53 +0800</lastBuildDate>
+    
+	<atom:link href="https://TomatoAres.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go Test</title>
+      <link>https://TomatoAres.github.io/posts/go-test/</link>
+      <pubDate>Thu, 15 Aug 2019 01:12:53 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
+      <description>go test 工具的简单介绍和使用 简单介绍 go test 子命令是Go语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build） 在*_test.go文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：   功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性 基准测试函数：以Benchmark开头，用来测试某些操作的性能 示例函数：以Example开头，用来提供机器检查过的文档 参考代码1 参考代码2   简单使用 Test函数 首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件  test.go源码文件，创建一个test包，并实现一个除法运算 ```GO package test import ( &amp;quot;errors&amp;quot; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;quot;除数不能为0&amp;quot;) } return a / b, nil } ```  test_test.go测试单元文件  注意事项：  文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 测试用例会按照源代码中写的顺序依次执行 测试格式：func TestXxx (t *testing.</description>
+    </item>
+    
+    <item>
+      <title>Benchmark</title>
+      <link>https://TomatoAres.github.io/posts/benchmark/</link>
+      <pubDate>Thu, 15 Aug 2019 01:09:24 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/benchmark/</guid>
+      <description> 性能测试中 allocs/op 和 B/op 的含义  allocs/op 表示每个op发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
+    </item>
+    
+  </channel>
+</rss>

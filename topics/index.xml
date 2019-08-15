@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/</link>
-    <description>Recent content in Categories on 西红柿的博客</description>
+    <title>Topics on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/topics/</link>
+    <description>Recent content in Topics on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
     
-	<atom:link href="https://TomatoAres.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://TomatoAres.github.io/topics/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
