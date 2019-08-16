@@ -7,10 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Thu, 15 Aug 2019 17:02:52 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 16 Aug 2019 16:57:56 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Echo的简单使用</title>
+      <link>https://TomatoAres.github.io/posts/echo/</link>
+      <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/echo/</guid>
+      <description>echo框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
+源码
+特性概述 总的来说：轻量·高效
+ 优化的HTTP路由器，巧妙地确定路由优先级
+ 构建健壮且可伸缩的RESTful API
+ 组API
+ 可扩展的中间件框架
+ 以根，组或路径级别定义中间件
+ JSON，XML和表单的数据绑定
+ 便捷地发送各种HTTP响应
+ 集中的HTTP错误处理
+ 可以使用任何模板引擎
+ 自定义logger
+ 高度可定制
+ 从 Let’s Encrypt（第三方网站）自动加载TLS
+ HTTP / 2支持
+  简单例子：helloworld package main import ( &amp;quot;net/http&amp;quot; &amp;quot;github.com/labstack/echo&amp;quot; &amp;quot;github.com/labstack/echo/middleware&amp;quot; ) func main() { //创建echo对象 e := echo.New() //中间件 e.Use(middleware.Logger()) e.Use(middleware.Recover()) //路由route 映射 handler（函数） e.GET(&amp;quot;/&amp;quot;, func(c echo.Context) error { return c.String(http.StatusOK, &amp;quot;Hello, World!</description>
+    </item>
+    
+    <item>
+      <title>横向·纵向扩展区别</title>
+      <link>https://TomatoAres.github.io/posts/horizon-vertical/</link>
+      <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
+      <description> 横向纵向扩展区别 经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
+ 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
+ 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。
+ 如利用1个人的能力，如蜘蛛侠逼停火车   </description>
+    </item>
     
     <item>
       <title>How to Ask Questions</title>
@@ -103,6 +140,15 @@ draft:false  </description>
       <description>Hugo github.io 无样式问题 hugo 建站后，生成静态页面并上传github仓库，无法正常显示主题样式
 hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
 hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用Hugo搭建个人博客</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://TomatoAres.github.io/about/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://TomatoAres.github.io/about/about/</guid>
+      <description>#dfskf</description>
     </item>
     
   </channel>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>container on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/tags/container/</link>
+    <description>Recent content in container on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>All rights reserved - TomatoAres 2019</copyright>
+    <lastBuildDate>Fri, 16 Aug 2019 16:54:50 +0800</lastBuildDate>
+    
+	<atom:link href="https://TomatoAres.github.io/tags/container/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>横向·纵向扩展区别</title>
+      <link>https://TomatoAres.github.io/posts/horizon-vertical/</link>
+      <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
+      <description> 横向纵向扩展区别 经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
+ 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
+ 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。
+ 如利用1个人的能力，如蜘蛛侠逼停火车   </description>
+    </item>
+    
+  </channel>
+</rss>

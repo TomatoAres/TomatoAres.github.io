@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Thu, 15 Aug 2019 01:12:53 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 16 Aug 2019 16:57:56 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,9 +15,27 @@
     <item>
       <title>go</title>
       <link>https://TomatoAres.github.io/tags/go/</link>
-      <pubDate>Thu, 15 Aug 2019 01:12:53 +0800</pubDate>
+      <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://TomatoAres.github.io/tags/web/</link>
+      <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>container</title>
+      <link>https://TomatoAres.github.io/tags/container/</link>
+      <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/tags/container/</guid>
       <description></description>
     </item>
     
