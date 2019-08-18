@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>database on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/tags/database/</link>
+    <description>Recent content in database on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>All rights reserved - TomatoAres 2019</copyright>
+    <lastBuildDate>Sun, 18 Aug 2019 23:07:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://TomatoAres.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Influxdb简介</title>
+      <link>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</guid>
+      <description> Influxdb 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
+ 时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
+ 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持http：Native HTTP API, 内置http支持，使用http读写； 查询语法简单：Powerful Query Language 类似sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
+ database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
+Point由时间戳（time）、数据（field）和标签（tags）组成。
+ time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  </description>
+    </item>
+    
+  </channel>
+</rss>

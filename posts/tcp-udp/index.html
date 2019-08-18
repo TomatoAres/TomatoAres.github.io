@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>TCP UDP总结 // 西红柿的博客</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TomatoAres" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TCP UDP总结"/>
+<meta name="twitter:description" content=" UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
+UDP特点  无连接：UDP是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP传输数据时有大小限制，每个被传输的数据报必须限定在64KB之内。 不可靠： UDP是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP一般用于多点通信和实时的数据业务，比如
+语音广播 视频 QQ TFTP(简单文件传送） SNMP（简单网络管理协议） RIP（路由信息协议，如报告股票市场，航空信息） DNS(域名解释）  UDP构建步骤 客户端
+ Socket 创建客户端套接字 sendto/recvfrom 发送/接收数据 close 关闭套接字  服务端
+ Socket bind recvfrom/sendto  TCP TCP服务器构建  socket创建一个套接字 bind绑定ip和port listen 使套接字变为可以被动链接 accept等待客户端的链接 recv/send接收发送数据  "/>
+
+    <meta property="og:title" content="TCP UDP总结" />
+<meta property="og:description" content=" UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
+UDP特点  无连接：UDP是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP传输数据时有大小限制，每个被传输的数据报必须限定在64KB之内。 不可靠： UDP是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP一般用于多点通信和实时的数据业务，比如
+语音广播 视频 QQ TFTP(简单文件传送） SNMP（简单网络管理协议） RIP（路由信息协议，如报告股票市场，航空信息） DNS(域名解释）  UDP构建步骤 客户端
+ Socket 创建客户端套接字 sendto/recvfrom 发送/接收数据 close 关闭套接字  服务端
+ Socket bind recvfrom/sendto  TCP TCP服务器构建  socket创建一个套接字 bind绑定ip和port listen 使套接字变为可以被动链接 accept等待客户端的链接 recv/send接收发送数据  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/tcp-udp/" />
+<meta property="article:published_time" content="2019-08-18T23:30:07+08:00" />
+<meta property="article:modified_time" content="2019-08-18T23:30:07+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
+      <h1>西红柿的博客</h1>
+      <p>Awesome TomatoAres</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">TCP UDP总结</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 18, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://TomatoAres.github.io/tags/network/">network</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="udp">UDP</h2>
+
+<p>用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。
+UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。</p>
+
+<h3 id="udp特点">UDP特点</h3>
+
+<ol>
+<li>无连接：UDP是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。</li>
+<li>大小限制：UDP传输数据时有大小限制，每个被传输的数据报必须限定在64KB之内。</li>
+<li>不可靠： UDP是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。</li>
+</ol>
+
+<h3 id="应用-注重速度流畅的业务">应用：注重速度流畅的业务</h3>
+
+<p>UDP是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP一般用于<strong>多点通信</strong>和<strong>实时</strong>的数据业务，比如</p>
+
+<pre><code>语音广播
+视频
+QQ
+TFTP(简单文件传送）
+SNMP（简单网络管理协议）
+RIP（路由信息协议，如报告股票市场，航空信息）
+DNS(域名解释）
+</code></pre>
+
+<h3 id="udp构建步骤">UDP构建步骤</h3>
+
+<p><img src="....staticimagenetworkudp_process.jpg" alt="udp过程" /></p>
+
+<p>客户端</p>
+
+<ol>
+<li>Socket 创建客户端套接字</li>
+<li>sendto/recvfrom 发送/接收数据</li>
+<li>close 关闭套接字</li>
+</ol>
+
+<p>服务端</p>
+
+<ol>
+<li>Socket</li>
+<li>bind</li>
+<li>recvfrom/sendto</li>
+</ol>
+
+<h2 id="tcp">TCP</h2>
+
+<h3 id="tcp服务器构建">TCP服务器构建</h3>
+
+<ol>
+<li>socket创建一个套接字</li>
+<li>bind绑定ip和port</li>
+<li>listen 使套接字变为可以被动链接</li>
+<li>accept等待客户端的链接</li>
+<li>recv/send接收发送数据</li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
