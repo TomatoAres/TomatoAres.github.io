@@ -20,8 +20,8 @@ func (t *Teacher)Speck(talk string) (ret string)  {
 
 func main() {
 
-	//var p *People = Teacher{}
-	var p People
+	var p People = Teacher{}
+	//var p People
 
 	talk := "jks"
 	fmt.Println(p.Speck(talk))
