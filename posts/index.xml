@@ -7,17 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Thu, 29 Aug 2019 01:53:01 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 02:05:47 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Hugo 静态文件使用</title>
+      <link>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Thu, 29 Aug 2019 02:05:47 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
+      <description>放入 static 文件夹下
+例如： 图片放入 image 下 network 文件下
+！[说明文字](/image/network/文件名)  </description>
+    </item>
+    
+    <item>
       <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/my-first-post/</link>
+      <link>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</link>
       <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/my-first-post/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</guid>
       <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
 hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
 hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用 Hugo 搭建个人博客</description>
@@ -244,15 +255,6 @@ draft:false  </description>
 顶层包括 Server-Client 模型和服务抽象。该服务器是用于编写服务的基础。而客户端提供了一个接口，用于向服务端发起请求。
 底层包含以下类型的插件：
  Broker - 提供一个消息代理接口，用于异步发布/订阅通信。 Codec - 用于编码/解码消息。支持的格式包括 json,bson,protobuf,msgpack 等。 Registry - 提供服务发现机制（默认为 Consul ）。 Selector - 基于注册表构建的负载均衡抽象。 它允许使用诸如 random,roundrobin,leastconn 等算法“选择”服务。 Transport - 服务之间同步请求/响应通信的接口。  Go Micro 还提供 Sidecar 等功能。这允许您使用Go以外的语言编写的服务。 Sidecar 提供服务注册，gRPC 编码/解码和HTTP处理程序。它有多种语言版本。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
-      <description></description>
     </item>
     
   </channel>
