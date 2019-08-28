@@ -7,13 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Fri, 16 Aug 2019 16:57:56 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 01:44:15 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Echo的简单使用</title>
+      <title>go test 工具的简单介绍和使用</title>
+      <link>https://TomatoAres.github.io/posts/go-test/</link>
+      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
+      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
+在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：
+ 功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性 基准测试函数：以Benchmark开头，用来测试某些操作的性能 示例函数：以Example开头，用来提供机器检查过的文档 参考代码1 参考代码2  简单使用 Test函数 首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件
+test.go源码文件，创建一个test包，并实现一个除法运算 package test import ( &amp;quot;errors&amp;quot; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;quot;除数不能为0&amp;quot;) } return a / b, nil }  test_test.go 测试单元文件  注意事项：
+ 文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 测试用例会按照源代码中写的顺序依次执行 测试格式：func TestXxx (t *testing.T),Xxx部分可以为任意的字母数字的组合，但是首字母一定为大写字母 函数中通过调用testing.T的一些方法来说明测试通过或不通过： 调用t.Error()或t.Errorf()方法记录日志并标记测试失败,测试函数中的某条测试用例执行结果与预期不符时使用 Log和Logf方法用于日志输出，默认只输出错误日志，如果要输出全部日志需要使用-v Fail标记用例失败，但继续执行当前用例。FailNow标记用例失败并且立即停止执行当前用例，继续执行下一个（默认按书写顺序）用例 Error等价于Log加Fail，Errorf等价于Logf加Fail 使用t.</description>
+    </item>
+    
+    <item>
+      <title>channel 总结</title>
+      <link>https://TomatoAres.github.io/posts/channel/</link>
+      <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/channel/</guid>
+      <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &amp;lt;- chan int 仅可写：var OnlyWriteChannel chan &amp;lt;- int  初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer  2. 操作 c := make(chan int) 读:i := &amp;lt;- c 写: c &amp;lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值接收：判断是否关闭 x,ok := &amp;lt;-c //（ok == false 关闭）  阻塞情况一览 这些阻塞可能引起 deadlock——阻塞致死</description>
+    </item>
+    
+    <item>
+      <title>Echo 的简单使用</title>
       <link>https://TomatoAres.github.io/posts/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
@@ -38,35 +60,26 @@
     </item>
     
     <item>
-      <title>Go Test</title>
-      <link>https://TomatoAres.github.io/posts/go-test/</link>
-      <pubDate>Thu, 15 Aug 2019 01:12:53 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
-      <description>go test 工具的简单介绍和使用 简单介绍 go test 子命令是Go语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build） 在*_test.go文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：   功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性 基准测试函数：以Benchmark开头，用来测试某些操作的性能 示例函数：以Example开头，用来提供机器检查过的文档 参考代码1 参考代码2   简单使用 Test函数 首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件  test.go源码文件，创建一个test包，并实现一个除法运算 ```GO package test import ( &amp;quot;errors&amp;quot; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;quot;除数不能为0&amp;quot;) } return a / b, nil } ```  test_test.go测试单元文件  注意事项：  文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 测试用例会按照源代码中写的顺序依次执行 测试格式：func TestXxx (t *testing.</description>
-    </item>
-    
-    <item>
-      <title>Why Go Is Good Language for Microservices</title>
+      <title>为什么 Go 适合微服务</title>
       <link>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</guid>
-      <description>为什么 Go 适合微服务 去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
-1.静态类型 Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
 生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
 // 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &amp;quot;xyz&amp;quot;, oldDoc: &amp;quot;blah blah&amp;quot;, newDocument: &amp;quot;new doc&amp;quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
-当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
 2.可读性 清晰好过聪明（Clear is better than clever）</description>
     </item>
     
     <item>
-      <title>Go语言中的微服务</title>
+      <title>Go 语言中的微服务</title>
       <link>https://TomatoAres.github.io/posts/microservices-in-go/</link>
       <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/microservices-in-go/</guid>
-      <description>Go语言中的微服务 摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
 在这里，我要介绍以下框架：
  Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。
 那么，什么是 Go Micro ?

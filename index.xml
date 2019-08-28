@@ -7,22 +7,118 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Sun, 18 Aug 2019 23:30:07 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 01:53:01 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>TCP UDP总结</title>
+      <title>Hugo github.io 无样式问题</title>
+      <link>https://TomatoAres.github.io/posts/my-first-post/</link>
+      <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/my-first-post/</guid>
+      <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
+hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
+hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用 Hugo 搭建个人博客</description>
+    </item>
+    
+    <item>
+      <title>go test 工具的简单介绍和使用</title>
+      <link>https://TomatoAres.github.io/posts/go-test/</link>
+      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
+      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
+在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：
+ 功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性 基准测试函数：以Benchmark开头，用来测试某些操作的性能 示例函数：以Example开头，用来提供机器检查过的文档 参考代码1 参考代码2  简单使用 Test函数 首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件
+test.go源码文件，创建一个test包，并实现一个除法运算 package test import ( &amp;quot;errors&amp;quot; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;quot;除数不能为0&amp;quot;) } return a / b, nil }  test_test.go 测试单元文件  注意事项：
+ 文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 测试用例会按照源代码中写的顺序依次执行 测试格式：func TestXxx (t *testing.T),Xxx部分可以为任意的字母数字的组合，但是首字母一定为大写字母 函数中通过调用testing.T的一些方法来说明测试通过或不通过： 调用t.Error()或t.Errorf()方法记录日志并标记测试失败,测试函数中的某条测试用例执行结果与预期不符时使用 Log和Logf方法用于日志输出，默认只输出错误日志，如果要输出全部日志需要使用-v Fail标记用例失败，但继续执行当前用例。FailNow标记用例失败并且立即停止执行当前用例，继续执行下一个（默认按书写顺序）用例 Error等价于Log加Fail，Errorf等价于Logf加Fail 使用t.</description>
+    </item>
+    
+    <item>
+      <title>性能测试中 allocs/op 和 B/op 的含义</title>
+      <link>https://TomatoAres.github.io/posts/benchmark/</link>
+      <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/benchmark/</guid>
+      <description> allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
+    </item>
+    
+    <item>
+      <title>TCP 总结</title>
+      <link>https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Thu, 29 Aug 2019 00:52:58 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/</guid>
+      <description>通信过程 服务端：
+ socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解+动图）
+涉及到状态：
+ closed SYN_SENT SYN_RECV ESTABLISHED  四次挥手——断开连接 涉及到状态：
+ ESTABLISHED FIN_WAIT1 FIN_WAIT2  问题总结  tcp 的 2MSL 问题
+MSL：Maximum Segment Lifetime，最长报文时间
+2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，
+当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，
+即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，
+必须在此状态上停留两倍的 MSL 时间，
+等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，
+那么对方在超时后将重发第三次握手的 FIN 包，</description>
+    </item>
+    
+    <item>
+      <title>进程线程协程总结</title>
+      <link>https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Thu, 22 Aug 2019 11:55:05 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
+      <description>通俗易懂的例子 参考:每个程序员都会遇到的面试问题：谈谈进程和线程的区别
+1.计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
+2.假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。
+3.进程就好比工厂的车间，它代表 CPU 所能处理的单个任务。任一时刻，CPU 总是运行一个进程，其他进程处于非运行状态。
+4.一个车间里，可以有很多工人。他们协同完成一个任务。
+5.线程就好比车间里的工人。一个进程可以包括多个线程。
+6.车间的空间是工人们共享的，比如许多房间是每个工人都可以进出的。这象征一个进程的内存空间是共享的，每个线程都可以使用这些共享内存。
+7.可是，每间房间的大小不同，有些房间最多只能容纳一个人，比如厕所。里面有人的时候，其他人就不能进去了。这代表一个线程使用某些共享内存时，其他线程必须等它结束，才能使用这一块内存。
+8.一个防止他人进入的简单方法，就是门口加一把锁。先到的人锁上门，后到的人看到上锁，就在门口排队，等锁打开再进去。这就叫&amp;rdquo;互斥锁&amp;rdquo;（Mutual exclusion，缩写 Mutex），防止多个线程同时读写某一块内存区域。
+9.还有些房间，可以同时容纳 n 个人，比如厨房。也就是说，如果人数大于 n，多出来的人只能在外面等着。这好比某些内存区域，只能供给固定数目的线程使用。
+10.这时的解决方法，就是在门口挂 n 把钥匙。进去的人就取一把钥匙，出来时再把钥匙挂回原处。后到的人发现钥匙架空了，就知道必须在门口排队等着了。这种做法叫做&amp;rdquo;信号量&amp;rdquo;（Semaphore），用来保证多个线程不会互相冲突。
+进程  强调一个运行的状态：编写完毕的代码，在没有运行的时候，称之为程序。正在运行着的代码，就成为进程— 操作系统分配的一个基本单位：运行一个程序，就创作一个进程，操作系统分配资源。 隔离和共享： 进程内部共享资源，进程间不能直接共享资源  线程  线程是 CPU 调度和分派的基本单位：是进程中执行运算的最小单位，亦即执行处理机调度的基本单位。如果把进程理解为在逻辑上操作系统所完成的任务，那么线程表示完成该任务的许多可能的子任务之一。 它可与同属一个进程的其他的线程共享进程所拥有的全部资源， 常常多个线程共享资源时要加互斥锁，避免数据竞争状态的出现  进程线程对比 参考：进程与线程，单核与多核
+联系：
+ 一个线程只能属于一个进程，而一个进程可以有多个线程，至少有一个线程。 资源分配给进程，同一进程的所有线程共享该进程的所有资源。 处理机分给线程，即真正在处理机上运行的是线程。 线程在执行过程中，需要协作同步（加锁，通道）。不同进程的线程间要利用消息通信的办法实现同步。线程是指进程内的一个执行单元,也是进程内的可调度实体.  区别：
+ 资源单位 1 ：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位 资源 ：进程是拥有资源的一个独立单位，线程不拥有系统资源，但可以访问隶属于进程的资源. 并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行 开销：在创建或撤消进程时，由于系统都要为之分配和回收资源，导致系统的开销明显大于创建或撤消线程时的开销。  不同 线程和进程对比
+1) 地址空间:线程是进程内的一个执行单元，进程内至少有一个线程，它们共享进程的地址空间，而进程有自己独立的地址空间 2) 资源拥有:进程是资源分配和拥有的单位,同一个进程内的线程共享进程的资源 3) 线程是处理器调度的基本单位,但进程不是 4) 二者均可并发执行 5) 每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口，但是线程不能够独立执行，必须依存在应用程序（进程）中， 由应用程序提供多个线程执行控制</description>
+    </item>
+    
+    <item>
+      <title>Docker简介</title>
+      <link>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Thu, 22 Aug 2019 11:18:04 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</guid>
+      <description>是什么？  容器引擎——核心 开源 go编写 基于LXC(Linux Container)内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台Docker主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有Hypervisor 层开销
+ 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要CPU虚拟化技术支持   虚拟机也有优势  安全性好——docker只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是UFS的一种  docker engine 关键词：洋葱模型，cs架构</description>
+    </item>
+    
+    <item>
+      <title>channel 总结</title>
+      <link>https://TomatoAres.github.io/posts/channel/</link>
+      <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/channel/</guid>
+      <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &amp;lt;- chan int 仅可写：var OnlyWriteChannel chan &amp;lt;- int  初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer  2. 操作 c := make(chan int) 读:i := &amp;lt;- c 写: c &amp;lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值接收：判断是否关闭 x,ok := &amp;lt;-c //（ok == false 关闭）  阻塞情况一览 这些阻塞可能引起 deadlock——阻塞致死</description>
+    </item>
+    
+    <item>
+      <title>TCP UDP 总结</title>
       <link>https://TomatoAres.github.io/posts/tcp-udp/</link>
       <pubDate>Sun, 18 Aug 2019 23:30:07 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/tcp-udp/</guid>
-      <description> UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
-UDP特点  无连接：UDP是面向无连接的通讯协议，UDP数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP传输数据时有大小限制，每个被传输的数据报必须限定在64KB之内。 不可靠： UDP是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP一般用于多点通信和实时的数据业务，比如
-语音广播 视频 QQ TFTP(简单文件传送） SNMP（简单网络管理协议） RIP（路由信息协议，如报告股票市场，航空信息） DNS(域名解释）  UDP构建步骤 客户端
+      <description> UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
+UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP一般用于多点通信和实时的数据业务，比如
+语音广播 视频 QQ TFTP(简单文件传送） SNMP（简单网络管理协议） RIP（路由信息协议，如报告股票市场，航空信息） DNS(域名解释）  UDP 构建步骤 客户端
  Socket 创建客户端套接字 sendto/recvfrom 发送/接收数据 close 关闭套接字  服务端
- Socket bind recvfrom/sendto  TCP TCP服务器构建  socket创建一个套接字 bind绑定ip和port listen 使套接字变为可以被动链接 accept等待客户端的链接 recv/send接收发送数据  </description>
+ Socket bind recvfrom/sendto  TCP TCP 服务器构建  socket创建一个套接字 bind绑定ip和port listen 使套接字变为可以被动链接 accept等待客户端的链接 recv/send接收发送数据  </description>
     </item>
     
     <item>
@@ -31,16 +127,26 @@ UDP特点  无连接：UDP是面向无连接的通讯协议，UDP数据包括目
       <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</guid>
-      <description> Influxdb 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
+      <description> 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
  时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
  无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持http：Native HTTP API, 内置http支持，使用http读写； 查询语法简单：Powerful Query Language 类似sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
  database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
-Point由时间戳（time）、数据（field）和标签（tags）组成。
+Point 由时间戳（time）、数据（field）和标签（tags）组成。
  time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  </description>
     </item>
     
     <item>
-      <title>Echo的简单使用</title>
+      <title>MaxSumArray</title>
+      <link>https://TomatoAres.github.io/posts/maxsumarray/</link>
+      <pubDate>Sat, 17 Aug 2019 17:40:19 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/maxsumarray/</guid>
+      <description>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例:
+Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</description>
+    </item>
+    
+    <item>
+      <title>Echo 的简单使用</title>
       <link>https://TomatoAres.github.io/posts/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
@@ -70,10 +176,10 @@ Point由时间戳（time）、数据（field）和标签（tags）组成。
       <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
-      <description> 横向纵向扩展区别 经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
+      <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
  横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
  如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。
- 如利用1个人的能力，如蜘蛛侠逼停火车   </description>
+ 如利用 1 个人的能力，如蜘蛛侠逼停火车   </description>
     </item>
     
     <item>
@@ -89,24 +195,6 @@ esr@thyrsus.com
     </item>
     
     <item>
-      <title>Go Test</title>
-      <link>https://TomatoAres.github.io/posts/go-test/</link>
-      <pubDate>Thu, 15 Aug 2019 01:12:53 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
-      <description>go test 工具的简单介绍和使用 简单介绍 go test 子命令是Go语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build） 在*_test.go文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：   功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性 基准测试函数：以Benchmark开头，用来测试某些操作的性能 示例函数：以Example开头，用来提供机器检查过的文档 参考代码1 参考代码2   简单使用 Test函数 首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件  test.go源码文件，创建一个test包，并实现一个除法运算 ```GO package test import ( &amp;quot;errors&amp;quot; ) func Division(a, b float64) (float64, error) { if b == 0 { return 0, errors.New(&amp;quot;除数不能为0&amp;quot;) } return a / b, nil } ```  test_test.go测试单元文件  注意事项：  文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 测试用例会按照源代码中写的顺序依次执行 测试格式：func TestXxx (t *testing.</description>
-    </item>
-    
-    <item>
-      <title>Benchmark</title>
-      <link>https://TomatoAres.github.io/posts/benchmark/</link>
-      <pubDate>Thu, 15 Aug 2019 01:09:24 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/benchmark/</guid>
-      <description> 性能测试中 allocs/op 和 B/op 的含义  allocs/op 表示每个op发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
-    </item>
-    
-    <item>
       <title>About</title>
       <link>https://TomatoAres.github.io/posts/about/</link>
       <pubDate>Wed, 14 Aug 2019 23:22:38 +0800</pubDate>
@@ -117,37 +205,37 @@ esr@thyrsus.com
     
     <item>
       <title>Hugo 文章不显示</title>
-      <link>https://TomatoAres.github.io/posts/no-article/</link>
+      <link>https://TomatoAres.github.io/posts/hugo-no-article/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/no-article/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo-no-article/</guid>
       <description>draft 草稿，若为真，则不现实
 所以：
-将 draft:true 改为 false即可
+将 draft:true 改为 false 即可
 draft:false  </description>
     </item>
     
     <item>
-      <title>Why Go Is Good Language for Microservices</title>
+      <title>为什么 Go 适合微服务</title>
       <link>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</guid>
-      <description>为什么 Go 适合微服务 去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
-1.静态类型 Go是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
 生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
 // 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &amp;quot;xyz&amp;quot;, oldDoc: &amp;quot;blah blah&amp;quot;, newDocument: &amp;quot;new doc&amp;quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
-当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发20种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
 2.可读性 清晰好过聪明（Clear is better than clever）</description>
     </item>
     
     <item>
-      <title>Go语言中的微服务</title>
+      <title>Go 语言中的微服务</title>
       <link>https://TomatoAres.github.io/posts/microservices-in-go/</link>
       <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/microservices-in-go/</guid>
-      <description>Go语言中的微服务 摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
 在这里，我要介绍以下框架：
  Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。
 那么，什么是 Go Micro ?
@@ -159,23 +247,12 @@ draft:false  </description>
     </item>
     
     <item>
-      <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/my-first-post/</link>
-      <pubDate>Mon, 12 Aug 2019 17:13:32 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/my-first-post/</guid>
-      <description>Hugo github.io 无样式问题 hugo 建站后，生成静态页面并上传github仓库，无法正常显示主题样式
-hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
-hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用Hugo搭建个人博客</description>
-    </item>
-    
-    <item>
       <title></title>
-      <link>https://TomatoAres.github.io/about/about/</link>
+      <link>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://TomatoAres.github.io/about/about/</guid>
-      <description>#dfskf</description>
+      <guid>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
+      <description></description>
     </item>
     
   </channel>

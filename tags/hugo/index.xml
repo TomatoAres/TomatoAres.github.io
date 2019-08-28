@@ -7,32 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Wed, 14 Aug 2019 23:10:09 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 01:53:01 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hugo 文章不显示</title>
-      <link>https://TomatoAres.github.io/posts/no-article/</link>
-      <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
+      <title>Hugo github.io 无样式问题</title>
+      <link>https://TomatoAres.github.io/posts/my-first-post/</link>
+      <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/no-article/</guid>
-      <description>draft 草稿，若为真，则不现实
-所以：
-将 draft:true 改为 false即可
-draft:false  </description>
+      <guid>https://TomatoAres.github.io/posts/my-first-post/</guid>
+      <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
+hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
+hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用 Hugo 搭建个人博客</description>
     </item>
     
     <item>
-      <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/my-first-post/</link>
-      <pubDate>Mon, 12 Aug 2019 17:13:32 +0800</pubDate>
+      <title>Hugo 文章不显示</title>
+      <link>https://TomatoAres.github.io/posts/hugo-no-article/</link>
+      <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/my-first-post/</guid>
-      <description>Hugo github.io 无样式问题 hugo 建站后，生成静态页面并上传github仓库，无法正常显示主题样式
-hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
-hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用Hugo搭建个人博客</description>
+      <guid>https://TomatoAres.github.io/posts/hugo-no-article/</guid>
+      <description>draft 草稿，若为真，则不现实
+所以：
+将 draft:true 改为 false 即可
+draft:false  </description>
     </item>
     
   </channel>

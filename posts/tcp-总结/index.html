@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>TCP 总结 // 西红柿的博客</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TomatoAres" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TCP 总结"/>
+<meta name="twitter:description" content="通信过程 服务端：
+ socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解&#43;动图）
+涉及到状态：
+ closed SYN_SENT SYN_RECV ESTABLISHED  四次挥手——断开连接 涉及到状态：
+ ESTABLISHED FIN_WAIT1 FIN_WAIT2  问题总结  tcp 的 2MSL 问题
+MSL：Maximum Segment Lifetime，最长报文时间
+2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，
+当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，
+即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，
+必须在此状态上停留两倍的 MSL 时间，
+等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，
+那么对方在超时后将重发第三次握手的 FIN 包，"/>
+
+    <meta property="og:title" content="TCP 总结" />
+<meta property="og:description" content="通信过程 服务端：
+ socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解&#43;动图）
+涉及到状态：
+ closed SYN_SENT SYN_RECV ESTABLISHED  四次挥手——断开连接 涉及到状态：
+ ESTABLISHED FIN_WAIT1 FIN_WAIT2  问题总结  tcp 的 2MSL 问题
+MSL：Maximum Segment Lifetime，最长报文时间
+2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，
+当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，
+即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，
+必须在此状态上停留两倍的 MSL 时间，
+等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，
+那么对方在超时后将重发第三次握手的 FIN 包，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/" />
+<meta property="article:published_time" content="2019-08-29T00:52:58+08:00" />
+<meta property="article:modified_time" content="2019-08-29T00:52:58+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
+      <h1>西红柿的博客</h1>
+      <p>Awesome TomatoAres</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">TCP 总结</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 29, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://TomatoAres.github.io/tags/network/">network</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="通信过程">通信过程</h2>
+
+<p><img src="https://TomatoAres.github.io/image/network/tcp通信过程.png" alt="通信过程" /></p>
+
+<p>服务端：</p>
+
+<ol>
+<li>socket：建立 socket</li>
+<li>bind：绑定服务端 ip</li>
+<li>listen：开始监听</li>
+<li>accept：等待连接（阻塞）</li>
+<li>read/write：通信</li>
+<li>close：关闭连接</li>
+</ol>
+
+<h2 id="三次握手-建立通信过程">三次握手——建立通信过程</h2>
+
+<p>参考：<a href="https://blog.csdn.net/qzcsu/article/details/72861891">TCP 的三次握手与四次挥手（详解+动图）</a></p>
+
+<p><img src="https://TomatoAres.github.io/image/network/tcp_create_3.gif" alt="三次握手建立通信过程" /></p>
+
+<p>涉及到状态：</p>
+
+<ol>
+<li>closed</li>
+<li>SYN_SENT</li>
+<li>SYN_RECV</li>
+<li>ESTABLISHED</li>
+</ol>
+
+<h2 id="四次挥手-断开连接">四次挥手——断开连接</h2>
+
+<p><img src="https://TomatoAres.github.io/image/network/tcp_release_4.gif" alt="四次挥手释放过程" /></p>
+
+<p>涉及到状态：</p>
+
+<ol>
+<li>ESTABLISHED</li>
+<li>FIN_WAIT1</li>
+<li>FIN_WAIT2</li>
+</ol>
+
+<h2 id="问题总结">问题总结</h2>
+
+<ol>
+<li><p>tcp 的 2MSL 问题</p>
+
+<p>MSL：Maximum Segment Lifetime，最长报文时间</p>
+
+<p>2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，</p>
+
+<p>当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，</p>
+
+<p>即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，</p>
+
+<p><strong>必须</strong>在此状态上停留两倍的 MSL 时间，</p>
+
+<p>等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，</p>
+
+<p>那么对方在超时后将重发第三次握手的 FIN 包，</p>
+
+<p>主动关闭端接到重发的 FIN 包后可以再发一个 ACK 应答包。</p>
+
+<p>在 TIME_WAIT 状态时两端的端口不能使用，要等到 2MSL 时间结束才可继续使用。</p>
+
+<p>当连接处于 2MSL 等待阶段时任何迟到的报文段都将被丢弃。</p>
+
+<p>不过在实际应用中可以通过设置 SO_REUSEADDR 选项达到不必等待 2MSL 时间结束再使用此端口。</p>
+
+<p>其他总结：</p>
+
+<p>第一，保证客户端发送的最后一个 ACK 报文能够到达服务器，因为这个 ACK 报文可能丢失，站在服务器的角度看来，我已经发送了 FIN+ACK 报文请求断开了，客户端还没有给我回应，应该是我发送的请求断开报文它没有收到，于是服务器又会重新发送一次，而客户端就能在这个 2MSL 时间段内收到这个重传的报文，接着给出回应报文，并且会重启 2MSL 计时器。</p>
+
+<p>第二，防止类似与“三次握手”中提到了的“已经失效的连接请求报文段”出现在本连接中。客户端发送完最后一个确认报文后，在这个 2MSL 时间中，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p></li>
+
+<li><p>为什么建立连接是三次握手，关闭连接确是四次挥手呢？</p>
+
+<p>建立连接的时候， 服务器在 LISTEN 状态下，收到建立连接请求的 SYN 报文后，把 ACK 和 SYN 放在一个报文里发送给客户端。——一起发</p>
+
+<p>而关闭连接时，服务器收到对方的 FIN 报文时，仅仅表示<strong>对方不再发送数据了但是还能接收数据</strong>，而自己也未必全部数据都发送给对方了，所以己方可以立即关闭，也可以发送一些数据给对方后，再发送 FIN 报文给对方来表示同意现在关闭连接，因此，己方 ACK 和 FIN 一般都会分开发送，从而导致多了一次。——分开发，多一次</p></li>
+
+<li><p>为什么不能用两次握手进行连接？</p>
+
+<p>3 次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+
+<p>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机 S 和 C 之间的通信，假定 C 给 S 发送一个连接请求分组，S 收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S 认为连接已经成功地建立了，可以开始发送数据分组。可是，C 在 S 的应答分组在传输中被丢失的情况下，将不知道 S 是否已准备好，不知道 S 建立什么样的序列号，C 甚至怀疑 S 是否收到自己的连接请求分组。在这种情况下，C 认为连接还未建立成功，将忽略 S 发来的任何数据分 组，只等待连接确认应答分组。而 S 在发出的分组超时后，重复发送同样的分组。这样就形成了死锁</p></li>
+
+<li><p>如果已经建立了连接，但是客户端突然出现故障了怎么办？</p></li>
+</ol>
+
+<p>TCP 还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为 2 小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔 75 秒钟发送一次。若一连发送 10 个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+
+<ol>
+<li><p>一个 TCP 可以建立多少 http 连接？
+多个,established 期间随意</p></li>
+
+<li><p>浏览器向服务器发出请求，但中间发生丢包，最后服务器返回了 200OK，分析一下</p>
+
+<ol>
+<li>请求和响应属于 http 服务</li>
+<li>丢包和重传属于 TCP</li>
+<li>Http 不关心这个事儿——丢包，即使丢包，也可正常返回 200</li>
+</ol></li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
