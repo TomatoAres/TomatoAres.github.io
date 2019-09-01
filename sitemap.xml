@@ -3,20 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/http-2.0/</loc>
-    <lastmod>2019-08-31T17:55:36+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2019-09-01T19:52:00+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-08-31T17:55:36+08:00</lastmod>
+    <lastmod>2019-09-01T19:52:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/tags/</loc>
-    <lastmod>2019-08-31T17:55:36+08:00</lastmod>
+    <lastmod>2019-09-01T19:52:00+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/database/</loc>
+    <lastmod>2019-09-01T19:52:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/</loc>
+    <lastmod>2019-09-01T19:52:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/http-2.0/</loc>
+    <lastmod>2019-08-31T17:55:36+08:00</lastmod>
   </url>
   
   <url>
@@ -26,9 +43,8 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/</loc>
-    <lastmod>2019-08-31T17:55:36+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2019-08-31T16:24:33+08:00</lastmod>
   </url>
   
   <url>
@@ -109,12 +125,6 @@
   <url>
     <loc>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2019-08-18T23:07:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/database/</loc>
-    <lastmod>2019-08-18T23:07:22+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

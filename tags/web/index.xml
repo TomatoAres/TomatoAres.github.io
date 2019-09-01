@@ -23,6 +23,16 @@
     </item>
     
     <item>
+      <title>Restful 总结</title>
+      <link>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sat, 31 Aug 2019 16:24:33 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</guid>
+      <description>是什么  基于 HTTP 开发 web 服务 一种规范,说是一种风格可能更合适——可遵守，可不遵守 资源 和 uri 绑定 增删改查对应 HTTP 的四种方法 —— GET,POST,PUT,DELETE  好处  规范化设计 可读性  使用 接口命名规则：http://IP:端口/app-name/rest/v/接口名（资源名）/param
+工作中遇到的问题 批量删除 用的 post 解决的，携带数组，或者在查询参赛携带 delete=all</description>
+    </item>
+    
+    <item>
       <title>Echo 的简单使用</title>
       <link>https://TomatoAres.github.io/posts/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
