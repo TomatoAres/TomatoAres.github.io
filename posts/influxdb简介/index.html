@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-cn">
   <head>
-    <title>Influxdb简介 // 西红柿的博客</title>
+    <title>Influxdb 简介 // 西红柿的博客</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.56.3" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,18 +11,18 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Influxdb简介"/>
-<meta name="twitter:description" content=" 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
+<meta name="twitter:title" content="Influxdb 简介"/>
+<meta name="twitter:description" content=" 概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
  时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
- 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持http：Native HTTP API, 内置http支持，使用http读写； 查询语法简单：Powerful Query Language 类似sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
+ 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持 http：Native HTTP API, 内置 http 支持，使用 http 读写； 查询语法简单：Powerful Query Language 类似 sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
  database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
 Point 由时间戳（time）、数据（field）和标签（tags）组成。
  time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  "/>
 
-    <meta property="og:title" content="Influxdb简介" />
-<meta property="og:description" content=" 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
+    <meta property="og:title" content="Influxdb 简介" />
+<meta property="og:description" content=" 概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
  时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
- 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持http：Native HTTP API, 内置http支持，使用http读写； 查询语法简单：Powerful Query Language 类似sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
+ 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持 http：Native HTTP API, 内置 http 支持，使用 http 读写； 查询语法简单：Powerful Query Language 类似 sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
  database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
 Point 由时间戳（time）、数据（field）和标签（tags）组成。
  time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  " />
@@ -61,7 +61,7 @@ Point 由时间戳（time）、数据（field）和标签（tags）组成。
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Influxdb简介</h1>
+      <h1 class ="post-title">Influxdb 简介</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -89,7 +89,7 @@ Point 由时间戳（time）、数据（field）和标签（tags）组成。
 <h2 id="概述">概述</h2>
 
 <ol>
-<li>使用GO语言开发</li>
+<li>使用 GO 语言开发</li>
 <li>开源</li>
 <li>时序数据库：适合用于处理和分析资源监控数据这种时序相关数据</li>
 <li>SQL-like 语法</li>
@@ -108,14 +108,14 @@ Point 由时间戳（time）、数据（field）和标签（tags）组成。
 <ol>
 <li>无结构：schemaless(无结构)，可以是任意数量的列；</li>
 <li>度量方便：min, max, sum, count, mean, median 一系列函数，方便统计；</li>
-<li>支持http：Native HTTP API, 内置http支持，使用http读写；</li>
-<li>查询语法简单：Powerful Query Language 类似sql；</li>
+<li>支持 http：Native HTTP API, 内置 http 支持，使用 http 读写；</li>
+<li>查询语法简单：Powerful Query Language 类似 sql；</li>
 <li>管理方便：Built-in Explorer 自带管理工具。</li>
 </ol>
 
 <!-- 他人总结：
 
-1. 为时间序列数据专门编写的自定义高性能数据存储。TSM引擎允许高速摄取和数据压缩。
+1. 为时间序列数据专门编写的自定义高性能数据存储。TSM 引擎允许高速摄取和数据压缩。
 2. 完全用Go编写。它编译成一个没有外部依赖的二进制文件。
 3. 简单，高性能的写入和查询HTTP API。
 4. 插件支持其他数据摄入协议，如Graphite，collectd和OpenTSDB。

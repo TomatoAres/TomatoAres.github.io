@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-cn">
   <head>
-    <title>Restful 总结 // 西红柿的博客</title>
+    <title>Go 中 Byte Rune // 西红柿的博客</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.56.3" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,17 +11,17 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Restful 总结"/>
-<meta name="twitter:description" content="是什么  基于 HTTP 开发 web 服务 一种规范,说是一种风格可能更合适——可遵守，可不遵守 资源 和 uri 绑定 增删改查对应 HTTP 的四种方法 —— GET,POST,PUT,DELETE  好处  规范化设计 可读性  使用 接口命名规则：http://IP:端口/app-name/rest/v/接口名（资源名）/param
-工作中遇到的问题 批量删除 用的 post 解决的，携带数组，或者在查询参赛携带 delete=all"/>
+<meta name="twitter:title" content="Go 中 Byte Rune"/>
+<meta name="twitter:description" content="byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。
+uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32  // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values."/>
 
-    <meta property="og:title" content="Restful 总结" />
-<meta property="og:description" content="是什么  基于 HTTP 开发 web 服务 一种规范,说是一种风格可能更合适——可遵守，可不遵守 资源 和 uri 绑定 增删改查对应 HTTP 的四种方法 —— GET,POST,PUT,DELETE  好处  规范化设计 可读性  使用 接口命名规则：http://IP:端口/app-name/rest/v/接口名（资源名）/param
-工作中遇到的问题 批量删除 用的 post 解决的，携带数组，或者在查询参赛携带 delete=all" />
+    <meta property="og:title" content="Go 中 Byte Rune" />
+<meta property="og:description" content="byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。
+uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32  // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/" />
-<meta property="article:published_time" content="2019-08-31T16:24:33+08:00" />
-<meta property="article:modified_time" content="2019-08-31T16:24:33+08:00" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/byte-rune/" />
+<meta property="article:published_time" content="2019-09-02T23:03:44+08:00" />
+<meta property="article:modified_time" content="2019-09-02T23:03:44+08:00" />
 
 
   </head>
@@ -53,14 +53,14 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Restful 总结</h1>
+      <h1 class ="post-title">Go 中 Byte Rune</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Aug 31, 2019
+          Sep 2, 2019
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -73,35 +73,31 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://TomatoAres.github.io/tags/web/">web</a></div></div>
+          <a class="tag" href="https://TomatoAres.github.io/tags/go/">go</a></div></div>
     </header>
     <div class="post-content">
-      
+      <ul>
+<li>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字；</li>
 
-<h2 id="是什么">是什么</h2>
+<li><p>rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</p>
 
-<ol>
-<li>基于 HTTP</li>
-<li>开发 web 服务</li>
-<li>一种规范,说是一种风格可能更合适——可遵守，可不遵守</li>
-<li>资源 和 uri 绑定</li>
-<li>增删改查对应 HTTP 的四种方法 —— GET,POST,PUT,DELETE</li>
-</ol>
+<pre><code class="language-sh">uint8       the set of all unsigned  8-bit integers (0 to 255)
+int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)
 
-<h2 id="好处">好处</h2>
+byte        alias for uint8
+rune        alias for int32
+</code></pre>
 
-<ol>
-<li>规范化设计</li>
-<li>可读性</li>
-</ol>
+<pre><code class="language-go">// byte is an alias for uint8 and is equivalent to uint8 in all ways. It is
+// used, by convention, to distinguish byte values from 8-bit unsigned
+// integer values.
+type byte = uint8
 
-<h2 id="使用">使用</h2>
-
-<p>接口命名规则：<em><a href="http://IP:端口/app-name/rest/v/接口名（资源名）/param">http://IP:端口/app-name/rest/v/接口名（资源名）/param</a></em></p>
-
-<h2 id="工作中遇到的问题">工作中遇到的问题</h2>
-
-<p>批量删除 用的 post 解决的，携带数组，或者在查询参赛携带 delete=all</p>
+// rune is an alias for int32 and is equivalent to int32 in all ways. It is
+// used, by convention, to distinguish character values from integer values.
+type rune = int32
+</code></pre></li>
+</ul>
 
     </div>
     <div class="post-footer">

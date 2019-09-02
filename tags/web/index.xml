@@ -7,10 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Sat, 31 Aug 2019 17:55:36 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 21:49:35 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Csrf Xss 总结</title>
+      <link>https://TomatoAres.github.io/posts/csrf-xss/</link>
+      <pubDate>Mon, 02 Sep 2019 21:49:35 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/csrf-xss/</guid>
+      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。
+CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件： （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。
+我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
+举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。
+CSRF 如何防御 方法一、Token 验证：（用的最多） （1）服务器发送给客户端一个 token； （2）客户端提交的表单中带着这个 token。 （3）如果这个 token 不合法，那么服务器拒绝这个请求。
+方法二：隐藏令牌 把 token 隐藏在 http 的 head 头中。 方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。
+方法三、Referer 验证 Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。
+XSS（Cross Site Scripting）：跨域脚本攻击 核心是 注入 恶意代码</description>
+    </item>
+    
+    <item>
+      <title>Http 方法总结</title>
+      <link>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 02 Sep 2019 21:16:34 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
+      <description>一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。
+使用中发现：
+ postman 和浏览器均无法携带 请求体 es 查询可以  二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。
+三、POST 一般用于传输实体主体，主要用来传输数据。
+GET 和 POST 的区别
+ 作用: GET 主要用来获取资源、POST 主要用来传输实体主体（数据）。 参数:GET 和 POST 的请求都能使用额外参数，但是 GET 的参数是以查询字符串出现在 URL 中，而 POST 的参数存储在请求体中。
+/**GET方式**/ GET /test/demo_form.asp?name1=value1&amp;amp;name2=value2 HTTP/1.1 /**POST方式**/ POST /test/demo_form.asp HTTP/1.1 Host: w3schools.com name1=value1&amp;amp;name2=value2   注意：
+ 但是不能因为 POST 参数存储在实体主体中就认为它的安全性高，因为照样可以通过一些抓包工具（如：Fiddler）查看。 因为 URL 只支持 ASCII 码，因此 GET 中的参数如果存在中文等字符就需要先进行编码，在服务器进行解码。POST 请求支持标准字符集。  四、PUT 一般用于上传文件，由于 PUT 方法本身不带验证机制，任何人都可以上传文件，因此存在安全问题，一般我们不使用此方法。</description>
+    </item>
     
     <item>
       <title>HTTP 2.0</title>

@@ -108,18 +108,53 @@ x,ok := &lt;-c //（ok == false 关闭）
 <p>这些阻塞可能引起 deadlock——阻塞致死</p>
 
 <ol>
-<li>无缓冲 channel：
+<li><p>无缓冲 channel：</p>
 
 <ol>
-<li>需要接收和发送同时准备好，任意一方未准备好都会阻塞；</li>
+<li><p>需要接收和发送同时准备好，任意一方未准备好都会阻塞；</p>
+
+<pre><code class="language-golang">package main
+
+import (
+&quot;fmt&quot;
+&quot;time&quot;
+)
+
+func main() {
+c := make(chan int)
+//c &lt;-1 不能放这里，recv没准备好
+//fatal error: all goroutines are asleep - deadlock!
+//
+//goroutine 1 [chan send]:
+
+go func() {
+    m := &lt;-c
+    fmt.Println(m)
+}()
+
+c &lt;-1
+
+time.Sleep(time.Second)
+}
+
+</code></pre></li>
 </ol></li>
-<li>有缓冲 channel：
+
+<li><p>有缓冲 channel：</p>
 
 <ol>
 <li>buffer 满了后 send 才会阻塞</li>
 <li>buffer 空了后 recv 会阻塞</li>
 </ol></li>
-<li>关闭之后，send 阻塞</li>
+
+<li><p>关闭之后，send 阻塞</p></li>
+
+<li><p>select 没有条件</p>
+
+<pre><code class="language-sh">fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [select (no cases)]:
+</code></pre></li>
 </ol>
 
     </div>

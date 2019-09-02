@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>Csrf Xss 总结 // 西红柿的博客</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TomatoAres" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Csrf Xss 总结"/>
+<meta name="twitter:description" content="CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。
+CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件： （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。
+我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
+举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。
+CSRF 如何防御 方法一、Token 验证：（用的最多） （1）服务器发送给客户端一个 token； （2）客户端提交的表单中带着这个 token。 （3）如果这个 token 不合法，那么服务器拒绝这个请求。
+方法二：隐藏令牌 把 token 隐藏在 http 的 head 头中。 方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。
+方法三、Referer 验证 Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。
+XSS（Cross Site Scripting）：跨域脚本攻击 核心是 注入 恶意代码"/>
+
+    <meta property="og:title" content="Csrf Xss 总结" />
+<meta property="og:description" content="CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。
+CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件： （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。
+我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
+举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。
+CSRF 如何防御 方法一、Token 验证：（用的最多） （1）服务器发送给客户端一个 token； （2）客户端提交的表单中带着这个 token。 （3）如果这个 token 不合法，那么服务器拒绝这个请求。
+方法二：隐藏令牌 把 token 隐藏在 http 的 head 头中。 方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。
+方法三、Referer 验证 Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。
+XSS（Cross Site Scripting）：跨域脚本攻击 核心是 注入 恶意代码" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/csrf-xss/" />
+<meta property="article:published_time" content="2019-09-02T21:49:35+08:00" />
+<meta property="article:modified_time" content="2019-09-02T21:49:35+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
+      <h1>西红柿的博客</h1>
+      <p>Awesome TomatoAres</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Csrf Xss 总结</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 2, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://TomatoAres.github.io/tags/web/">web</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="csrf-是什么">CSRF 是什么</h2>
+
+<p>CSRF（Cross-site request forgery）：跨站请求伪造。</p>
+
+<h2 id="csrf-的攻击原理">CSRF 的攻击原理</h2>
+
+<p>用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。
+从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件：
+（1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录）
+（2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。</p>
+
+<p>我们在讲 CSRF 时，一定要把上面的两点说清楚。
+温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。</p>
+
+<p>举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。</p>
+
+<h2 id="csrf-如何防御">CSRF 如何防御</h2>
+
+<h3 id="方法一-token-验证-用的最多">方法一、Token 验证：（用的最多）</h3>
+
+<p>（1）服务器发送给客户端一个 token；
+（2）客户端提交的表单中带着这个 token。
+（3）如果这个 token 不合法，那么服务器拒绝这个请求。</p>
+
+<h3 id="方法二-隐藏令牌">方法二：隐藏令牌</h3>
+
+<p>把 token 隐藏在 http 的 head 头中。
+方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。</p>
+
+<h3 id="方法三-referer-验证">方法三、Referer 验证</h3>
+
+<p>Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。</p>
+
+<h2 id="xss-cross-site-scripting-跨域脚本攻击">XSS（Cross Site Scripting）：跨域脚本攻击</h2>
+
+<p>核心是 注入 恶意代码</p>
+
+<h2 id="xss-的攻击原理">XSS 的攻击原理</h2>
+
+<p>XSS 攻击的核心原理是：不需要你做任何的登录认证，它会通过合法的操作（比如在 url 中输入、在评论框中输入），向你的页面注入脚本（可能是 js、hmtl 代码块等）。</p>
+
+<p>最后导致的结果可能是：盗用 Cookie 破坏页面的正常结构，插入广告等恶意内容 D-doss 攻击 XSS 的攻击</p>
+
+<h2 id="csrf-和-xss-的区别">CSRF 和 XSS 的区别</h2>
+
+<ol>
+<li>CSRF：需要用户先登录网站 A，获取 cookie。XSS：不需要登录。</li>
+<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 api。XSS：是向网站 A 注入 JS 代码，然后执行 JS 里的代码，篡改网站 A 的内容。</li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

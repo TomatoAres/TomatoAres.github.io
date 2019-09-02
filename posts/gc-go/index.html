@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>Go GC  // 西红柿的博客</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TomatoAres" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go GC "/>
+<meta name="twitter:description" content="参考：GO GC 垃圾回收机制
+Go 作为一门高级语言，具有 自动垃圾回收 的功能。
+常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。
+缺点： 1. 需要额外的空间存放计数。 2.无法处理循环引用（如 a.b=b;b.a=a 这种情况）。 3.频繁更新引用计数降低了性能。
+2. 标记-清除（mark and sweep）：对引用对象进行标记，清除未引用对象（需要两次扫描） 步骤：
+ 标记从根变量开始迭代得遍历所有被引用的对象，对能够通过应用遍历访问到的对象都进行标记为“被引用”； 标记完成后进行清除操作，对没有标记过——即没有引用过的内存进行回收（回收同时可能伴有碎片整理操作）。  优点： 解决了引用计数的缺点 1 节约了内存，2 解决了循环引用的问题
+缺点： 每次启动垃圾回收都会暂停当前所有的正常代码执行，回收是系统响应能力大大降低！
+优化方式： mark&amp;sweep 算法的变种（如三色标记法）
+3. 复制收集：新空间复制引用的对象，清除旧空间 过程： 准备一个「新的空间」，从根开始，对对象进行扫，如果存在对这个对象的引用，就把它复制到「新空间中」。一次扫描结束之后，所有存在于「新空间」的对象就是所有的非垃圾对象。
+优点： 只需要对对象进行一次扫描。
+4. 分代收集（generation）：根据存活时间 分代——新生代和老年代 默认 大部分对象的声明周期很短——新生代为主，小回收垃圾少
+关键过程：
+ 新创建的对象存放在称为 新生代（young generation）中 ——一般来说，新生代的大小会比 老年代小很多。 高频对新生成的对象进行回收，称为「小回收」，低频对所有对象回收，称为「大回收」。 每一次「小回收」过后，就把存活下来的对象归为老年代，「小回收」的时候，遇到老年代直接跳过。大多数分代回收算法都采用的「复制收集」方法，因为小回收中垃圾的比例较大。  新问题： 老年代对新生代引用，还能进行小回收吗？
+解决：这里用到了一中叫做写屏障的方式。
+ 程序对所有涉及修改对象内容的地方进行保护，被称为「写屏障」（Write Barrier）。写屏障不仅用于分代收集，也用于其他 GC 算法中。 在此算法的表现是  用一个记录集来记录从新生代到老生代的引用。 如果有两个对象 A （老生代） 和 B（新生代），当对 A 的对象内容进行修改并加入 B 的引用时。则将这个引用加入到记录集中。 「小回收」的时候，因为记录集中有对 B 的引用，所以 B 不再是垃圾   三色标记算法 三色标记算法是对标记阶段的改进——标记了两次（灰色，黑色），原理如下："/>
+
+    <meta property="og:title" content="Go GC " />
+<meta property="og:description" content="参考：GO GC 垃圾回收机制
+Go 作为一门高级语言，具有 自动垃圾回收 的功能。
+常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。
+缺点： 1. 需要额外的空间存放计数。 2.无法处理循环引用（如 a.b=b;b.a=a 这种情况）。 3.频繁更新引用计数降低了性能。
+2. 标记-清除（mark and sweep）：对引用对象进行标记，清除未引用对象（需要两次扫描） 步骤：
+ 标记从根变量开始迭代得遍历所有被引用的对象，对能够通过应用遍历访问到的对象都进行标记为“被引用”； 标记完成后进行清除操作，对没有标记过——即没有引用过的内存进行回收（回收同时可能伴有碎片整理操作）。  优点： 解决了引用计数的缺点 1 节约了内存，2 解决了循环引用的问题
+缺点： 每次启动垃圾回收都会暂停当前所有的正常代码执行，回收是系统响应能力大大降低！
+优化方式： mark&amp;sweep 算法的变种（如三色标记法）
+3. 复制收集：新空间复制引用的对象，清除旧空间 过程： 准备一个「新的空间」，从根开始，对对象进行扫，如果存在对这个对象的引用，就把它复制到「新空间中」。一次扫描结束之后，所有存在于「新空间」的对象就是所有的非垃圾对象。
+优点： 只需要对对象进行一次扫描。
+4. 分代收集（generation）：根据存活时间 分代——新生代和老年代 默认 大部分对象的声明周期很短——新生代为主，小回收垃圾少
+关键过程：
+ 新创建的对象存放在称为 新生代（young generation）中 ——一般来说，新生代的大小会比 老年代小很多。 高频对新生成的对象进行回收，称为「小回收」，低频对所有对象回收，称为「大回收」。 每一次「小回收」过后，就把存活下来的对象归为老年代，「小回收」的时候，遇到老年代直接跳过。大多数分代回收算法都采用的「复制收集」方法，因为小回收中垃圾的比例较大。  新问题： 老年代对新生代引用，还能进行小回收吗？
+解决：这里用到了一中叫做写屏障的方式。
+ 程序对所有涉及修改对象内容的地方进行保护，被称为「写屏障」（Write Barrier）。写屏障不仅用于分代收集，也用于其他 GC 算法中。 在此算法的表现是  用一个记录集来记录从新生代到老生代的引用。 如果有两个对象 A （老生代） 和 B（新生代），当对 A 的对象内容进行修改并加入 B 的引用时。则将这个引用加入到记录集中。 「小回收」的时候，因为记录集中有对 B 的引用，所以 B 不再是垃圾   三色标记算法 三色标记算法是对标记阶段的改进——标记了两次（灰色，黑色），原理如下：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/gc-go/" />
+<meta property="article:published_time" content="2019-09-02T19:39:18+08:00" />
+<meta property="article:modified_time" content="2019-09-02T19:39:18+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
+      <h1>西红柿的博客</h1>
+      <p>Awesome TomatoAres</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Go GC </h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 2, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://TomatoAres.github.io/tags/go/">go</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<p>参考：<a href="https://segmentfault.com/a/1190000018161588">GO GC 垃圾回收机制</a></p>
+
+<p>Go 作为一门高级语言，具有 自动垃圾回收 的功能。</p>
+
+<h2 id="常见垃圾回收机制">常见垃圾回收机制</h2>
+
+<h3 id="1-引用计数-引用计数通过在对象上增加自己被引用的次数-被其他对象引用时加-1-引用自己的对象被回收时减-1-引用数为-0-的对象即为可以被回收的对象">1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象</h3>
+
+<p>优点：
+    1. 方式简单，回收速度快。</p>
+
+<p>缺点：
+    1. 需要额外的空间存放计数。
+    2.无法处理循环引用（如 a.b=b;b.a=a 这种情况）。
+    3.频繁更新引用计数降低了性能。</p>
+
+<h3 id="2-标记-清除-mark-and-sweep-对引用对象进行标记-清除未引用对象-需要两次扫描">2. 标记-清除（mark and sweep）：对引用对象进行标记，清除未引用对象（需要两次扫描）</h3>
+
+<p>步骤：</p>
+
+<ol>
+<li>标记从根变量开始迭代得遍历所有被引用的对象，对能够通过应用遍历访问到的对象都进行标记为“被引用”；</li>
+<li>标记完成后进行清除操作，对没有标记过——即没有引用过的内存进行回收（回收同时可能伴有碎片整理操作）。</li>
+</ol>
+
+<p>优点：
+    解决了引用计数的缺点 1 节约了内存，2 解决了循环引用的问题</p>
+
+<p>缺点：
+    每次启动垃圾回收都会暂停当前所有的正常代码执行，回收是系统响应能力大大降低！</p>
+
+<p>优化方式：
+mark&amp;sweep 算法的变种（如三色标记法）</p>
+
+<h3 id="3-复制收集-新空间复制引用的对象-清除旧空间">3. 复制收集：新空间复制引用的对象，清除旧空间</h3>
+
+<p>过程：
+准备一个「新的空间」，从根开始，对对象进行扫，如果存在对这个对象的引用，就把它复制到「新空间中」。一次扫描结束之后，所有存在于「新空间」的对象就是所有的非垃圾对象。</p>
+
+<p>优点：
+只需要对对象进行一次扫描。</p>
+
+<h3 id="4-分代收集-generation-根据存活时间-分代-新生代和老年代">4. 分代收集（generation）：根据存活时间 分代——新生代和老年代</h3>
+
+<p>默认 大部分对象的声明周期很短——新生代为主，小回收垃圾少</p>
+
+<p>关键过程：</p>
+
+<ol>
+<li>新创建的对象存放在称为 新生代（young generation）中 ——一般来说，新生代的大小会比 老年代小很多。</li>
+<li>高频对新生成的对象进行回收，称为「小回收」，低频对所有对象回收，称为「大回收」。</li>
+<li>每一次「小回收」过后，就把存活下来的对象归为老年代，「小回收」的时候，遇到老年代直接跳过。大多数分代回收算法都采用的「复制收集」方法，因为小回收中垃圾的比例较大。</li>
+</ol>
+
+<p>新问题： <strong>老年代对新生代引用，还能进行小回收吗？</strong></p>
+
+<p>解决：这里用到了一中叫做<strong>写屏障</strong>的方式。</p>
+
+<ol>
+<li>程序对所有涉及修改对象内容的地方进行保护，被称为「写屏障」（Write Barrier）。写屏障不仅用于分代收集，也用于其他 GC 算法中。</li>
+<li>在此算法的表现是
+
+<ol>
+<li>用一个记录集来记录从新生代到老生代的引用。</li>
+<li>如果有两个对象 A （老生代） 和 B（新生代），当对 A 的对象内容进行修改并加入 B 的引用时。则将这个引用加入到记录集中。</li>
+<li>「小回收」的时候，因为记录集中有对 B 的引用，所以 B 不再是垃圾</li>
+</ol></li>
+</ol>
+
+<h3 id="三色标记算法">三色标记算法</h3>
+
+<p>三色标记算法是对标记阶段的改进——标记了两次（灰色，黑色），原理如下：</p>
+
+<ol>
+<li>起初所有对象都是白色。——new 的所有对象</li>
+<li>从根出发扫描所有可达对象，标记为灰色，放入待处理队列。——不可达的说明不需要了</li>
+<li>从队列取出灰色对象，将其引用对象标记为灰色放入队列，自身标记为黑色。</li>
+<li>重复 3，直到灰色对象队列为空。此时白色对象即为垃圾，进行回收。</li>
+</ol>
+
+<p><img src="https://TomatoAres.github.io/image/gc/3_color_mark_sweep.gif" alt="图解 三色标记清除" /></p>
+
+<h2 id="go-gc-的发展">Go GC 的发展</h2>
+
+<p>go 语言垃圾回收总体采用的是经典的 mark and sweep 算法。</p>
+
+<ul>
+<li><p>v1.3 以前版本 STW（Stop The World）</p>
+
+<p>golang 的垃圾回收算法都非常简陋，然后其性能也广被诟病:go runtime 在一定条件下（内存超过阈值或定期如 2min），暂停所有任务的执行，进行 mark&amp;sweep 操作，操作完成后启动所有任务的执行。</p>
+
+<p>在内存使用较多的场景下，go 程序在进行垃圾回收时会发生非常明显的卡顿现象（Stop The World）。在对响应速度要求较高的后台服务进程中，这种延迟简直是不能忍受的！</p>
+
+<p>这个时期国内外很多在生产环境实践 go 语言的团队都或多或少踩过 gc 的坑。当时解决这个问题比较常用的方法是尽快控制自动分配内存的内存数量以减少 gc 负荷，同时采用手动管理内存的方法处理需要大量及高频分配内存的场景。</p></li>
+
+<li><p>v1.3 Mark STW, Sweep <strong>并行</strong></p>
+
+<p>1.3 版本中，go runtime 分离了 mark 和 sweep —— 解耦？</p>
+
+<p>操作和以前一样，也是先暂停所有任务执行并启动 mark,mark 完成后马上就重新启动被暂停的任务了，而是让 sweep 任务和普通协程任务一样并行的和其他任务一起执行。
+如果运行在多核处理器上，go 会试图将 gc 任务放到单独的核心上运行而尽量不影响业务代码的执行。go team 自己的说法是减少了 50%-70% 的暂停时间。</p></li>
+
+<li><p>v1.5 三色标记法</p>
+
+<p>go 1.5 正在实现的垃圾回收器是 <strong>“非分代的、非移动的、并发的、三色的标记清除垃圾收集器”</strong>。</p>
+
+<p>引入了上文介绍的三色标记法，这种方法的 mark 操作是可以渐进执行的而不需每次都扫描整个内存空间，可以减少 stop the world 的时间。</p>
+
+<p>由此可以看到，一路走来直到 1.5 版本，go 的垃圾回收性能也是一直在提升，但是相对成熟的垃圾回收系统（如 java jvm 和 javascript v8），go 需要优化的路径还很长（但是相信未来一定是美好的~）。</p></li>
+
+<li><p>v1.8 混合写屏障（hybrid write barrier）</p>
+
+<p>这个版本的 GC 代码相比之前改动还是挺大的，采用一种混合的 write barrier 方式 （Yuasa-style deletion write barrier [Yuasa ‘90] 和 Dijkstra-style insertion write barrier [Dijkstra ‘78]）来避免 堆栈重新扫描。</p>
+
+<p>混合屏障的优势</p>
+
+<ol>
+<li>它允许堆栈扫描永久地使堆栈变黑（没有 STW 并且没有写入堆栈的障碍），这完全消除了堆栈重新扫描的需要，从而消除了对堆栈屏障的需求。</li>
+<li>重新扫描列表。特别是堆栈障碍在整个运行时引入了显着的复杂性，并且干扰了来自外部工具（如 GDB 和基于内核的分析器）的堆栈遍历。</li>
+</ol>
+
+<p>此外，与 Dijkstra 风格的写屏障一样，混合屏障不需要读屏障，因此指针读取是常规的内存读取; 它确保了进步，因为物体单调地从白色到灰色再到黑色。</p>
+
+<p>混合屏障的缺点很小。它可能会导致更多的浮动垃圾，因为它会在标记阶段的任何时刻保留从根（堆栈除外）可到达的所有内容。然而，在实践中，当前的 Dijkstra 障碍可能几乎保留不变。混合屏障还禁止某些优化：
+特别是，如果 Go 编译器可以静态地显示指针是 nil，则 Go 编译器当前省略写屏障，但是在这种情况下混合屏障需要写屏障。这可能会略微增加二进制大小。</p></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

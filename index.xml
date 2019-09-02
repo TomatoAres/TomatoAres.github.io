@@ -7,10 +7,112 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Sun, 01 Sep 2019 19:52:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Sep 2019 23:10:56 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Radix Tree 基数树</title>
+      <link>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+      <pubDate>Mon, 02 Sep 2019 23:10:56 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
+      <description>参考： 数据结构之 Radix Tree https://blog.csdn.net/joker0910/article/details/8250085
+定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。
+假如树中的一个节点是父节点的唯一子节点(the only child)的话，那么该子节点将会与父节点进行合并，这样就使得 radix tree 中的每一个内部节点最多拥有 r 个孩子， r 为正整数且等于 2^n(n&amp;gt;=1)。
+不像是一般的 trie 树，radix tree 的边沿(edges)可以是一个或者多个元素。参看如下：
+使用场景 元素个数不是太多，但是元素之间通常有很长的相同前缀时很适合采用 radix tree 来存储</description>
+    </item>
+    
+    <item>
+      <title>Go 中 Byte Rune</title>
+      <link>https://TomatoAres.github.io/posts/byte-rune/</link>
+      <pubDate>Mon, 02 Sep 2019 23:03:44 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/byte-rune/</guid>
+      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。
+uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32  // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values.</description>
+    </item>
+    
+    <item>
+      <title>Csrf Xss 总结</title>
+      <link>https://TomatoAres.github.io/posts/csrf-xss/</link>
+      <pubDate>Mon, 02 Sep 2019 21:49:35 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/csrf-xss/</guid>
+      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。
+CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件： （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。
+我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
+举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。
+CSRF 如何防御 方法一、Token 验证：（用的最多） （1）服务器发送给客户端一个 token； （2）客户端提交的表单中带着这个 token。 （3）如果这个 token 不合法，那么服务器拒绝这个请求。
+方法二：隐藏令牌 把 token 隐藏在 http 的 head 头中。 方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。
+方法三、Referer 验证 Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。
+XSS（Cross Site Scripting）：跨域脚本攻击 核心是 注入 恶意代码</description>
+    </item>
+    
+    <item>
+      <title>Http 方法总结</title>
+      <link>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 02 Sep 2019 21:16:34 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
+      <description>一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。
+使用中发现：
+ postman 和浏览器均无法携带 请求体 es 查询可以  二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。
+三、POST 一般用于传输实体主体，主要用来传输数据。
+GET 和 POST 的区别
+ 作用: GET 主要用来获取资源、POST 主要用来传输实体主体（数据）。 参数:GET 和 POST 的请求都能使用额外参数，但是 GET 的参数是以查询字符串出现在 URL 中，而 POST 的参数存储在请求体中。
+/**GET方式**/ GET /test/demo_form.asp?name1=value1&amp;amp;name2=value2 HTTP/1.1 /**POST方式**/ POST /test/demo_form.asp HTTP/1.1 Host: w3schools.com name1=value1&amp;amp;name2=value2   注意：
+ 但是不能因为 POST 参数存储在实体主体中就认为它的安全性高，因为照样可以通过一些抓包工具（如：Fiddler）查看。 因为 URL 只支持 ASCII 码，因此 GET 中的参数如果存在中文等字符就需要先进行编码，在服务器进行解码。POST 请求支持标准字符集。  四、PUT 一般用于上传文件，由于 PUT 方法本身不带验证机制，任何人都可以上传文件，因此存在安全问题，一般我们不使用此方法。</description>
+    </item>
+    
+    <item>
+      <title>Go 逃逸分析</title>
+      <link>https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <description> 参考：Go 逃逸分析
+堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
+ 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，
+ 栈就如我们去饭馆吃饭，只需要点菜（发出申请）&amp;ndash;》吃吃吃（使用内存）&amp;ndash;》吃饱就跑剩下的交给饭馆（操作系统自动回收）， 而堆就如在家里做饭，大到家，小到买什么菜，每一个环节都需要自己来实现，但是自由度会大很多。 在编译程序优化理论中，逃逸分析是一种确定指针动态范围的方法，简单来说就是分析在程序的哪些地方可以访问到该指针  逃逸分析 再往简单的说，Go 是通过在编译器里做逃逸分析（escape analysis）来决定一个对象放栈上还是放堆上，不逃逸的对象放栈上，可能逃逸的放堆上；即我发现变量在退出函数后没有用了，那么就把丢到栈上，毕竟栈上的内存分配和回收比堆上快很多；反之，函数内的普通变量经过逃逸分析后，发现在函数退出后变量还有在其他地方上引用，那就将变量分配在堆上。做到按需分配（哪里的人民需要我，我就往哪去~~，一个党员的呐喊）。
+为何需要逃逸分析 ok，了解完堆和栈各自的优缺点后，我们就可以更好的知道逃逸分析存在的目的了：
+ 减少 gc 压力，栈上的变量，随着函数退出后系统直接回收，不需要 gc 标记后再清除。 减少内存碎片的产生。 减轻分配堆内存的开销，提高程序的运行速度。  如何确定是否逃逸 在 Go 中通过逃逸分析日志来确定变量是否逃逸，开启逃逸分析日志：
+go run -gcflags &#39;-m -l&#39; main.go   -m 会打印出逃逸分析的优化策略，实际上最多总共可以用 4 个 -m，但是信息量较大，一般用 1 个就可以了。 -l 会禁用函数内联，在这里禁用掉内联能更好的观察逃逸情况，减少干扰。  </description>
+    </item>
+    
+    <item>
+      <title>Go GC </title>
+      <link>https://TomatoAres.github.io/posts/gc-go/</link>
+      <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/gc-go/</guid>
+      <description>参考：GO GC 垃圾回收机制
+Go 作为一门高级语言，具有 自动垃圾回收 的功能。
+常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。
+缺点： 1. 需要额外的空间存放计数。 2.无法处理循环引用（如 a.b=b;b.a=a 这种情况）。 3.频繁更新引用计数降低了性能。
+2. 标记-清除（mark and sweep）：对引用对象进行标记，清除未引用对象（需要两次扫描） 步骤：
+ 标记从根变量开始迭代得遍历所有被引用的对象，对能够通过应用遍历访问到的对象都进行标记为“被引用”； 标记完成后进行清除操作，对没有标记过——即没有引用过的内存进行回收（回收同时可能伴有碎片整理操作）。  优点： 解决了引用计数的缺点 1 节约了内存，2 解决了循环引用的问题
+缺点： 每次启动垃圾回收都会暂停当前所有的正常代码执行，回收是系统响应能力大大降低！
+优化方式： mark&amp;amp;sweep 算法的变种（如三色标记法）
+3. 复制收集：新空间复制引用的对象，清除旧空间 过程： 准备一个「新的空间」，从根开始，对对象进行扫，如果存在对这个对象的引用，就把它复制到「新空间中」。一次扫描结束之后，所有存在于「新空间」的对象就是所有的非垃圾对象。
+优点： 只需要对对象进行一次扫描。
+4. 分代收集（generation）：根据存活时间 分代——新生代和老年代 默认 大部分对象的声明周期很短——新生代为主，小回收垃圾少
+关键过程：
+ 新创建的对象存放在称为 新生代（young generation）中 ——一般来说，新生代的大小会比 老年代小很多。 高频对新生成的对象进行回收，称为「小回收」，低频对所有对象回收，称为「大回收」。 每一次「小回收」过后，就把存活下来的对象归为老年代，「小回收」的时候，遇到老年代直接跳过。大多数分代回收算法都采用的「复制收集」方法，因为小回收中垃圾的比例较大。  新问题： 老年代对新生代引用，还能进行小回收吗？
+解决：这里用到了一中叫做写屏障的方式。
+ 程序对所有涉及修改对象内容的地方进行保护，被称为「写屏障」（Write Barrier）。写屏障不仅用于分代收集，也用于其他 GC 算法中。 在此算法的表现是  用一个记录集来记录从新生代到老生代的引用。 如果有两个对象 A （老生代） 和 B（新生代），当对 A 的对象内容进行修改并加入 B 的引用时。则将这个引用加入到记录集中。 「小回收」的时候，因为记录集中有对 B 的引用，所以 B 不再是垃圾   三色标记算法 三色标记算法是对标记阶段的改进——标记了两次（灰色，黑色），原理如下：</description>
+    </item>
+    
+    <item>
+      <title>GMP</title>
+      <link>https://TomatoAres.github.io/posts/gmp/</link>
+      <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/gmp/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Mysql 面试题总结</title>
@@ -174,14 +276,14 @@ UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括
     </item>
     
     <item>
-      <title>Influxdb简介</title>
+      <title>Influxdb 简介</title>
       <link>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</guid>
-      <description> 概述  使用GO语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
+      <description> 概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
  时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
- 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持http：Native HTTP API, 内置http支持，使用http读写； 查询语法简单：Powerful Query Language 类似sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
+ 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持 http：Native HTTP API, 内置 http 支持，使用 http 读写； 查询语法简单：Powerful Query Language 类似 sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
  database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
 Point 由时间戳（time）、数据（field）和标签（tags）组成。
  time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  </description>
