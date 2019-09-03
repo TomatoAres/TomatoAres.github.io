@@ -1,17 +1,17 @@
 # 面试总结
 
 1. go GC
-2. map 底层实现
-3. 反射
+2. map 底层实现 TODO
+3. 反射 TODO
 4. iptables
-5. go module 新特性
-6. k8s 网络配置有几种方式
+5. go module 新特性 TODO
+6. k8s 网络配置有几种方式 TODO
 7. 不用 echo，实现 http 返回 hello world
 8. http 方法 patch option
 9. restful
-10. 流程 cmm3
+10. 流程 cmm3 TODO
 11. 行数据库，列数据库
-12. leetcode 题目 twoSum
+12. leetcode 题目 twoSum TODO
 13. echo 基数树
 14. golang map 线程安全
 15. influxdb 详解

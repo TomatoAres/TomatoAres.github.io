@@ -7,10 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Mon, 02 Sep 2019 23:10:56 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 03 Sep 2019 14:29:20 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>行数据库 vs 列数据库</title>
+      <link>https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Tue, 03 Sep 2019 14:29:20 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
+   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).
+这个表存储在电脑的内存(RAM)和存储(硬盘)中。虽然内存和硬盘在机制上不同，电脑的操作系统是以同样的方式存储的。数据库必须把这个二维表存储在一系列一维的“字节”中，由操作系统写到内存或硬盘中。
+行式数据库把一行中的数据值串在一起存储起来，然后再存储下一行的数据，以此类推。
+1,Smith,Joe,40000; 2,Jones,Mary,50000; 3,Johnson,Cathy,44000;  列式数据库把一列中的数据值串在一起存储起来，然后再存储下一列的数据，以此类推。
+1,2,3; Smith,Jones,Johnson; Joe,Mary,Cathy; 40000,50000,44000;  优势：
+ 由于设计上的不同，列式数据库在并行查询处理和压缩上更有优势。 而且数据是以列为单元存储，完全不用考虑数据建模或者说建模更简单了。要查询计算哪些列上的数据，直接读取列就行了。 不像行式数据库，一行上有多列，尽管我们只需要分析某些列的数据，也要读取表上的全部数据。比如说这句 sql：&amp;rdquo;select a, b from table limit 100&amp;rdquo;， 列式数据库只需要读取 a，b 这两列前 100 行到内存中，而行式数据库则需要将前 100 行数据都读入内存中。显而易见，列式数据库的 IO 更高效。  应用:</description>
+    </item>
     
     <item>
       <title>Radix Tree 基数树</title>
