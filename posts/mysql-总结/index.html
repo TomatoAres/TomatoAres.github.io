@@ -1,86 +1,150 @@
-<!doctype html>
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html>
   <head>
-    <title>Mysql 面试题总结 // 西红柿的博客</title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.56.3" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="TomatoAres" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.56.3" />
 
+
+
+<link rel="canonical" href="https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Mysql 面试题总结 - 西红柿的博客</title>
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Mysql 面试题总结"/>
-<meta name="twitter:description" content="主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！
- 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID
- Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。
-作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。"/>
+<meta name="description" content="主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。">
 
-    <meta property="og:title" content="Mysql 面试题总结" />
-<meta property="og:description" content="主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！
- 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID
- Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。
-作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/" />
-<meta property="article:published_time" content="2019-09-01T19:52:00+08:00" />
-<meta property="article:modified_time" content="2019-09-01T19:52:00+08:00" />
+<meta property="og:title" content="Mysql 面试题总结 - 西红柿的博客">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/">
+<meta property="og:image" content="https://TomatoAres.github.io/images/default.png">
+<meta property="og:site_name" content="西红柿的博客">
+<meta property="og:description" content="主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。">
+<meta property="og:locale" content="ja_JP">
 
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="西红柿的博客">
+<meta name="twitter:url" content="https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/">
+<meta name="twitter:title" content="Mysql 面试题总结 - 西红柿的博客">
+<meta name="twitter:description" content="主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。">
+<meta name="twitter:image" content="https://TomatoAres.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"https:\/\/TomatoAres.github.io\/"
+    },
+    "headline": "Mysql 面试题总结 - 西红柿的博客",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https:\/\/TomatoAres.github.io\/images\/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-09-01T19:52:00JST",
+    "dateModified": "2019-09-01T19:52:00JST",
+    "author": {
+      "@type": "Person",
+      "name": "西红柿的博客"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "西红柿的博客",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https:\/\/TomatoAres.github.io\/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！\n 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID\n Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。\n作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。"
+  }
+</script>
+
+
+    <link href="https://TomatoAres.github.io/css/styles.css" rel="stylesheet">
+    
 
   </head>
+
   <body>
-    <header class="app-header">
-      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
-      <h1>西红柿的博客</h1>
-      <p>Awesome TomatoAres</p>
-      <div class="app-header-social">
-        
-          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-      </div>
-    </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">Mysql 面试题总结</h1>
-      <div class="post-meta">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Sep 1, 2019
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://TomatoAres.github.io/">西红柿的博客</a>
+          </div>
+
+          
+          <div id="navbar" class="collapse navbar-collapse">
+            
+            <ul class="nav navbar-nav navbar-right">
+              
+              
+              <li><a href="https://TomatoAres.github.io/posts/about/">About</a></li>
+              
+              
+              
+              <li><a href="https://TomatoAres.github.io/">Home</a></li>
+              
+              
+            </ul>
+            
+          </div>
+          
+
         </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-          1 min read
-        </div><div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-          <a class="tag" href="https://TomatoAres.github.io/tags/database/">database</a></div></div>
+      </nav>
     </header>
-    <div class="post-content">
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="https://TomatoAres.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://TomatoAres.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Mysql 面试题总结</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-09-01T19:52:00JST">Sep 1, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="https://TomatoAres.github.io/posts/">posts</a></li>
       
+    </ul>
+
+    <h1 class="title">Mysql 面试题总结</h1>
+  </header>
+
+  
+
+  <div class="article-body">
 
 <h2 id="主键-超键-候选键-外键">主键 超键 候选键 外键</h2>
 
@@ -163,10 +227,34 @@
 <p>为表设置索引要付出代价的：
     1. 增加了数据库的存储空间，
     2. 在插入和修改数据时要花费较多的时间(因为索引也要随之变动)。</p>
+</div>
 
-    </div>
-    <div class="post-footer">
-      <div id="disqus_thread"></div>
+  <footer class="article-footer">
+    
+    
+    
+    <section class="bordered">
+      <header>
+        <div class="panel-title">TAGS</div>
+      </header>
+      <div>
+        <ul class="p-terms">
+          
+          <li><a href="https://TomatoAres.github.io/tags/database/">database</a></li>
+          
+        </ul>
+      </div>
+    </section>
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -186,9 +274,104 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-  </article>
+  </div>
 
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" class="list-group-item">Go xml json 小结</a>
+      
+      <a href="https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" class="list-group-item">Go Struct Tag 是怎么玩的</a>
+      
+      <a href="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/" class="list-group-item">MongoDB 简介</a>
+      
+      <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="list-group-item">Go 时区设置</a>
+      
+      <a href="https://TomatoAres.github.io/posts/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/" class="list-group-item">无状态 和 Keep Alive 的区别</a>
+      
+      <a href="https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/" class="list-group-item">Http 状态码</a>
+      
+      <a href="https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" class="list-group-item">行数据库 vs 列数据库</a>
+      
+      <a href="https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" class="list-group-item">Radix Tree 基数树</a>
+      
+      <a href="https://TomatoAres.github.io/posts/byte-rune/" class="list-group-item">Go 中 Byte Rune</a>
+      
+      <a href="https://TomatoAres.github.io/posts/csrf-xss/" class="list-group-item">Csrf Xss 总结</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="https://TomatoAres.github.io/tags/go" class="list-group-item">go</a>
+      
+      <a href="https://TomatoAres.github.io/tags/web" class="list-group-item">web</a>
+      
+      <a href="https://TomatoAres.github.io/tags/database" class="list-group-item">database</a>
+      
+      <a href="https://TomatoAres.github.io/tags/hugo" class="list-group-item">hugo</a>
+      
+      <a href="https://TomatoAres.github.io/tags/microservice" class="list-group-item">microservice</a>
+      
+      <a href="https://TomatoAres.github.io/tags/network" class="list-group-item">network</a>
+      
+      <a href="https://TomatoAres.github.io/tags/test" class="list-group-item">test</a>
+      
+      <a href="https://TomatoAres.github.io/tags/about" class="list-group-item">about</a>
+      
+      <a href="https://TomatoAres.github.io/tags/container" class="list-group-item">container</a>
+      
+      <a href="https://TomatoAres.github.io/tags/data-struct" class="list-group-item">data-struct</a>
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TOPIC</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
     </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p>All rights reserved - TomatoAres 2019</p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
+

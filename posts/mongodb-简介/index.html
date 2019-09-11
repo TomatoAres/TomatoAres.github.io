@@ -1,94 +1,150 @@
-<!doctype html>
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html>
   <head>
-    <title>MongoDB 简介 // 西红柿的博客</title>
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.56.3" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="TomatoAres" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.56.3" />
 
+
+
+<link rel="canonical" href="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>MongoDB 简介 - 西红柿的博客</title>
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MongoDB 简介"/>
-<meta name="twitter:description" content="MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：
- 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点：
- 不支持事务 不支持 join、复杂查询  go 基本操作  链接
-s, err := mgo.Dial(addr) .Close()  参数设置
-s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表
-s.DB(k).C(i).Create(&amp;info)  查询
-Find(bson.M{&quot;_id&quot;: id}).One(ret) Find(nil).All() bson.M{&quot;_id&quot;: id} bson.M{} bson.M map[string]interface  修改
-bson.M{&quot;$push&quot;: bson.M{&quot;tasks&quot;: ret}} bson."/>
+<meta name="description" content="MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点： 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点： 不支持事务 不支持 join、复杂查询  go 基本操作  链接s, err := mgo.Dial(addr) .Close()  参数设置s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表s.DB(k).C(i).Create(&amp;amp;info)  查询Find(bson.M{&amp;quot;_id&amp;quot;: id}).One(ret) Find(nil).All() bson.M{&amp;quot;_id&amp;quot;: id} bson.M{} bson.M map[string]interface  修改bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.">
 
-    <meta property="og:title" content="MongoDB 简介" />
-<meta property="og:description" content="MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：
- 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点：
- 不支持事务 不支持 join、复杂查询  go 基本操作  链接
-s, err := mgo.Dial(addr) .Close()  参数设置
-s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表
-s.DB(k).C(i).Create(&amp;info)  查询
-Find(bson.M{&quot;_id&quot;: id}).One(ret) Find(nil).All() bson.M{&quot;_id&quot;: id} bson.M{} bson.M map[string]interface  修改
-bson.M{&quot;$push&quot;: bson.M{&quot;tasks&quot;: ret}} bson." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/" />
-<meta property="article:published_time" content="2019-09-11T18:03:09+08:00" />
-<meta property="article:modified_time" content="2019-09-11T18:03:09+08:00" />
+<meta property="og:title" content="MongoDB 简介 - 西红柿的博客">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/">
+<meta property="og:image" content="https://TomatoAres.github.io/images/default.png">
+<meta property="og:site_name" content="西红柿的博客">
+<meta property="og:description" content="MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点： 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点： 不支持事务 不支持 join、复杂查询  go 基本操作  链接s, err := mgo.Dial(addr) .Close()  参数设置s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表s.DB(k).C(i).Create(&amp;amp;info)  查询Find(bson.M{&amp;quot;_id&amp;quot;: id}).One(ret) Find(nil).All() bson.M{&amp;quot;_id&amp;quot;: id} bson.M{} bson.M map[string]interface  修改bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.">
+<meta property="og:locale" content="ja_JP">
 
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="西红柿的博客">
+<meta name="twitter:url" content="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/">
+<meta name="twitter:title" content="MongoDB 简介 - 西红柿的博客">
+<meta name="twitter:description" content="MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点： 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点： 不支持事务 不支持 join、复杂查询  go 基本操作  链接s, err := mgo.Dial(addr) .Close()  参数设置s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表s.DB(k).C(i).Create(&amp;amp;info)  查询Find(bson.M{&amp;quot;_id&amp;quot;: id}).One(ret) Find(nil).All() bson.M{&amp;quot;_id&amp;quot;: id} bson.M{} bson.M map[string]interface  修改bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.">
+<meta name="twitter:image" content="https://TomatoAres.github.io/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"https:\/\/TomatoAres.github.io\/"
+    },
+    "headline": "MongoDB 简介 - 西红柿的博客",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https:\/\/TomatoAres.github.io\/images\/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-09-11T18:03:09JST",
+    "dateModified": "2019-09-11T18:03:09JST",
+    "author": {
+      "@type": "Person",
+      "name": "西红柿的博客"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "西红柿的博客",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https:\/\/TomatoAres.github.io\/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：\n 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点：\n 不支持事务 不支持 join、复杂查询  go 基本操作  链接\ns, err := mgo.Dial(addr) .Close()  参数设置\ns.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表\ns.DB(k).C(i).Create(\x26amp;info)  查询\nFind(bson.M{\x26quot;_id\x26quot;: id}).One(ret) Find(nil).All() bson.M{\x26quot;_id\x26quot;: id} bson.M{} bson.M map[string]interface  修改\nbson.M{\x26quot;$push\x26quot;: bson.M{\x26quot;tasks\x26quot;: ret}} bson."
+  }
+</script>
+
+
+    <link href="https://TomatoAres.github.io/css/styles.css" rel="stylesheet">
+    
 
   </head>
+
   <body>
-    <header class="app-header">
-      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
-      <h1>西红柿的博客</h1>
-      <p>Awesome TomatoAres</p>
-      <div class="app-header-social">
-        
-          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-      </div>
-    </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">MongoDB 简介</h1>
-      <div class="post-meta">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Sep 11, 2019
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://TomatoAres.github.io/">西红柿的博客</a>
+          </div>
+
+          
+          <div id="navbar" class="collapse navbar-collapse">
+            
+            <ul class="nav navbar-nav navbar-right">
+              
+              
+              <li><a href="https://TomatoAres.github.io/posts/about/">About</a></li>
+              
+              
+              
+              <li><a href="https://TomatoAres.github.io/">Home</a></li>
+              
+              
+            </ul>
+            
+          </div>
+          
+
         </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-          1 min read
-        </div><div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-          <a class="tag" href="https://TomatoAres.github.io/tags/database/">database</a></div></div>
+      </nav>
     </header>
-    <div class="post-content">
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="https://TomatoAres.github.io/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://TomatoAres.github.io/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">MongoDB 简介</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-09-11T18:03:09JST">Sep 11, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="https://TomatoAres.github.io/posts/">posts</a></li>
       
+    </ul>
+
+    <h1 class="title">MongoDB 简介</h1>
+  </header>
+
+  
+
+  <div class="article-body">
 
 <h2 id="mongodb-是什么">MongoDB 是什么</h2>
 
@@ -178,10 +234,34 @@ db.logmsg.find({msg:{$regex:/模糊/}); 去掉括号后可以查询到数据</p>
 <p>db.logmsg.find({msg:{$regex:/(模糊)详情/}); 查询不到数据</p>
 
 <p>db.logmsg.find({msg:{$regex:“\(模糊\)详情&rdquo;}); 可以查询数据</p>
+</div>
 
-    </div>
-    <div class="post-footer">
-      <div id="disqus_thread"></div>
+  <footer class="article-footer">
+    
+    
+    
+    <section class="bordered">
+      <header>
+        <div class="panel-title">TAGS</div>
+      </header>
+      <div>
+        <ul class="p-terms">
+          
+          <li><a href="https://TomatoAres.github.io/tags/database/">database</a></li>
+          
+        </ul>
+      </div>
+    </section>
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -201,9 +281,104 @@ db.logmsg.find({msg:{$regex:/模糊/}); 去掉括号后可以查询到数据</p>
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-  </article>
+  </div>
 
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" class="list-group-item">Go xml json 小结</a>
+      
+      <a href="https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" class="list-group-item">Go Struct Tag 是怎么玩的</a>
+      
+      <a href="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/" class="list-group-item">MongoDB 简介</a>
+      
+      <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" class="list-group-item">Go 时区设置</a>
+      
+      <a href="https://TomatoAres.github.io/posts/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/" class="list-group-item">无状态 和 Keep Alive 的区别</a>
+      
+      <a href="https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/" class="list-group-item">Http 状态码</a>
+      
+      <a href="https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" class="list-group-item">行数据库 vs 列数据库</a>
+      
+      <a href="https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" class="list-group-item">Radix Tree 基数树</a>
+      
+      <a href="https://TomatoAres.github.io/posts/byte-rune/" class="list-group-item">Go 中 Byte Rune</a>
+      
+      <a href="https://TomatoAres.github.io/posts/csrf-xss/" class="list-group-item">Csrf Xss 总结</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="https://TomatoAres.github.io/tags/go" class="list-group-item">go</a>
+      
+      <a href="https://TomatoAres.github.io/tags/web" class="list-group-item">web</a>
+      
+      <a href="https://TomatoAres.github.io/tags/database" class="list-group-item">database</a>
+      
+      <a href="https://TomatoAres.github.io/tags/hugo" class="list-group-item">hugo</a>
+      
+      <a href="https://TomatoAres.github.io/tags/microservice" class="list-group-item">microservice</a>
+      
+      <a href="https://TomatoAres.github.io/tags/network" class="list-group-item">network</a>
+      
+      <a href="https://TomatoAres.github.io/tags/test" class="list-group-item">test</a>
+      
+      <a href="https://TomatoAres.github.io/tags/about" class="list-group-item">about</a>
+      
+      <a href="https://TomatoAres.github.io/tags/container" class="list-group-item">container</a>
+      
+      <a href="https://TomatoAres.github.io/tags/data-struct" class="list-group-item">data-struct</a>
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TOPIC</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
     </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p>All rights reserved - TomatoAres 2019</p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
+
