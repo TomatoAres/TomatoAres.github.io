@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>Go xml json 小结 // 西红柿的博客</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="TomatoAres" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go xml json 小结"/>
+<meta name="twitter:description" content="最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
+解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&rdquo;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：
+&lt;server&gt; &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt; &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt; &lt;/server&gt; &lt;server&gt; &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt; &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt; &lt;/server&gt;  如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。
+  如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。 如果某个 struct 字段的 tag 定义了中含有&rdquo;,attr&rdquo;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。 如果某个 struct 字段的 tag 定义 型如&rdquo;a&gt;b&gt;c&rdquo;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。 如果某个 struct 字段的 tag 定义了&rdquo;-&ldquo;,那么不会为该字段解析匹配任何 xml 数据。 如果 struct 字段后面的 tag 定义了&rdquo;,any&rdquo;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。 如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&rdquo;,comments&rdquo;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。  只要设置对了 tag，那么 XML 解析就如上面示例般简单，tag 和 XML 的 element 是一一对应的关系， 如下所示，我们还可以通过 slice 来表示多个同级元素。"/>
+
+    <meta property="og:title" content="Go xml json 小结" />
+<meta property="og:description" content="最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
+解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&rdquo;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：
+&lt;server&gt; &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt; &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt; &lt;/server&gt; &lt;server&gt; &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt; &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt; &lt;/server&gt;  如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。
+  如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。 如果某个 struct 字段的 tag 定义了中含有&rdquo;,attr&rdquo;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。 如果某个 struct 字段的 tag 定义 型如&rdquo;a&gt;b&gt;c&rdquo;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。 如果某个 struct 字段的 tag 定义了&rdquo;-&ldquo;,那么不会为该字段解析匹配任何 xml 数据。 如果 struct 字段后面的 tag 定义了&rdquo;,any&rdquo;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。 如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&rdquo;,comments&rdquo;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。  只要设置对了 tag，那么 XML 解析就如上面示例般简单，tag 和 XML 的 element 是一一对应的关系， 如下所示，我们还可以通过 slice 来表示多个同级元素。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" />
+<meta property="article:published_time" content="2019-09-11T19:45:08+08:00" />
+<meta property="article:modified_time" content="2019-09-11T19:45:08+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
+      <h1>西红柿的博客</h1>
+      <p>Awesome TomatoAres</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Go xml json 小结</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 11, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://TomatoAres.github.io/tags/go/">go</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="最常见错误">最常见错误</h2>
+
+<p>struct 字段小写，序列化反序列化都无法访问——无法外部访问</p>
+
+<h2 id="解析-xml-反序列化-unmarshal">解析 XML，反序列化，Unmarshal</h2>
+
+<ol>
+<li><p>如果 struct 的一个字段是 string 或者[]byt 类型且它的  tag  含有&rdquo;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上
+比如下边例子中的 description，最终输出为：</p>
+
+<pre><code class="language-xml">&lt;server&gt;
+&lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
+&lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
+&lt;/server&gt;
+&lt;server&gt;
+    &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
+    &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
+&lt;/server&gt;
+</code></pre></li>
+
+<li><p>如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。</p>
+
+<pre><code class="language-servers"></code></pre>
+
+<ol>
+<li>如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。</li>
+<li>如果某个 struct 字段的 tag 定义了中含有&rdquo;,attr&rdquo;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。</li>
+<li>如果某个 struct 字段的 tag 定义 型如&rdquo;a&gt;b&gt;c&rdquo;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。</li>
+<li>如果某个 struct 字段的 tag 定义了&rdquo;-&ldquo;,那么不会为该字段解析匹配任何 xml 数据。</li>
+<li>如果 struct 字段后面的 tag 定义了&rdquo;,any&rdquo;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。</li>
+<li>如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&rdquo;,comments&rdquo;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。</li>
+</ol>
+
+<p>只要设置对了 tag，那么 XML 解析就如上面示例般简单，tag 和 XML 的 element 是一一对应的关系，
+如下所示，我们还可以通过 slice 来表示多个同级元素。</p>
+
+<p>例子：</p>
+
+<p>```go</p></li>
+</ol>
+
+<p>package main</p>
+
+<p>import (
+    &ldquo;encoding/xml&rdquo;
+    &ldquo;fmt&rdquo;
+    &ldquo;io/ioutil&rdquo;
+    &ldquo;os&rdquo;
+)</p>
+
+<p>type Recurlyservers struct {
+    XMLName     xml.Name <code>xml:&quot;servers&quot;</code>
+    Version     string   <code>xml:&quot;version,attr&quot;</code>
+    Svs         []server <code>xml:&quot;server&quot;</code>
+    Description string   <code>xml:&quot;,innerxml&quot;</code>
+}
+type server struct {
+    //XMLName    xml.Name <code>xml:&quot;server&quot;</code> // 不会有这个值
+    ServerName string   <code>xml:&quot;serverName&quot;</code>
+    ServerIP   string   <code>xml:&quot;serverIP&quot;</code>
+}</p>
+
+<p>func main() {
+    file, err := os.Open(&ldquo;servers.xml&rdquo;) // For read access.
+    if err != nil {
+        fmt.Printf(&ldquo;error: %v&rdquo;, err)
+        return
+    }
+    defer file.Close()
+    data, err := ioutil.ReadAll(file)
+    if err != nil {
+        fmt.Printf(&ldquo;error: %v&rdquo;, err)
+        return
+    }
+    v := Recurlyservers{}
+    err = xml.Unmarshal(data, &amp;v)
+    if err != nil {
+        fmt.Printf(&ldquo;error: %v&rdquo;, err)
+        return
+    }
+    fmt.Println(&ldquo;===result====&rdquo;)
+    fmt.Println(v)
+    fmt.Println(&ldquo;===result====&rdquo;)</p>
+
+<pre><code>fmt.Println(&quot;===description====&quot;)
+fmt.Println(v.Description)
+fmt.Println(&quot;===description====&quot;)
+</code></pre>
+
+<p>}</p>
+
+<p>// out
+// ===result====
+// {{ servers} 1 [{Shanghai_VPN 127.0.0.1} {Beijing_VPN 127.0.0.2}]
+//     <server>
+//         <serverName>Shanghai_VPN</serverName>
+//         <serverIP>127.0.0.1</serverIP>
+//     </server>
+//     <server>
+//         <serverName>Beijing_VPN</serverName>
+//         <serverIP>127.0.0.2</serverIP>
+//     </server>
+// }
+// ===result====
+// ===description====</p>
+
+<p>//     <server>
+//         <serverName>Shanghai_VPN</serverName>
+//         <serverIP>127.0.0.1</serverIP>
+//     </server>
+//     <server>
+//         <serverName>Beijing_VPN</serverName>
+//         <serverIP>127.0.0.2</serverIP>
+//     </server></p>
+
+<p>// ===description====</p>
+
+<pre><code>
+官方例子：
+
+</code></pre>
+
+<p>go
+type Email struct {
+    Where string <code>xml:&quot;where,attr&quot;</code>
+    Addr  string
+}
+type Address struct {
+    City, State string
+}
+type Result struct {
+    XMLName xml.Name <code>xml:&quot;Person&quot;</code>
+    Name    string   <code>xml:&quot;FullName&quot;</code>
+    Phone   string
+    Email   []Email
+    Groups  []string <code>xml:&quot;Group&gt;Value&quot;</code>
+    Address
+}
+v := Result{Name: &ldquo;none&rdquo;, Phone: &ldquo;none&rdquo;}
+data := <code>
+                &lt;Person&gt;
+                        &lt;FullName&gt;Grace R. Emlin&lt;/FullName&gt;
+                        &lt;Company&gt;Example Inc.&lt;/Company&gt;
+                        &lt;Email where=&quot;home&quot;&gt;
+                                &lt;Addr&gt;gre@example.com&lt;/Addr&gt;
+                        &lt;/Email&gt;
+                        &lt;Email where='work'&gt;
+                                &lt;Addr&gt;gre@work.com&lt;/Addr&gt;
+                        &lt;/Email&gt;
+                        &lt;Group&gt;
+                                &lt;Value&gt;Friends&lt;/Value&gt;
+                                &lt;Value&gt;Squash&lt;/Value&gt;
+                        &lt;/Group&gt;
+                        &lt;City&gt;Hanga Roa&lt;/City&gt;
+                        &lt;State&gt;Easter Island&lt;/State&gt;
+                &lt;/Person&gt;
+</code>
+err := xml.Unmarshal([]byte(data), &amp;v)
+if err != nil {
+    fmt.Printf(&ldquo;error: %v&rdquo;, err)
+    return
+}
+fmt.Printf(&ldquo;XMLName: %#v\n&rdquo;, v.XMLName)
+fmt.Printf(&ldquo;Name: %q\n&rdquo;, v.Name)
+fmt.Printf(&ldquo;Phone: %q\n&rdquo;, v.Phone)
+fmt.Printf(&ldquo;Email: %v\n&rdquo;, v.Email)
+fmt.Printf(&ldquo;Groups: %v\n&rdquo;, v.Groups)
+fmt.Printf(&ldquo;Address: %v\n&rdquo;, v.Address)</p>
+
+<pre><code>
+输出：
+
+</code></pre>
+
+<p>shell
+XMLName: xml.Name{Space:&ldquo;&rdquo;, Local:&ldquo;Person&rdquo;}
+Name: &ldquo;Grace R. Emlin&rdquo;
+Phone: &ldquo;none&rdquo;
+Email: [{home gre@example.com} {work gre@work.com}]
+Groups: [Friends Squash]
+Address: {Hanga Roa Easter Island}</p>
+
+<pre><code>
+## 生成 xml，序列化，Marshal
+
+</code></pre>
+
+<p>sh
+func Marshal(v interface{}) ([]byte, error)
+func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error) // 带缩进，前缀</p>
+
+<pre><code>
+我们看到 Marshal 函数接收的参数 v 是 interface{} 类型的，即它可以接受任意类型的参数，那么 xml 包，根据什么规则来生成相应的 XML 文件呢？
+
+1. 如果 v 是 array 或者 slice，那么输出每一个元素，类似 value
+2. 如果 v 是指针，那么会 Marshal 指针指向的内容，如果指针为空，什么都不输出
+3. 如果 v 是 interface，那么就处理 interface 所包含的数据
+4. 如果 v 是其他数据类型，就会输出这个数据类型所拥有的字段信息
+
+生成的 XML 文件中的 element 的名字又是根据什么决定的呢？元素名按照如下优先级从 struct 中获取：
+
+1. 如果 v 是 struct，XMLName 的 tag 中定义的名称
+2. 类型为 xml.Name 的名叫 XMLName 的字段的值
+3. 通过 strcut 中字段的 tag 来获取
+4. 通过 strcut 的字段名用来获取
+5. marshal 的类型名称
+
+我们应如何设置 struct 中字段的 tag 信息以控制最终 xml 文件的生成呢？
+
+1. XMLName 不会被输出
+2. tag 中含有&quot;-&quot;的字段不会输出
+3. tag 中含有&quot;name,attr&quot;，会以 name 作为属性名，字段值作为值输出为这个 XML 元素的属性，如上 version 字段所描述
+4. tag 中含有&quot;,attr&quot;，会以这个 struct 的字段名作为属性名输出为 XML 元素的属性，类似上一条，只是这个 name 默认是字段名了。
+5. tag 中含有&quot;,chardata&quot;，输出为 xml 的 character data 而非 element。
+6. tag 中含有&quot;,innerxml&quot;，将会被原样输出，而不会进行常规的编码过程
+7. tag 中含有&quot;,comment&quot;，将被当作 xml 注释来输出，而不会进行常规的编码过程，字段值中不能含有&quot;--&quot;字符串
+8. tag 中含有&quot;omitempty&quot;,如果该字段的值为空值那么该字段就不会被输出到 xml ，空值包括：false、0、nil 指针或 nil 接口，任何长度为 0 的 array, slice, map 或者 string
+9. tag 中含有&quot;a&gt;b&gt;c&quot;，那么就会循环输出三个元素 a 包含 b，b 包含 c，例如如下代码就会输出
+
+</code></pre>
+
+<p>sh</p>
+
+<h1 id="input">Input</h1>
+
+<p>FirstName string <code>xml:&quot;name&gt;first&quot;</code>
+LastName string <code>xml:&quot;name&gt;last&quot;</code>
+#output
+<name>
+<first>Asta</first>
+<last>Xie</last>
+</name></p>
+
+<pre><code>
+## Json 概述
+
+* JSON（Javascript Object Notation）是一种轻量级的数据交换语言，以文字为基础，具有自我描述性且易于让人阅读。
+* JSON 与 XML 最大的不同在于 XML 是一个完整的标记语言，而 JSON 不是。
+* JSON 由于比 XML 更小、更快，更易解析,以及浏览器的内建快速解析支持,使得其更适用于网络数据传输领域。
+
+## 解析 json
+
+### 解析到结构体
+
+### 解析到 interface
+
+Go 类型和 JSON 类型的对应关系如下：
+
+* bool 代表 JSON booleans,
+* float64 代表 JSON numbers,
+* string 代表 JSON strings,
+* nil 代表 JSON null.
+
+### 解析到 map[string]interface{}
+
+键必须是 string
+
+### interface 到指定类型
+
+通过断言之后，你就可以通过如下方式来访问里面的数据了
+
+</code></pre>
+
+<p>go
+for k, v := range m {
+    switch vv := v.(type) {
+    case string:
+        fmt.Println(k, &ldquo;is string&rdquo;, vv)
+    case int:
+        fmt.Println(k, &ldquo;is int&rdquo;, vv)
+    case []interface{}:
+        fmt.Println(k, &ldquo;is an array:&ldquo;)
+        for i, u := range vv {
+            fmt.Println(i, u)
+            }
+    default:
+    fmt.Println(k, &ldquo;is of a type I don&rsquo;t know how to handle&rdquo;)
+        }
+    }</p>
+
+<pre><code>
+## 生成 json,序列化，Marshal
+
+针对 JSON 的输出，我们在定义 struct tag 的时候需要注意的几点是:
+
+1. 字段的 tag 是 &quot;-&quot;，那么这个字段不会输出到 JSON
+2. tag 中带有自定义名称，那么这个自定义名称会出现在 JSON 的字段名中
+3. tag 中如果带有&quot;omitempty&quot;选项，那么如果该字段值为空，就不会输出到 JSON 串中
+4. 如果字段类型是 bool, string, int, int64 等，而 tag 中带有&quot;,string&quot;选项，那么这个字段在输出到 JSON 的时候会把该字段对应的值转换成 JSON 字符串
+
+## 更好用的 [github.com/bitly/go-simplejson](https://github.com/bitly/go-simplejson)
+
+不用进行复杂的类型断言
+
+</code></pre>
+
+<p>go
+package main</p>
+
+<p>import (
+	&ldquo;fmt&rdquo;
+	&ldquo;github.com/bitly/go-simplejson&rdquo;
+)</p>
+
+<p>func main() {
+	js, err := simplejson.NewJson([]byte(<code>
+{
+&quot;test&quot;: {
+&quot;array&quot;: [1, &quot;2&quot;, 3],
+&quot;int&quot;: 10,
+&quot;float&quot;: 5.150,
+&quot;bignum&quot;: 9223372036854775807,
+&quot;string&quot;: &quot;simplejson&quot;,
+&quot;bool&quot;: true
+}
+}</code>))</p>
+
+<p>	if err != nil {
+		panic(err)
+	}
+	arr, _ := js.Get(&ldquo;test&rdquo;).Get(&ldquo;array&rdquo;).Array()
+	i, _ := js.Get(&ldquo;test&rdquo;).Get(&ldquo;int&rdquo;).Int()
+	ms := js.Get(&ldquo;test&rdquo;).Get(&ldquo;string&rdquo;).MustString(&ldquo;test&rdquo;)
+	ms2 := js.Get(&ldquo;test&rdquo;).Get(&ldquo;string2&rdquo;).MustString(&ldquo;test&rdquo;)</p>
+
+<p>	fmt.Println(&ldquo;arr:&ldquo;, arr)
+	fmt.Println(i)
+	fmt.Println(ms)
+	fmt.Println(ms2)
+}</p>
+
+<p>```</p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

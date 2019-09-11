@@ -7,10 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Mon, 02 Sep 2019 23:03:44 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2019 19:45:08 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go xml json 小结</title>
+      <link>https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</link>
+      <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</guid>
+      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
+解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;rdquo;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：
+&amp;lt;server&amp;gt; &amp;lt;serverName&amp;gt;Shanghai_VPN&amp;lt;/serverName&amp;gt; &amp;lt;serverIP&amp;gt;127.0.0.1&amp;lt;/serverIP&amp;gt; &amp;lt;/server&amp;gt; &amp;lt;server&amp;gt; &amp;lt;serverName&amp;gt;Beijing_VPN&amp;lt;/serverName&amp;gt; &amp;lt;serverIP&amp;gt;127.0.0.2&amp;lt;/serverIP&amp;gt; &amp;lt;/server&amp;gt;  如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。
+  如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。 如果某个 struct 字段的 tag 定义了中含有&amp;rdquo;,attr&amp;rdquo;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。 如果某个 struct 字段的 tag 定义 型如&amp;rdquo;a&amp;gt;b&amp;gt;c&amp;rdquo;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。 如果某个 struct 字段的 tag 定义了&amp;rdquo;-&amp;ldquo;,那么不会为该字段解析匹配任何 xml 数据。 如果 struct 字段后面的 tag 定义了&amp;rdquo;,any&amp;rdquo;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。 如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&amp;rdquo;,comments&amp;rdquo;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。  只要设置对了 tag，那么 XML 解析就如上面示例般简单，tag 和 XML 的 element 是一一对应的关系， 如下所示，我们还可以通过 slice 来表示多个同级元素。</description>
+    </item>
+    
+    <item>
+      <title>Go Struct Tag 是怎么玩的</title>
+      <link>https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <pubDate>Wed, 11 Sep 2019 19:31:18 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
+    </item>
+    
+    <item>
+      <title>Go 时区设置</title>
+      <link>https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <description>获取 time 对象 设置时区 按设置的时区输出
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func main() { now := time.Now() // 1. 获取 time 对象 // 2. 设置时区 local1, err1 := time.LoadLocation(&amp;quot;&amp;quot;) //等同于&amp;quot;UTC&amp;quot; if err1 != nil { fmt.Println(err1) } local2, err2 := time.LoadLocation(&amp;quot;Local&amp;quot;)//本地的时区 if err2 != nil { fmt.Println(err2) } local3, err3 := time.LoadLocation(&amp;quot;America/Los_Angeles&amp;quot;) if err3 != nil { fmt.Println(err3) } // 3. 按设置的时区输出 fmt.Println(now.In(local1)) fmt.Println(now.In(local2)) fmt.Println(now.In(local3)) } // out: // 2019-09-11 08:15:38.</description>
+    </item>
     
     <item>
       <title>Go 中 Byte Rune</title>
@@ -139,6 +171,20 @@ test.go源码文件，创建一个test包，并实现一个除法运算 package 
  从 Let’s Encrypt（第三方网站）自动加载TLS
  HTTP / 2支持
   简单例子：helloworld package main import ( &amp;quot;net/http&amp;quot; &amp;quot;github.com/labstack/echo&amp;quot; &amp;quot;github.com/labstack/echo/middleware&amp;quot; ) func main() { //创建echo对象 e := echo.New() //中间件 e.Use(middleware.Logger()) e.Use(middleware.Recover()) //路由route 映射 handler（函数） e.GET(&amp;quot;/&amp;quot;, func(c echo.Context) error { return c.String(http.StatusOK, &amp;quot;Hello, World!</description>
+    </item>
+    
+    <item>
+      <title>为什么 Go 适合微服务</title>
+      <link>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices-copy/</link>
+      <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices-copy/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
+1.静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
+生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
+// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &amp;quot;xyz&amp;quot;, oldDoc: &amp;quot;blah blah&amp;quot;, newDocument: &amp;quot;new doc&amp;quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
+当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
+2.可读性 清晰好过聪明（Clear is better than clever）</description>
     </item>
     
     <item>
