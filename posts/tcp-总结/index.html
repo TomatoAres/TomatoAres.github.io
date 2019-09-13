@@ -1,106 +1,89 @@
 <!doctype html>
 <html lang="zh-cn">
-  <head>
-    <title>TCP 总结 // 西红柿的博客</title>
-    <meta charset="utf-8" />
+<head>
+
+    <meta charset="utf-8">
     <meta name="generator" content="Hugo 0.56.3" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="TomatoAres" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TCP 总结 | 西红柿的博客</title>
+    <meta property="og:title" content="TCP 总结 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-08-29T00:52:58&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-08-29T00:52:58&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="TCP 总结">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TCP 总结"/>
-<meta name="twitter:description" content="通信过程 服务端：
- socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解&#43;动图）
-涉及到状态：
- closed SYN_SENT SYN_RECV ESTABLISHED  四次挥手——断开连接 涉及到状态：
- ESTABLISHED FIN_WAIT1 FIN_WAIT2  问题总结  tcp 的 2MSL 问题
-MSL：Maximum Segment Lifetime，最长报文时间
-2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，
-当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，
-即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，
-必须在此状态上停留两倍的 MSL 时间，
-等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，
-那么对方在超时后将重发第三次握手的 FIN 包，"/>
-
-    <meta property="og:title" content="TCP 总结" />
-<meta property="og:description" content="通信过程 服务端：
- socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解&#43;动图）
-涉及到状态：
- closed SYN_SENT SYN_RECV ESTABLISHED  四次挥手——断开连接 涉及到状态：
- ESTABLISHED FIN_WAIT1 FIN_WAIT2  问题总结  tcp 的 2MSL 问题
-MSL：Maximum Segment Lifetime，最长报文时间
-2MSL 即两倍的 MSL ，TCP 的 TIME_WAIT 状态也称为 2MSL 等待状态，
-当 TCP 的一端发起主动关闭，在发出最后一个 ACK 包后，
-即第 3 次握手完成后发送了第四次握手的 ACK 包后就进入了 TIME_WAIT 状态，
-必须在此状态上停留两倍的 MSL 时间，
-等待 2MSL 时间主要目的是怕最后一个 ACK 包对方没收到，
-那么对方在超时后将重发第三次握手的 FIN 包，" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/" />
-<meta property="article:published_time" content="2019-08-29T00:52:58+08:00" />
-<meta property="article:modified_time" content="2019-08-29T00:52:58+08:00" />
 
 
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
-      <h1>西红柿的博客</h1>
-      <p>Awesome TomatoAres</p>
-      <div class="app-header-social">
-        
-          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-      </div>
-    </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">TCP 总结</h1>
-      <div class="post-meta">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Aug 29, 2019
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                </nav>
+            </div>
         </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-          1 min read
-        </div><div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-          <a class="tag" href="https://TomatoAres.github.io/tags/network/">network</a></div></div>
-    </header>
-    <div class="post-content">
-      
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">TCP 总结</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年8月29日
+                        </date>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
 
 <h2 id="通信过程">通信过程</h2>
 
-<p><img src="https://TomatoAres.github.io/image/network/tcp通信过程.png" alt="通信过程" /></p>
+<p><img src="/image/network/tcp 通信过程。png" alt="通信过程" /></p>
 
 <p>服务端：</p>
 
@@ -117,7 +100,7 @@ MSL：Maximum Segment Lifetime，最长报文时间
 
 <p>参考：<a href="https://blog.csdn.net/qzcsu/article/details/72861891">TCP 的三次握手与四次挥手（详解+动图）</a></p>
 
-<p><img src="https://TomatoAres.github.io/image/network/tcp_create_3.gif" alt="三次握手建立通信过程" /></p>
+<p><img src="/image/network/tcp_create_3.gif" alt="三次握手建立通信过程" /></p>
 
 <p>涉及到状态：</p>
 
@@ -130,7 +113,7 @@ MSL：Maximum Segment Lifetime，最长报文时间
 
 <h2 id="四次挥手-断开连接">四次挥手——断开连接</h2>
 
-<p><img src="https://TomatoAres.github.io/image/network/tcp_release_4.gif" alt="四次挥手释放过程" /></p>
+<p><img src="/image/network/tcp_release_4.gif" alt="四次挥手释放过程" /></p>
 
 <p>涉及到状态：</p>
 
@@ -181,7 +164,7 @@ MSL：Maximum Segment Lifetime，最长报文时间
 
 <li><p>为什么不能用两次握手进行连接？</p>
 
-<p>3 次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+<p>3 次握手完成两个重要的功能，既要双方做好发送数据的准备工作（双方都知道彼此已准备好），也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
 
 <p>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机 S 和 C 之间的通信，假定 C 给 S 发送一个连接请求分组，S 收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S 认为连接已经成功地建立了，可以开始发送数据分组。可是，C 在 S 的应答分组在传输中被丢失的情况下，将不知道 S 是否已准备好，不知道 S 建立什么样的序列号，C 甚至怀疑 S 是否收到自己的连接请求分组。在这种情况下，C 认为连接还未建立成功，将忽略 S 发来的任何数据分 组，只等待连接确认应答分组。而 S 在发出的分组超时后，重复发送同样的分组。这样就形成了死锁</p></li>
 
@@ -192,7 +175,7 @@ MSL：Maximum Segment Lifetime，最长报文时间
 
 <ol>
 <li><p>一个 TCP 可以建立多少 http 连接？
-多个,established 期间随意</p></li>
+多个，established 期间随意</p></li>
 
 <li><p>浏览器向服务器发出请求，但中间发生丢包，最后服务器返回了 200OK，分析一下</p>
 
@@ -203,31 +186,211 @@ MSL：Maximum Segment Lifetime，最长报文时间
 </ol></li>
 </ol>
 
-    </div>
-    <div class="post-footer">
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-  </article>
+                        </div>
 
-    </main>
-  </body>
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/">https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/tcp-udp/">TCP UDP 总结</a></li>
+        
+        <li><a href="/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程总结</a></li>
+        
+        <li><a href="/posts/docker%E7%AE%80%E4%BB%8B/">Docker简介</a></li>
+        
+        <li><a href="/posts/channel/">channel 总结</a></li>
+        
+        <li><a href="/posts/influxdb%E7%AE%80%E4%BB%8B/">Influxdb 简介</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/network">network</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Go xml json 小结">Go xml json 小结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/" title="MongoDB 简介">MongoDB 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="Go 时区设置">Go 时区设置</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/" title="无状态 和 Keep Alive 的区别">无状态 和 Keep Alive 的区别</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/" title="Http 状态码">Http 状态码</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" title="行数据库 vs 列数据库">行数据库 vs 列数据库</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" title="Radix Tree 基数树">Radix Tree 基数树</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/byte-rune/" title="Go 中 Byte Rune">Go 中 Byte Rune</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/about/">about</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By 战神西红柿</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
 </html>

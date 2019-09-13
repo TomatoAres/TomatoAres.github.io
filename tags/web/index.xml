@@ -6,11 +6,20 @@
     <description>Recent content in web on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>All rights reserved - TomatoAres 2019</copyright>
-    <lastBuildDate>Tue, 10 Sep 2019 21:51:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Sep 2019 11:43:50 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rpc 标准库的几种实现方式</title>
+      <link>https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Thu, 12 Sep 2019 11:43:50 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <description>server server.go
+package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;net&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;net/rpc&amp;quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.A * args.B return nil } func (t *Arith) Divide(args *Args, quo *Quotient) error { if args.B == 0 { return errors.New(&amp;quot;divide by zero&amp;quot;) } quo.Quo = args.</description>
+    </item>
     
     <item>
       <title>无状态 和 Keep Alive 的区别</title>
@@ -41,14 +50,13 @@ Keep-Alive 不会永久保持连接，它有一个保持时间，可以在不同
       <pubDate>Mon, 02 Sep 2019 21:49:35 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/csrf-xss/</guid>
-      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。
-CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件： （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。
-我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
+      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
+CSRF 可以做什么？
+你这可以这么理解 CSRF 攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF 能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账。&amp;hellip;.. 造成的问题包括：个人隐私露以及财产安全。
+CSRF 的攻击原理 用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。 从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件：
+ （1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录） （2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。  我们在讲 CSRF 时，一定要把上面的两点说清楚。 温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。
 举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。
-CSRF 如何防御 方法一、Token 验证：（用的最多） （1）服务器发送给客户端一个 token； （2）客户端提交的表单中带着这个 token。 （3）如果这个 token 不合法，那么服务器拒绝这个请求。
-方法二：隐藏令牌 把 token 隐藏在 http 的 head 头中。 方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。
-方法三、Referer 验证 Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。
-XSS（Cross Site Scripting）：跨域脚本攻击 核心是 注入 恶意代码</description>
+CSRF 如何防御 方法一、Token 验证：（用的最多）  服务器发送给客户端一个 token； 客户端提交的表单中带着这个 token。 如果这个 token 不合法，那么服务器拒绝这个请求。  示例：</description>
     </item>
     
     <item>
@@ -83,8 +91,15 @@ GET 和 POST 的区别
       <pubDate>Sat, 31 Aug 2019 16:24:33 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</guid>
-      <description>是什么  基于 HTTP 开发 web 服务 一种规范,说是一种风格可能更合适——可遵守，可不遵守 资源 和 uri 绑定 增删改查对应 HTTP 的四种方法 —— GET,POST,PUT,DELETE  好处  规范化设计 可读性  使用 接口命名规则：http://IP:端口/app-name/rest/v/接口名（资源名）/param
-工作中遇到的问题 批量删除 用的 post 解决的，携带数组，或者在查询参赛携带 delete=all</description>
+      <description>是什么 REST(REpresentational State Transfer) 这个概念，首次出现是在 2000 年 Roy Thomas Fielding（他是 HTTP 规范的主要编写者之一）的博士论文中，它指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful 的。
+要理解什么是 REST，我们需要理解下面几个概念：
+ 资源（Resources） REST 是&amp;rdquo;表现层状态转化&amp;rdquo;，其实它省略了主语。&amp;rdquo;表现层&amp;rdquo;其实指的是&amp;rdquo;资源&amp;rdquo;的&amp;rdquo;表现层&amp;rdquo;。
+那么什么是资源呢？就是我们平常上网访问的一张图片、一个文档、一个视频等。这些资源我们通过 URI 来定位，也就是一个 URI 表示一个资源。
+ 表现层（Representation）
+资源是做一个具体的实体信息，他可以有多种的展现方式。而把实体展现出来就是表现层，例如一个 txt 文本信息，他可以输出成 html、json、xml 等格式，一个图片他可以 jpg、png 等方式展现，这个就是表现层的意思。 URI 确定一个资源，但是如何确定它的具体表现形式呢？应该在 HTTP 请求的头信息中用 Accept 和 Content-Type 字段指定，这两个字段才是对&amp;rdquo;表现层&amp;rdquo;的描述。
+ 状态转化（State Transfer） 访问一个网站，就代表了客户端和服务器的一个互动过程。在这个过程中，肯定涉及到数据和状态的变化。 而 HTTP 协议是无状态的，那么这些状态肯定保存在服务器端，所以如果客户端想要通知服务器端改变数据和状态的变化，肯定要通过某种方式来通知它。 客户端能通知服务器端的手段，只能是 HTTP 协议。具体来说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：
+ GET 用来获取资源， POST 用来新建资源（也可以用于更新资源）， PUT 用来更新资源， DELETE 用来删除资源。   小结：
+（1）每一个 URI 代表一种资源； （2）客户端和服务器之间，传递这种资源的某种表现层； （3）客户端通过四个 HTTP 动词，对服务器端资源进行操作，实现&amp;rdquo;表现层状态转化&amp;rdquo;。</description>
     </item>
     
     <item>

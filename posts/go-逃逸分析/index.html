@@ -1,92 +1,85 @@
 <!doctype html>
 <html lang="zh-cn">
-  <head>
-    <title>Go 逃逸分析 // 西红柿的博客</title>
-    <meta charset="utf-8" />
+<head>
+
+    <meta charset="utf-8">
     <meta name="generator" content="Hugo 0.56.3" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="TomatoAres" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="https://TomatoAres.github.io/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go 逃逸分析 | 西红柿的博客</title>
+    <meta property="og:title" content="Go 逃逸分析 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-02T21:07:29&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-02T21:07:29&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="Go 逃逸分析">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Go 逃逸分析"/>
-<meta name="twitter:description" content=" 参考：Go 逃逸分析
-堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
- 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，
- 栈就如我们去饭馆吃饭，只需要点菜（发出申请）&ndash;》吃吃吃（使用内存）&ndash;》吃饱就跑剩下的交给饭馆（操作系统自动回收）， 而堆就如在家里做饭，大到家，小到买什么菜，每一个环节都需要自己来实现，但是自由度会大很多。 在编译程序优化理论中，逃逸分析是一种确定指针动态范围的方法，简单来说就是分析在程序的哪些地方可以访问到该指针  逃逸分析 再往简单的说，Go 是通过在编译器里做逃逸分析（escape analysis）来决定一个对象放栈上还是放堆上，不逃逸的对象放栈上，可能逃逸的放堆上；即我发现变量在退出函数后没有用了，那么就把丢到栈上，毕竟栈上的内存分配和回收比堆上快很多；反之，函数内的普通变量经过逃逸分析后，发现在函数退出后变量还有在其他地方上引用，那就将变量分配在堆上。做到按需分配（哪里的人民需要我，我就往哪去~~，一个党员的呐喊）。
-为何需要逃逸分析 ok，了解完堆和栈各自的优缺点后，我们就可以更好的知道逃逸分析存在的目的了：
- 减少 gc 压力，栈上的变量，随着函数退出后系统直接回收，不需要 gc 标记后再清除。 减少内存碎片的产生。 减轻分配堆内存的开销，提高程序的运行速度。  如何确定是否逃逸 在 Go 中通过逃逸分析日志来确定变量是否逃逸，开启逃逸分析日志：
-go run -gcflags &#39;-m -l&#39; main.go   -m 会打印出逃逸分析的优化策略，实际上最多总共可以用 4 个 -m，但是信息量较大，一般用 1 个就可以了。 -l 会禁用函数内联，在这里禁用掉内联能更好的观察逃逸情况，减少干扰。  "/>
-
-    <meta property="og:title" content="Go 逃逸分析" />
-<meta property="og:description" content=" 参考：Go 逃逸分析
-堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
- 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，
- 栈就如我们去饭馆吃饭，只需要点菜（发出申请）&ndash;》吃吃吃（使用内存）&ndash;》吃饱就跑剩下的交给饭馆（操作系统自动回收）， 而堆就如在家里做饭，大到家，小到买什么菜，每一个环节都需要自己来实现，但是自由度会大很多。 在编译程序优化理论中，逃逸分析是一种确定指针动态范围的方法，简单来说就是分析在程序的哪些地方可以访问到该指针  逃逸分析 再往简单的说，Go 是通过在编译器里做逃逸分析（escape analysis）来决定一个对象放栈上还是放堆上，不逃逸的对象放栈上，可能逃逸的放堆上；即我发现变量在退出函数后没有用了，那么就把丢到栈上，毕竟栈上的内存分配和回收比堆上快很多；反之，函数内的普通变量经过逃逸分析后，发现在函数退出后变量还有在其他地方上引用，那就将变量分配在堆上。做到按需分配（哪里的人民需要我，我就往哪去~~，一个党员的呐喊）。
-为何需要逃逸分析 ok，了解完堆和栈各自的优缺点后，我们就可以更好的知道逃逸分析存在的目的了：
- 减少 gc 压力，栈上的变量，随着函数退出后系统直接回收，不需要 gc 标记后再清除。 减少内存碎片的产生。 减轻分配堆内存的开销，提高程序的运行速度。  如何确定是否逃逸 在 Go 中通过逃逸分析日志来确定变量是否逃逸，开启逃逸分析日志：
-go run -gcflags &#39;-m -l&#39; main.go   -m 会打印出逃逸分析的优化策略，实际上最多总共可以用 4 个 -m，但是信息量较大，一般用 1 个就可以了。 -l 会禁用函数内联，在这里禁用掉内联能更好的观察逃逸情况，减少干扰。  " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" />
-<meta property="article:published_time" content="2019-09-02T21:07:29+08:00" />
-<meta property="article:modified_time" content="2019-09-02T21:07:29+08:00" />
 
 
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="https://TomatoAres.github.io/"><img class="app-header-avatar" src="https://TomatoAres.github.io/avatar.jpg" alt="TomatoAres" /></a>
-      <h1>西红柿的博客</h1>
-      <p>Awesome TomatoAres</p>
-      <div class="app-header-social">
-        
-          <a target="_blank" href="https://github.com/TomatoAres"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://segmentfault.com/u/zhanshenxihongshi"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-          <a target="_blank" href="https://me.csdn.net/shuaishi098"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-link">
-  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-</svg></a>
-        
-      </div>
-    </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">Go 逃逸分析</h1>
-      <div class="post-meta">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Sep 2, 2019
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                </nav>
+            </div>
         </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
-          1 min read
-        </div><div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
-</svg>
-          <a class="tag" href="https://TomatoAres.github.io/tags/go/">go</a></div></div>
-    </header>
-    <div class="post-content">
-      
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Go 逃逸分析</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月2日
+                        </date>
+                        
+                        
+                        
+                        <div class="post-content">
+                            
 
 <p>参考：<a href="https://segmentfault.com/a/1190000019756479">Go 逃逸分析</a></p>
 
@@ -136,31 +129,211 @@ go run -gcflags &#39;-m -l&#39; main.go   -m 会打印出逃逸分析的优化�
 <li>-l 会禁用函数内联，在这里禁用掉内联能更好的观察逃逸情况，减少干扰。</li>
 </ul>
 
-    </div>
-    <div class="post-footer">
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "Ares-1" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-  </article>
+                        </div>
 
-    </main>
-  </body>
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/heap-stack/"> Go 堆栈的理解</a></li>
+        
+        <li><a href="/posts/gc-go/">Go GC </a></li>
+        
+        <li><a href="/posts/gmp/">GMP</a></li>
+        
+        <li><a href="/posts/websocket%E6%80%BB%E7%BB%93/">Websocket 总结</a></li>
+        
+        <li><a href="/posts/go-test/">go test 工具的简单介绍和使用</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Go xml json 小结">Go xml json 小结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/" title="MongoDB 简介">MongoDB 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="Go 时区设置">Go 时区设置</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/" title="无状态 和 Keep Alive 的区别">无状态 和 Keep Alive 的区别</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/" title="Http 状态码">Http 状态码</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" title="行数据库 vs 列数据库">行数据库 vs 列数据库</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" title="Radix Tree 基数树">Radix Tree 基数树</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/byte-rune/" title="Go 中 Byte Rune">Go 中 Byte Rune</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/about/">about</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By 战神西红柿</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+
+
+
+</body>
 </html>

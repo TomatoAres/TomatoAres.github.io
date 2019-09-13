@@ -3,30 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</loc>
-    <lastmod>2019-09-11T19:45:08+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/posts/</loc>
+    <lastmod>2019-09-12T11:43:50+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-09-11T19:45:08+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2019-09-12T11:43:50+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/tags/</loc>
-    <lastmod>2019-09-11T19:45:08+08:00</lastmod>
+    <lastmod>2019-09-12T11:43:50+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/go/</loc>
-    <lastmod>2019-09-11T19:45:08+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/tags/web/</loc>
+    <lastmod>2019-09-12T11:43:50+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/</loc>
+    <lastmod>2019-09-12T11:43:50+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</loc>
+    <lastmod>2019-09-11T19:45:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/go/</loc>
     <lastmod>2019-09-11T19:45:08+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -50,12 +61,6 @@
   <url>
     <loc>https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</loc>
     <lastmod>2019-09-11T16:17:20+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/web/</loc>
-    <lastmod>2019-09-10T21:51:19+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -135,6 +140,12 @@
   </url>
   
   <url>
+    <loc>https://TomatoAres.github.io/tags/network/</loc>
+    <lastmod>2019-08-31T16:36:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2019-08-31T16:24:33+08:00</lastmod>
   </url>
@@ -174,12 +185,6 @@
   <url>
     <loc>https://TomatoAres.github.io/posts/tcp-%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2019-08-29T00:52:58+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/network/</loc>
-    <lastmod>2019-08-29T00:52:58+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -288,7 +293,7 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/topics/</loc>
+    <loc>https://TomatoAres.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
