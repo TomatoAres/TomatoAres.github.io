@@ -29,8 +29,7 @@
       
       <guid>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</guid>
       <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
-hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决
-hugo --theme=ananke --baseUrl=&amp;quot;https://TomatoAres.github.io/&amp;quot;  参考：使用 Hugo 搭建个人博客</description>
+hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决</description>
     </item>
     
     <item>

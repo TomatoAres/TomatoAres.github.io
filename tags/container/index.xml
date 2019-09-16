@@ -19,8 +19,7 @@
       <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
       <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
  横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
- 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。
- 如利用 1 个人的能力，如蜘蛛侠逼停火车   </description>
+ 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。</description>
     </item>
     
   </channel>

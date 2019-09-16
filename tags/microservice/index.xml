@@ -17,12 +17,7 @@
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices-copy/</guid>
-      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
-1.静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
-生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
-// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &amp;quot;xyz&amp;quot;, oldDoc: &amp;quot;blah blah&amp;quot;, newDocument: &amp;quot;new doc&amp;quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
-当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
-2.可读性 清晰好过聪明（Clear is better than clever）</description>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。</description>
     </item>
     
     <item>
@@ -31,12 +26,7 @@
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</guid>
-      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。
-1.静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。
-生产事故的故事 去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。
-// 函数定义 function saveDocument({id, oldDocument, newDocument}) {} // 函数调用 saveDocument({ id: &amp;quot;xyz&amp;quot;, oldDoc: &amp;quot;blah blah&amp;quot;, newDocument: &amp;quot;new doc&amp;quot; })  我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。
-当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。Airbnb 表示，使用类型可以预防 38％ 的漏洞。
-2.可读性 清晰好过聪明（Clear is better than clever）</description>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合) 编写。下来我将分享我们更改的原因。</description>
     </item>
     
     <item>
@@ -47,13 +37,7 @@
       <guid>https://TomatoAres.github.io/posts/microservices-in-go/</guid>
       <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
 在这里，我要介绍以下框架：
- Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。
-那么，什么是 Go Micro ?
-它是一个可拔插的 RPC 框架，用于在 Go 中编写微服务。开箱即用，您将看到：
- 服务发现 - 自动向服务发现系统注册的应用程序。 负载均衡 - 客户端负载均衡，用于平衡服务实例之间请求的负载。 同步通信 - 提供请求/响应传输层。 异步通信 - 内置发布/订阅功能。 消息编码 - 基于消息的 Content-Type 请求头的编码/解码。 RPC 客户端/服务器打包 - 利用上述特性并公开接口来构建微服务。  Go Micro 架构可以描述为三层堆栈。
-顶层包括 Server-Client 模型和服务抽象。该服务器是用于编写服务的基础。而客户端提供了一个接口，用于向服务端发起请求。
-底层包含以下类型的插件：
- Broker - 提供一个消息代理接口，用于异步发布/订阅通信。 Codec - 用于编码/解码消息。支持的格式包括 json,bson,protobuf,msgpack 等。 Registry - 提供服务发现机制（默认为 Consul ）。 Selector - 基于注册表构建的负载均衡抽象。 它允许使用诸如 random,roundrobin,leastconn 等算法“选择”服务。 Transport - 服务之间同步请求/响应通信的接口。  Go Micro 还提供 Sidecar 等功能。这允许您使用Go以外的语言编写的服务。 Sidecar 提供服务注册，gRPC 编码/解码和HTTP处理程序。它有多种语言版本。</description>
+ Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
     </item>
     
   </channel>

@@ -6,9 +6,19 @@
     <description>Recent content in Categories on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <lastBuildDate>Tue, 03 Sep 2019 16:14:53 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>web</title>
+      <link>https://TomatoAres.github.io/categories/web/</link>
+      <pubDate>Tue, 03 Sep 2019 16:14:53 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/categories/web/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

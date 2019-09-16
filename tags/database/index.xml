@@ -13,18 +13,11 @@
     
     <item>
       <title>MongoDB 简介</title>
-      <link>https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/</link>
+      <link>https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Wed, 11 Sep 2019 18:03:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/mongodb-%E7%AE%80%E4%BB%8B/</guid>
-      <description>MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：
- 社区活跃，用户较多，应用广泛 MongoDB 在内存充足的情况下数据都放入内存且有完整的索引支持，查询效率较高 MongoDB 的分片机制，支持海量数据的存储和扩展  缺点：
- 不支持事务 不支持 join、复杂查询  go 基本操作  链接
-s, err := mgo.Dial(addr) .Close()  参数设置
-s.SetMode(mgo.Monotonic, true) s.SetPoolLimit(maxPoolLimit) s.SetSocketTimeout(timeout * time.Second)  建表
-s.DB(k).C(i).Create(&amp;amp;info)  查询
-Find(bson.M{&amp;quot;_id&amp;quot;: id}).One(ret) Find(nil).All() bson.M{&amp;quot;_id&amp;quot;: id} bson.M{} bson.M map[string]interface  修改
-bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.</description>
+      <guid>https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/</guid>
+      <description>MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：</description>
     </item>
     
     <item>
@@ -34,12 +27,7 @@ bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.<
       
       <guid>https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description>是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
-   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).
-这个表存储在电脑的内存(RAM)和存储(硬盘)中。虽然内存和硬盘在机制上不同，电脑的操作系统是以同样的方式存储的。数据库必须把这个二维表存储在一系列一维的“字节”中，由操作系统写到内存或硬盘中。
-行式数据库把一行中的数据值串在一起存储起来，然后再存储下一行的数据，以此类推。
-1,Smith,Joe,40000; 2,Jones,Mary,50000; 3,Johnson,Cathy,44000;  列式数据库把一列中的数据值串在一起存储起来，然后再存储下一列的数据，以此类推。
-1,2,3; Smith,Jones,Johnson; Joe,Mary,Cathy; 40000,50000,44000;  优势：
- 由于设计上的不同，列式数据库在并行查询处理和压缩上更有优势。 而且数据是以列为单元存储，完全不用考虑数据建模或者说建模更简单了。要查询计算哪些列上的数据，直接读取列就行了。 不像行式数据库，一行上有多列，尽管我们只需要分析某些列的数据，也要读取表上的全部数据。比如说这句 sql：&amp;rdquo;select a, b from table limit 100&amp;rdquo;， 列式数据库只需要读取 a，b 这两列前 100 行到内存中，而行式数据库则需要将前 100 行数据都读入内存中。显而易见，列式数据库的 IO 更高效。  应用:</description>
+   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).</description>
     </item>
     
     <item>
@@ -48,10 +36,7 @@ bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.<
       <pubDate>Sun, 01 Sep 2019 19:52:00 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/</guid>
-      <description>主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！
- 在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。 事务用来管理 insert,update,delete 语句  缩写常用：ACID
- Atomicity 原子性:  整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。 事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。  Consistency 一致性：  类似线程安全：并行，并发执行结果和顺序执行一致  Isolation 隔离性：  不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。 事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。  Duration 持久性：  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。   视图 view 视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。
-作用： 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。</description>
+      <description>主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</description>
     </item>
     
     <item>
@@ -60,12 +45,7 @@ bson.M{&amp;quot;$push&amp;quot;: bson.M{&amp;quot;tasks&amp;quot;: ret}} bson.<
       <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
       
       <guid>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</guid>
-      <description> 概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：
- 时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。  其他特性：
- 无结构：schemaless(无结构)，可以是任意数量的列； 度量方便：min, max, sum, count, mean, median 一系列函数，方便统计； 支持 http：Native HTTP API, 内置 http 支持，使用 http 读写； 查询语法简单：Powerful Query Language 类似 sql； 管理方便：Built-in Explorer 自带管理工具。  概念 数据库相关名词
- database：数据库； measurement：数据库中的表； points：表里面的一行数据。  特有名词：
-Point 由时间戳（time）、数据（field）和标签（tags）组成。
- time：每条数据记录的时间，也是数据库自动生成的主索引； fields：各种记录的值； tags：各种有索引的属性。  </description>
+      <description>概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：</description>
     </item>
     
   </channel>
