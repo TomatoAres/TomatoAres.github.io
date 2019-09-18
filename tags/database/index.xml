@@ -13,10 +13,10 @@
     
     <item>
       <title>MongoDB 简介</title>
-      <link>https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/</link>
+      <link>https://TomatoAres.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Wed, 11 Sep 2019 18:03:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/</guid>
+      <guid>https://TomatoAres.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</guid>
       <description>MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：</description>
     </item>
     

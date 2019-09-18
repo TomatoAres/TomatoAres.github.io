@@ -155,8 +155,14 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/</loc>
+    <loc>https://TomatoAres.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2019-09-11T18:03:09+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/database/</loc>
+    <lastmod>2019-09-11T18:03:09+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
