@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>云计算 on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/</link>
+    <description>Recent content in 云计算 on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 16 Sep 2019 23:32:37 +0800</lastBuildDate>
+    
+	<atom:link href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker machine 介绍</title>
+      <link>https://TomatoAres.github.io/posts/cloud/dockerMachine/</link>
+      <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/cloud/dockerMachine/</guid>
+      <description>已经淘汰了！ 现在不怎么用了
+是什么 Machine 是一款 Docker 工具，可以非常轻松地在您的计算机，云提供商和您自己的数据中心内创建 Docker 主机。它创建服务器，在它们上安装 Docker，然后配置 Docker 客户端与它们通信。</description>
+    </item>
+    
+    <item>
+      <title>容器和镜像</title>
+      <link>https://TomatoAres.github.io/posts/cloud/image-container/</link>
+      <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/cloud/image-container/</guid>
+      <description>什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
+镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。</description>
+    </item>
+    
+    <item>
+      <title>公有云、私有云、混合云的比较</title>
+      <link>https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Mon, 16 Sep 2019 22:34:28 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。
+公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的资源支付电用。此外，由于组织可以访问服务提供商的云计算基础设施，因此他们无需担心自己安装和维护的问题。
+公共云的一个缺点与安全有关。公共云通常不能满足许多安全法规遵从性要求，因为不同的服务器驻留在多个国家，并具有各种安全法规。而且，网络问题可能发生在在线流量峰值期间。虽然公共云模型通过提供按需付费的定价方式通常具有成本效益，但在移动大量数据时，其费用会迅速增加。
+私有云 私有云是一个企业唯一拥有基础设施资源的渠道。客户可以选择让私有云位于现场数据中心或由第三方服务提供商托管。
+与公共云模型相比，私有云模型的好处是它提供了更高的安全性，因为单个公司是唯一可以访问它的指定实体。这也使组织更容易定制其资源以满足特定的 IT 要求。</description>
+    </item>
+    
+    <item>
+      <title>Docker 简介</title>
+      <link>https://TomatoAres.github.io/posts/cloud/docker/</link>
+      <pubDate>Mon, 16 Sep 2019 22:32:14 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/cloud/docker/</guid>
+      <description>docker 是什么  应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————*容器*：  标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离   基本架构：C/S  Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请求， 比如创建运行容器等 Client: 主要是 Cli 命令行，客户端为用户提供一系列指令与 Docker daemon 交互 通过 restful api 进行通信   有人命名为：洋葱模型  远程还有个 Registry 存储仓库，类似 github 一样，有公共的 dockerhub，也可以自己搭私有的仓库  技术组件  LXC： Linux 容器技术，共享内核，容器共享宿主机资源，使用 namespace 和 cgroups 对资源限制与隔离。 Cgroups（control groups）： Linux 内核提供的一种限制单进程或者多进程资源的机制；比如 CPU、内存等资源的使用限制。 NameSpace：命名空间，也称名字空间， Linux 内核提供的一种限制单进程或者多进程资源隔离机制；一个进程可以属于多个命名空间。 Linux 内核提供了六种 NameSpace：  UTS：文件 IPC：通信 PID：进程 Network：网络 Mount： User：用户  UFS（UnionFS）：联合文件系统，支持将不同位置的目录挂载到同一虚拟文件系统，形成一种分层的模型；成员目录称为虚拟文件系统的一个分支（branch） AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种，每个 branch 可以指定 readonly（只读）readwrite（读写）和 whiteout-able（wo 隐藏）权限；一般情况下， aufs 只有最上层的 branch 才有读写权限，其他 branch 均为只读权限。  和虚拟机对比 同样是虚拟化技术，它和虚拟机的区别：</description>
+    </item>
+    
+  </channel>
+</rss>

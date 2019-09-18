@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>容器和镜像 | 西红柿的博客</title>
+    <meta property="og:title" content="容器和镜像 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-16T23:32:37&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-16T23:32:37&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="容器和镜像">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/cloud/image-container/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">容器和镜像</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月16日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="什么是镜像">什么是镜像？</h2>
+
+<p>简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。</p>
+
+<h2 id="镜像工作原理">镜像工作原理？</h2>
+
+<p>当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 <em>/var/lib/docker/aufs/mnt/</em> 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。</p>
+
+<h2 id="镜像文件存储结构">镜像文件存储结构？</h2>
+
+<p>docker 相关文件存放在： <em>/var/lib/docker</em> 目录下</p>
+
+<p>/var/lib/docker/aufs/diff # 每层与其父层之间的文件差异
+/var/lib/docker/aufs/layers/ # 每层一个文件，记录其父层一直到根层之间的 ID，大部分文件的最后一行都已，表示继承来自同一层
+/var/lib/docker/aufs/mnt # 联合挂载点，从只读层复制到最上层可读写层的文件系统数据</p>
+
+<p>在建立镜像时，每次写操作，都被视作一种增量操作，即在原有的数据层上添加一个新层；所以一个镜像会有若干个层组成。</p>
+
+<p>每次 commit 提交就会对产生一个 ID，就相当于在上一层有加了一层，可以通过这个 ID 对镜像回滚</p>
+
+<h2 id="容器">容器</h2>
+
+<p>镜像运行起来的存在
+多了一个读写层
+隔离运行
+TODO 有空再完善</p>
+
+<h2 id="比较">比较</h2>
+
+<p>完美的解答：<a href="https://www.open-open.com/lib/view/open1446695630904.html">10 张图带你深入理解 Docker 容器和镜像</a></p>
+
+<h2 id="常用命令">常用命令</h2>
+
+<pre><code class="language-shell">1、关闭所有容器
+docker stop `docker ps -a -q`
+docker stop $(docker ps -aq)
+2、删除所有容器
+docker rm `docker ps -a -q`
+docker rm $(docker ps -aq)
+2、删除所有镜像
+docker rmi `docker images -q`
+3、按条件删除镜像
+　　没有打标签
+docker rmi `docker images -q | awk '/^&lt;none&gt;/ { print $3 }'`
+docker rmi $(docker images | grep none|awk '{print $3}')
+　　镜像名包含关键字
+docker rmi --force `docker images | grep doss-api | awk '{print $3}'`    //其中doss-api为关键字
+4. 查看镜像历史
+docker history 【image】
+5.编译
+docker build -t [image_name] .
+7. 探索内部
+docker inspect 【container】
+8. 导出
+save
+9 导入
+load
+10.运行
+run -it -p --name
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://www.open-open.com/lib/view/open1446695630904.html">10 张图带你深入理解 Docker 容器和镜像</a></p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/cloud/image-container/">https://TomatoAres.github.io/posts/cloud/image-container/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/cloud/dockerMachine/">Docker machine 介绍</a></li>
+        
+        <li><a href="/posts/cloud/docker/">Docker 简介</a></li>
+        
+        <li><a href="/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/">公有云、私有云、混合云的比较</a></li>
+        
+        <li><a href="/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">Rpc 标准库的几种实现方式</a></li>
+        
+        <li><a href="/posts/Go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Go xml json 小结</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4">运维</a></li>
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></li>
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a></li>
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/docker">docker</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介">Docker 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/Go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Go xml json 小结">Go xml json 小结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/GO-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/" title="MongoDB 简介">MongoDB 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="Go 时区设置">Go 时区设置</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title" style="color:red">福利派送</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
+                
+                    领取￥1888阿里云产品通用代金券
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="https://promotion.aliyun.com/ntms/act/vmpt/aliyun-group/home.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
+                
+                    <img src="https://img.alicdn.com/tfs/TB17qJhXpzqK1RjSZFvXXcB7VXa-200-126.jpg">
+                
+            </a>
+        </li>
+        
+        <li>
+            <a href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
+                
+                    <img src="https://img.alicdn.com/tfs/TB1aDXhXpzqK1RjSZFvXXcB7VXa-259-194.jpg">
+                
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/web/">web(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(3)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/About/">About</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">TomatoAres github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">golang 中文网</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
