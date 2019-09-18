@@ -6,10 +6,20 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 20:17:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Sep 2019 21:31:09 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go Struct Tag 是怎么玩的</title>
+      <link>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
+    </item>
     
     <item>
       <title>Defer 总结</title>
@@ -20,6 +30,16 @@
       <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
 面试题 下面代码输出什么？
 package main import &amp;quot;fmt&amp;quot; func calc(index string, a, b int) int { ret := a + b fmt.</description>
+    </item>
+    
+    <item>
+      <title>Go xml json 小结</title>
+      <link>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
+      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
+解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;rdquo;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：</description>
     </item>
     
   </channel>

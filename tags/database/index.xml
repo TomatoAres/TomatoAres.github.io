@@ -22,10 +22,10 @@
     
     <item>
       <title>行数据库 vs 列数据库</title>
-      <link>https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <link>https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
       <pubDate>Tue, 03 Sep 2019 14:29:20 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description>是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
    EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).</description>
     </item>

@@ -6,10 +6,20 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 20:17:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Sep 2019 21:31:09 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go Struct Tag 是怎么玩的</title>
+      <link>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
+    </item>
     
     <item>
       <title>Defer 总结</title>
@@ -24,49 +34,39 @@ package main import &amp;quot;fmt&amp;quot; func calc(index string, a, b int) in
     
     <item>
       <title>Go xml json 小结</title>
-      <link>https://TomatoAres.github.io/posts/Go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</link>
+      <link>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
       <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/Go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
       <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
 解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;rdquo;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：</description>
     </item>
     
     <item>
-      <title>Go Struct Tag 是怎么玩的</title>
-      <link>https://TomatoAres.github.io/posts/GO-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
-      <pubDate>Wed, 11 Sep 2019 19:31:18 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/GO-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
-      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
-    </item>
-    
-    <item>
       <title>Go 时区设置</title>
-      <link>https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <link>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
       <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
       <description>获取 time 对象 设置时区 按设置的时区输出
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func main() { now := time.</description>
     </item>
     
     <item>
       <title>Go 中 Byte Rune</title>
-      <link>https://TomatoAres.github.io/posts/byte-rune/</link>
+      <link>https://TomatoAres.github.io/posts/go/byte-rune/</link>
       <pubDate>Mon, 02 Sep 2019 23:03:44 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/byte-rune/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/byte-rune/</guid>
       <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</description>
     </item>
     
     <item>
       <title>Go 逃逸分析</title>
-      <link>https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <link>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
       <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
       <description>参考：Go 逃逸分析
 堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
  堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，</description>
@@ -88,10 +88,10 @@ package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func ma
     
     <item>
       <title>Go GC </title>
-      <link>https://TomatoAres.github.io/posts/GC-Go/</link>
+      <link>https://TomatoAres.github.io/posts/go/GC-Go/</link>
       <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/GC-Go/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/GC-Go/</guid>
       <description>参考：GO GC 垃圾回收机制
 Go 作为一门高级语言，具有 自动垃圾回收 的功能。
 常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.</description>
@@ -99,10 +99,10 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>GMP</title>
-      <link>https://TomatoAres.github.io/posts/GMP/</link>
+      <link>https://TomatoAres.github.io/posts/go/GMP/</link>
       <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/GMP/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/GMP/</guid>
       <description></description>
     </item>
     
@@ -117,10 +117,10 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>go test 工具的简单介绍和使用</title>
-      <link>https://TomatoAres.github.io/posts/go-test/</link>
+      <link>https://TomatoAres.github.io/posts/go/go-test/</link>
       <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/go-test/</guid>
       <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
 在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：</description>
     </item>

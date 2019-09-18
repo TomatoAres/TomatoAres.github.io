@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go GC  | 西红柿的博客</title>
+    <meta property="og:title" content="Go GC  - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-02T19:39:18&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-02T19:39:18&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="Go GC ">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/GC-Go/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Go GC </h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月2日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<p>参考：<a href="https://segmentfault.com/a/1190000018161588">GO GC 垃圾回收机制</a></p>
+
+<p>Go 作为一门高级语言，具有 自动垃圾回收 的功能。</p>
+
+<h2 id="常见垃圾回收机制">常见垃圾回收机制</h2>
+
+<h3 id="1-引用计数-引用计数通过在对象上增加自己被引用的次数-被其他对象引用时加-1-引用自己的对象被回收时减-1-引用数为-0-的对象即为可以被回收的对象">1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象</h3>
+
+<p>优点：
+    1. 方式简单，回收速度快。</p>
+
+<p>缺点：
+    1. 需要额外的空间存放计数。
+    2.无法处理循环引用（如 a.b=b;b.a=a 这种情况）。
+    3.频繁更新引用计数降低了性能。</p>
+
+<h3 id="2-标记-清除-mark-and-sweep-对引用对象进行标记-清除未引用对象-需要两次扫描">2. 标记-清除（mark and sweep）：对引用对象进行标记，清除未引用对象（需要两次扫描）</h3>
+
+<p>步骤：</p>
+
+<ol>
+<li>标记从根变量开始迭代得遍历所有被引用的对象，对能够通过应用遍历访问到的对象都进行标记为“被引用”；</li>
+<li>标记完成后进行清除操作，对没有标记过——即没有引用过的内存进行回收（回收同时可能伴有碎片整理操作）。</li>
+</ol>
+
+<p>优点：
+    解决了引用计数的缺点 1 节约了内存，2 解决了循环引用的问题</p>
+
+<p>缺点：
+    每次启动垃圾回收都会暂停当前所有的正常代码执行，回收是系统响应能力大大降低！</p>
+
+<p>优化方式：
+mark&amp;sweep 算法的变种（如三色标记法）</p>
+
+<h3 id="3-复制收集-新空间复制引用的对象-清除旧空间">3. 复制收集：新空间复制引用的对象，清除旧空间</h3>
+
+<p>过程：
+准备一个「新的空间」，从根开始，对对象进行扫，如果存在对这个对象的引用，就把它复制到「新空间中」。一次扫描结束之后，所有存在于「新空间」的对象就是所有的非垃圾对象。</p>
+
+<p>优点：
+只需要对对象进行一次扫描。</p>
+
+<h3 id="4-分代收集-generation-根据存活时间-分代-新生代和老年代">4. 分代收集（generation）：根据存活时间 分代——新生代和老年代</h3>
+
+<p>默认 大部分对象的声明周期很短——新生代为主，小回收垃圾少</p>
+
+<p>关键过程：</p>
+
+<ol>
+<li>新创建的对象存放在称为 新生代（young generation）中 ——一般来说，新生代的大小会比 老年代小很多。</li>
+<li>高频对新生成的对象进行回收，称为「小回收」，低频对所有对象回收，称为「大回收」。</li>
+<li>每一次「小回收」过后，就把存活下来的对象归为老年代，「小回收」的时候，遇到老年代直接跳过。大多数分代回收算法都采用的「复制收集」方法，因为小回收中垃圾的比例较大。</li>
+</ol>
+
+<p>新问题： <strong>老年代对新生代引用，还能进行小回收吗？</strong></p>
+
+<p>解决：这里用到了一中叫做<strong>写屏障</strong>的方式。</p>
+
+<ol>
+<li>程序对所有涉及修改对象内容的地方进行保护，被称为「写屏障」（Write Barrier）。写屏障不仅用于分代收集，也用于其他 GC 算法中。</li>
+<li>在此算法的表现是
+
+<ol>
+<li>用一个记录集来记录从新生代到老生代的引用。</li>
+<li>如果有两个对象 A （老生代） 和 B（新生代），当对 A 的对象内容进行修改并加入 B 的引用时。则将这个引用加入到记录集中。</li>
+<li>「小回收」的时候，因为记录集中有对 B 的引用，所以 B 不再是垃圾</li>
+</ol></li>
+</ol>
+
+<h3 id="三色标记算法">三色标记算法</h3>
+
+<p>三色标记算法是对标记阶段的改进——标记了两次（灰色，黑色），原理如下：</p>
+
+<ol>
+<li>起初所有对象都是白色。——new 的所有对象</li>
+<li>从根出发扫描所有可达对象，标记为灰色，放入待处理队列。——不可达的说明不需要了</li>
+<li>从队列取出灰色对象，将其引用对象标记为灰色放入队列，自身标记为黑色。</li>
+<li>重复 3，直到灰色对象队列为空。此时白色对象即为垃圾，进行回收。</li>
+</ol>
+
+<p><img src="/image/gc/3_color_mark_sweep.gif" alt="图解 三色标记清除" /></p>
+
+<h2 id="go-gc-的发展">Go GC 的发展</h2>
+
+<p>go 语言垃圾回收总体采用的是经典的 mark and sweep 算法。</p>
+
+<ul>
+<li><p>v1.3 以前版本 STW（Stop The World）</p>
+
+<p>golang 的垃圾回收算法都非常简陋，然后其性能也广被诟病:go runtime 在一定条件下（内存超过阈值或定期如 2min），暂停所有任务的执行，进行 mark&amp;sweep 操作，操作完成后启动所有任务的执行。</p>
+
+<p>在内存使用较多的场景下，go 程序在进行垃圾回收时会发生非常明显的卡顿现象（Stop The World）。在对响应速度要求较高的后台服务进程中，这种延迟简直是不能忍受的！</p>
+
+<p>这个时期国内外很多在生产环境实践 go 语言的团队都或多或少踩过 gc 的坑。当时解决这个问题比较常用的方法是尽快控制自动分配内存的内存数量以减少 gc 负荷，同时采用手动管理内存的方法处理需要大量及高频分配内存的场景。</p></li>
+
+<li><p>v1.3 Mark STW, Sweep <strong>并行</strong></p>
+
+<p>1.3 版本中，go runtime 分离了 mark 和 sweep —— 解耦？</p>
+
+<p>操作和以前一样，也是先暂停所有任务执行并启动 mark,mark 完成后马上就重新启动被暂停的任务了，而是让 sweep 任务和普通协程任务一样并行的和其他任务一起执行。
+如果运行在多核处理器上，go 会试图将 gc 任务放到单独的核心上运行而尽量不影响业务代码的执行。go team 自己的说法是减少了 50%-70% 的暂停时间。</p></li>
+
+<li><p>v1.5 三色标记法</p>
+
+<p>go 1.5 正在实现的垃圾回收器是 <strong>“非分代的、非移动的、并发的、三色的标记清除垃圾收集器”</strong>。</p>
+
+<p>引入了上文介绍的三色标记法，这种方法的 mark 操作是可以渐进执行的而不需每次都扫描整个内存空间，可以减少 stop the world 的时间。</p>
+
+<p>由此可以看到，一路走来直到 1.5 版本，go 的垃圾回收性能也是一直在提升，但是相对成熟的垃圾回收系统（如 java jvm 和 javascript v8），go 需要优化的路径还很长（但是相信未来一定是美好的~）。</p></li>
+
+<li><p>v1.8 混合写屏障（hybrid write barrier）</p>
+
+<p>这个版本的 GC 代码相比之前改动还是挺大的，采用一种混合的 write barrier 方式 （Yuasa-style deletion write barrier [Yuasa ‘90] 和 Dijkstra-style insertion write barrier [Dijkstra ‘78]）来避免 堆栈重新扫描。</p>
+
+<p>混合屏障的优势</p>
+
+<ol>
+<li>它允许堆栈扫描永久地使堆栈变黑（没有 STW 并且没有写入堆栈的障碍），这完全消除了堆栈重新扫描的需要，从而消除了对堆栈屏障的需求。</li>
+<li>重新扫描列表。特别是堆栈障碍在整个运行时引入了显着的复杂性，并且干扰了来自外部工具（如 GDB 和基于内核的分析器）的堆栈遍历。</li>
+</ol>
+
+<p>此外，与 Dijkstra 风格的写屏障一样，混合屏障不需要读屏障，因此指针读取是常规的内存读取; 它确保了进步，因为物体单调地从白色到灰色再到黑色。</p>
+
+<p>混合屏障的缺点很小。它可能会导致更多的浮动垃圾，因为它会在标记阶段的任何时刻保留从根（堆栈除外）可到达的所有内容。然而，在实践中，当前的 Dijkstra 障碍可能几乎保留不变。混合屏障还禁止某些优化：
+特别是，如果 Go 编译器可以静态地显示指针是 nil，则 Go 编译器当前省略写屏障，但是在这种情况下混合屏障需要写屏障。这可能会略微增加二进制大小。</p></li>
+</ul>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/GC-Go/">https://TomatoAres.github.io/posts/go/GC-Go/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/go/GMP/">GMP</a></li>
+        
+        <li><a href="/posts/websocket%E6%80%BB%E7%BB%93/">Websocket 总结</a></li>
+        
+        <li><a href="/posts/go/go-test/">go test 工具的简单介绍和使用</a></li>
+        
+        <li><a href="/posts/channel/">channel 总结</a></li>
+        
+        <li><a href="/posts/echo/">Echo 的简单使用</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结">k8s 概念总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/" title="Dockerfile 总结">Dockerfile 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介">Docker 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/" title="Go xml json 小结">Go xml json 小结</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/web/">web(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/About/">About</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

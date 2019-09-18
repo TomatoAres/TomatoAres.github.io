@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Docker简介 | 西红柿的博客</title>
-    <meta property="og:title" content="Docker简介 - 西红柿的博客">
+    <title>Docker 简介 | 西红柿的博客</title>
+    <meta property="og:title" content="Docker 简介 - 西红柿的博客">
     <meta property="og:type" content="article">
         
     <meta property="article:published_time" content="2019-08-22T11:18:04&#43;08:00">
@@ -17,7 +17,7 @@
     <meta property="article:modified_time" content="2019-08-22T11:18:04&#43;08:00">
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="Docker简介">
+    <meta name="description" content="Docker 简介">
         
     <meta name="author" content="TomatoAres">
     <meta property="og:url" content="https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/">
@@ -55,7 +55,7 @@
                     
                     <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/about/" title="关于">关于</a>
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -74,11 +74,18 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Docker简介</h1>
+                            <h1 class="post-title">Docker 简介</h1>
                         </header>
                         <date class="post-meta meta-date">
                             2019年8月22日
                         </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
+                            
+                        </div>
                         
                         
                         <div class="post-meta">
@@ -94,8 +101,8 @@
 <ol>
 <li>容器引擎——核心</li>
 <li>开源</li>
-<li>go编写</li>
-<li>基于LXC(Linux Container)内核虚拟化实现</li>
+<li>go 编写</li>
+<li>基于 LXC(Linux Container) 内核虚拟化实现</li>
 </ol>
 
 <h2 id="能干什么">能干什么？</h2>
@@ -110,7 +117,7 @@
 <li>提高开发效率</li>
 </ol></li>
 <li>版本控制</li>
-<li>可移植性 —— 可以移动到任意一台Docker主机上</li>
+<li>可移植性 —— 可以移动到任意一台 Docker 主机上</li>
 <li>标准性—— 容器保证所有配置依赖不变</li>
 <li>隔离性与安全</li>
 </ol>
@@ -122,7 +129,7 @@
 <li>性能高
 
 <ol>
-<li>共享主机内核， 没有Hypervisor 层开销<br /></li>
+<li>共享主机内核， 没有 Hypervisor 层开销</li>
 <li>系统级虚拟化，</li>
 <li>占用资源少</li>
 </ol></li>
@@ -130,21 +137,21 @@
 
 <ol>
 <li>配置简单——标准化</li>
-<li>要求低，不需要CPU虚拟化技术支持</li>
+<li>要求低，不需要 CPU 虚拟化技术支持</li>
 </ol></li>
 </ol>
 
 <h2 id="虚拟机也有优势">虚拟机也有优势</h2>
 
 <ol>
-<li>安全性好——docker只是进程级别的隔离，虚拟机是物理层面的隔离</li>
+<li>安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离</li>
 <li>有自己完整的操作系统</li>
 </ol>
 
 <h2 id="涉及到的技术">涉及到的技术</h2>
 
 <ol>
-<li>LXC: Linux容器技术，共享内核</li>
+<li>LXC: Linux 容器技术，共享内核</li>
 <li>Cgroups ：control groups
 
 <ol>
@@ -160,12 +167,12 @@
 <li>Mount——每个容器能看到不同的文件系统层次结构</li>
 <li>User 每个 container 可以有不同的 user 和 group id</li>
 </ol></li>
-<li>AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是UFS的一种</li>
+<li>AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种</li>
 </ol>
 
 <h2 id="docker-engine">docker engine</h2>
 
-<p>关键词：洋葱模型，cs架构</p>
+<p>关键词：洋葱模型，cs 架构</p>
 
 <p>三层洋葱模型：</p>
 
@@ -240,7 +247,11 @@
 
                         <div class="post-meta meta-tags">
                             
-                            没有标签
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/docker">docker</a></li>
+                                
+                            </ul>
                             
                         </div>
                     </article>
@@ -276,11 +287,23 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结">k8s 概念总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/" title="Dockerfile 总结">Dockerfile 总结</a>
     </li>
     
     <li>
@@ -300,67 +323,28 @@
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/Go-%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Go xml json 小结">Go xml json 小结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/GO-struct-tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/MongoDB-%E7%AE%80%E4%BB%8B/" title="MongoDB 简介">MongoDB 简介</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="Go 时区设置">Go 时区设置</a>
+        <a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/" title="Go xml json 小结">Go xml json 小结</a>
     </li>
     
 </ul>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title" style="color:red">福利派送</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
-                
-                    领取￥1888阿里云产品通用代金券
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="https://promotion.aliyun.com/ntms/act/vmpt/aliyun-group/home.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
-                
-                    <img src="https://img.alicdn.com/tfs/TB17qJhXpzqK1RjSZFvXXcB7VXa-200-126.jpg">
-                
-            </a>
-        </li>
-        
-        <li>
-            <a href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=jdg9oj97" title="领取￥1888阿里云产品通用代金券" target="_blank" style="color:red">
-                
-                    <img src="https://img.alicdn.com/tfs/TB1aDXhXpzqK1RjSZFvXXcB7VXa-259-194.jpg">
-                
-            </a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(3)</a>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(1)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
     </li>
     
     <li>
@@ -368,15 +352,15 @@
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(3)</a>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(3)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(3)</a>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
     </li>
     
 </ul>
@@ -399,6 +383,8 @@
     <a href="https://TomatoAres.github.io/tags/go/">go</a>
     
     <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
     
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
@@ -427,11 +413,11 @@
     <ul class="widget-list">
         
         <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">TomatoAres github</a>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
         </li>
         
         <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">golang 中文网</a>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
         </li>
         
     </ul>

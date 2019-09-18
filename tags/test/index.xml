@@ -13,20 +13,20 @@
     
     <item>
       <title>go test 工具的简单介绍和使用</title>
-      <link>https://TomatoAres.github.io/posts/go-test/</link>
+      <link>https://TomatoAres.github.io/posts/go/go-test/</link>
       <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go-test/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/go-test/</guid>
       <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
 在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：</description>
     </item>
     
     <item>
       <title>性能测试中 allocs/op 和 B/op 的含义</title>
-      <link>https://TomatoAres.github.io/posts/benchmark/</link>
+      <link>https://TomatoAres.github.io/posts/go/benchmark/</link>
       <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/benchmark/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/benchmark/</guid>
       <description> allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
     </item>
     
