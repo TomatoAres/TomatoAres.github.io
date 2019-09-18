@@ -4,43 +4,72 @@
   
   <url>
     <loc>https://TomatoAres.github.io/categories/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/GCTT/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/GCTT/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/go/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/go/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/microservice/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/tags/microservice/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/</loc>
+    <lastmod>2019-09-18T21:49:04+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</loc>
     <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/categories/go/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/tags/go/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/</loc>
-    <lastmod>2019-09-18T21:31:09+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -386,23 +415,7 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/microservice/</loc>
-    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices-copy/</loc>
-    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/why-go-is-good-language-for-microservices/</loc>
-    <lastmod>2019-08-14T23:10:09+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/microservices-in-go/</loc>
+    <loc>https://TomatoAres.github.io/posts/translated/microservices-in-go/</loc>
     <lastmod>2019-08-14T23:04:12+08:00</lastmod>
   </url>
   

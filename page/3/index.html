@@ -68,6 +68,24 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" title="Go 逃逸分析" >Go 逃逸分析</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月2日
+                            </date>
+                            
+                            <div class="post-content">
+                                参考：Go 逃逸分析
+堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
+ 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/heap-stack/" title=" Go 堆栈的理解" > Go 堆栈的理解</a>
                                 </h1>
                             </header>
@@ -220,23 +238,6 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/go-test/" title="go test 工具的简单介绍和使用" >go test 工具的简单介绍和使用</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月29日
-                            </date>
-                            
-                            <div class="post-content">
-                                简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
-在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/go-test/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -297,6 +298,10 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/" title="为什么 Go 适合微服务">为什么 Go 适合微服务</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
     </li>
     
@@ -332,10 +337,6 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
         <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/" title="Go xml json 小结">Go xml json 小结</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -346,6 +347,10 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(2)</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
     </li>
     
@@ -354,11 +359,15 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(3)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(5)</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
     </li>
     
     <li>
@@ -385,6 +394,8 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
 <div class="tagcloud">
     
     <a href="https://TomatoAres.github.io/tags/About/">About</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
     <a href="https://TomatoAres.github.io/tags/container/">container</a>
     

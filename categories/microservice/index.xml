@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>microservice on 西红柿的博客</title>
+    <link>https://TomatoAres.github.io/categories/microservice/</link>
+    <description>Recent content in microservice on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate>
+    
+	<atom:link href="https://TomatoAres.github.io/categories/microservice/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>为什么 Go 适合微服务</title>
+      <link>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</link>
+      <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</description>
+    </item>
+    
+    <item>
+      <title>Go 语言中的微服务</title>
+      <link>https://TomatoAres.github.io/posts/translated/microservices-in-go/</link>
+      <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/microservices-in-go/</guid>
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
+在这里，我要介绍以下框架：
+ Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
+    </item>
+    
+  </channel>
+</rss>

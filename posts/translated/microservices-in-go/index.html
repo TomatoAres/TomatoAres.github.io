@@ -1,0 +1,1479 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go 语言中的微服务 | 西红柿的博客</title>
+    <meta property="og:title" content="Go 语言中的微服务 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-08-14T23:04:12&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-08-14T23:04:12&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="Go 语言中的微服务">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/translated/microservices-in-go/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Go 语言中的微服务</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年8月14日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/microservice">microservice</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="摘要">摘要</h2>
+
+<p>我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。</p>
+
+<p>在这里，我要介绍以下框架：</p>
+
+<ul>
+<li><a href="https://micro.mu/">Go Micro</a></li>
+<li><a href="https://gokit.io/">Go Kit</a></li>
+<li><a href="https://github.com/NYTimes/gizmo">Gizmo</a></li>
+<li><a href="https://github.com/koding/kite">Kite</a></li>
+</ul>
+
+<h2 id="框架简介">框架简介</h2>
+
+<h3 id="go-micro">Go Micro</h3>
+
+<p>这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 <a href="https://medium.com/microhq">microhq</a> 在 Medium 或 <a href="https://twitter.com/MicroHQ">@MicroHQ</a> 获得 Go Micro 的最新更新。</p>
+
+<p>那么，什么是 Go Micro ?</p>
+
+<p>它是一个可拔插的 RPC 框架，用于在 Go 中编写微服务。开箱即用，您将看到：</p>
+
+<ul>
+<li>服务发现 - 自动向服务发现系统注册的应用程序。</li>
+<li>负载均衡 - 客户端负载均衡，用于平衡服务实例之间请求的负载。</li>
+<li>同步通信 - 提供请求/响应传输层。</li>
+<li>异步通信 - 内置发布/订阅功能。</li>
+<li>消息编码 - 基于消息的 Content-Type 请求头的编码/解码。</li>
+<li>RPC 客户端/服务器打包 - 利用上述特性并公开接口来构建微服务。</li>
+</ul>
+
+<p>Go Micro 架构可以描述为三层堆栈。</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images/master/microservices-in-go/goMicro.png" alt="图 1.Go Micro 架构" /></p>
+
+<p>顶层包括 <strong>Server-Client</strong> 模型和服务抽象。该服务器是用于编写服务的基础。而客户端提供了一个接口，用于向服务端发起请求。</p>
+
+<p>底层包含以下类型的插件：</p>
+
+<ul>
+<li>Broker - 提供一个消息代理接口，用于<strong>异步发布/订阅通信</strong>。</li>
+<li>Codec - 用于编码/解码消息。支持的格式包括 json,bson,protobuf,msgpack 等。</li>
+<li>Registry - 提供服务发现机制（默认为 Consul ）。</li>
+<li>Selector - 基于注册表构建的负载均衡抽象。
+它允许使用诸如 random,roundrobin,leastconn 等算法“选择”服务。</li>
+<li>Transport - 服务之间同步请求/响应通信的接口。</li>
+</ul>
+
+<p>Go Micro 还提供 Sidecar 等功能。这允许您使用 Go 以外的语言编写的服务。
+ Sidecar 提供服务注册，gRPC 编码/解码和 HTTP 处理程序。它有多种语言版本。</p>
+
+<h3 id="go-kit">Go Kit</h3>
+
+<p>Go Kit 是一个用于在 Go 中构建微服务的编程工具包。与 Go Micro 不同，它是一个旨在导入二进制包的库。</p>
+
+<p>Go Kit 遵循简单的规则，例如：</p>
+
+<ul>
+<li>没有全局状态</li>
+<li>声明性构造</li>
+<li>显式依赖</li>
+<li>接口作为契约</li>
+<li>领域驱动设计</li>
+</ul>
+
+<p>在 Go Kit 中，您可以找到以下包：</p>
+
+<ul>
+<li>身份验证 - basic 和 JWT。</li>
+<li>传输 - HTTP，Nats，gRPC 等。</li>
+<li>日志记录 - 服务中结构化日志记录的通用接口。</li>
+<li>软件度量 - CloudWatch,Statsd,Graphite 等。</li>
+<li>追踪 - Zipkin 和 Opentracing。</li>
+<li>服务发现 - Consul,Etcd,Eureka 等。</li>
+<li>熔断器 - Hystrix 的 Go 语言实现。</li>
+</ul>
+
+<p>您可以在 Peter Bourgon 的文章和演示幻灯片中找到 Go Kit 的最佳描述之一：</p>
+
+<ul>
+<li><a href="https://peter.bourgon.org/go-kit/?source=post_page">Go kit: Go in the modern enterprise</a></li>
+<li><a href="https://github.com/peterbourgon/go-microservices?source=post_page">Go + microservices</a></li>
+</ul>
+
+<p>此外，在“Go + microservices”幻灯片中，您将找到使用 Go Kit 构建的服务架构的示例。
+有关快速参考，请参阅服务架构图。</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images/master/microservices-in-go/Go%2Bmicroservices.png" alt="图 2. 使用 Go Kit 构建的服务架构示例 Go Micro 架构" /></p>
+
+<h3 id="gizmo">Gizmo</h3>
+
+<p>Gizmo 是纽约时报的微服务工具包。它提供了将服务器和 pubsub 守护进程组合在一起的软件包。它公开了以下包：</p>
+
+<ul>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/server">server</a> - 提供两种服务器实现：SimpleServer（通过 HTTP ），RPCServer（通过 gRPC ）。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/server/kit">server/kit</a> - 基于 Go Kit 的实验包。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/config">config</a> - 包含功能：解析 JSON 文件，Consul 键值对中的 JSON blob ，或者环境变量。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub">pubsub</a> - 提供通用接口，用于从队列中发布和使用数据。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub/pubsubtest">pubsub/pubsubtest</a> - 包含发布者和订阅者接口的测试实现。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/web">web</a> - 公开用于从请求查询和有效负载中解析类型的函数。</li>
+</ul>
+
+<p>Pubsub 包提供了使用以下队列的接口：</p>
+
+<ul>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub/aws">pubsub/aws</a> - 适用于 Amazon SNS/SQS。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub/gcp">pubsub/gcp</a> - 适用于 Google Pubsub。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub/kafka">pubsub/kafka</a> - 适用于 Kafka 主题。</li>
+<li><a href="https://godoc.org/github.com/NYTimes/gizmo/pubsub/http">pubsub/http</a> - 用于通过 HTTP 发布。</li>
+</ul>
+
+<p>因此，在我看来，Gizmo 介于 Go Micro 和 Go Kit 之间。它不像 Go Micro 那样完全的“黑盒”。与此同时，它并不像 Go Kit 那么粗糙。它提供更高级别的构建组件，例如 config 和 pubsub 包。</p>
+
+<h3 id="kite">Kite</h3>
+
+<p>Kite 是一个在 Go 中开发微服务的框架。它公开了 RPC 客户端和服务端的包。
+创建的服务会自动注册到服务发现系统 Kontrol 。Kontrol 是用 Kite 写的，它本身就是 Kite 服务。
+这意味着 Kite 微服务在自己的环境中运行良好。如果您需要将 Kite 微服务连接到另一个服务发现系统，
+则需要进行自定义。这是我从名单中删除 Kite 的主要原因，并决定不讨论这个框架。</p>
+
+<h2 id="比较框架">比较框架</h2>
+
+<p>我将使用四个类别比较框架：</p>
+
+<ul>
+<li>客观比较 - GitHub 统计</li>
+<li>文档和示例</li>
+<li>用户和社区</li>
+<li>代码质量。</li>
+</ul>
+
+<h3 id="github-统计">GitHub 统计</h3>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images/master/microservices-in-go/MicroStatics.png" alt="表 1. Go 微服务框架统计（2018 年 4 月收集）" /></p>
+
+<h3 id="文档和示例">文档和示例</h3>
+
+<p>简单来说，没有一个框架提供可靠的文档。通常，唯一的正式文档是 repo 首页上的 Readme 文件。</p>
+
+<p>对于 Go Micro，可以在 <a href="https://micro.mu/">micro.mu</a>,<a href="https://medium.com/microhq">microhq</a> 和社交媒体 <a href="https://twitter.com/MicroHQ">@MicroHQ</a> 上获得大量信息和公告。</p>
+
+<p>如果是 Go Kit，您可以在 <a href="https://peter.bourgon.org/go-kit/">Peter Bourgon</a> 的博客中找到最好的文档。我发现的一个最好的例子是在 <a href="http://www.ru-rocker.com/2017/04/17/micro-services-using-go-kit-service-discovery/">ru-rocker</a> 博客中。</p>
+
+<p>使用 Gizmo，源代码提供了最好的文档和示例。</p>
+
+<p>总而言之，如果你来自 NodeJS 世界，并希望看到类似 ExpressJS 的教程，你会感到失望。
+另一方面，这是创建自己的教程的绝佳机会。</p>
+
+<h3 id="用户和社区">用户和社区</h3>
+
+<p>Go Kit 是最受欢迎的微服务框架，基于 GitHub 统计数据 - 在本出版物发布时超过 10k 星。它拥有大量的贡献者（122）和超过 1000 个分叉。
+最后，Go Kit 由 <a href="https://www.digitalocean.com/">DigitalOcean</a> 提供支持。</p>
+
+<p>Go Micro 第二，拥有超过 3600 颗 stars ，27 个贡献者和 385 个 forks 。Six Micro 的最大赞助商之一是 <a href="https://www.sixt.com/">Sixt</a>。
+Gizmo 第三，超过 2200 颗 star, 31 个贡献者和 137 个 forks 。由纽约时报支持和创建。</p>
+
+<h3 id="代码质量">代码质量</h3>
+
+<ul>
+<li>Go Kit 在代码质量类别中排名第一。它拥有近 80％ 的代码覆盖率和出色的 <a href="https://goreportcard.com/report/github.com/go-kit/kit">Go 报告评级</a>。</li>
+<li>Gizmo 也有很好的 <a href="https://goreportcard.com/report/github.com/NYTimes/gizmo">Go 报告评级</a>。但它的代码覆盖率仅为 46％。</li>
+<li>Go Micro 不提供覆盖率信息，但它确实具有很好的 <a href="https://goreportcard.com/report/github.com/micro/go-micro">Go 报告评级</a>。</li>
+</ul>
+
+<h2 id="微服务代码实践">微服务代码实践</h2>
+
+<p>好吧，已有足够的理论。下边，为了更好地理解框架，我创建了三个简单的微服务。</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images/master/microservices-in-go/micro_practice.png" alt="图 3. 实际示例架构" /></p>
+
+<p>这些是实现一个业务功能的服务——&rdquo;Greeting&rdquo;。
+当用户将 &ldquo;name&rdquo; 参数传递给服务器时，该服务会发送 Greeting 响应。此外，所有服务均符合以下要求：</p>
+
+<ul>
+<li>服务应自行注册服务发现系统。</li>
+<li>服务应具有健康检查接口。</li>
+<li>服务应至少支持 HTTP 和 gRPC 传输。</li>
+</ul>
+
+<p>对于那些喜欢阅读源代码的人。
+您可以在此处阅读 repo 中的 <a href="https://github.com/antklim/go-microservices">源代码</a>.</p>
+
+<h3 id="go-micro-greeter">Go Micro greeter</h3>
+
+<p>使用 Go Micro 创建服务需要做的第一件事是定义 protobuf 描述。
+方便后期，所有三项服务都采用了相同的 protobuf 定义。我创建了以下服务描述：</p>
+
+<pre><code class="language-proto">syntax = &quot;proto3&quot;;
+
+package pb;
+
+service Greeter {
+  rpc Greeting(GreetingRequest) returns (GreetingResponse) {}
+}
+
+message GreetingRequest {
+  string name = 1;
+}
+
+message GreetingResponse {
+  string greeting = 2;
+}
+</code></pre>
+
+<p>接口包含一种方法—— &ldquo;Greeting&rdquo;。
+请求中有一个参数—— &lsquo;name&rsquo;，响应中有一个参数 - &lsquo;greeting&rsquo;。</p>
+
+<p>然后我使用修改后的 <a href="https://github.com/micro/protoc-gen-micro">protoc 工具</a> 通过 protobuf 文件生成服务接口。
+该生成器由 Go Micro fork 并进行了修改，以支持该框架的一些功能。
+我在 “greeting” 服务中将这些连接在一起。此时，该服务正在启动并注册服务发现系统。
+它只支持 gRPC 传输协议：</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;log&quot;
+
+    pb &quot;github.com/antklim/go-microservices/go-micro-greeter/pb&quot;
+    &quot;github.com/micro/go-micro&quot;
+    &quot;golang.org/x/net/context&quot;
+)
+
+// Greeter 实现了 greeter 服务。
+type Greeter struct{}
+
+// Greeting 方法实现。
+func (g *Greeter) Greeting(ctx context.Context, in *pb.GreetingRequest, out *pb.GreetingResponse) error {
+    out.Greeting = &quot;GO-MICRO Hello &quot; + in.Name
+    return nil
+}
+
+func main() {
+    service := micro.NewService(
+        micro.Name(&quot;go-micro-srv-greeter&quot;),
+        micro.Version(&quot;latest&quot;),
+    )
+
+    service.Init()
+
+    pb.RegisterGreeterHandler(service.Server(), new(Greeter))
+
+    if err := service.Run(); err != nil {
+        log.Fatal(err)
+    }
+}
+</code></pre>
+
+<p>为了支持 HTTP 传输，我不得不添加其他模块。它将 HTTP 请求映射到 protobuf 定义的请求。并称为 gRPC 服务。
+然后，它将服务响应映射到 HTTP 响应并将其回复给用户。</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;context&quot;
+    &quot;encoding/json&quot;
+    &quot;log&quot;
+    &quot;net/http&quot;
+
+    proto &quot;github.com/antklim/go-microservices/go-micro-greeter/pb&quot;
+    &quot;github.com/micro/go-micro/client&quot;
+    web &quot;github.com/micro/go-web&quot;
+)
+
+func main() {
+    service := web.NewService(
+        web.Name(&quot;go-micro-web-greeter&quot;),
+    )
+
+    service.HandleFunc(&quot;/greeting&quot;, func(w http.ResponseWriter, r *http.Request) {
+        if r.Method == &quot;GET&quot; {
+            var name string
+            vars := r.URL.Query()
+            names, exists := vars[&quot;name&quot;]
+            if !exists || len(names) != 1 {
+                name = &quot;&quot;
+            } else {
+                name = names[0]
+            }
+
+            cl := proto.NewGreeterClient(&quot;go-micro-srv-greeter&quot;, client.DefaultClient)
+            rsp, err := cl.Greeting(context.Background(), &amp;proto.GreetingRequest{Name: name})
+            if err != nil {
+                http.Error(w, err.Error(), 500)
+                return
+            }
+
+            js, err := json.Marshal(rsp)
+            if err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+                return
+            }
+
+            w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
+            w.Write(js)
+            return
+        }
+    })
+
+    if err := service.Init(); err != nil {
+        log.Fatal(err)
+    }
+
+    if err := service.Run(); err != nil {
+        log.Fatal(err)
+    }
+}
+</code></pre>
+
+<p>非常简单明了。 Go Micro 在幕后处理了许多事情——例如在服务发现系统中注册。
+另一方面，创建纯 HTTP 服务很困难。</p>
+
+<h3 id="go-kit-greeter">Go Kit greeter</h3>
+
+<p>完成 Go Micro 后，我转到了 Go Kit 服务实现。
+我花了很多时间阅读 Go Kit 存储库中提供的代码示例。
+理解端点的概念花了我很多时间。下一个耗时的难题是服务发现注册商的代码。直到在找到一个 <a href="http://www.ru-rocker.com/2017/04/17/micro-services-using-go-kit-service-discovery/">不错的例子</a> 后我才实现它。</p>
+
+<p>最后，我创建了四个包：</p>
+
+<ul>
+<li>服务逻辑实现。</li>
+<li>与传输无关的服务端点。</li>
+<li>传输特定端点 (gRPC,HTTP)</li>
+
+<li><p>服务发现注册商。</p>
+
+<pre><code class="language-go">package greeterservice
+
+// Service 定义 greetings 服务接口。
+type Service interface {
+Health() bool
+Greeting(name string) string
+}
+
+// GreeterService 实现 Service 接口。
+type GreeterService struct{}
+
+// Health 实现 Service 接口 Health 方法。
+func (GreeterService) Health() bool {
+return true
+}
+
+// Greeting 实现 Service 接口 Greeting 方法。
+func (GreeterService) Greeting(name string) (greeting string) {
+greeting = &quot;GO-KIT Hello &quot; + name
+return
+}
+
+</code></pre></li>
+</ul>
+
+<p>如您所见，代码没有任何依赖关系。它只是实现逻辑。下一个代码段展示了端点定义：</p>
+
+<pre><code class="language-go">package greeterendpoint
+
+import (
+    &quot;context&quot;
+
+    &quot;github.com/go-kit/kit/log&quot;
+
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greeterservice&quot;
+    &quot;github.com/go-kit/kit/endpoint&quot;
+)
+
+// Endpoints 包含了所有组成 greeter 服务的端点。
+// 它被用作一个辅助结构，将所有端点收集到一个参数中。
+type Endpoints struct {
+    HealthEndpoint   endpoint.Endpoint // used by Consul for the healthcheck
+    GreetingEndpoint endpoint.Endpoint
+}
+
+// MakeServerEndpoints 返回服务端点，绑定在提供的中间件上。
+func MakeServerEndpoints(s greeterservice.Service, logger log.Logger) Endpoints {
+    var healthEndpoint endpoint.Endpoint
+    {
+        healthEndpoint = MakeHealthEndpoint(s)
+        healthEndpoint = LoggingMiddleware(log.With(logger, &quot;method&quot;, &quot;Health&quot;))(healthEndpoint)
+    }
+
+    var greetingEndpoint endpoint.Endpoint
+    {
+        greetingEndpoint = MakeGreetingEndpoint(s)
+        greetingEndpoint = LoggingMiddleware(log.With(logger, &quot;method&quot;, &quot;Greeting&quot;))(greetingEndpoint)
+    }
+
+    return Endpoints{
+        HealthEndpoint:   healthEndpoint,
+        GreetingEndpoint: greetingEndpoint,
+    }
+}
+
+// MakeHealthEndpoint 构造封装服务的 Health 端点。
+func MakeHealthEndpoint(s greeterservice.Service) endpoint.Endpoint {
+    return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+        healthy := s.Health()
+        return HealthResponse{Healthy: healthy}, nil
+    }
+}
+
+// MakeGreetingEndpoint 构造封装服务的 Greeter 端点。
+func MakeGreetingEndpoint(s greeterservice.Service) endpoint.Endpoint {
+    return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+        req := request.(GreetingRequest)
+        greeting := s.Greeting(req.Name)
+        return GreetingResponse{Greeting: greeting}, nil
+    }
+}
+
+// Failer 是实现响应类型的接口。
+// 响应可以被检验，是否是 Failer 接口，如果是，那么就是失败的响应，
+// 而且，如果是，则根据错误使用单独的写路径对它们进行编码
+type Failer interface {
+    Failed() error
+}
+
+// HealthRequest 包含了 Health 方法的所有请求参数。
+type HealthRequest struct{}
+
+// HealthResponse 包含了 Health 方法的响应值。
+type HealthResponse struct {
+    Healthy bool  `json:&quot;healthy,omitempty&quot;`
+    Err     error `json:&quot;err,omitempty&quot;`
+}
+
+// Failed 实现 Failer 接口。
+func (r HealthResponse) Failed() error { return r.Err }
+
+// GreetingRequest 包含了 Greeting 方法的所有请求参数。
+type GreetingRequest struct {
+    Name string `json:&quot;name,omitempty&quot;`
+}
+
+// GreetingResponse 包含了 Greeting 方法的响应值
+type GreetingResponse struct {
+    Greeting string `json:&quot;greeting,omitempty&quot;`
+    Err      error  `json:&quot;err,omitempty&quot;`
+}
+
+// Failed 实现 Failer 接口。
+func (r GreetingResponse) Failed() error { return r.Err }
+</code></pre>
+
+<p>在定义了服务和端点之后，我开始通过不同的传输协议公开端点。我从 HTTP 传输开始：</p>
+
+<pre><code class="language-go">package greetertransport
+
+import (
+    &quot;context&quot;
+    &quot;encoding/json&quot;
+    &quot;errors&quot;
+    &quot;net/http&quot;
+
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greeterendpoint&quot;
+    &quot;github.com/go-kit/kit/log&quot;
+    httptransport &quot;github.com/go-kit/kit/transport/http&quot;
+    &quot;github.com/gorilla/mux&quot;
+)
+
+var (
+    // ErrBadRouting 无效路径错误。
+    ErrBadRouting = errors.New(&quot;inconsistent mapping between route and handler&quot;)
+)
+
+// NewHTTPHandler 返回一个 HTTP 处理程序（handler），该处理程序使一组端点在预定义的路径上可用。
+func NewHTTPHandler(endpoints greeterendpoint.Endpoints, logger log.Logger) http.Handler {
+    m := mux.NewRouter()
+    options := []httptransport.ServerOption{
+        httptransport.ServerErrorEncoder(encodeError),
+        httptransport.ServerErrorLogger(logger),
+    }
+
+    // GET /health         查找服务健康信息
+    // GET /greeting?name  查找 greeting
+
+    m.Methods(&quot;GET&quot;).Path(&quot;/health&quot;).Handler(httptransport.NewServer(
+        endpoints.HealthEndpoint,
+        DecodeHTTPHealthRequest,
+        EncodeHTTPGenericResponse,
+        options...,
+    ))
+    m.Methods(&quot;GET&quot;).Path(&quot;/greeting&quot;).Handler(httptransport.NewServer(
+        endpoints.GreetingEndpoint,
+        DecodeHTTPGreetingRequest,
+        EncodeHTTPGenericResponse,
+        options...,
+    ))
+    return m
+}
+
+// DecodeHTTPHealthRequest 方法。
+func DecodeHTTPHealthRequest(_ context.Context, _ *http.Request) (interface{}, error) {
+    return greeterendpoint.HealthRequest{}, nil
+}
+
+// DecodeHTTPGreetingRequest 方法。
+func DecodeHTTPGreetingRequest(_ context.Context, r *http.Request) (interface{}, error) {
+    vars := r.URL.Query()
+    names, exists := vars[&quot;name&quot;]
+    if !exists || len(names) != 1 {
+        return nil, ErrBadRouting
+    }
+    req := greeterendpoint.GreetingRequest{Name: names[0]}
+    return req, nil
+}
+
+func encodeError(_ context.Context, err error, w http.ResponseWriter) {
+    w.WriteHeader(err2code(err))
+    json.NewEncoder(w).Encode(errorWrapper{Error: err.Error()})
+}
+
+func err2code(err error) int {
+    switch err {
+    default:
+        return http.StatusInternalServerError
+    }
+}
+
+type errorWrapper struct {
+    Error string `json:&quot;error&quot;`
+}
+
+// EncodeHTTPGenericResponse is a transport/http.
+// EncodeResponseFunc 返回 json 响应。
+func EncodeHTTPGenericResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+    if f, ok := response.(greeterendpoint.Failer); ok &amp;&amp; f.Failed() != nil {
+        encodeError(ctx, f.Failed(), w)
+        return nil
+    }
+    w.Header().Set(&quot;Content-Type&quot;, &quot;application/json; charset=utf-8&quot;)
+    return json.NewEncoder(w).Encode(response)
+}
+</code></pre>
+
+<p>在我开始 gRPC 端点实现之前，我不需要重新定义需要 protobuf.
+我复制了 Go Micro 服务 protobuf 文件。但就 Go Kit 而言，我使用默认服务生成器来创建服务接口。</p>
+
+<p>protobuf 定义的服务接口生成器</p>
+
+<pre><code class="language-shell">#!/usr/bin/env sh
+
+protoc greeter.proto --go_out=plugins=grpc:.
+</code></pre>
+
+<p>Go Kit 服务 gRPC 端点</p>
+
+<pre><code class="language-go">package greetertransport
+
+import (
+    &quot;context&quot;
+
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pb&quot;
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greeterendpoint&quot;
+    &quot;github.com/go-kit/kit/log&quot;
+    grpctransport &quot;github.com/go-kit/kit/transport/grpc&quot;
+    oldcontext &quot;golang.org/x/net/context&quot;
+)
+
+type grpcServer struct {
+    greeter grpctransport.Handler
+}
+
+// NewGRPCServer 构建了 gRPC 可用的端点。
+func NewGRPCServer(endpoints greeterendpoint.Endpoints, logger log.Logger) pb.GreeterServer {
+    options := []grpctransport.ServerOption{
+        grpctransport.ServerErrorLogger(logger),
+    }
+
+    return &amp;grpcServer{
+        greeter: grpctransport.NewServer(
+            endpoints.GreetingEndpoint,
+            decodeGRPCGreetingRequest,
+            encodeGRPCGreetingResponse,
+            options...,
+        ),
+    }
+}
+
+// Greeting 实现 GreeterService 接口 Greeting 方法。
+func (s *grpcServer) Greeting(ctx oldcontext.Context, req *pb.GreetingRequest) (*pb.GreetingResponse, error) {
+    _, res, err := s.greeter.ServeGRPC(ctx, req)
+    if err != nil {
+        return nil, err
+    }
+    return res.(*pb.GreetingResponse), nil
+}
+
+// decodeGRPCGreetingRequest is a transport/grpc.
+// DecodeRequestFunc 将 gRPC 请求转换为用户域的 greeting 请求。
+func decodeGRPCGreetingRequest(_ context.Context, grpcReq interface{}) (interface{}, error) {
+    req := grpcReq.(*pb.GreetingRequest)
+    return greeterendpoint.GreetingRequest{Name: req.Name}, nil
+}
+
+// encodeGRPCGreetingResponse is a transport/grpc.
+// DecodeRequestFunc 将 用户域的 greeting 转换为请求 gRPC 请求。
+func encodeGRPCGreetingResponse(_ context.Context, response interface{}) (interface{}, error) {
+    res := response.(greeterendpoint.GreetingResponse)
+    return &amp;pb.GreetingResponse{Greeting: res.Greeting}, nil
+}
+</code></pre>
+
+<p>最后，我实现了服务发现注册器：</p>
+
+<pre><code class="language-go">package greetersd
+
+import (
+    &quot;math/rand&quot;
+    &quot;os&quot;
+    &quot;strconv&quot;
+    &quot;time&quot;
+
+    &quot;github.com/go-kit/kit/log&quot;
+    &quot;github.com/go-kit/kit/sd&quot;
+    consulsd &quot;github.com/go-kit/kit/sd/consul&quot;
+    &quot;github.com/hashicorp/consul/api&quot;
+)
+
+// ConsulRegister method.
+func ConsulRegister(consulAddress string,
+    consulPort string,
+    advertiseAddress string,
+    advertisePort string) (registar sd.Registrar) {
+
+    // 日志 
+    var logger log.Logger
+    {
+        logger = log.NewLogfmtLogger(os.Stderr)
+        logger = log.With(logger, &quot;ts&quot;, log.DefaultTimestampUTC)
+        logger = log.With(logger, &quot;caller&quot;, log.DefaultCaller)
+    }
+
+    rand.Seed(time.Now().UTC().UnixNano())
+
+    // 服务发现，我们使用 Consul.
+    var client consulsd.Client
+    {
+        consulConfig := api.DefaultConfig()
+        consulConfig.Address = consulAddress + &quot;:&quot; + consulPort
+        consulClient, err := api.NewClient(consulConfig)
+        if err != nil {
+            logger.Log(&quot;err&quot;, err)
+            os.Exit(1)
+        }
+        client = consulsd.NewClient(consulClient)
+    }
+
+    check := api.AgentServiceCheck{
+        HTTP:     &quot;http://&quot; + advertiseAddress + &quot;:&quot; + advertisePort + &quot;/health&quot;,
+        Interval: &quot;10s&quot;,
+        Timeout:  &quot;1s&quot;,
+        Notes:    &quot;Basic health checks&quot;,
+    }
+
+    port, _ := strconv.Atoi(advertisePort)
+    num := rand.Intn(100) // 服务 ID 唯一
+    asr := api.AgentServiceRegistration{
+        ID:      &quot;go-kit-srv-greeter-&quot; + strconv.Itoa(num), 
+        Name:    &quot;go-kit-srv-greeter&quot;,
+        Address: advertiseAddress,
+        Port:    port,
+        Tags:    []string{&quot;go-kit&quot;, &quot;greeter&quot;},
+        Check:   &amp;check,
+    }
+    registar = consulsd.NewRegistrar(client, &amp;asr, logger)
+    return
+}
+</code></pre>
+
+<p>在准备好所有构建块之后，我将它们连接在服务启动器中：</p>
+
+<p>Go Kit 服务启动器</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;net&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+    &quot;os/signal&quot;
+    &quot;syscall&quot;
+    &quot;text/tabwriter&quot;
+
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pb&quot;
+    &quot;google.golang.org/grpc&quot;
+
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greeterendpoint&quot;
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greetersd&quot;
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greeterservice&quot;
+    &quot;github.com/antklim/go-microservices/go-kit-greeter/pkg/greetertransport&quot;
+
+    &quot;github.com/go-kit/kit/log&quot;
+    &quot;github.com/oklog/oklog/pkg/group&quot;
+)
+
+func main() {
+    fs := flag.NewFlagSet(&quot;greetersvc&quot;, flag.ExitOnError)
+    var (
+        debugAddr  = fs.String(&quot;debug.addr&quot;, &quot;:9100&quot;, &quot;Debug and metrics listen address&quot;)
+        consulAddr = fs.String(&quot;consul.addr&quot;, &quot;&quot;, &quot;Consul Address&quot;)
+        consulPort = fs.String(&quot;consul.port&quot;, &quot;8500&quot;, &quot;Consul Port&quot;)
+        httpAddr   = fs.String(&quot;http.addr&quot;, &quot;&quot;, &quot;HTTP Listen Address&quot;)
+        httpPort   = fs.String(&quot;http.port&quot;, &quot;9110&quot;, &quot;HTTP Listen Port&quot;)
+        grpcAddr   = fs.String(&quot;grpc-addr&quot;, &quot;:9120&quot;, &quot;gRPC listen address&quot;)
+    )
+    fs.Usage = usageFor(fs, os.Args[0]+&quot; [flags]&quot;)
+    fs.Parse(os.Args[1:])
+
+    var logger log.Logger
+    {
+        logger = log.NewLogfmtLogger(os.Stderr)
+        logger = log.With(logger, &quot;ts&quot;, log.DefaultTimestampUTC)
+        logger = log.With(logger, &quot;caller&quot;, log.DefaultCaller)
+    }
+
+    var service greeterservice.Service
+    {
+        service = greeterservice.GreeterService{}
+        service = greeterservice.LoggingMiddleware(logger)(service)
+    }
+
+    var (
+        endpoints   = greeterendpoint.MakeServerEndpoints(service, logger)
+        httpHandler = greetertransport.NewHTTPHandler(endpoints, logger)
+        registar    = greetersd.ConsulRegister(*consulAddr, *consulPort, *httpAddr, *httpPort)
+        grpcServer  = greetertransport.NewGRPCServer(endpoints, logger)
+    )
+
+    var g group.Group
+    {
+        // 调试功能带 http.DefaultServeMux, 并提供 Go 调试和分析路由等功能
+        debugListener, err := net.Listen(&quot;tcp&quot;, *debugAddr)
+        if err != nil {
+            logger.Log(&quot;transport&quot;, &quot;debug/HTTP&quot;, &quot;during&quot;, &quot;Listen&quot;, &quot;err&quot;, err)
+            os.Exit(1)
+        }
+        g.Add(func() error {
+            logger.Log(&quot;transport&quot;, &quot;debug/HTTP&quot;, &quot;addr&quot;, *debugAddr)
+            return http.Serve(debugListener, http.DefaultServeMux)
+        }, func(error) {
+            debugListener.Close()
+        })
+    }
+    {
+        // 服务发现注册
+        g.Add(func() error {
+            logger.Log(&quot;transport&quot;, &quot;HTTP&quot;, &quot;addr&quot;, *httpAddr, &quot;port&quot;, *httpPort)
+            registar.Register()
+            return http.ListenAndServe(&quot;:&quot;+*httpPort, httpHandler)
+        }, func(error) {
+            registar.Deregister()
+        })
+    }
+    {
+        // gRPC 加载我们创建的服务。
+        grpcListener, err := net.Listen(&quot;tcp&quot;, *grpcAddr)
+        if err != nil {
+            logger.Log(&quot;transport&quot;, &quot;gRPC&quot;, &quot;during&quot;, &quot;Listen&quot;, &quot;err&quot;, err)
+            os.Exit(1)
+        }
+        g.Add(func() error {
+            logger.Log(&quot;transport&quot;, &quot;gRPC&quot;, &quot;addr&quot;, *grpcAddr)
+            baseServer := grpc.NewServer()
+            pb.RegisterGreeterServer(baseServer, grpcServer)
+            return baseServer.Serve(grpcListener)
+        }, func(error) {
+            grpcListener.Close()
+        })
+    }
+    {
+        // 监听 Ctrl+C 信号终止。
+        cancelInterrupt := make(chan struct{})
+        g.Add(func() error {
+            c := make(chan os.Signal, 1)
+            signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+            select {
+            case sig := &lt;-c:
+                return fmt.Errorf(&quot;received signal %s&quot;, sig)
+            case &lt;-cancelInterrupt:
+                return nil
+            }
+        }, func(error) {
+            close(cancelInterrupt)
+        })
+    }
+    logger.Log(&quot;exit&quot;, g.Run())
+}
+
+func usageFor(fs *flag.FlagSet, short string) func() {
+    return func() {
+        fmt.Fprintf(os.Stderr, &quot;USAGE\n&quot;)
+        fmt.Fprintf(os.Stderr, &quot;  %s\n&quot;, short)
+        fmt.Fprintf(os.Stderr, &quot;\n&quot;)
+        fmt.Fprintf(os.Stderr, &quot;FLAGS\n&quot;)
+        w := tabwriter.NewWriter(os.Stderr, 0, 2, 2, ' ', 0)
+        fs.VisitAll(func(f *flag.Flag) {
+            fmt.Fprintf(w, &quot;\t-%s %s\t%s\n&quot;, f.Name, f.DefValue, f.Usage)
+        })
+        w.Flush()
+        fmt.Fprintf(os.Stderr, &quot;\n&quot;)
+    }
+}
+</code></pre>
+
+<p>您可能已经注意到，我在几个地方使用了日志逻辑中间件。它允许我将记录逻辑与主服务/端点工作流分离。</p>
+
+<p>服务级别日志记录中间件</p>
+
+<pre><code class="language-go">package greeterservice
+
+import (
+    &quot;time&quot;
+
+    &quot;github.com/go-kit/kit/log&quot;
+)
+
+// ServiceMiddleware 定义了 service 中间件。
+type ServiceMiddleware func(Service) Service
+
+// LoggingMiddleware 使用 logger 作为依赖，返回一个 Service 中间件
+func LoggingMiddleware(logger log.Logger) ServiceMiddleware {
+    return func(next Service) Service {
+        return loggingMiddleware{next, logger}
+    }
+}
+
+type loggingMiddleware struct {
+    Service
+    logger log.Logger
+}
+
+func (m loggingMiddleware) Health() (healthy bool) {
+    defer func(begin time.Time) {
+        m.logger.Log(
+            &quot;method&quot;, &quot;Health&quot;,
+            &quot;healthy&quot;, healthy,
+            &quot;took&quot;, time.Since(begin),
+        )
+    }(time.Now())
+    healthy = m.Service.Health()
+    return
+}
+
+func (m loggingMiddleware) Greeting(name string) (greeting string) {
+    defer func(begin time.Time) {
+        m.logger.Log(
+            &quot;method&quot;, &quot;Greeting&quot;,
+            &quot;name&quot;, name,
+            &quot;greeting&quot;, greeting,
+            &quot;took&quot;, time.Since(begin),
+        )
+    }(time.Now())
+    greeting = m.Service.Greeting(name)
+    return
+}
+</code></pre>
+
+<p>端点级别记录中间件</p>
+
+<pre><code class="language-go">package greeterendpoint
+
+import (
+    &quot;context&quot;
+    &quot;time&quot;
+
+    &quot;github.com/go-kit/kit/endpoint&quot;
+    &quot;github.com/go-kit/kit/log&quot;
+)
+
+// LoggingMiddleware 返回端点日志中间件，
+// 提供运行过程中日志信息，如果有错，提供错误信息
+func LoggingMiddleware(logger log.Logger) endpoint.Middleware {
+    return func(next endpoint.Endpoint) endpoint.Endpoint {
+        return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+            defer func(begin time.Time) {
+                logger.Log(&quot;transport_error&quot;, err, &quot;took&quot;, time.Since(begin))
+            }(time.Now())
+            return next(ctx, request)
+        }
+    }
+}
+</code></pre>
+
+<h3 id="gizmo-greeter">Gizmo greeter</h3>
+
+<p>我以与 Go Kit 类似的方式创建了 Gizmo 服务。我为服务，端点，传输和服务发现注册商定义了四个包。</p>
+
+<p>服务实现和服务发现系统注册器与 Go Kit 服务共享相同的代码。但是端点定义和传输实现必须根据 Gizmo 功能完成。</p>
+
+<p>Gizmo Greeting 端点</p>
+
+<pre><code class="language-go">package greeterendpoint
+
+import (
+    &quot;net/http&quot;
+
+    ocontext &quot;golang.org/x/net/context&quot;
+
+    &quot;github.com/NYTimes/gizmo/server&quot;
+    &quot;github.com/antklim/go-microservices/gizmo-greeter/pkg/greeterservice&quot;
+)
+
+// Endpoints 包含所有组成 greeter 服务的端点
+type Endpoints struct {
+    HealthEndpoint   server.JSONContextEndpoint
+    GreetingEndpoint server.JSONContextEndpoint
+}
+
+// MakeServerEndpoints 返回服务端点
+func MakeServerEndpoints(s greeterservice.Service) Endpoints {
+    healthEndpoint := MakeHealthEndpoint(s)
+    greetingEndpoint := MakeGreetingEndpoint(s)
+
+    return Endpoints{
+        HealthEndpoint:   healthEndpoint,
+        GreetingEndpoint: greetingEndpoint,
+    }
+}
+
+// MakeHealthEndpoint 构造 Health 端点。
+func MakeHealthEndpoint(s greeterservice.Service) server.JSONContextEndpoint {
+    return func(ctx ocontext.Context, r *http.Request) (int, interface{}, error) {
+        healthy := s.Health()
+        return http.StatusOK, HealthResponse{Healthy: healthy}, nil
+    }
+}
+
+// MakeGreetingEndpoint 构造 Greeting 端点。
+func MakeGreetingEndpoint(s greeterservice.Service) server.JSONContextEndpoint {
+    return func(ctx ocontext.Context, r *http.Request) (int, interface{}, error) {
+        vars := r.URL.Query()
+        names, exists := vars[&quot;name&quot;]
+        if !exists || len(names) != 1 {
+            return http.StatusBadRequest, errorResponse{Error: &quot;query parameter 'name' required&quot;}, nil
+        }
+        greeting := s.Greeting(names[0])
+        return http.StatusOK, GreetingResponse{Greeting: greeting}, nil
+    }
+}
+
+// HealthRequest 包含了 Health 方法请求参数
+type HealthRequest struct{}
+
+// HealthResponse 包含了 Health 方法响应值
+type HealthResponse struct {
+    Healthy bool `json:&quot;healthy,omitempty&quot;`
+}
+
+// GreetingRequest 包含了 Greeting 方法请求参数
+type GreetingRequest struct {
+    Name string `json:&quot;name,omitempty&quot;`
+}
+
+// GreetingResponse 包含了 Greeting 方法响应值
+type GreetingResponse struct {
+    Greeting string `json:&quot;greeting,omitempty&quot;`
+}
+
+type errorResponse struct {
+    Error string `json:&quot;error&quot;`
+}
+</code></pre>
+
+<p>如您所见，代码段与 Go Kit 类似。主要区别在于应该返回的接口类型：</p>
+
+<p>GizmoGreeting HTTP 终端</p>
+
+<pre><code class="language-go">package greetertransport
+
+import (
+    &quot;context&quot;
+
+    &quot;github.com/NYTimes/gizmo/server&quot;
+    &quot;google.golang.org/grpc&quot;
+
+    &quot;errors&quot;
+    &quot;net/http&quot;
+
+    &quot;github.com/NYTimes/gziphandler&quot;
+    pb &quot;github.com/antklim/go-microservices/gizmo-greeter/pb&quot;
+    &quot;github.com/antklim/go-microservices/gizmo-greeter/pkg/greeterendpoint&quot;
+    &quot;github.com/sirupsen/logrus&quot;
+)
+
+type (
+    // TService 会实现 server.RPCService （服务的 RPC），以及处理服务端请求
+    TService struct {
+        Endpoints greeterendpoint.Endpoints
+    }
+
+    // Config 包含 server 相关 json 配置
+    Config struct {
+        Server *server.Config
+    }
+)
+
+// NewTService 会使用给定的配置实例化 RPC 服务
+func NewTService(cfg *Config, endpoints greeterendpoint.Endpoints) *TService {
+    return &amp;TService{Endpoints: endpoints}
+}
+
+// Prefix 返回所有端点服务使用的字符串前缀
+func (s *TService) Prefix() string {
+    return &quot;&quot;
+}
+
+// Service 向 TService 提供要服务的服务描述和实现。
+func (s *TService) Service() (*grpc.ServiceDesc, interface{}) {
+    return &amp;pb.Greeter_serviceDesc, s
+}
+
+// Middleware 为所有请求挂载 http.Handler hook .
+//在这个实现中，我们使用 GzipHandler 中间件来压缩我们的响应。
+func (s *TService) Middleware(h http.Handler) http.Handler {
+    return gziphandler.GzipHandler(h)
+}
+
+// ContextMiddleware 为所有请求挂载 server.ContextHAndler hook.
+// 如果需要修饰请求上下文，这将非常方便。
+func (s *TService) ContextMiddleware(h server.ContextHandler) server.ContextHandler {
+    return h
+}
+
+// JSONMiddleware 为所有请求挂载 JSONEndpoint hooks.
+//在这个实现中，我们使用它来提供应用程序日志记录，检查错误并提供通用响应。
+func (s *TService) JSONMiddleware(j server.JSONContextEndpoint) server.JSONContextEndpoint {
+    return func(ctx context.Context, r *http.Request) (int, interface{}, error) {
+
+        status, res, err := j(ctx, r)
+        if err != nil {
+            server.LogWithFields(r).WithFields(logrus.Fields{
+                &quot;error&quot;: err,
+            }).Error(&quot;problems with serving request&quot;)
+            return http.StatusServiceUnavailable, nil, errors.New(&quot;sorry, this service is unavailable&quot;)
+        }
+
+        server.LogWithFields(r).Info(&quot;success!&quot;)
+        return status, res, nil
+    }
+}
+
+// ContextEndpoints 在你的服务是非 RPC 端点下，可以提供你需要的功能
+// 此时，我们不需要 RPC, 但是仍需要这个方法以实现 server.RPCService 接口。
+func (s *TService) ContextEndpoints() map[string]map[string]server.ContextHandlerFunc {
+    return map[string]map[string]server.ContextHandlerFunc{}
+}
+
+// JSONEndpoints 是 TService 中可用的所有端点的列表。
+func (s *TService) JSONEndpoints() map[string]map[string]server.JSONContextEndpoint {
+    return map[string]map[string]server.JSONContextEndpoint{
+        &quot;/health&quot;: map[string]server.JSONContextEndpoint{
+            &quot;GET&quot;: s.Endpoints.HealthEndpoint,
+        },
+        &quot;/greeting&quot;: map[string]server.JSONContextEndpoint{
+            &quot;GET&quot;: s.Endpoints.GreetingEndpoint,
+        },
+    }
+}
+</code></pre>
+
+<p>GIzmo Greeting gRPC</p>
+
+<pre><code class="language-go">package greetertransport
+
+import (
+    pb &quot;github.com/antklim/go-microservices/gizmo-greeter/pb&quot;
+    ocontext &quot;golang.org/x/net/context&quot;
+)
+
+// Greeting 实现 gRPC 服务。
+func (s *TService) Greeting(ctx ocontext.Context, r *pb.GreetingRequest) (*pb.GreetingResponse, error) {
+    return &amp;pb.GreetingResponse{Greeting: &quot;Hola Gizmo RPC &quot; + r.Name}, nil
+}
+</code></pre>
+
+<p>Go Kit 和 Gizmo 之间的显着差异在于传输实现。 Gizmo 提供了几种可以使用的服务类型。
+我所要做的就是将 HTTP 路径映射到端点定义。低级 HTTP 请求/响应处理由 Gizmo 处理。</p>
+
+<h2 id="结论">结论</h2>
+
+<p>Go Micro 是推出微服务系统的最快方式。框架提供了许多功能。所以你不需要重新发明轮子。
+但这种舒适和速度伴随着牺牲 - 灵活性。它不像 Go Kit 那样容易改变或更新系统的各个部分。并且它强制 gRPC 作为首选的通信类型。</p>
+
+<p>您可能需要一段时间才能熟悉 Go Kit。它需要熟悉 Golang 特性和软件架构方面的经验。
+另一方面，没有框架限制。所有部件都可以独立更改和更新。
+ Gizmo 位于 Go Micro 和 Go Kit 之间。它提供了一些更高级别的抽象，例如 Service 包。
+但缺乏文档和示例意味着我必须阅读源代码以了解不同的服务类型是如何工作的。使用 Gizmo 比使用 Go Kit 更容易。但它并不像 Go Micro 那么顺利。</p>
+
+<p>这就是今天的一切。谢谢阅读。请查看微服务代码库以获取更多信息。如果您对 Go 和微服务框架有任何经验，请在下面的评论中分享。</p>
+
+<p>&ndash;</p>
+
+<p>via: <a href="https://medium.com/seek-blog/microservices-in-go-2fc1570f6800">https://medium.com/seek-blog/microservices-in-go-2fc1570f6800</a></p>
+
+<p>作者：<a href="https://medium.com/@antklim">Anton Klimenko</a>
+译者：<a href="https://github.com/TomatoAres">TomatoAres</a>
+校对：<a href="https://github.com/magichan">magichan</a></p>
+
+<p>本文由 <a href="https://github.com/studygolang/GCTT">GCTT</a> 原创编译，<a href="https://studygolang.com/">Go 中文网</a> 荣誉推出</p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/translated/microservices-in-go/">https://TomatoAres.github.io/posts/translated/microservices-in-go/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/test/"></a></li>
+        
+        <li><a href="/posts/cloud/template/"></a></li>
+        
+        <li><a href="/archives/">归档</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/microservice">microservice</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/" title="为什么 Go 适合微服务">为什么 Go 适合微服务</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结">k8s 概念总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/" title="Dockerfile 总结">Dockerfile 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介">Docker 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/web/">web(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/About/">About</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
