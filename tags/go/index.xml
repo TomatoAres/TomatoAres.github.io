@@ -22,6 +22,26 @@
     </item>
     
     <item>
+      <title>Vet 命令：超出预期的强大</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:54 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
+      <description>Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
+内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
+    </item>
+    
+    <item>
+      <title>Go：关于 Cobra 的想法</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:06 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</guid>
+      <description>Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。
+设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体：</description>
+    </item>
+    
+    <item>
       <title>为什么 Go 适合微服务</title>
       <link>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>

@@ -50,6 +50,16 @@
   </url>
   
   <url>
+    <loc>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</loc>
+    <lastmod>2019-09-19T12:27:54+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</loc>
+    <lastmod>2019-09-19T12:27:06+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://TomatoAres.github.io/tags/GCTT/</loc>
     <lastmod>2019-09-18T21:49:04+08:00</lastmod>
     <priority>0</priority>
@@ -449,21 +459,6 @@
   
   <url>
     <loc>https://TomatoAres.github.io/posts/cloud/template/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</loc>
     <priority>0</priority>
   </url>
   

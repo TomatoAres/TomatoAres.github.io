@@ -22,6 +22,26 @@
     </item>
     
     <item>
+      <title>Vet 命令：超出预期的强大</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:54 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
+      <description>Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
+内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
+    </item>
+    
+    <item>
+      <title>Go：关于 Cobra 的想法</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:06 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</guid>
+      <description>Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。
+设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体：</description>
+    </item>
+    
+    <item>
       <title>为什么 Go 适合微服务</title>
       <link>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
@@ -486,38 +506,6 @@ draft:false  </description>
       
       <guid>https://TomatoAres.github.io/posts/cloud/template/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</guid>
-      <description>无缓冲和有缓冲通道 Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。
-无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：
-package main import ( &amp;quot;sync&amp;quot; &amp;quot;time&amp;quot; ) func main() { c := make(chan string) var wg sync.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
-      <description>首发于：https://studygolang.com/articles/23498
-Vet 命令：超出预期的强大 Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
-内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</guid>
-      <description>首发于：https://studygolang.com/articles/23438
-Go：关于 Cobra 的想法 Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。</description>
     </item>
     
   </channel>
