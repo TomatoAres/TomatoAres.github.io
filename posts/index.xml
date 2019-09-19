@@ -499,14 +499,5 @@ draft:false  </description>
  Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/cloud/template/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/cloud/template/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
