@@ -52,10 +52,10 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</link>
+      <link>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:18:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</guid>
+      <guid>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
       <description>是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构</description>
     </item>
     

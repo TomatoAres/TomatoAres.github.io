@@ -13,10 +13,10 @@
     
     <item>
       <title>Radix Tree 基数树</title>
-      <link>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+      <link>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
       <pubDate>Mon, 02 Sep 2019 23:10:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
+      <guid>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
       <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
 定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。</description>
     </item>

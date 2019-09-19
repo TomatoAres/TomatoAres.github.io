@@ -6,10 +6,20 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Sep 2019 12:29:00 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
+      <link>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</link>
+      <pubDate>Thu, 19 Sep 2019 12:29:00 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</guid>
+      <description>在 Hacker News 和 Reddit 你可以找到相关讨论
+我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。</description>
+    </item>
     
     <item>
       <title>为什么 Go 适合微服务</title>
@@ -83,10 +93,10 @@ package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func ma
     
     <item>
       <title> Go 堆栈的理解</title>
-      <link>https://TomatoAres.github.io/posts/heap-stack/</link>
+      <link>https://TomatoAres.github.io/posts/go/heap-stack/</link>
       <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/heap-stack/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/heap-stack/</guid>
       <description>来源：Go 堆栈的理解
 在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
 什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
@@ -117,10 +127,10 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>Websocket 总结</title>
-      <link>https://TomatoAres.github.io/posts/websocket%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/network/websocket%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 31 Aug 2019 16:36:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/websocket%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/network/websocket%E6%80%BB%E7%BB%93/</guid>
       <description>是什么  WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。 在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭  在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特定的时间间隔内，由浏览器对服务器发出 HTTP Request，服务器在收到请求后，返回最新的数据给浏览器刷新，“轮询”使得浏览器需要对服务器不断发出请求，这样会占用大量带宽。</description>
     </item>
     
@@ -136,23 +146,23 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>channel 总结</title>
-      <link>https://TomatoAres.github.io/posts/channel/</link>
+      <link>https://TomatoAres.github.io/posts/go/channel/</link>
       <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/channel/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/channel/</guid>
       <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType .</description>
     </item>
     
     <item>
-      <title>Echo 的简单使用</title>
-      <link>https://TomatoAres.github.io/posts/echo/</link>
+      <title>Echo 框架的简单使用</title>
+      <link>https://TomatoAres.github.io/posts/web/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/echo/</guid>
-      <description>echo框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
+      <guid>https://TomatoAres.github.io/posts/web/echo/</guid>
+      <description>echo 框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
 源码
 特性概述 总的来说：轻量·高效
- 优化的HTTP路由器，巧妙地确定路由优先级</description>
+ 优化的 HTTP 路由器，巧妙地确定路由优先级</description>
     </item>
     
     <item>

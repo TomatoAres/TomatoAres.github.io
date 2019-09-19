@@ -13,10 +13,10 @@
     
     <item>
       <title>横向·纵向扩展区别</title>
-      <link>https://TomatoAres.github.io/posts/horizon-vertical/</link>
+      <link>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</link>
       <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
+      <guid>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</guid>
       <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
  横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
  如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。</description>

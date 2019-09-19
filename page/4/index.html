@@ -68,6 +68,23 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/" title="Hugo github.io 无样式问题" >Hugo github.io 无样式问题</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年8月29日
+                            </date>
+                            
+                            <div class="post-content">
+                                hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
+hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上述命令中的 http 改为 https 即可解决……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/go/go-test/" title="go test 工具的简单介绍和使用" >go test 工具的简单介绍和使用</a>
                                 </h1>
                             </header>
@@ -101,7 +118,7 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/TCP-%E6%80%BB%E7%BB%93/" title="TCP 总结" >TCP 总结</a>
+                                    <a href="https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/" title="TCP 总结" >TCP 总结</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -112,13 +129,13 @@
                                 通信过程 服务端：
  socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解+动图）……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/TCP-%E6%80%BB%E7%BB%93/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" title="进程线程协程总结" >进程线程协程总结</a>
+                                    <a href="https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" title="进程线程协程总结" >进程线程协程总结</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -131,13 +148,13 @@
 2.假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。
 3.进程就好比工厂的车间，它代表 CPU 所能处理的单个任务。任一时刻，CPU 总是运行一个进程，其他进程处于非运行状态。……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/" title="Docker 简介" >Docker 简介</a>
+                                    <a href="https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/" title="Docker 简介" >Docker 简介</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -154,13 +171,13 @@
                             <div class="post-content">
                                 是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/channel/" title="channel 总结" >channel 总结</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/channel/" title="channel 总结" >channel 总结</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -170,13 +187,13 @@
                             <div class="post-content">
                                 1. 声明和类型 ChannelType = ( &quot;chan&quot; | &quot;chan&quot; &quot;&lt;-&quot; | &quot;&lt;-&quot; &quot;chan&quot; ) ElementType .……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/channel/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/channel/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/tcp-udp/" title="TCP UDP 总结" >TCP UDP 总结</a>
+                                    <a href="https://TomatoAres.github.io/posts/network/tcp-udp/" title="TCP UDP 总结" >TCP UDP 总结</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -187,13 +204,13 @@
                                 UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
 UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP 是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP 一般用于多点通信和实时的数据业务，比如……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/tcp-udp/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/tcp-udp/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/" title="Influxdb 简介" >Influxdb 简介</a>
+                                    <a href="https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/" title="Influxdb 简介" >Influxdb 简介</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -203,13 +220,13 @@ UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括
                             <div class="post-content">
                                 概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/maxSumArray/" title="MaxSumArray" >MaxSumArray</a>
+                                    <a href="https://TomatoAres.github.io/posts/leetcode/maxSumArray/" title="MaxSumArray" >MaxSumArray</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -220,26 +237,7 @@ UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括
                                 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例:
 Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/maxSumArray/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/echo/" title="Echo 的简单使用" >Echo 的简单使用</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月16日
-                            </date>
-                            
-                            <div class="post-content">
-                                echo框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
-源码
-特性概述 总的来说：轻量·高效
- 优化的HTTP路由器，巧妙地确定路由优先级……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/echo/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/maxSumArray/">阅读全文</a></p>
                         </article>
                     
                     
@@ -274,6 +272,10 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
         <a href="https://TomatoAres.github.io/page/5/">5</a>
     </li>
     
+    <li >
+        <a href="https://TomatoAres.github.io/page/6/">6</a>
+    </li>
+    
 
     
     <li class="next">
@@ -302,15 +304,15 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/" title="为什么 Go 适合微服务">为什么 Go 适合微服务</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结">k8s 概念总结</a>
     </li>
     
     <li>
@@ -338,7 +340,7 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+        <a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
     </li>
     
 </ul>
@@ -351,7 +353,11 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(2)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
     </li>
     
     <li>
@@ -363,11 +369,11 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(5)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(6)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
     </li>
     
     <li>
@@ -375,19 +381,19 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/web/">web(1)</a>
+        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(4)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(4)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(4)</a>
     </li>
     
 </ul>
@@ -399,7 +405,13 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     
     <a href="https://TomatoAres.github.io/tags/About/">About</a>
     
+    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
     
     <a href="https://TomatoAres.github.io/tags/container/">container</a>
     
@@ -412,8 +424,6 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     <a href="https://TomatoAres.github.io/tags/go/">go</a>
     
     <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
-    
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
     
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
@@ -447,6 +457,10 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
         
         <li>
             <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
         </li>
         
     </ul>

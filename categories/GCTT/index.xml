@@ -6,10 +6,20 @@
     <description>Recent content in GCTT on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Sep 2019 12:29:00 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/GCTT/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
+      <link>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</link>
+      <pubDate>Thu, 19 Sep 2019 12:29:00 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</guid>
+      <description>在 Hacker News 和 Reddit 你可以找到相关讨论
+我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。</description>
+    </item>
     
     <item>
       <title>为什么 Go 适合微服务</title>

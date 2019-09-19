@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Csrf Xss 总结 | 西红柿的博客</title>
+    <meta property="og:title" content="Csrf Xss 总结 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-02T21:49:35&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-02T21:49:35&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="Csrf Xss 总结">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/web/csrf-xss/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Csrf Xss 总结</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月2日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/web">web</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/HTTP">HTTP</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h2 id="csrf-是什么">CSRF 是什么</h2>
+
+<p>CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。</p>
+
+<p><strong>CSRF 可以做什么？</strong></p>
+
+<p>你这可以这么理解 CSRF 攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF 能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账。&hellip;
+造成的问题包括：个人隐私露以及财产安全。</p>
+
+<h2 id="csrf-的攻击原理">CSRF 的攻击原理</h2>
+
+<p>用户是网站 A 的注册用户，且登录进去，于是网站 A 就给用户下发 cookie。
+从上图可以看出，要完成一次 CSRF 攻击，受害者必须满足两个必要的条件：</p>
+
+<ul>
+<li>（1）登录受信任网站 A，并在本地生成 Cookie。（如果用户没有登录网站 A，那么网站 B 在诱导的时候，请求网站 A 的 api 接口时，会提示你登录）</li>
+<li>（2）在不登出 A 的情况下，访问危险网站 B（其实是利用了网站 A 的漏洞）。</li>
+</ul>
+
+<p>我们在讲 CSRF 时，一定要把上面的两点说清楚。
+温馨提示一下，cookie 保证了用户可以处于登录状态，但网站 B 其实拿不到 cookie。</p>
+
+<p>举个例子，前端事假你，微博网站有个 api 接口有漏洞，导致很多用户的粉丝暴增。</p>
+
+<h2 id="csrf-如何防御">CSRF 如何防御</h2>
+
+<h3 id="方法一-token-验证-用的最多">方法一、Token 验证：（用的最多）</h3>
+
+<ol>
+<li>服务器发送给客户端一个 token；</li>
+<li>客户端提交的表单中带着这个 token。</li>
+<li>如果这个 token 不合法，那么服务器拒绝这个请求。</li>
+</ol>
+
+<p>示例：</p>
+
+<pre><code class="language-go">// 生成随机数token
+crutime := time.Now()
+h := md5.New()
+io.WriteString(h, strconv.FormatInt(crutime, 10))
+io.WriteString(h, &quot;ganraomaxxxxxxxxx&quot;)
+token := fmt.Sprintf(&quot;%x&quot;, h.Sum(nil))
+</code></pre>
+
+<h3 id="方法二-隐藏令牌">方法二：隐藏令牌</h3>
+
+<p>把 token 隐藏在 http 的 head 头中。
+方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。</p>
+
+<h3 id="方法三-referer-验证">方法三、Referer 验证</h3>
+
+<p>Referer 指的是页面请求来源。意思是，只接受本站的请求，服务器才做响应；如果不是，就拦截。</p>
+
+<p>常见防御手段：<a href="https://www.jianshu.com/p/31d79a818d58">CSRF</a>
+&gt; CSRF 工具的防御手段：
+&gt;
+&gt; 1. 尽量使用 POST，限制 GET
+&gt;
+&gt; 2. 添加验证码（验证码，强制用户必须与应用进行交互，才能完成最终请求。在通常情况下，验证码能很好遏制 CSRF 攻击）
+&gt;
+&gt; 3. 验证 referer(HTTP Referer 是 header 的一部分，当浏览器向 web 服务器发送请求的时候，会带上 Referer，通过验证 Referer，可以判断请求的合法性，如果 Referer 是其他网站的话，就有可能是 CSRF 攻击，则拒&gt; 绝该请求。)
+&gt;
+&gt; 4. 使用 token（这个 Token 的值必须是随机的，不可预测的。由于 Token 的存在，攻击者无法再构造一个带有合法 Token 的请求实施 CSRF 攻击。另外使用 Token 时应注意 Token 的保密性，尽量把敏感操作由 GET 改为 POST，以 form 或 AJAX 形式提交，避免 Token 泄露）</p>
+
+<h2 id="xss-cross-site-scripting-跨域脚本攻击">XSS（Cross Site Scripting）：跨域脚本攻击</h2>
+
+<p>核心是 注入 <strong>恶意代码</strong></p>
+
+<h2 id="xss-的攻击原理">XSS 的攻击原理</h2>
+
+<p>XSS 攻击的核心原理是：不需要你做任何的登录认证，它会通过合法的操作（比如在 url 中输入、在评论框中输入），向你的页面注入脚本（可能是 js、hmtl 代码块等）。</p>
+
+<p>最后导致的结果可能是：盗用 Cookie 破坏页面的正常结构，插入广告等恶意内容 D-doss 攻击 XSS 的攻击</p>
+
+<h2 id="预防-xss">预防 xss</h2>
+
+<ol>
+<li>验证所有输入数据，有效检测攻击——限制输入数据的类型，值，范围等等</li>
+<li>个是对所有输出数据进行适当的处理——一般的 web 框架会进行自动转义，以防止任何已成功注入的脚本在浏览器端运行。</li>
+</ol>
+
+<blockquote>
+<p>html 转义，就是将包含的 html 标签输出，而不被解释执行</p>
+</blockquote>
+
+<p>比如，Django 会将如下字符自动转义：</p>
+
+<pre><code class="language-sh">&lt; 会转换为&amp;lt;
+
+&gt; 会转换为&amp;gt;
+
+' （单引号） 会转换为&amp;#39;
+
+&quot; （双引号）会转换为 &amp;quot;
+
+&amp; 会转换为 &amp;amp;
+</code></pre>
+
+<h2 id="csrf-和-xss-的区别">CSRF 和 XSS 的区别</h2>
+
+<ol>
+<li>CSRF：需要用户先登录网站 A，获取 cookie。XSS：不需要登录。</li>
+<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 api。XSS：是向网站 A 注入 JS 代码，然后执行 JS 里的代码，篡改网站 A 的内容。</li>
+</ol>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/web/csrf-xss/">https://TomatoAres.github.io/posts/web/csrf-xss/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">Http 方法总结</a></li>
+        
+        <li><a href="/posts/web/HTTP-2.0/">HTTP 2.0</a></li>
+        
+        <li><a href="/posts/web/restful%E6%80%BB%E7%BB%93/">Restful 总结</a></li>
+        
+        <li><a href="/posts/web/echo/">Echo 框架的简单使用</a></li>
+        
+        <li><a href="/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">Go 逃逸分析</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/web">web</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= ""
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/" title="为什么 Go 适合微服务">为什么 Go 适合微服务</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/" title="Dockerfile 总结">Dockerfile 总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介">Docker 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(4)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/About/">About</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

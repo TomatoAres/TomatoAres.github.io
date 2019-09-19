@@ -6,10 +6,20 @@
     <description>Recent content in Posts on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Sep 2019 12:29:00 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
+      <link>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</link>
+      <pubDate>Thu, 19 Sep 2019 12:29:00 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/</guid>
+      <description>在 Hacker News 和 Reddit 你可以找到相关讨论
+我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。</description>
+    </item>
     
     <item>
       <title>为什么 Go 适合微服务</title>
@@ -28,15 +38,6 @@
       <guid>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
       <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
-    </item>
-    
-    <item>
-      <title>k8s 概念总结</title>
-      <link>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Wed, 18 Sep 2019 21:25:10 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
-      <description></description>
     </item>
     
     <item>
@@ -104,12 +105,21 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
     
     <item>
       <title>Rpc 标准库的几种实现方式</title>
-      <link>https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <link>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Thu, 12 Sep 2019 11:43:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <guid>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
       <description>server server.go
 package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;net&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;net/rpc&amp;quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.</description>
+    </item>
+    
+    <item>
+      <title>BSD 是什么</title>
+      <link>https://TomatoAres.github.io/posts/system/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 11 Sep 2019 22:53:00 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/system/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>BSD (Berkeley Software Distribution，伯克利软件套件)是 Unix 的衍生系统，在 1977 至 1995 年间由加州大学伯克利分校开发和发布的。</description>
     </item>
     
     <item>
@@ -153,10 +163,10 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
     
     <item>
       <title>Http 状态码</title>
-      <link>https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <link>https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
       <pubDate>Tue, 03 Sep 2019 16:14:53 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <guid>https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
       <description> TTP 响应状态代码指示特定 HTTP 请求是否已成功完成。
 响应分为五类：
  信息响应(100–199) 成功响应(200–299)， 重定向(300–399)， 客户端错误(400–499) 服务器错误 (500–599)。  信息响应节  100 Continue 这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求，如果已经完成，则忽略它。 101 Switching Protocol:该代码是响应客户端的 Upgrade 标头发送的，并且指示服务器也正在切换的协议。 102 Processing (WebDAV) :此代码表示服务器已收到并正在处理该请求，但没有响应可用。 103 Early Hints :此状态代码主要用于与 Link 链接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。  成功响应节  200 OK :请求成功。成功的含义取决于 HTTP 方法：  GET：资源已被提取并在消息正文中传输。 HEAD：实体标头位于消息正文中。 POST：描述动作结果的资源在消息体中传输。 TRACE：消息正文包含服务器收到的请求消息  201 Created: 该请求已成功，并因此创建了一个新的资源。这通常是在 POST 请求，或是某些 PUT 请求之后返回的响应。 202 Accepted :请求已经接收到，但还未响应，没有结果。意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。 203 Non-Authoritative Information :服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。当前的信息可能是原始版本的子集或者超集。 例如，包含资源的元数据可能导致原始服务器知道元信息的超集。使用此状态码不是必须的，而且只有在响应不使用此状态码便会返回 200 OK 的情况下才是合适的。 204 No Content :服务器成功处理了请求，但不需要返回任何实体内容，并且希望返回更新了的元信息。响应可能通过实体头部的形式，返回新的或更新后的元信息。 如果存在这些头部信息，则应当与所请求的变量相呼应。 如果客户端是浏览器的话，那么用户浏览器应保留发送了该请求的页面，而不产生任何文档视图上的变化，即使按照规范新的或更新后的元信息应当被应用到用户浏览器活动视图中的文档。 由于 204 响应被禁止包含任何消息体，因此它始终以消息头后的第一个空行结尾。 205 Reset Content:服务器成功处理了请求，且没有返回任何内容。 但是与 204 响应不同，返回此状态码的响应要求请求者重置文档视图。 该响应主要是被用于接受用户输入后，立即重置表单，以便用户能够轻松地开始另一次输入。与 204 响应一样，该响应也被禁止包含任何消息体，且以消息头后的第一个空行结束。 206 Partial Content: 服务器已经成功处理了部分 GET 请求。 类似于 FlashGet 或者迅雷这类的 HTTP 下载工具都是使用此类响应实现断点续传或者将一个大文档分解为多个下载段同时下载。 该请求必须包含 Range 头信息来指示客户端希望得到的内容范围，并且可能包含 If-Range 来作为请求条件。 207 Multi-Status (WebDAV): 由 WebDAV(RFC 2518) 扩展的状态码，代表之后的消息体将是一个 XML 消息，并且可能依照之前子请求数量的不同，包含一系列独立的响应代码。 208 Multi-Status (WebDAV) : 在 DAV 里面使用: propstat 响应元素以避免重复枚举多个绑定的内部成员到同一个集合。 226 IM Used (HTTP Delta encoding): 服务器已经完成了对资源的 GET 请求，并且响应是对当前实例应用的一个或多个实例操作结果的表示。  重定向节  300 Multiple Choice: 被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和浏览器驱动的商议信息。用户或浏览器能够自行选择一个首选的地址进行重定向。 301 Moved Permanently: 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。 如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。 302 Found : 请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。 只有在 Cache-Control 或 Expires 中进行了指定的情况下，这个响应才是可缓存的。 303 See Other :对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。 这个方法的存在主要是为了允许由脚本激活的 POST 请求输出重定向到一个新的资源。 304 Not Modified : 如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304 响应禁止包含消息体， 因此始终以消息头后的第一个空行结尾。 305 Use Proxy 被请求的资源必须通过指定的代理才能被访问。Location 域中将给出指定的代理所在的 URI 信息，接收者需要重复发送一个单独的请求，通过这个代理才能访问相应资源。只有原始服务器才能建立 305 响应。 306 unused 在最新版的规范中，306 状态码已经不再被使用。 307 Temporary Redirect 请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在 Cache-Control 或 Expires 中进行了指定的情况下，这个响应才是可缓存的。 308 Permanent Redirect 这意味着资源现在永久位于由 Location: HTTP Response 标头指定的另一个 URI。 这与 301 Moved Permanently HTTP 响应代码具有相同的语义，但用户代理不能更改所使用的 HTTP 方法：如果在第一个请求中使用 POST，则必须在第二个请求中使用 POST。  客户端响应节  400 Bad Request 错误请求  语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。 请求参数有误。  401 Unauthorized 未认证： 当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate 信息头用以询问用户信息。客户端可以重复提交一个包含恰当的 Authorization 头信息的请求。如果当前请求已经包含了 Authorization 证书，那么 401 响应代表着服务器验证已经拒绝了那些证书。如果 401 响应包含了与前一个响应相同的身份验证询问，且浏览器已经至少尝试了一次验证，那么浏览器应当向用户展示响应中包含的实体信息，因为这个实体信息中可能包含了相关诊断信息。 402 Payment Required： 此响应码保留以便将来使用，创造此响应码的最初目的是用于数字支付系统，然而现在并未使用。 403 Forbidden： 服务器已经理解请求，但是拒绝执行它。 *与 401 响应不同的是，身份验证并不能提供任何帮助*，而且这个请求也不应该被重复提交。 如果这不是一个 HEAD 请求，而且服务器希望能够讲清楚为何请求不能被执行，那么就应该在实体内描述拒绝的原因。 当然服务器也可以返回一个 404 响应，假如它不希望让客户端获得任何信息。 404 Not Found： 请求失败，请求所希望得到的资源未被在服务器上发现。 没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用 410 状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404 这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。 405 Method Not Allowed ：请求行中指定的请求方法不能被用于请求相应的资源。 该响应必须返回一个 Allow 头信息用以表示出当前资源能够接受的请求方法的列表。 鉴于 PUT，DELETE 方法会对服务器上的资源进行写操作，因而绝大部分的网页服务器都不支持或者在默认配置下不允许上述请求方法，对于此类请求均会返回 *405 *错误。 406 Not Acceptable ：请求的资源的内容特性无法满足请求头中的条件，因而无法生成响应实体。 407 Proxy Authentication Required： 与 401 响应类似，只不过客户端必须在代理服务器上进行身份验证。代理服务器必须返回一个 Proxy-Authenticate 用以进行身份询问。客户端可以返回一个 Proxy-Authorization 信息头用以验证。 408 Request Timeout： 请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。客户端可以随时再次提交这一请求而无需进行任何更改。 409 Conflict: 由于和被请求的资源的当前状态之间存在冲突，请求无法完成。这个代码只允许用在这样的情况下才能被使用：用户被认为能够解决冲突，并且会重新提交新的请求。该响应应当包含足够的信息以便用户发现冲突的源头。 410 Gone: 被请求的资源在服务器上已经不再可用，而且没有任何已知的转发地址。这样的状况应当被认为是永久性的。如果可能，拥有链接编辑功能的客户端应当在获得用户许可后删除所有指向这个地址的引用。如果服务器不知道或者无法确定这个状况是否是永久的，那么就应该使用 404 状态码。除非额外说明，否则这个响应是可缓存的。 411 Length Required:服务器拒绝在没有定义 Content-Length 头的情况下接受请求。在添加了表明请求消息体长度的有效 Content-Length 头之后，客户端可以再次提交该请求。 412 Precondition Failed: 服务器在验证在请求的头字段中给出先决条件时，没能满足其中的一个或多个。这个状态码允许客户端在获取资源时在请求的元信息（请求头字段数据）中设置先决条件，以此避免该请求方法被应用到其希望的内容以外的资源上。 413 Payload Too Large: 服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。此种情况下，服务器可以关闭连接以免客户端继续发送此请求。如果这个状况是临时的，服务器应当返回一个 Retry-After 的响应头，以告知客户端可以在多少时间以后重新尝试。 414 URI Too Long 请求的 URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。这比较少见，通常的情况包括：本应使用 POST 方法的表单提交变成了 GET 方法，导致查询字符串（Query String）过长。 415 Unsupported Media Type 对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。 416 Requested Range Not Satisfiable 如果请求中包含了 Range 请求头，并且 Range 中指定的任何数据范围都与当前资源的可用范围不重合，同时请求中又没有定义 If-Range 请求头，那么服务器就应当返回 416 状态码。 417 Expectation Failed 此响应代码意味着服务器无法满足 Expect 请求标头字段指示的期望值。 418 I&amp;rsquo;m a teapot 服务器拒绝尝试用 “茶壶冲泡咖啡”。 421 Misdirected Request 该请求针对的是无法产生响应的服务器。 这可以由服务器发送，该服务器未配置为针对包含在请求 URI 中的方案和权限的组合产生响应。 422 Unprocessable Entity (WebDAV) 请求格式良好，但由于语义错误而无法遵循。 423 Locked (WebDAV) 正在访问的资源被锁定。 424 Failed Dependency (WebDAV) 由于先前的请求失败，所以此次请求失败。 425 Too Early 服务器不愿意冒着风险去处理可能重播的请求。 426 Upgrade Required 服务器拒绝使用当前协议执行请求，但可能在客户机升级到其他协议后愿意这样做。 服务器在 426 响应中发送 Upgrade 头以指示所需的协议。 428 Precondition Required 原始服务器要求该请求是有条件的。 旨在防止“丢失更新”问题，即客户端获取资源状态，修改该状态并将其返回服务器，同时第三方修改服务器上的状态，从而导致冲突。 429 Too Many Requests 用户在给定的时间内发送了太多请求（“限制请求速率”）。 431 Request Header Fields Too Large 服务器不愿意处理请求，因为它的 请求头字段太大（ Request Header Fields Too Large）。 请求可以在减小请求头字段的大小后重新提交。 451 Unavailable For Legal Reasons 用户请求非法资源，例如：由政府审查的网页。  服务端响应节  500 Internal Server Error 服务器遇到了不知道如何处理的情况。 501 Not Implemented 此请求方法不被服务器支持且无法被处理。只有 GET 和 HEAD 是要求服务器支持的，它们必定不会返回此错误代码。 502 Bad Gateway 此错误响应表明服务器作为网关需要得到一个处理这个请求的响应，但是得到一个错误的响应。 503 Service Unavailable 服务器没有准备好处理请求。 常见原因是服务器因维护或重载而停机。 请注意，与此响应一起，应发送解释问题的用户友好页面。 这个响应应该用于临时条件和 Retry-After：如果可能的话，HTTP 头应该包含恢复服务之前的估计时间。 网站管理员还必须注意与此响应一起发送的与缓存相关的标头，因为这些临时条件响应通常不应被缓存。 504 Gateway Timeout 当服务器作为网关，不能及时得到响应时返回此错误代码。 505 HTTP Version Not Supported 服务器不支持请求中所使用的 HTTP 协议版本。 506 Variant Also Negotiates 服务器有一个内部配置错误：对请求的透明内容协商导致循环引用。 507 Insufficient Storage 服务器有内部配置错误：所选的变体资源被配置为参与透明内容协商本身，因此不是协商过程中的适当端点。 508 Loop Detected (WebDAV) 服务器在处理请求时检测到无限循环。 510 Not Extended 客户端需要对请求进一步扩展，服务器才能实现它。服务器会回复客户端发出扩展请求所需的所有信息。 511 Network Authentication Required 511 状态码指示客户端需要进行身份验证才能获得网络访问权限。  </description>
@@ -174,10 +184,10 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
     
     <item>
       <title>Radix Tree 基数树</title>
-      <link>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+      <link>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
       <pubDate>Mon, 02 Sep 2019 23:10:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
+      <guid>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
       <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
 定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。</description>
     </item>
@@ -193,20 +203,20 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
     
     <item>
       <title>Csrf Xss 总结</title>
-      <link>https://TomatoAres.github.io/posts/csrf-xss/</link>
+      <link>https://TomatoAres.github.io/posts/web/csrf-xss/</link>
       <pubDate>Mon, 02 Sep 2019 21:49:35 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/csrf-xss/</guid>
+      <guid>https://TomatoAres.github.io/posts/web/csrf-xss/</guid>
       <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
 CSRF 可以做什么？</description>
     </item>
     
     <item>
       <title>Http 方法总结</title>
-      <link>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 02 Sep 2019 21:16:34 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
       <description>一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。
 使用中发现：
  postman 和浏览器均无法携带 请求体 es 查询可以  二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。</description>
@@ -225,10 +235,10 @@ CSRF 可以做什么？</description>
     
     <item>
       <title> Go 堆栈的理解</title>
-      <link>https://TomatoAres.github.io/posts/heap-stack/</link>
+      <link>https://TomatoAres.github.io/posts/go/heap-stack/</link>
       <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/heap-stack/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/heap-stack/</guid>
       <description>来源：Go 堆栈的理解
 在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
 什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
@@ -259,47 +269,47 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>Mysql 面试题总结</title>
-      <link>https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sun, 01 Sep 2019 19:52:00 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/mysql-%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</guid>
       <description>主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</description>
     </item>
     
     <item>
       <title>HTTP 2.0</title>
-      <link>https://TomatoAres.github.io/posts/HTTP-2.0/</link>
+      <link>https://TomatoAres.github.io/posts/web/HTTP-2.0/</link>
       <pubDate>Sat, 31 Aug 2019 17:55:36 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/HTTP-2.0/</guid>
+      <guid>https://TomatoAres.github.io/posts/web/HTTP-2.0/</guid>
       <description>HTTP/2 (原本的名字是 HTTP/2.0) 是万维网使用的 HTTP 网络协议的第二个主要版本。HTTP/2 提供了更快的速度和更好的用户体验。
 特性  使用二进制格式传输数据，而不是文本。使得在解析和优化扩展上更为方便。 多路复用，所有的请求都是通过一个 TCP 连接并发完成。 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量。 Server Push：服务端能够更快的把资源推送给客户端。  参考：让面试官颤抖的 HTTP 2.</description>
     </item>
     
     <item>
       <title>Websocket 总结</title>
-      <link>https://TomatoAres.github.io/posts/websocket%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/network/websocket%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 31 Aug 2019 16:36:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/websocket%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/network/websocket%E6%80%BB%E7%BB%93/</guid>
       <description>是什么  WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。 在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭  在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特定的时间间隔内，由浏览器对服务器发出 HTTP Request，服务器在收到请求后，返回最新的数据给浏览器刷新，“轮询”使得浏览器需要对服务器不断发出请求，这样会占用大量带宽。</description>
     </item>
     
     <item>
       <title>Restful 总结</title>
-      <link>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 31 Aug 2019 16:24:33 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/restful%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</guid>
       <description>是什么 REST(REpresentational State Transfer) 这个概念，首次出现是在 2000 年 Roy Thomas Fielding（他是 HTTP 规范的主要编写者之一）的博士论文中，它指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful 的。</description>
     </item>
     
     <item>
       <title>Hugo 静态文件使用</title>
-      <link>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 29 Aug 2019 02:05:47 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
       <description>放入 static 文件夹下
 例如： 图片放入 image 下 network 文件下
 ！[说明文字](/image/network/文件名)  </description>
@@ -307,10 +317,10 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     
     <item>
       <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/</link>
       <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/</guid>
       <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
 hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决</description>
     </item>
@@ -336,20 +346,20 @@ hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  
     
     <item>
       <title>TCP 总结</title>
-      <link>https://TomatoAres.github.io/posts/TCP-%E6%80%BB%E7%BB%93/</link>
+      <link>https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</link>
       <pubDate>Thu, 29 Aug 2019 00:52:58 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/TCP-%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</guid>
       <description>通信过程 服务端：
  socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解+动图）</description>
     </item>
     
     <item>
       <title>进程线程协程总结</title>
-      <link>https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
+      <link>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:55:05 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
+      <guid>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
       <description>通俗易懂的例子 参考:每个程序员都会遇到的面试问题：谈谈进程和线程的区别
 1.计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
 2.假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。
@@ -358,69 +368,69 @@ hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</link>
+      <link>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:18:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/docker%E7%AE%80%E4%BB%8B/</guid>
+      <guid>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
       <description>是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构</description>
     </item>
     
     <item>
       <title>channel 总结</title>
-      <link>https://TomatoAres.github.io/posts/channel/</link>
+      <link>https://TomatoAres.github.io/posts/go/channel/</link>
       <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/channel/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/channel/</guid>
       <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType .</description>
     </item>
     
     <item>
       <title>TCP UDP 总结</title>
-      <link>https://TomatoAres.github.io/posts/tcp-udp/</link>
+      <link>https://TomatoAres.github.io/posts/network/tcp-udp/</link>
       <pubDate>Sun, 18 Aug 2019 23:30:07 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/tcp-udp/</guid>
+      <guid>https://TomatoAres.github.io/posts/network/tcp-udp/</guid>
       <description>UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
 UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP 是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP 一般用于多点通信和实时的数据业务，比如</description>
     </item>
     
     <item>
       <title>Influxdb 简介</title>
-      <link>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</link>
+      <link>https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/influxdb%E7%AE%80%E4%BB%8B/</guid>
+      <guid>https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</guid>
       <description>概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：</description>
     </item>
     
     <item>
       <title>MaxSumArray</title>
-      <link>https://TomatoAres.github.io/posts/maxSumArray/</link>
+      <link>https://TomatoAres.github.io/posts/leetcode/maxSumArray/</link>
       <pubDate>Sat, 17 Aug 2019 17:40:19 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/maxSumArray/</guid>
+      <guid>https://TomatoAres.github.io/posts/leetcode/maxSumArray/</guid>
       <description>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例:
 Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</description>
     </item>
     
     <item>
-      <title>Echo 的简单使用</title>
-      <link>https://TomatoAres.github.io/posts/echo/</link>
+      <title>Echo 框架的简单使用</title>
+      <link>https://TomatoAres.github.io/posts/web/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/echo/</guid>
-      <description>echo框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
+      <guid>https://TomatoAres.github.io/posts/web/echo/</guid>
+      <description>echo 框架的简单使用 本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
 源码
 特性概述 总的来说：轻量·高效
- 优化的HTTP路由器，巧妙地确定路由优先级</description>
+ 优化的 HTTP 路由器，巧妙地确定路由优先级</description>
     </item>
     
     <item>
       <title>横向·纵向扩展区别</title>
-      <link>https://TomatoAres.github.io/posts/horizon-vertical/</link>
+      <link>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</link>
       <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/horizon-vertical/</guid>
+      <guid>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</guid>
       <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
  横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
  如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。</description>
@@ -428,10 +438,10 @@ Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的
     
     <item>
       <title>How to Ask Questions</title>
-      <link>https://TomatoAres.github.io/posts/how-to-ask-questions/</link>
+      <link>https://TomatoAres.github.io/posts/good/how-to-ask-questions/</link>
       <pubDate>Thu, 15 Aug 2019 17:02:52 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/how-to-ask-questions/</guid>
+      <guid>https://TomatoAres.github.io/posts/good/how-to-ask-questions/</guid>
       <description>提问的智慧 艾瑞克。史蒂文。雷蒙德（Eric Steven Raymond） Thyrsus Enterprises
 esr@thyrsus.com
 瑞克。莫恩（Rick Moen） respond-auto@linuxmafia.</description>
@@ -448,10 +458,10 @@ esr@thyrsus.com
     
     <item>
       <title>Hugo 文章不显示</title>
-      <link>https://TomatoAres.github.io/posts/hugo-no-article/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-no-article/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-no-article/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-no-article/</guid>
       <description>draft 草稿，若为真，则不现实
 所以：
 将 draft:true 改为 false 即可
@@ -480,11 +490,34 @@ draft:false  </description>
     
     <item>
       <title></title>
-      <link>https://TomatoAres.github.io/posts/test/</link>
+      <link>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/test/</guid>
-      <description></description>
+      <guid>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</guid>
+      <description>无缓冲和有缓冲通道 Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。
+无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：
+package main import ( &amp;quot;sync&amp;quot; &amp;quot;time&amp;quot; ) func main() { c := make(chan string) var wg sync.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
+      <description>首发于：https://studygolang.com/articles/23498
+Vet 命令：超出预期的强大 Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
+内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/</guid>
+      <description>首发于：https://studygolang.com/articles/23438
+Go：关于 Cobra 的想法 Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。</description>
     </item>
     
   </channel>

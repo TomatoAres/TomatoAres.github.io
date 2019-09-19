@@ -13,10 +13,10 @@
     
     <item>
       <title>Hugo 静态文件使用</title>
-      <link>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 29 Aug 2019 02:05:47 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
       <description>放入 static 文件夹下
 例如： 图片放入 image 下 network 文件下
 ！[说明文字](/image/network/文件名)  </description>
@@ -24,20 +24,20 @@
     
     <item>
       <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/</link>
       <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-%E6%A0%B7%E5%BC%8F/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/</guid>
       <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
 hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决</description>
     </item>
     
     <item>
       <title>Hugo 文章不显示</title>
-      <link>https://TomatoAres.github.io/posts/hugo-no-article/</link>
+      <link>https://TomatoAres.github.io/posts/hugo/hugo-no-article/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/hugo-no-article/</guid>
+      <guid>https://TomatoAres.github.io/posts/hugo/hugo-no-article/</guid>
       <description>draft 草稿，若为真，则不现实
 所以：
 将 draft:true 改为 false 即可
