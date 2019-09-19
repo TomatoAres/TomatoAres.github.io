@@ -1,8 +1,8 @@
 package main
 
-import (
-	"fmt"
-)
+// import (
+// 	"fmt"
+// )
 
 func main() {
 	defer_call()
@@ -10,9 +10,9 @@ func main() {
 
 func defer_call() {
 
-	defer func() { fmt.Println("打印前") }()
-	defer func() { fmt.Println("打印中") }()
-	defer func() { fmt.Println("打印后") }()
+	defer func() { println("打印前") }()
+	defer func() { println("打印中") }()
+	defer func() { println("打印后") }()
 
 	panic("触发异常")
 }
@@ -34,6 +34,6 @@ return不是原子操作，往往是两步：
 2. 返回
 defer调用会插到两者之间
 
-这道题中，return 默认在panic后
+这道题中，返回 默认在panic后
 
 */

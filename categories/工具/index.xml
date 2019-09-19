@@ -6,10 +6,20 @@
     <description>Recent content in 工具 on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 16 Sep 2019 23:32:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 00:20:48 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s 概念总结(1)——节点和核心资源</title>
+      <link>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 20 Sep 2019 00:20:48 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
+      <description>1. Master  集群控制节点  3 个核心进程：
+ kube-apiserver：  提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序  kube-controller manager：  所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等； 可以理解为资源对象的：“大总管”  kube-scheduler：  负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上； 理解为：调度室    另外 etcd 必不可少：所有资源的数据都是保存在 etcd 中  2.</description>
+    </item>
     
     <item>
       <title>Docker machine 介绍</title>

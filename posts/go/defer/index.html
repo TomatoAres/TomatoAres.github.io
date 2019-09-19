@@ -11,10 +11,10 @@
     <meta property="og:title" content="Defer 总结 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-18T20:17:24&#43;08:00">
+    <meta property="article:published_time" content="2019-09-19T22:39:21&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-09-18T20:17:24&#43;08:00">
+    <meta property="article:modified_time" content="2019-09-19T22:39:21&#43;08:00">
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
     <meta name="description" content="Defer 总结">
@@ -77,7 +77,7 @@
                             <h1 class="post-title">Defer 总结</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年9月18日
+                            2019年9月19日
                         </date>
                         
                         <div class="post-meta">
@@ -121,8 +121,8 @@ func main() {
     b = 1
 }
 
-/*类似闭包
-defer 进栈之前 执行参数
+/* output
+
 10 1 2 3
 20 0 2 2
 2 0 2 2
@@ -133,7 +133,7 @@ defer 进栈之前 执行参数
 <h2 id="关键知识点">关键知识点</h2>
 
 <ol>
-<li>defer 是什么?
+<li>defer 是什么？
 &gt; defer 是 Go 语言提供的一种用于注册延迟调用的机制，每一次 defer 都会把函数压入栈中，当前函数返回前再把延迟函数取出并执行。</li>
 <li>两种使用方式：
 
@@ -149,19 +149,75 @@ defer 进栈之前 执行参数
 <li>空的 return
 defer 在 步骤 1 和 2 中间执行</li>
 </ol></li>
+<li>defer 进栈之前 执行参数（函数）:defer 语句执行的时候，会直接得到所有参数，然后 defer 带着评估后的参数入栈</li>
 </ol>
 
-<h2 id="还是无法解决-的问题">还是无法解决 的问题</h2>
+<h2 id="分析上边函数执行">分析上边函数执行</h2>
 
-<p>我认为的输出</p>
+<ol>
+<li><p>根据知识点 4，先执行</p>
 
-<pre><code class="language-shell">10 1 2 3
-2 0 2 2
-20 0 2 2
-1 1 3 4
+<pre><code class="language-shell">calc(&quot;10&quot;, a, b) // a=1,b=2, 输出：10，1，2，3 并且 3 进入 defer 函数中
+calc(&quot;20&quot;, a, b) // a=0,b=2, 输出：20，0，2，2 并且 2 进入 defer 函数中
+</code></pre></li>
+
+<li><p>先进后出</p>
+
+<pre><code class="language-shell">calc(&quot;2&quot;,a,2) // a=0 输出 2，0，2，2
+calc(&quot;1&quot;, a,3)//a=1 输出 1，1，3，4
+</code></pre></li>
+
+<li><p>最终输出就定下来了</p></li>
+</ol>
+
+<h2 id="第二道-defer-面试题">第二道 defer 面试题</h2>
+
+<p>坑： panic 输出位置</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    defer_call()
+}
+
+func defer_call() {
+
+    defer func() { fmt.Println(&quot;打印前&quot;) }()
+    defer func() { fmt.Println(&quot;打印中&quot;) }()
+    defer func() { fmt.Println(&quot;打印后&quot;) }()
+
+    panic(&quot;触发异常&quot;)
+}
 </code></pre>
 
-<p>暂时先留坑</p>
+<p>output:</p>
+
+<pre><code class="language-shell">打印后
+打印中
+打印前
+panic: 触发异常
+</code></pre>
+
+<h2 id="知识点">知识点</h2>
+
+<ol>
+<li>panic 异常，程序中断运行，并立即执行当前 goroutine 中 defer 函数，随后程序崩溃输出日志信息：panic</li>
+<li><code>fmt.Println()</code> 及所有的 fmt 包输出，都是到 标准输出中 <code>os.Stdout</code></li>
+<li>Go 中 os.Stdout 是无缓冲的</li>
+<li>无缓冲：没有缓冲区，数据会<strong>立即</strong>读入或者输出到外存文件和设备上。标准错误 stderr 是无缓冲的，这样保证错误提示和输出能够及时反馈给用户，供用户排除错误。</li>
+</ol>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+<li><a href="https://groups.google.com/forum/#!searchin/golang-nuts/fmt.Print$20buffer%7Csort:date/golang-nuts/PiR4P0joKeo/WM-e2FSaxGcJ">os.Stdout is not buffered ?</a></li>
+<li><a href="http://go101.studygolang.com/article/unofficial-faq.html#fmt-print-println">Go 问答 101</a></li>
+<li><a href="https://studygolang.com/topics/9992">https://studygolang.com/topics/9992</a></li>
+</ol>
 
                         </div>
 
@@ -183,15 +239,15 @@ defer 在 步骤 1 和 2 中间执行</li>
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">Go xml json 小结</a></li>
+        <li><a href="/posts/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a></li>
         
-        <li><a href="/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">Go 时区设置</a></li>
+        <li><a href="/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/">Vet 命令：超出预期的强大</a></li>
         
-        <li><a href="/posts/go/byte-rune/">Go 中 Byte Rune</a></li>
+        <li><a href="/posts/translated/20190807-go-thoughts-about-cobra/">Go：关于 Cobra 的想法</a></li>
         
-        <li><a href="/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">Go 逃逸分析</a></li>
+        <li><a href="/posts/translated/why-go-is-good-language-for-microservices/">为什么 Go 适合微服务</a></li>
         
-        <li><a href="/posts/go/heap-stack/"> Go 堆栈的理解</a></li>
+        <li><a href="/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">Go Struct Tag 是怎么玩的</a></li>
         
     </ul>
 </div>
@@ -239,6 +295,14 @@ defer 在 步骤 1 和 2 中间执行</li>
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结(1)——节点和核心资源">k8s 概念总结(1)——节点和核心资源</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
     </li>
     
@@ -259,10 +323,6 @@ defer 在 步骤 1 和 2 中间执行</li>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
-    </li>
-    
-    <li>
         <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
     </li>
     
@@ -272,10 +332,6 @@ defer 在 步骤 1 和 2 中间执行</li>
     
     <li>
         <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
     </li>
     
 </ul>
@@ -308,6 +364,10 @@ defer 在 步骤 1 和 2 中间执行</li>
     </li>
     
     <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
     </li>
     
@@ -320,15 +380,15 @@ defer 在 步骤 1 和 2 中间执行</li>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
     </li>
     
 </ul>
@@ -357,6 +417,8 @@ defer 在 步骤 1 和 2 中间执行</li>
     <a href="https://TomatoAres.github.io/tags/go/">go</a>
     
     <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
     
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
