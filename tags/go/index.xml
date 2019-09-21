@@ -20,7 +20,7 @@
       <description>连续两次被问到 map 遍历输出无序的原因
 看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。
 面试官笑得很诡异，而且就到此为止了。
-知道我看到这段代码：
+直到我看到这段代码：
 ... // decide where to start r := uintptr(fastrand()) if h.</description>
     </item>
     
