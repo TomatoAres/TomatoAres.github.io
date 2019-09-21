@@ -6,10 +6,35 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 19 Sep 2019 22:39:21 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Sep 2019 00:03:23 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>go map 无序原因</title>
+      <link>https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
+      <pubDate>Sun, 22 Sep 2019 00:03:23 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
+      <description>连续两次被问到 map 遍历输出无序的原因
+看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。
+面试官笑得很诡异，而且就到此为止了。
+知道我看到这段代码：
+... // decide where to start r := uintptr(fastrand()) if h.</description>
+    </item>
+    
+    <item>
+      <title>goroutine 协程数目限制</title>
+      <link>https://TomatoAres.github.io/posts/go/goroutines/</link>
+      <pubDate>Sat, 21 Sep 2019 23:51:43 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/goroutines/</guid>
+      <description>协程属于用户态线程，逻辑由用户代码控制。
+系统本身不对 goroutine 数目进行限制。
+虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现：
+ 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed  解决方式： buffered channel + sync.</description>
+    </item>
     
     <item>
       <title>Defer 总结</title>
