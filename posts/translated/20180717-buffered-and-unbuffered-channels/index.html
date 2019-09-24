@@ -7,13 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> | 西红柿的博客</title>
-    <meta property="og:title" content=" - 西红柿的博客">
+    <title>无缓冲和有缓冲通道 | 西红柿的博客</title>
+    <meta property="og:title" content="无缓冲和有缓冲通道 - 西红柿的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2019-09-24T23:59:46&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-24T23:59:46&#43;08:00">
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="">
+    <meta name="description" content="无缓冲和有缓冲通道">
         
     <meta name="author" content="TomatoAres">
     <meta property="og:url" content="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/">
@@ -70,11 +74,20 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title"></h1>
+                            <h1 class="post-title">无缓冲和有缓冲通道</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            1年1月1日
+                            2019年9月24日
                         </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
+                            
+                        </div>
                         
                         
                         <div class="post-meta">
@@ -84,8 +97,6 @@
                         
                         <div class="post-content">
                             
-
-<h1 id="无缓冲和有缓冲通道">无缓冲和有缓冲通道</h1>
 
 <p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/next-recvier.png" alt="&quot;Go 之旅 插图，由 Go Gopher 的 Renee French 创作" /></p>
 
@@ -287,11 +298,15 @@ func benchmarkWithBuffer(b *testing.B, size int) {
 }
 </code></pre>
 
+<blockquote>
+<p>译者注：上边代码和说明匹配，了解详情请参考原文</p>
+</blockquote>
+
 <p>在我们的基准测试中，一个生产者将在通道中注入一个 100 万个整数元素，而十个消费者将读取他们，并将它们累加到一个名为 <code>total</code> 的结果变量中。</p>
 
 <p>我使用 <code>benchstat</code> 运行他们 10 次来分析结果：</p>
 
-<pre><code class="language-sh">name                                    time/op
+<pre><code class="language-shell">name                                    time/op
 WithNoBuffer-8                          306µs ± 3%
 WithBufferSizeOf1-8                     248µs ± 1%
 WithBufferSizeEqualsToNumberOfWorker-8  183µs ± 4%
@@ -343,15 +358,15 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/posts/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a></li>
+        <li><a href="/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/">go map 无序原因</a></li>
         
-        <li><a href="/posts/translated/why-go-is-good-language-for-microservices/">为什么 Go 适合微服务</a></li>
-        
-        <li><a href="/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">Go Struct Tag 是怎么玩的</a></li>
+        <li><a href="/posts/go/goroutines/">goroutine 协程数目限制</a></li>
         
         <li><a href="/posts/go/defer/">Defer 总结</a></li>
         
-        <li><a href="/posts/cloud/dockerMachine/">Docker machine 介绍</a></li>
+        <li><a href="/posts/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a></li>
+        
+        <li><a href="/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/">Vet 命令：超出预期的强大</a></li>
         
     </ul>
 </div>
@@ -359,7 +374,11 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
 
                         <div class="post-meta meta-tags">
                             
-                            没有标签
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
+                                
+                            </ul>
                             
                         </div>
                     </article>
@@ -370,7 +389,7 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= ""
+            repo= "TomatoAres/TomatoAres.github.io"
             issue-term="pathname"
             theme="github-light"
             crossorigin="anonymous"
@@ -395,15 +414,35 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结">k8s 搭建过程总结</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/" title="为什么 Go 适合微服务">为什么 Go 适合微服务</a>
+        <a href="https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/" title="为什么要使用 go module proxy">为什么要使用 go module proxy</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/" title="Go Struct Tag 是怎么玩的">Go Struct Tag 是怎么玩的</a>
+        <a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/" title="无缓冲和有缓冲通道">无缓冲和有缓冲通道</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/" title="常见 IO 模型研究 ">常见 IO 模型研究 </a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/" title="go map 无序原因">go map 无序原因</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/goroutines/" title="goroutine 协程数目限制">goroutine 协程数目限制</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/web/cache-buffer-%E5%8C%BA%E5%88%AB/" title="buffer 和 cache 的区别">buffer 和 cache 的区别</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结(1)——节点和核心资源">k8s 概念总结(1)——节点和核心资源</a>
     </li>
     
     <li>
@@ -411,27 +450,7 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/dockerMachine/" title="Docker machine 介绍">Docker machine 介绍</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/" title="Dockerfile 总结">Dockerfile 总结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像">容器和镜像</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较">公有云、私有云、混合云的比较</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介">Docker 简介</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式">Rpc 标准库的几种实现方式</a>
+        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
     </li>
     
 </ul>
@@ -444,7 +463,7 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(3)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(7)</a>
     </li>
     
     <li>
@@ -460,7 +479,11 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(6)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(12)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
     </li>
     
     <li>
@@ -472,19 +495,31 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     </li>
     
     <li>
+        <a href="https://TomatoAres.github.io/categories/network/">network(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/os/">os(2)</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(6)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(6)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%9D%82%E8%AE%B0/">杂记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(6)</a>
     </li>
     
 </ul>
@@ -493,8 +528,6 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     <section class="widget">
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
-    
-    <a href="https://TomatoAres.github.io/tags/About/">About</a>
     
     <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
     
@@ -516,6 +549,8 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     
     <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
     
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
     <a href="https://TomatoAres.github.io/tags/network/">network</a>
@@ -529,6 +564,8 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
     
     <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E6%9D%82%E8%AE%B0/">杂记</a>
     
     <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
     
@@ -552,6 +589,10 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
         
         <li>
             <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
         </li>
         
     </ul>

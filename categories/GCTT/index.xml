@@ -6,10 +6,30 @@
     <description>Recent content in GCTT on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 19 Sep 2019 12:29:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Sep 2019 00:00:35 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/GCTT/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>为什么要使用 go module proxy</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/</link>
+      <pubDate>Wed, 25 Sep 2019 00:00:35 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/</guid>
+      <description>在看过 Go module 的简介之后，我以为我已经知道了这个功能我需要知道的一切。但是很快，我意识到并不是这样。最近，人们开始提倡使用 Go module proxy。在研究了利弊之后，我得出结论，这将是近年来 Go 语言最重要的变化之一。 但为什么会这样呢？是什么让 Go module 代理如此特别？</description>
+    </item>
+    
+    <item>
+      <title>无缓冲和有缓冲通道</title>
+      <link>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</link>
+      <pubDate>Tue, 24 Sep 2019 23:59:46 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/</guid>
+      <description>Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。
+无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：
+package main import ( &amp;quot;sync&amp;quot; &amp;quot;time&amp;quot; ) func main() { c := make(chan string) var wg sync.</description>
+    </item>
     
     <item>
       <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
