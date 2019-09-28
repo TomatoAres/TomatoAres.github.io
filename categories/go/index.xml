@@ -6,10 +6,28 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 25 Sep 2019 00:00:35 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Sep 2019 23:29:24 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Atoi 实现</title>
+      <link>https://TomatoAres.github.io/posts/leetcode/008-atoi/</link>
+      <pubDate>Fri, 27 Sep 2019 23:29:24 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/leetcode/008-atoi/</guid>
+      <description>历史问题 Q:明明是 string to int 为什么是 Atoi？ A: Atoi (Ascii to Integer)，Ascii 即使上古时期的 string，流传至今</description>
+    </item>
+    
+    <item>
+      <title>Go 中 Byte Rune——类型别名</title>
+      <link>https://TomatoAres.github.io/posts/go/byte-rune/</link>
+      <pubDate>Wed, 25 Sep 2019 23:11:24 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/byte-rune/</guid>
+      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</description>
+    </item>
     
     <item>
       <title>为什么要使用 go module proxy</title>
@@ -54,6 +72,15 @@ package main import ( &amp;quot;sync&amp;quot; &amp;quot;time&amp;quot; ) func m
 系统本身不对 goroutine 数目进行限制。
 虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现：
  系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed  解决方式： buffered channel + sync.</description>
+    </item>
+    
+    <item>
+      <title>Defer Recover Panic 三剑客</title>
+      <link>https://TomatoAres.github.io/posts/go/defer-recover-panic/</link>
+      <pubDate>Thu, 19 Sep 2019 23:29:57 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/defer-recover-panic/</guid>
+      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover</description>
     </item>
     
     <item>

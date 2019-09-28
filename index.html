@@ -68,6 +68,77 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现" >Atoi 实现</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月27日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/leetcode">leetcode</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                历史问题 Q:明明是 string to int 为什么是 Atoi？ A: Atoi (Ascii to Integer)，Ascii 即使上古时期的 string，流传至今……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介" >Linux Control Group 简介</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月26日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/os">os</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/system/cgroup/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名" >Go 中 Byte Rune——类型别名</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月25日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/byte-rune/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结" >k8s 搭建过程总结</a>
                                 </h1>
                             </header>
@@ -247,87 +318,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/cache-buffer-%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结(1)——节点和核心资源" >k8s 概念总结(1)——节点和核心资源</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月20日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/k8s">k8s</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1. Master  集群控制节点  3 个核心进程：
- kube-apiserver：  提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序  kube-controller manager：  所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等； 可以理解为资源对象的：“大总管”  kube-scheduler：  负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上； 理解为：调度室    另外 etcd 必不可少：所有资源的数据都是保存在 etcd 中  2.……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结" >Defer 总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月19日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
-面试题 下面代码输出什么？
-package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret := a + b fmt.……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略" >现代垃圾收集策略 —— Go 的 GC 策略</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月19日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                在 Hacker News 和 Reddit 你可以找到相关讨论
-我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -388,6 +378,18 @@ package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret 
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结">k8s 搭建过程总结</a>
     </li>
     
@@ -413,18 +415,6 @@ package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret 
     
     <li>
         <a href="https://TomatoAres.github.io/posts/web/cache-buffer-%E5%8C%BA%E5%88%AB/" title="buffer 和 cache 的区别">buffer 和 cache 的区别</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结(1)——节点和核心资源">k8s 概念总结(1)——节点和核心资源</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
     </li>
     
 </ul>
@@ -453,11 +443,15 @@ package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret 
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(12)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(15)</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
     </li>
     
     <li>
@@ -473,7 +467,7 @@ package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret 
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(2)</a>
+        <a href="https://TomatoAres.github.io/categories/os/">os(3)</a>
     </li>
     
     <li>
@@ -567,6 +561,10 @@ package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret 
         
         <li>
             <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
         </li>
         
     </ul>

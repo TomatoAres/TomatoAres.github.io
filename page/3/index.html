@@ -68,6 +68,102 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像" >容器和镜像</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
+镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/image-container/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较" >公有云、私有云、混合云的比较</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月16日
+                            </date>
+                            
+                            <div class="post-content">
+                                公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。
+公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的资源支付电用。此外，由于组织可以访问服务提供商的云计算基础设施，因此他们无需担心自己安装和维护的问题。
+公共云的一个缺点与安全有关。公共云通常不能满足许多安全法规遵从性要求，因为不同的服务器驻留在多个国家，并具有各种安全法规。而且，网络问题可能发生在在线流量峰值期间。虽然公共云模型通过提供按需付费的定价方式通常具有成本效益，但在移动大量数据时，其费用会迅速增加。
+私有云 私有云是一个企业唯一拥有基础设施资源的渠道。客户可以选择让私有云位于现场数据中心或由第三方服务提供商托管。
+与公共云模型相比，私有云模型的好处是它提供了更高的安全性，因为单个公司是唯一可以访问它的指定实体。这也使组织更容易定制其资源以满足特定的 IT 要求。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介" >Docker 简介</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                docker 是什么  应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————*容器*：  标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离   基本架构：C/S  Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请求， 比如创建运行容器等 Client: 主要是 Cli 命令行，客户端为用户提供一系列指令与 Docker daemon 交互 通过 restful api 进行通信   有人命名为：洋葱模型  远程还有个 Registry 存储仓库，类似 github 一样，有公共的 dockerhub，也可以自己搭私有的仓库  技术组件  LXC： Linux 容器技术，共享内核，容器共享宿主机资源，使用 namespace 和 cgroups 对资源限制与隔离。 Cgroups（control groups）： Linux 内核提供的一种限制单进程或者多进程资源的机制；比如 CPU、内存等资源的使用限制。 NameSpace：命名空间，也称名字空间， Linux 内核提供的一种限制单进程或者多进程资源隔离机制；一个进程可以属于多个命名空间。 Linux 内核提供了六种 NameSpace：  UTS：文件 IPC：通信 PID：进程 Network：网络 Mount： User：用户  UFS（UnionFS）：联合文件系统，支持将不同位置的目录挂载到同一虚拟文件系统，形成一种分层的模型；成员目录称为虚拟文件系统的一个分支（branch） AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种，每个 branch 可以指定 readonly（只读）readwrite（读写）和 whiteout-able（wo 隐藏）权限；一般情况下， aufs 只有最上层的 branch 才有读写权限，其他 branch 均为只读权限。  和虚拟机对比 同样是虚拟化技术，它和虚拟机的区别：……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/docker/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式" >Rpc 标准库的几种实现方式</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月12日
+                            </date>
+                            
+                            <div class="post-content">
+                                server server.go
+package main import ( &quot;errors&quot; &quot;fmt&quot; &quot;net&quot; &quot;net/http&quot; &quot;net/rpc&quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/system/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/" title="BSD 是什么" >BSD 是什么</a>
                                 </h1>
                             </header>
@@ -205,82 +301,6 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" title="行数据库 vs 列数据库" >行数据库 vs 列数据库</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月3日
-                            </date>
-                            
-                            <div class="post-content">
-                                是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
-   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" title="Radix Tree 基数树" >Radix Tree 基数树</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-content">
-                                echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
-定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune" >Go 中 Byte Rune</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-content">
-                                byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/byte-rune/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/web/csrf-xss/" title="Csrf Xss 总结" >Csrf Xss 总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/web">web</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/HTTP">HTTP</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
-CSRF 可以做什么？……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/csrf-xss/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -345,6 +365,18 @@ CSRF 可以做什么？……
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结">k8s 搭建过程总结</a>
     </li>
     
@@ -370,18 +402,6 @@ CSRF 可以做什么？……
     
     <li>
         <a href="https://TomatoAres.github.io/posts/web/cache-buffer-%E5%8C%BA%E5%88%AB/" title="buffer 和 cache 的区别">buffer 和 cache 的区别</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="k8s 概念总结(1)——节点和核心资源">k8s 概念总结(1)——节点和核心资源</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结">Defer 总结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/" title="现代垃圾收集策略 —— Go 的 GC 策略">现代垃圾收集策略 —— Go 的 GC 策略</a>
     </li>
     
 </ul>
@@ -410,11 +430,15 @@ CSRF 可以做什么？……
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(12)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(15)</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
     </li>
     
     <li>
@@ -430,7 +454,7 @@ CSRF 可以做什么？……
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(2)</a>
+        <a href="https://TomatoAres.github.io/categories/os/">os(3)</a>
     </li>
     
     <li>
@@ -524,6 +548,10 @@ CSRF 可以做什么？……
         
         <li>
             <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
         </li>
         
     </ul>

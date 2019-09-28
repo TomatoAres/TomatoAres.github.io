@@ -6,10 +6,19 @@
     <description>Recent content in os on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Sep 2019 14:13:45 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Sep 2019 00:13:30 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/os/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux Control Group 简介</title>
+      <link>https://TomatoAres.github.io/posts/system/cgroup/</link>
+      <pubDate>Thu, 26 Sep 2019 00:13:30 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/system/cgroup/</guid>
+      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</description>
+    </item>
     
     <item>
       <title>常见 IO 模型研究 </title>

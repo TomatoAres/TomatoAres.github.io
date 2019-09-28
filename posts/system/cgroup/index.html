@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Mysql 面试题总结 | 西红柿的博客</title>
-    <meta property="og:title" content="Mysql 面试题总结 - 西红柿的博客">
+    <title>Linux Control Group 简介 | 西红柿的博客</title>
+    <meta property="og:title" content="Linux Control Group 简介 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-01T19:52:00&#43;08:00">
+    <meta property="article:published_time" content="2019-09-26T00:13:30&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-09-01T19:52:00&#43;08:00">
+    <meta property="article:modified_time" content="2019-09-26T00:13:30&#43;08:00">
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="Mysql 面试题总结">
+    <meta name="description" content="Linux Control Group 简介">
         
     <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/system/cgroup/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,11 +74,18 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Mysql 面试题总结</h1>
+                            <h1 class="post-title">Linux Control Group 简介</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年9月1日
+                            2019年9月26日
                         </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/os">os</a></span>
+                            
+                        </div>
                         
                         
                         <div class="post-meta">
@@ -89,87 +96,21 @@
                         <div class="post-content">
                             
 
-<h2 id="主键-超键-候选键-外键">主键 超键 候选键 外键</h2>
+<p>Linux Control Group(简称 cgroup)是一个用于<em>限制、统计和隔离进程的资源的特性</em>
+<!-- 它于 2006 年由 Google 的两位工程师开发，之后合入 2.6.24 版本的内核。那时 docker 正在 Google 内部兴起，本人推测正是前者催生了 cgroup。本文重点介绍如何用 cgroup 限制进程的资源。 --></p>
+
+<p>在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</p>
 
 <ol>
-<li>主 键：
-数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。</li>
-<li>超 键：
-在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。</li>
-<li>候选键：
-是最小超键，即没有冗余元素的超键。</li>
-<li>外 键：
-在一个表中存在的另一个表的主键称此表的外键。</li>
+<li>CPU time：进程占用的 CPU 时间</li>
+<li>Memory：进程占用的物理内存</li>
+<li>Block IO：进程访问块设备的 bandwidth 或 IOPS</li>
+<li>Network IO：进程访问网络的 bandwidth 或 packages 的数量</li>
 </ol>
 
-<h2 id="事务-transanction">事务 transanction</h2>
+<h2 id="参考">参考</h2>
 
-<p>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</p>
-
-<ul>
-<li>在 MySQL 中只有使用了 *Innodb 数据库引擎*的数据库或表才支持事务。</li>
-<li>事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。</li>
-<li>事务用来管理 insert,update,delete 语句</li>
-</ul>
-
-<p>缩写常用：ACID</p>
-
-<ol>
-<li>Atomicity 原子性:
-
-<ol>
-<li>整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。</li>
-<li>事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</li>
-</ol></li>
-<li>Consistency 一致性：
-
-<ol>
-<li>类似线程安全：并行，并发执行结果和顺序执行一致</li>
-</ol></li>
-<li>Isolation 隔离性：
-
-<ol>
-<li>不受其他行为干扰：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。</li>
-<li>事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</li>
-</ol></li>
-<li>Duration 持久性：
-
-<ol>
-<li>事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</li>
-</ol></li>
-</ol>
-
-<h2 id="视图-view">视图 view</h2>
-
-<p>视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。</p>
-
-<p>作用：
- 使用视图可以简化复杂的 sql 操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。</p>
-
-<p>总结：</p>
-
-<ol>
-<li>抽象：简化复杂的 sql 操作，隐藏具体的细节，保护数据</li>
-<li>复用：视图创建后，可以使用与表相同的方式利用它们。</li>
-</ol>
-
-<p>使用：</p>
-
-<ol>
-<li>视图不能被索引，也不能有关联的触发器或默认值，如果视图本身内有 order by 则对视图再次 order by 将被覆盖。</li>
-<li>创建视图：create view XXX as XXXXXXXXXXXXXX;</li>
-<li>对于某些视图比如未使用联结子查询分组聚集函数 Distinct Union 等，是可以对其更新的，对视图的更新将对基表进行更新；但是视图主要用于简化检索，保护数据，并不用于更新，而且大部分视图都不可以更新。</li>
-</ol>
-
-<h2 id="索引-index">索引 Index</h2>
-
-<p>数据库索引，是数据库管理系统中一个排序的数据结构，*以协助快速查询、更新数据库表中数据*。索引的实现通常使用 B 树及其变种 B+ 树。</p>
-
-<p>在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。</p>
-
-<p>为表设置索引要付出代价的：
-    1. 增加了数据库的存储空间，
-    2. 在插入和修改数据时要花费较多的时间(因为索引也要随之变动)。</p>
+<p><a href="http://wsfdl.com/linux/2015/05/21/%E7%90%86%E8%A7%A3control_group.html">Linux Control Group 简介</a></p>
 
                         </div>
 
@@ -177,7 +118,7 @@
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/">https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/system/cgroup/">https://TomatoAres.github.io/posts/system/cgroup/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -191,15 +132,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/posts/database/influxdb%E7%AE%80%E4%BB%8B/">Influxdb 简介</a></li>
+        <li><a href="/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/">常见 IO 模型研究 </a></li>
         
-        <li><a href="/posts/web/HTTP-2.0/">HTTP 2.0</a></li>
+        <li><a href="/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">进程线程协程总结</a></li>
         
-        <li><a href="/posts/network/websocket%E6%80%BB%E7%BB%93/">Websocket 总结</a></li>
+        <li><a href="/posts/go/byte-rune/">Go 中 Byte Rune——类型别名</a></li>
         
-        <li><a href="/posts/web/restful%E6%80%BB%E7%BB%93/">Restful 总结</a></li>
+        <li><a href="/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/">k8s 搭建过程总结</a></li>
         
-        <li><a href="/posts/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/">Hugo 静态文件使用</a></li>
+        <li><a href="/posts/translated/20190802-why-you-should-use-a-go-module-proxy/">为什么要使用 go module proxy</a></li>
         
     </ul>
 </div>
@@ -209,7 +150,7 @@
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://TomatoAres.github.io/tags/database">database</a></li>
+                                <li><a href="https://TomatoAres.github.io/tags/os">os</a></li>
                                 
                             </ul>
                             
