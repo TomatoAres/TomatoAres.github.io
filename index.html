@@ -68,6 +68,31 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结" >Iperf3 小结</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月22日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/network">network</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                定义  iPerf3 是用于主动测量 IP 网络上可达到的最大带宽的工具。 它支持与时序，缓冲区和协议（TCP，UDP，带有 IPv4 和 IPv6 的 SCTP）相关的各种参数的调整。 对于每个测试，它都会报告带宽，损耗和其他参数。 不向后兼容——可以说已经不是 iperf  功能 基本——Iperf2 也有  TCP 和 UDP 测试 （-u） 设置端口（-p） 设置 TCP 选项：无延迟，MSS 等。 设置 UDP 带宽（-b） 设置套接字缓冲区大小（-w） 报告间隔（-i） 设置 iPerf 缓冲区（-l） 绑定到特定接口（-B） IPv6 测试（-6） 要传输的字节数（-n） 测试时间（-t） 并行流（-P） 设置 DSCP / TOS 位向量（-S） 更改号码输出格式（-f）  iPerf 3.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/iperf/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探" >OpenvSwitch 初探</a>
                                 </h1>
                             </header>
@@ -285,33 +310,6 @@
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/" title="无缓冲和有缓冲通道" >无缓冲和有缓冲通道</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月24日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。
-无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：
-package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := make(chan string) var wg sync.……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -376,6 +374,10 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
     </li>
     
@@ -409,10 +411,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     
     <li>
         <a href="https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/" title="为什么要使用 go module proxy">为什么要使用 go module proxy</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/" title="无缓冲和有缓冲通道">无缓冲和有缓冲通道</a>
     </li>
     
 </ul>
@@ -461,7 +459,7 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(5)</a>
+        <a href="https://TomatoAres.github.io/categories/network/">network(6)</a>
     </li>
     
     <li>
@@ -477,7 +475,7 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(6)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(7)</a>
     </li>
     
     <li>
