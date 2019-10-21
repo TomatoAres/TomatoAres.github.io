@@ -68,6 +68,55 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探" >OpenvSwitch 初探</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月22日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/network">network</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/os">os</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                定义 一句话：openvswitch 就是软件（虚拟）交换机。
+ Open vSwitch 是一个高质量的、多层虚拟交换机， 使用开源 Apache2.0 许可协议，由 Nicira Networks 开发，主要实现代码为可移植的 C 代码。 目的是让大规模网络自动化可以通过编程扩展，同时仍然支持标准的管理接口和协议（例如 NetFlow, sFlow, SPAN, RSPAN, CLI, LACP, 802.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/openvswitch/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结" >虚拟化总结</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月21日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96">虚拟化</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                定义  通过虚拟化技术将一台计算机虚拟为多态逻辑计算机。简单来说：虚拟化使得在一台物理的服务器上可以跑多台虚拟机 虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。  每台逻辑计算机可以运行不同的操作系统。 应用程序可以相互独立的运行在不同的空间内  物理机我们一般称为宿主机（Host），宿主机上面的虚拟机称为客户机（Guest） 显著提高资源使用率，和计算机工作效率  对比 |虚拟化前|虚拟化后| |&mdash;|&mdash;| |每台主机一个操作系统|多个操作系统| |软硬件结合，操作系统与硬件紧密结合|虚拟机独立于硬件，能在任何硬件上运行| |死板|灵活|……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡" >CPU 内存 显卡</a>
                                 </h1>
                             </header>
@@ -263,58 +312,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/" title="常见 IO 模型研究 " >常见 IO 模型研究 </a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/network">network</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/os">os</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段：……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/" title="go map 无序原因" >go map 无序原因</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                连续两次被问到 map 遍历输出无序的原因
-看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。
-面试官笑得很诡异，而且就到此为止了。
-直到我看到这段代码：
-... // decide where to start r := uintptr(fastrand()) if h.……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -379,6 +376,14 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
     </li>
     
@@ -408,14 +413,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     
     <li>
         <a href="https://TomatoAres.github.io/posts/translated/20180717-buffered-and-unbuffered-channels/" title="无缓冲和有缓冲通道">无缓冲和有缓冲通道</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/" title="常见 IO 模型研究 ">常见 IO 模型研究 </a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/web/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/" title="go map 无序原因">go map 无序原因</a>
     </li>
     
 </ul>
@@ -464,11 +461,11 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(4)</a>
+        <a href="https://TomatoAres.github.io/categories/network/">network(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(3)</a>
+        <a href="https://TomatoAres.github.io/categories/os/">os(4)</a>
     </li>
     
     <li>
@@ -489,6 +486,10 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     
     <li>
         <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
     </li>
     
     <li>
@@ -543,6 +544,8 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
     
     <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
     
     <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     

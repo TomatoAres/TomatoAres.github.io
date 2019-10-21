@@ -6,10 +6,20 @@
     <description>Recent content in network on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Sep 2019 14:13:45 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Oct 2019 00:08:36 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OpenvSwitch 初探</title>
+      <link>https://TomatoAres.github.io/posts/network/openvswitch/</link>
+      <pubDate>Tue, 22 Oct 2019 00:08:36 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/network/openvswitch/</guid>
+      <description>定义 一句话：openvswitch 就是软件（虚拟）交换机。
+ Open vSwitch 是一个高质量的、多层虚拟交换机， 使用开源 Apache2.0 许可协议，由 Nicira Networks 开发，主要实现代码为可移植的 C 代码。 目的是让大规模网络自动化可以通过编程扩展，同时仍然支持标准的管理接口和协议（例如 NetFlow, sFlow, SPAN, RSPAN, CLI, LACP, 802.</description>
+    </item>
     
     <item>
       <title>常见 IO 模型研究 </title>
