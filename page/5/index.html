@@ -68,6 +68,24 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" title="Go 逃逸分析" >Go 逃逸分析</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月2日
+                            </date>
+                            
+                            <div class="post-content">
+                                参考：Go 逃逸分析
+堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
+ 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/go/heap-stack/" title=" Go 堆栈的理解" > Go 堆栈的理解</a>
                                 </h1>
                             </header>
@@ -245,23 +263,6 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/hugo/hugo-%E6%A0%B7%E5%BC%8F/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/go-test/" title="go test 工具的简单介绍和使用" >go test 工具的简单介绍和使用</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月29日
-                            </date>
-                            
-                            <div class="post-content">
-                                简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
-在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/go-test/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -330,6 +331,10 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
     </li>
     
@@ -363,10 +368,6 @@ hugo --theme=ananke --baseUrl=&quot;http://TomatoAres.github.io/&quot;  将上�
     
     <li>
         <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结">k8s 搭建过程总结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20190802-why-you-should-use-a-go-module-proxy/" title="为什么要使用 go module proxy">为什么要使用 go module proxy</a>
     </li>
     
 </ul>

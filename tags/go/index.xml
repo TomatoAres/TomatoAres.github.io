@@ -6,10 +6,20 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 27 Sep 2019 23:29:24 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Oct 2019 22:48:31 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用 Goland 安装多个版本的 go</title>
+      <link>https://TomatoAres.github.io/posts/go/mult-version-go/</link>
+      <pubDate>Sun, 27 Oct 2019 22:48:31 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/go/mult-version-go/</guid>
+      <description> 前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。
+开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本  选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可  </description>
+    </item>
     
     <item>
       <title>Atoi 实现</title>
