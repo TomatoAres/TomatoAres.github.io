@@ -68,6 +68,23 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="Rpc 标准库的几种实现方式" >Rpc 标准库的几种实现方式</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月12日
+                            </date>
+                            
+                            <div class="post-content">
+                                server server.go
+package main import ( &quot;errors&quot; &quot;fmt&quot; &quot;net&quot; &quot;net/http&quot; &quot;net/rpc&quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/system/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/" title="BSD 是什么" >BSD 是什么</a>
                                 </h1>
                             </header>
@@ -265,33 +282,6 @@ CSRF 可以做什么？……
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/csrf-xss/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" title="Http 方法总结" >Http 方法总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/web">web</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/HTTP">HTTP</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。
-使用中发现：
- postman 和浏览器均无法携带 请求体 es 查询可以  二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -360,6 +350,10 @@ CSRF 可以做什么？……
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
     </li>
     
@@ -395,10 +389,6 @@ CSRF 可以做什么？……
         <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/" title="k8s 搭建过程总结">k8s 搭建过程总结</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -409,7 +399,7 @@ CSRF 可以做什么？……
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(7)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(8)</a>
     </li>
     
     <li>
@@ -425,7 +415,7 @@ CSRF 可以做什么？……
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(15)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
     </li>
     
     <li>

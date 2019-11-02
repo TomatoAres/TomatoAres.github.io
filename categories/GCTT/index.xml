@@ -6,10 +6,22 @@
     <description>Recent content in GCTT on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 25 Sep 2019 00:00:35 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 00:10:37 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/GCTT/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>理解 Go 的空接口</title>
+      <link>https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/</link>
+      <pubDate>Sun, 03 Nov 2019 00:10:37 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/</guid>
+      <description>空接口可用于保存任何数据，它可以是一个有用的参数，因为它可以使用任何类型。要理解空接口如何工作以及如何保存任何类型，我们首先应该理解空接口名称背后的概念。
+接口（interface{}） Jordan Oreilli 对空接口的一个很好的定义：
+ 接口是两件事物：它是一组方法，但它也是一种类型。
+interface{} 类型是没有方法的接口。由于没有 implements 关键字，所有类型都至少实现零个方法，并且自动满足接口，所有类型都满足空接口。</description>
+    </item>
     
     <item>
       <title>为什么要使用 go module proxy</title>
