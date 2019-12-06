@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> | 西红柿的博客</title>
+    <meta property="og:title" content=" - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/k8s/ubuntu-k8s/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">Awesome TomatoAres</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title"></h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="ubuntu-18-04-安装-k8s">Ubuntu 18.04 安装 k8s</h1>
+
+<h2 id="更换-软件源">更换 软件源</h2>
+
+<h2 id="翻墙">翻墙</h2>
+
+<h2 id="基本配置">基本配置</h2>
+
+<ol>
+<li>内存交换</li>
+<li>防火墙</li>
+<li>selinux</li>
+</ol>
+
+<h2 id="安装-docker">安装 docker</h2>
+
+<h2 id="配置-kubernetes-源-安装工具-kubelet-kubeadm-kubectl">配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl</h2>
+
+<pre><code class="language-shell">sudo apt-get update &amp;&amp; sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat &lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+</code></pre>
+
+<h2 id="没有梯子的启动方法">没有梯子的启动方法</h2>
+
+<h2 id="有梯子">有梯子</h2>
+
+<h2 id="faq">FAQ</h2>
+
+<ol>
+<li><p>apt-get update locked</p>
+
+<pre><code class="language-shell">root@ubuntu:/etc/apt# apt-get update
+正在读取软件包列表。.. 完成
+E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用）
+E: 无法对目录 /var/lib/apt/lists/ 加锁
+</code></pre>
+
+<p>其他程序在占用 apt-get 程序，kill 或等待结束</p></li>
+
+<li><p>权限问题</p>
+
+<pre><code class="language-shell">ares@ubuntu:~/go/src/alex/content$ touch t.md
+touch: 无法创建't.md': 权限不够
+
+Unable to write file (NoPermissions (FileSystemError): Error: EACCES: permission denied, open '/home/ares/go/src/alex/content/ubuntu.md')
+
+goland 创建文件失败：
+Cannot modify a read-only directory
+</code></pre>
+
+<p>更改当前用户目录下所有文件的所有者：chown ares ares/ -R</p></li>
+
+<li><p>总是锁屏</p>
+
+<ol>
+<li>设置——隐私——锁屏</li>
+</ol></li>
+
+<li><p>使用代理</p>
+
+<ol>
+<li><a href="https://tomoyadeng.github.io/blog/2018/10/12/k8s-in-ubuntu18.04/index.html">https://tomoyadeng.github.io/blog/2018/10/12/k8s-in-ubuntu18.04/index.html</a></li>
+</ol></li>
+
+<li><p>apt-get 公钥</p>
+
+<pre><code class="language-shell">错误：9 https://packages.cloud.google.com/apt kubernetes-xenial InRelease
+由于没有公钥，无法验证下列签名： NO_PUBKEY 6A030B21BA07F4FB
+正在读取软件包列表。.. 完成
+W: GPG 错误：https://packages.cloud.google.com/apt kubernetes-xenial InRelease: 由于没有公钥，无法验证下列签名： NO_PUBKEY 6A030B21BA07F4FB
+E: 仓库 “http://apt.kubernetes.io kubernetes-xenial InRelease” 没有数字签名。
+N: 无法安全地用该源进行更新，所以默认禁用该源。
+N: 参见 apt-secure(8) 手册以了解仓库创建和用户配置方面的细节。
+</code></pre>
+
+<p>那就生成公钥： apt-key adv &ndash;keyserver keyserver.ubuntu.com &ndash;recv-keys 6A030B21BA07F4FB （公钥）</p>
+
+<ul>
+<li>注意得是自己 bao&rsquo;duo</li>
+</ul></li>
+
+<li><p>docker 版本问题</p>
+
+<pre><code class="language-shell">[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 19.03.4. Latest validated version: 18.09
+</code></pre>
+
+<p>卸不掉：直接安装降级 apt-get -y install docker-ce=18.06.1~ce~3-0~ubuntu &ndash;allow-downgrades</p></li>
+
+<li><p>代理已配 浏览器+命令行，但是还是无法拉取镜像</p>
+
+<pre><code class="language-shell">failed to pull image &quot;k8s.gcr.io/kube-apiserver:v1.16.2&quot;: output: Error response from daemon: Get https://k8s.gcr.io/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+, error: exit status 1
+</code></pre></li>
+
+<li><p>Error response from daemon: Get <a href="https://k8s.gcr.io/v2/:">https://k8s.gcr.io/v2/:</a> proxyconnect tcp: net/http: TLS handshake timeout</p></li>
+
+<li><p>Error response from daemon: Get <a href="https://registry.cn-hangzhou.aliyuncs.com/v2/:">https://registry.cn-hangzhou.aliyuncs.com/v2/:</a> proxyconnect tcp: net/http: TLS handshake timeout</p></li>
+
+<li><p>E212: 无法打开并写入文件
+权限问题，更改用户</p></li>
+
+<li><p>[WARNING Service-Docker]: docker service is not enabled, please run &lsquo;systemctl enable docker.service&rsquo;
+systemctl enable docker.service</p></li>
+
+<li><p>Failed to enable unit: Unit file /lib/systemd/system/docker.service is masked.
+systemctl unmask docker.service
+systemctl unmask docker.socket
+systemctl start docker.service</p>
+
+<p><code>mask</code>是的更强版本<code>disable</code>。使用<code>disable</code>指定单位文件的所有符号链接都将被删除。如果使用<code>mask</code>单位将链接到<code>/dev/null</code>。如果您通过进行检查，将显示此信息<code>systemctl status halt.service</code>。的优点<code>mask</code>是可以防止任何形式的激活，甚至是手动激活。</p>
+
+<p>注意：<code>systemctl list-unit-files</code>列出了单元文件的状态（静态，启用，禁用，屏蔽，间接），与服务状态无关。看一下服务使用情况<code>systemctl list-units</code>。</p>
+
+<p>reboot 无效，重装吧</p></li>
+
+<li><p>[WARNING IsDockerSystemdCheck]: detected &ldquo;cgroupfs&rdquo; as the Docker cgroup driver. The recommended driver is &ldquo;systemd&rdquo;. Please follow the guide at <a href="https://kubernetes.io/docs/setup/cri/">https://kubernetes.io/docs/setup/cri/</a>
+配置：/etc/docker/daemon.json
+&ldquo;exec-opts&rdquo;: [&ldquo;native.cgroupdriver=systemd&rdquo;]</p></li>
+
+<li><p>[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 19.03.4. Latest validated version: 18.09</p>
+
+<p>更换docker版本</p></li>
+
+<li><p>[WARNING HTTPProxy]: Connection to &ldquo;<a href="https://1.2.3.4&quot;">https://1.2.3.4&quot;</a> uses proxy &ldquo;<a href="http://192.168.136.1:1080/&quot;">http://192.168.136.1:1080/&quot;</a>. If that is not intended, adjust your proxy settings
+[WARNING HTTPProxyCIDR]: connection to &ldquo;10.96.0.0/12&rdquo; uses proxy &ldquo;<a href="http://192.168.136.1:1080/&quot;">http://192.168.136.1:1080/&quot;</a>. This may lead to malfunctional cluster setup. Make sure that Pod and Services IP ranges specified correctly as exceptions in proxy configuration</p></li>
+
+<li><p>kubelet.go:2267] node &ldquo;ubuntu&rdquo; not found
+<a href="https://github.com/kubernetes/kubernetes/issues/74262">https://github.com/kubernetes/kubernetes/issues/74262</a>
+我在Ubuntu 18.04和Kube 1.14.0中遇到了相同的问题。将advertised-address设置为0.0.0.0而不是指定我的机器的IP地址即可解决此问题。非常感谢您的评论。</p></li>
+</ol>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/k8s/ubuntu-k8s/">https://TomatoAres.github.io/posts/k8s/ubuntu-k8s/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/translated/20190814-go-understand-the-empty-interface/">理解 Go 的空接口</a></li>
+        
+        <li><a href="/posts/go/mult-version-go/">使用 Goland 安装多个版本的 go</a></li>
+        
+        <li><a href="/posts/network/iperf/">Iperf3 小结</a></li>
+        
+        <li><a href="/posts/network/openvswitch/">OpenvSwitch 初探</a></li>
+        
+        <li><a href="/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/">虚拟化总结</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "TomatoAres/TomatoAres.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/network/">network(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/os/">os(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%9D%82%E8%AE%B0/">杂记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(6)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E6%9D%82%E8%AE%B0/">杂记</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
