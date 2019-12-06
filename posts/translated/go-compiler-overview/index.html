@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>为什么 Go 适合微服务 | 西红柿的博客</title>
-    <meta property="og:title" content="为什么 Go 适合微服务 - 西红柿的博客">
+    <title>Go 编译器概述 | 西红柿的博客</title>
+    <meta property="og:title" content="Go 编译器概述 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-18T21:49:04&#43;08:00">
+    <meta property="article:published_time" content="2019-12-01T00:59:39&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-09-18T21:49:04&#43;08:00">
+    <meta property="article:modified_time" content="2019-12-01T00:59:39&#43;08:00">
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="为什么 Go 适合微服务">
+    <meta name="description" content="Go 编译器概述">
         
     <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/translated/go-compiler-overview/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,10 +74,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">为什么 Go 适合微服务</h1>
+                            <h1 class="post-title">Go 编译器概述</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年9月18日
+                            2019年12月1日
                         </date>
                         
                         <div class="post-meta">
@@ -100,70 +100,128 @@
                         <div class="post-content">
                             
 
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images/master/go-is-good-microservice/1_K95qdWukzkEadEpxqiNdEQ.jpeg" alt="Go Crew at SafetyCulture" /></p>
+<blockquote>
+<p>首发于：<a href="https://studygolang.com/articles/24554">https://studygolang.com/articles/24554</a></p>
+</blockquote>
 
-<p>去年早些时候，我们决定改用 Go(Golang) 作为我们（<a href="https://safetyculture.com/">SafetyCulture</a>）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</p>
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/go-compiler.png" alt="&quot;'Golang 之旅'插图，由 Go Gopher 的 Renee French 创作&quot;" /></p>
 
-<h2 id="1-静态类型">1. 静态类型</h2>
+<blockquote>
+<p><em>本文基于 Go 1.13</em></p>
+</blockquote>
 
-<p>Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。</p>
+<p>Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</p>
 
-<h3 id="生产事故的故事">生产事故的故事</h3>
+<h2 id="阶段-phases">阶段（phases）</h2>
 
-<p>去年，在为我们的一个核心微服务修复 bug 时，我造成了一个生产事故（用 Node 编写），因为我在函数中添加了一个额外的参数，忘记在调用函数时传递正确的参数。</p>
+<p>Go 编译器由四个阶段组成，可以分为两类：</p>
 
-<pre><code class="language-typescript">// 函数定义
-function saveDocument({id, oldDocument, newDocument}) {}
+<ul>
+<li>前端（frontend）：这个阶段从源代码进行分析，并生成一个抽象的源代码语法结构，称为 <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a></li>
+<li>后端（backend）：第二阶段将把源代码的表示转换为机器码，并进行一些优化。</li>
+</ul>
 
-// 函数调用
-saveDocument({
-    id: &quot;xyz&quot;,
-    oldDoc: &quot;blah blah&quot;,
-    newDocument: &quot;new doc&quot;
-})
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/layer.png" alt="layer" /></p>
+
+<p><a href="https://github.com/golang/go/blob/release-branch.go1.13/src/cmd/compile/README.md">编译器文档</a></p>
+
+<p>为了更好理解每个阶段，我们看个简单的程序：</p>
+
+<pre><code class="language-go">package main
+
+func main() {
+    a := 1
+    b := 2
+    if true {
+        add(a, b)
+    }
+}
+
+func add(a, b int) {
+    println(a + b)
+}
 </code></pre>
 
-<p>我的函数期望传入 oldDocument 类型的参数，但是我传了 oldDoc 类型。最终， oldDocument 应该需要写入 Kafaka, 以供下游其他微服务使用。所有测试都通过了，我将其作为产品发布，仅发布 3 天，我们就意识到问题。这个问题花费了我们两个全职工程师工作了整整 3 天才修复。</p>
+<h2 id="解析">解析</h2>
 
-<p>当然，您可以使用 TypeScript 并解决这个问题（希望如此），但为什么不选择一种语言来帮助您在编译时捕获问题？在当今的世界，团队们正在开发 20 种不同的微服务，你需要记忆大量内容，编译过程提供一些帮助是有好处的。我在生产 ROR 应用程序之前也看到了类似的问题，我可以将 string 类型更改为 int, 数组，甚至任意类型都没有类型，直到出现问题或者伤害了你的用户。<a href="https://www.reddit.com/r/typescript/comments/aofcik/38_of_bugs_at_airbnb_could_have_been_prevented_by/">Airbnb 表示，使用类型可以预防 38 ％ 的漏洞</a>。</p>
+<p>第一阶段非常简单，在 <a href="https://github.com/golang/go/blob/release-branch.go1.13/src/cmd/compile/README.md">文档</a> 中有很好的解释：</p>
 
-<h2 id="2-可读性">2. 可读性</h2>
+<blockquote>
+<p>在编译的第一阶段，对源代码进行标记（词法分析）、解析（语法分析），并为每个源文件构建语法树。</p>
+</blockquote>
 
-<p><strong><em>清晰好过聪明（Clear is better than clever）</em></strong></p>
+<p>lexer 是第一个运行用来标记源代码的包。下面是上边例子的 <a href="https://gist.github.com/blanchonvincent/1f1cb850a436ffbb81df14eb586f52df">标记化</a> 输出：</p>
 
-<p>Go 的原作者在设计时非常注重可读性。Go 是一种易于学习的语言，并且针对大多数问题，都有一种惯用方式。而在 NodeJS ，您可以在同一代码库中遇到回调，约定和异步 / 等待（不同方式实现同一件事）。人们抱怨 Go 很冗长，但我们认为这对 SafetyCulture 来说是一件好事。当然，你可以在 Python/Node 中编写复杂的，很少有人能够理解的 1-liners（一行代码实现），但这并不能形成一个可读的代码库，不便他人维护。</p>
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/Go%20source%20code%20tokenized.png" alt="Go 源码标记化" /></p>
 
-<h2 id="3-标准库">3. 标准库</h2>
+<p>一旦被标记化，代码将被解析、构建代码树。</p>
 
-<p>Go 的标准库设计的很棒，你可以用它做很多事情。维护巨大的外部依赖树是一项挑战。您添加到应用程序的每个依赖项都会带来许多其他依赖项，需要对其进行性能和安全性审计。在某些情况下，它甚至会妨碍您对应用程序的更改，比如 <a href="https://www.davidhaney.io/npm-left-pad-have-we-forgotten-how-to-program/">leftpad incident</a>。</p>
+<h2 id="ast-抽象语法树-转换">AST（抽象语法树） 转换</h2>
 
-<p><strong><em><a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=9m28s">小复制好于小依赖 (A little copying is better than a little dependency)</a></em></strong></p>
+<p>可以通过 <code>go tool compile</code> 命令和标志 <code>-w</code> 展示 <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">抽象语法树</a> 的转换：</p>
 
-<p>Go 的作者和社区希望开发人员注意他们的应用程序的依赖关系。</p>
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/sample%20of%20the%20generated%20AST.png" alt="构建 AST 的简单过程" /></p>
 
-<h2 id="4-性能">4. 性能</h2>
+<p>此阶段还将包括内联等优化。在我们的示例中，由于我们没有看到 <code>CALLFUNC</code> 该方法的任何 <code>add</code> 指令，该方法 <code>add</code> 已经内联。让我们使用禁用内联的标志 <code>-l</code> 再次运行。</p>
 
-<p>Go 对并发编程有很好的支持，可以很好地利用多个内核。这对于繁重的计算以及网络 I/O 和磁盘搜索等都是有益的。想了解更多关于优化内存和 CPU 使用，可以看看项目：<a href="https://medium.com/safetycultureengineering/why-we-moved-our-graphql-server-from-node-js-to-golang-645b00571535">Why we moved our GraphQL server to Go.</a></p>
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/sample%20of%20the%20generated%20AST%202.png" alt="构建 AST 的简单过程" /></p>
 
-<h2 id="5-代码格式化">5. 代码格式化</h2>
+<p>AST 生成后，它允许编译器使用 SSA 表示转到较低级别的中间表示。</p>
 
-<p><strong><em><a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=8m43s">Gofmt 的风格没有人喜欢 , 但是 Gofmt 是每个人的最爱 (Gofmt ’ s style is no one ’ s favorite, yet Gofmt is everyone ’ s favorite)</a></em></strong></p>
+<h2 id="ssa-静态单赋值-的生成">SSA（静态单赋值）的生成</h2>
 
-<p>Go 有固定的代码格式和工具（gofmt），帮你自动化格式化代码，因此你不需要花费时间讨论设置 ESLint 或 Prettier。</p>
+<p><a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">静态单赋值</a> 阶段进行优化：消除死代码，删除不使用的分支，替换一些常量表达式等等。</p>
 
-<h2 id="结论">结论</h2>
+<p>使用 <code>GOSSAFUNC=main Go tool compile main.go &amp;&amp; open ssa.html</code> 命令，生成 HTML 文档的命令将在 SSA 包中完成所有不同的过程，因此可以转储 SSA 代码：</p>
 
-<p>相比其他动态编程语言，Go 提供了很多优良特性。但是，没有一个语言是完美的。比如：Go 中的并发代码很容易编写，但新手却并不能很好上手使用。这是因为，数据经常出现竞争状态，代码不好调试。这一点上，<a href="https://www.rust-lang.org/">Rust</a> 做的更好一些，因为它提供了权衡机制防止数据出现竞争状态，但你必须了解更复杂的系统。</p>
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/SSA%20code.png" alt="SSA 过程" /></p>
 
-<p>参考连接：<a href="https://go-proverbs.github.io/">https://go-proverbs.github.io/</a></p>
+<p>生成的 SSA 位于 “start” 选项卡中：</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/SSA%20code.png" alt="SSA 代码" /></p>
+
+<p>在这里，高亮显示变量 <code>a</code> 和 <code>b</code> 以及 <code>if</code> 条件表达式，将向我们展示这些行是怎么变化的。这些代码也向我们描述了编译器如何管理 <code>println</code> 函数，该函数被分解为 4 个步骤：printlock、printint、printnl、printunlock。编译器会自动为我们添加一个锁，并根据参数的类型，调用相关的方法来正确输出。</p>
+
+<p>在我们的示例中，由于编译时已知 <code>a</code> 和 <code>b</code>，所以编译器可以计算最终结果并将变量标记为不必要的。通过 <code>opt</code> 优化这部分：</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/SSA%20code%20%E2%80%94%20%E2%80%9Copt%E2%80%9D%20pass.png" alt="SSA code — “opt” 过程" /></p>
+
+<p>在这里，<code>v11</code> 已经被添加的 <code>v4</code> 和 <code>v5</code> 所替代，这两个 <code>v4</code> 和 <code>v5</code> 被标记为死代码。然后通过 <code>opt deadcode</code> 将删除这些代码。</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/SSA%20code%20%E2%80%94%20%E2%80%9Copt%20deadcode%E2%80%9D%20pass.png" alt="SSA code — “opt deadcode” 过程" /></p>
+
+<p>对于 <code>if</code> 条件，<code>opt</code> 阶段将常量 <code>true</code> 标记为死代码，然后删除：
+<img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/constant%20boolean%20is%20removed.png" alt="删除布尔常量" /></p>
+
+<p>然后，通过将不必要的块和条件标记为无效，另一次传递将简化控制流。这些块稍后将被另一个专用于死代码的阶段删除</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/unnecessary%20control%20flow%20is%20removed.png" alt="删除不必要控制流" /></p>
+
+<p>完成所有过程之后，Go 编译器现在将生成一个中间汇编代码</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/Go%20asm%20code.png" alt="Go 汇编码" /></p>
+
+<p>下一阶段将把机器码生成到二进制文件中。</p>
+
+<h2 id="生成机器码">生成机器码</h2>
+
+<p>编译器的最后一步是生成目标(object)文件，在我们的例子中生成 <code>main.c</code>。从这个文件中，现在可以使用 <code>objdumptool</code> 对其进行反编译。下面是一个很好的图表,由 Grant Seltzer Richman 创建:</p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/go%20tool%20compile.png" alt="compile 工具" /></p>
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/go-overview-of-compile/go%20tool%20objdump.png" alt="objdump 工具" /></p>
+
+<p><em>您可以在“<a href="https://www.grant.pizza/dissecting-go-binaries/">Dissecting Go Binaries</a>”中找到有关对象文件和二进制文件的更多信息。</em></p>
+
+<p>生成目标文件后，现在可以使用 <code>go tool link</code> 将其直接传递给链接器，二进制文件将最终就绪。</p>
 
 <hr />
 
-<p>via: <a href="https://medium.com/safetycultureengineering/why-go-is-a-good-language-for-microservices-b4fc6a5a532c">https://medium.com/safetycultureengineering/why-go-is-a-good-language-for-microservices-b4fc6a5a532c</a></p>
+<p>via: <a href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889</a></p>
 
-<p>作者：<a href="https://medium.com/@pawan_rawal">Pawan Rawal</a>
+<p>作者：<a href="https://medium.com/@blanchon.vincent">Vincent Blanchon</a>
 译者：<a href="https://github.com/TomatoAres">TomatoAres</a>
-校对：<a href="https://github.com/magichan">magichan</a></p>
+校对：<a href="https://github.com/polaris1119">polaris1119</a></p>
 
 <p>本文由 <a href="https://github.com/studygolang/GCTT">GCTT</a> 原创编译，<a href="https://studygolang.com/">Go 中文网</a> 荣誉推出</p>
 
@@ -173,7 +231,7 @@ saveDocument({
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/">https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/translated/go-compiler-overview/">https://TomatoAres.github.io/posts/translated/go-compiler-overview/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -187,15 +245,15 @@ saveDocument({
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/posts/translated/why-go-is-good-language-for-microservices/">为什么 Go 适合微服务</a></li>
+        
         <li><a href="/posts/translated/microservices-in-go/">Go 语言中的微服务</a></li>
         
-        <li><a href="/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">Go Struct Tag 是怎么玩的</a></li>
+        <li><a href="/posts/translated/20190814-go-understand-the-empty-interface/">理解 Go 的空接口</a></li>
         
-        <li><a href="/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">Go xml json 小结</a></li>
+        <li><a href="/posts/go/mult-version-go/">使用 Goland 安装多个版本的 go</a></li>
         
-        <li><a href="/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">Go 时区设置</a></li>
-        
-        <li><a href="/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">Go 逃逸分析</a></li>
+        <li><a href="/posts/leetcode/008-atoi/">Atoi 实现</a></li>
         
     </ul>
 </div>
@@ -208,8 +266,6 @@ saveDocument({
                                 <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
                                 
                                 <li><a href="https://TomatoAres.github.io/tags/microservice">microservice</a></li>
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/GCTT">GCTT</a></li>
                                 
                             </ul>
                             

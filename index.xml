@@ -6,10 +6,39 @@
     <description>Recent content on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 03 Nov 2019 00:10:37 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Dec 2019 01:20:53 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://TomatoAres.github.io/posts/about/</link>
+      <pubDate>Sat, 07 Dec 2019 01:20:53 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>仅需三个步骤即可构建最小的 Docker 映像</title>
+      <link>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</link>
+      <pubDate>Thu, 05 Dec 2019 00:56:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</guid>
+      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。</description>
+    </item>
+    
+    <item>
+      <title>Go 编译器概述</title>
+      <link>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554
+  本文基于 Go 1.13
+ Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
+    </item>
     
     <item>
       <title>理解 Go 的空接口</title>
@@ -104,15 +133,6 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
       
       <guid>https://TomatoAres.github.io/posts/go/byte-rune/</guid>
       <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</description>
-    </item>
-    
-    <item>
-      <title>k8s 搭建过程总结</title>
-      <link>https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Wed, 25 Sep 2019 00:06:28 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</guid>
-      <description>从今年年初就陆陆续续搭建过 1.13 ，1.15 版本，每次搭建都要在网上找 blog，自己虽有总结，却总不完善，现在（2019 年 9 月 24 日） 1.</description>
     </item>
     
     <item>
@@ -523,16 +543,6 @@ hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  
     </item>
     
     <item>
-      <title>go test 工具的简单介绍和使用</title>
-      <link>https://TomatoAres.github.io/posts/go/go-test/</link>
-      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/go-test/</guid>
-      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
-在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：</description>
-    </item>
-    
-    <item>
       <title>性能测试中 allocs/op 和 B/op 的含义</title>
       <link>https://TomatoAres.github.io/posts/go/benchmark/</link>
       <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
@@ -644,15 +654,6 @@ esr@thyrsus.com
     </item>
     
     <item>
-      <title>About</title>
-      <link>https://TomatoAres.github.io/posts/about/</link>
-      <pubDate>Wed, 14 Aug 2019 23:22:38 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/about/</guid>
-      <description> 关于本站  本站基于 hugo 创建 主题是 maupassant-hugo 主要存储一些自己的总结，翻译，以及一些看到的不错的他人的文章; 文中有引用，我都会标注原文链接； 若有问题，直接站内发 issue 或者 直接 @TomatoAres  关于本人  一个梦想成为大牛的菜鸟程序员 擅长写各种语言的 helloworld，深入（工作）用过的有 python 和 golang 正在休整中，下一份工作应该是云计算和容器相关（已有 offer，面试都是这个方向） 我的 Github  另外  接受介绍对象，程序媛优先——希望可以在技术领域互相吹牛能听得懂  </description>
-    </item>
-    
-    <item>
       <title>Hugo 文章不显示</title>
       <link>https://TomatoAres.github.io/posts/hugo/hugo-no-article/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
@@ -673,62 +674,6 @@ draft:false  </description>
       <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
 在这里，我要介绍以下框架：
  Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/cloud/kubernetes%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/cloud/kubernetes%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/k8s/ubuntu-auth/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/k8s/ubuntu-auth/</guid>
-      <description>ubuntu 权限相关 用户  who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户，  后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普通用户所在的目录  useradd, 添加用户账号  adduser 命令是指向 useradd 命令的一个链接，因此，这两个命令的使用格式完全一样。 -d 指定用户登录系统时的主目录，如果不使用该参数，系统自动在/home 目录下建立与用户名同名目录为主目录 -m 自动建立目录 -g 指定组名称  userdel  userdel -r abc（用户名） 删除用户，同时删除用户的主目录 remove  passwd 设置用户密码：passwd username 主目录  Linux 每个用户都要有一个主目录，主目录就是第一次登陆系统，用户的默认当前目录 (/home/用户）； 每一个用户必须有一个主目录，所以用 useradd 创建用户的时候，一定给用户指定一个主目录； 用户的主目录一般要放到根目录的 home 目录下，用户的主目录和用户名是相同的； 如果创建用户的时候，不指定组名，那么系统会自动创建一个和用户名一样的组名   组 group  添加、删除组账号：groupadd、groupdel  groupadd testGroup groupdel testGroup  修改用户所在组：usermod  使用方法：usermod -g 用户组 用户名   文件权限  修改文件权限：chmod 。chmod 修改文件权限有两种使用格式：字母法与数字法。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/k8s/ubuntu-k8s/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/k8s/ubuntu-k8s/</guid>
-      <description>Ubuntu 18.04 安装 k8s 更换 软件源 翻墙 基本配置  内存交换 防火墙 selinux  安装 docker 配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install -y apt-transport-https curl curl -s https://packages.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/k8s/Ubuntu-ssh/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/k8s/Ubuntu-ssh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/k8s/unix-linux/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/k8s/unix-linux/</guid>
-      <description>Unix 和 Linux 的区别 1. 历史 Unix 早于 linux. Linux 的思想源于 Unix</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/</guid>
-      <description>概念准备 只有UDP套接字允许广播或多播
-无状态 无连接 使用UDP协议进行信息的传输之前不需要建议连接。换句话说就是客户端向服务器发送信息，客户端只需要给出服务器的ip地址和端口号，然后将信息封装到一个待发送的报文中并且发送出去。至于服务器端是否存在，或者能否收到该报文，客户端根本不用管。
- 单播用于两个主机之间的端对端通信，广播用于一个主机对整个局域网上所有主机上的数据通信。单播和广播是两个极端，要么对一个主机进行通信，要么对整个局域网上的主机进行通信。实际情况下，经常需要对一组特定的主机进行通信，而不是整个局域网上的所有主机，这就是多播的用途。  　通常我们讨论的udp的程序都是一对一的单播程序。本章将讨论一对多的服务：广播（broadcast）、多播（multicast）。对于广播，网络中的所有主机都会接收一份数据副本。对于多播，消息只是发送到一个多播地址，网络知识将数据分发给哪些表示想要接收发送到该多播地址的数据的主机。总得来说，</description>
     </item>
     
     <item>

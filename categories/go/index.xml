@@ -6,10 +6,30 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 03 Nov 2019 00:10:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 00:56:09 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>仅需三个步骤即可构建最小的 Docker 映像</title>
+      <link>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</link>
+      <pubDate>Thu, 05 Dec 2019 00:56:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</guid>
+      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。</description>
+    </item>
+    
+    <item>
+      <title>Go 编译器概述</title>
+      <link>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554
+  本文基于 Go 1.13
+ Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
+    </item>
     
     <item>
       <title>理解 Go 的空接口</title>

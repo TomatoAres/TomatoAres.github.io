@@ -78,6 +78,54 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">Defer Recover Panic 三剑客</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月19日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&gt;defer-&gt;recover……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/defer/">Defer 总结</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月19日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
+面试题 下面代码输出什么？
+package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret := a + b fmt.……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a>
                                 </h1>
                             </header>
@@ -263,45 +311,6 @@ package main import ( &quot;fmt&quot; &quot;time&quot; ) func main() { now := ti
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/heap-stack/"> Go 堆栈的理解</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-content">
-                                来源：Go 堆栈的理解
-在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
-什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
-数据结构的堆栈：
-堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。
-栈：一种先进后出的数据结构。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/heap-stack/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/GC-Go/">Go GC </a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-content">
-                                参考：GO GC 垃圾回收机制
-Go 作为一门高级语言，具有 自动垃圾回收 的功能。
-常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/GC-Go/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -355,6 +364,18 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
     </li>
     
@@ -382,18 +403,6 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
         <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -404,7 +413,7 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(8)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(10)</a>
     </li>
     
     <li>
@@ -420,11 +429,11 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(18)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
     </li>
     
     <li>
@@ -436,7 +445,7 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(3)</a>
     </li>
     
     <li>
@@ -452,11 +461,11 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(6)</a>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(7)</a>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(6)</a>
     </li>
     
     <li>
@@ -472,7 +481,7 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(6)</a>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
     </li>
     
 </ul>

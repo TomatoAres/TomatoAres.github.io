@@ -6,10 +6,30 @@
     <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 03 Nov 2019 00:10:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 00:56:09 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>仅需三个步骤即可构建最小的 Docker 映像</title>
+      <link>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</link>
+      <pubDate>Thu, 05 Dec 2019 00:56:09 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/</guid>
+      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。</description>
+    </item>
+    
+    <item>
+      <title>Go 编译器概述</title>
+      <link>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554
+  本文基于 Go 1.13
+ Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
+    </item>
     
     <item>
       <title>理解 Go 的空接口</title>
@@ -237,16 +257,6 @@ Go 作为一门高级语言，具有 自动垃圾回收 的功能。
       
       <guid>https://TomatoAres.github.io/posts/network/websocket%E6%80%BB%E7%BB%93/</guid>
       <description>是什么  WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。 在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭  在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特定的时间间隔内，由浏览器对服务器发出 HTTP Request，服务器在收到请求后，返回最新的数据给浏览器刷新，“轮询”使得浏览器需要对服务器不断发出请求，这样会占用大量带宽。</description>
-    </item>
-    
-    <item>
-      <title>go test 工具的简单介绍和使用</title>
-      <link>https://TomatoAres.github.io/posts/go/go-test/</link>
-      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/go-test/</guid>
-      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）
-在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：</description>
     </item>
     
     <item>
