@@ -78,6 +78,33 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年12月15日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
+                                
+                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                变量名称在 Golang 中的重要性和任何其他语言一样。但是在 golang 中，它们甚至具有语义效果：变量第一个字符大写则在外部可见。
+有时为了更好地组织代码，或者访问包中对外隐藏的函数（外部不可见的函数），需要突破这个限制。
+golang 源码中大量使用了这些技术 这也是相关技术信息的主要来源。而网上相关信息明显不足。……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/">仅需三个步骤即可构建最小的 Docker 映像</a>
                                 </h1>
                             </header>
@@ -310,29 +337,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">Defer Recover Panic 三剑客</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月19日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&gt;defer-&gt;recover……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -386,6 +390,10 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     </li>
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
@@ -413,10 +421,6 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
         <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -427,7 +431,7 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(10)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
     </li>
     
     <li>
@@ -447,7 +451,7 @@ package main import ( &quot;sync&quot; &quot;time&quot; ) func main() { c := mak
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(18)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(19)</a>
     </li>
     
     <li>

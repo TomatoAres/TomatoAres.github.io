@@ -106,9 +106,36 @@
                             </div>
                             
                             <div class="post-content">
-                                概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准 区别：   文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用……
+                                概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准    文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用……
                             </div>
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/storage/storage-cluster/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）" >如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年12月15日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                变量名称在 Golang 中的重要性和任何其他语言一样。但是在 golang 中，它们甚至具有语义效果：变量第一个字符大写则在外部可见。
+有时为了更好地组织代码，或者访问包中对外隐藏的函数（外部不可见的函数），需要突破这个限制。
+golang 源码中大量使用了这些技术 这也是相关技术信息的主要来源。而网上相关信息明显不足。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
@@ -284,29 +311,6 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡" >CPU 内存 显卡</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月20日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86">组成原理</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                分类 CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/hard/CPU/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -379,6 +383,10 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
     </li>
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
@@ -406,10 +414,6 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
         <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -420,7 +424,7 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(10)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
     </li>
     
     <li>
@@ -440,7 +444,7 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(18)</a>
+        <a href="https://TomatoAres.github.io/categories/go/">go(19)</a>
     </li>
     
     <li>

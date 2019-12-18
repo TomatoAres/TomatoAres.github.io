@@ -44,17 +44,22 @@
   
   <url>
     <loc>https://TomatoAres.github.io/categories/GCTT/</loc>
-    <lastmod>2019-12-05T00:56:09+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://TomatoAres.github.io/categories/go/</loc>
-    <lastmod>2019-12-05T00:56:09+08:00</lastmod>
+    <lastmod>2019-12-15T23:50:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/tags/go/</loc>
-    <lastmod>2019-12-05T00:56:09+08:00</lastmod>
+    <lastmod>2019-12-15T23:50:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/go/</loc>
+    <lastmod>2019-12-15T23:50:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/</loc>
+    <lastmod>2019-12-15T23:50:59+08:00</lastmod>
   </url>
   
   <url>
@@ -68,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/microservice/</loc>
+    <loc>https://TomatoAres.github.io/categories/microservice/</loc>
     <lastmod>2019-12-01T00:59:39+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/microservice/</loc>
+    <loc>https://TomatoAres.github.io/tags/microservice/</loc>
     <lastmod>2019-12-01T00:59:39+08:00</lastmod>
   </url>
   
@@ -93,12 +98,12 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/network/</loc>
+    <loc>https://TomatoAres.github.io/categories/network/</loc>
     <lastmod>2019-10-22T00:52:45+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/network/</loc>
+    <loc>https://TomatoAres.github.io/tags/network/</loc>
     <lastmod>2019-10-22T00:52:45+08:00</lastmod>
   </url>
   
@@ -118,22 +123,22 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/os/</loc>
-    <lastmod>2019-10-22T00:08:36+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://TomatoAres.github.io/categories/os/</loc>
     <lastmod>2019-10-22T00:08:36+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
-    <lastmod>2019-10-21T23:22:55+08:00</lastmod>
+    <loc>https://TomatoAres.github.io/tags/os/</loc>
+    <lastmod>2019-10-22T00:08:36+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <lastmod>2019-10-21T23:22:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
     <lastmod>2019-10-21T23:22:55+08:00</lastmod>
   </url>
   
@@ -153,12 +158,12 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-10-20T21:43:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2019-10-20T21:43:29+08:00</lastmod>
   </url>
   
@@ -223,12 +228,12 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/k8s/</loc>
+    <loc>https://TomatoAres.github.io/tags/k8s/</loc>
     <lastmod>2019-09-20T00:20:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/k8s/</loc>
+    <loc>https://TomatoAres.github.io/categories/k8s/</loc>
     <lastmod>2019-09-20T00:20:48+08:00</lastmod>
   </url>
   
@@ -238,12 +243,12 @@
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
+    <loc>https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2019-09-20T00:20:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
+    <loc>https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2019-09-20T00:20:48+08:00</lastmod>
   </url>
   
