@@ -68,6 +68,56 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像" >容器和镜像</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
+镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/image-container/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较" >公有云、私有云、混合云的比较</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月16日
+                            </date>
+                            
+                            <div class="post-content">
+                                公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。
+公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的资源支付电用。此外，由于组织可以访问服务提供商的云计算基础设施，因此他们无需担心自己安装和维护的问题。
+公共云的一个缺点与安全有关。公共云通常不能满足许多安全法规遵从性要求，因为不同的服务器驻留在多个国家，并具有各种安全法规。而且，网络问题可能发生在在线流量峰值期间。虽然公共云模型通过提供按需付费的定价方式通常具有成本效益，但在移动大量数据时，其费用会迅速增加。
+私有云 私有云是一个企业唯一拥有基础设施资源的渠道。客户可以选择让私有云位于现场数据中心或由第三方服务提供商托管。
+与公共云模型相比，私有云模型的好处是它提供了更高的安全性，因为单个公司是唯一可以访问它的指定实体。这也使组织更容易定制其资源以满足特定的 IT 要求。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/cloud/docker/" title="Docker 简介" >Docker 简介</a>
                                 </h1>
                             </header>
@@ -251,40 +301,6 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" title="行数据库 vs 列数据库" >行数据库 vs 列数据库</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月3日
-                            </date>
-                            
-                            <div class="post-content">
-                                是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
-   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/" title="Radix Tree 基数树" >Radix Tree 基数树</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月2日
-                            </date>
-                            
-                            <div class="post-content">
-                                echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
-定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -353,6 +369,14 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/" title="Ceph 和 Kubernetes 集成">Ceph 和 Kubernetes 集成</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
@@ -384,14 +408,6 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
         <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -407,6 +423,10 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
     
     <li>
         <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
     </li>
     
     <li>
@@ -487,6 +507,8 @@ HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
     <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
     
     <a href="https://TomatoAres.github.io/tags/container/">container</a>
     

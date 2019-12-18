@@ -68,6 +68,59 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/" title="kubernetes 节点和核心资源" >kubernetes 节点和核心资源</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月20日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/k8s">k8s</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1. Master  集群控制节点  3 个核心进程：
+ kube-apiserver：  提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序  kube-controller manager：  所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等； 可以理解为资源对象的：“大总管”  kube-scheduler：  负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上； 理解为：调度室    另外 etcd 必不可少：所有资源的数据都是保存在 etcd 中  2.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/" title="Defer Recover Panic 三剑客" >Defer Recover Panic 三剑客</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月19日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&gt;defer-&gt;recover……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/go/defer/" title="Defer 总结" >Defer 总结</a>
                                 </h1>
                             </header>
@@ -279,56 +332,6 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/cloud/image-container/" title="容器和镜像" >容器和镜像</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4">运维</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97">云计算</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7">工具</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
-镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/image-container/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/" title="公有云、私有云、混合云的比较" >公有云、私有云、混合云的比较</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月16日
-                            </date>
-                            
-                            <div class="post-content">
-                                公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。
-公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的资源支付电用。此外，由于组织可以访问服务提供商的云计算基础设施，因此他们无需担心自己安装和维护的问题。
-公共云的一个缺点与安全有关。公共云通常不能满足许多安全法规遵从性要求，因为不同的服务器驻留在多个国家，并具有各种安全法规。而且，网络问题可能发生在在线流量峰值期间。虽然公共云模型通过提供按需付费的定价方式通常具有成本效益，但在移动大量数据时，其费用会迅速增加。
-私有云 私有云是一个企业唯一拥有基础设施资源的渠道。客户可以选择让私有云位于现场数据中心或由第三方服务提供商托管。
-与公共云模型相比，私有云模型的好处是它提供了更高的安全性，因为单个公司是唯一可以访问它的指定实体。这也使组织更容易定制其资源以满足特定的 IT 要求。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -397,6 +400,14 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/" title="Ceph 和 Kubernetes 集成">Ceph 和 Kubernetes 集成</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
@@ -428,14 +439,6 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
         <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -451,6 +454,10 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
     
     <li>
         <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
     </li>
     
     <li>
@@ -531,6 +538,8 @@ scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
     <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
     
     <a href="https://TomatoAres.github.io/tags/container/">container</a>
     

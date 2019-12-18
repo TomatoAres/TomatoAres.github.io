@@ -68,6 +68,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/" title="Ceph 和 Kubernetes 集成" >Ceph 和 Kubernetes 集成</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年12月18日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Storage">Storage</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                关键词  PV PVC StorageClass Secret  方式  静态 动态  步骤  安装 ceph 创建存储池 并启用 RBD 功能 创建 Ceph 用户，提供给 K8s 使用 复制 ceph.……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结" >集群化存储课程总结</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年12月18日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Storage">Storage</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准 区别：   文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/storage/storage-cluster/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像" >仅需三个步骤即可构建最小的 Docker 映像</a>
                                 </h1>
                             </header>
@@ -261,54 +307,6 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
                             <p class="readmore"><a href="https://TomatoAres.github.io/posts/hard/CPU/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统" >磁盘和文件系统</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月20日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86">组成原理</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                磁盘接口分类  IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经被淘汰了，而其后发展分支出更多类型的硬盘接口，比如 ATA(Advanced Technology Attachment)、Ultra ATA、DMA、Ultra DMA 等接口都属于 IDE 硬盘。其特点为：价格低廉，兼容性强，性价比高，数据传输慢，不支持热插拔等等。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现" >Atoi 实现</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月27日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/go">go</a></span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/leetcode">leetcode</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                历史问题 Q:明明是 string to int 为什么是 Atoi？ A: Atoi (Ascii to Integer)，Ascii 即上古时期的 string，流传至今……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -373,6 +371,14 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
 <ul class="widget-list">
     
     <li>
+        <a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/" title="Ceph 和 Kubernetes 集成">Ceph 和 Kubernetes 集成</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
         <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
@@ -404,14 +410,6 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
         <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
     </li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -427,6 +425,10 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
     
     <li>
         <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
     </li>
     
     <li>
@@ -507,6 +509,8 @@ interface{} 类型是没有方法的接口。由于没有 implements 关键字�
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
     <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
     
     <a href="https://TomatoAres.github.io/tags/container/">container</a>
     
