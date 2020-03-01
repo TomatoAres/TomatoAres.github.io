@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> | 西红柿的博客</title>
+    <meta property="og:title" content=" - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/k8s/kind/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title"></h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1年1月1日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="使用-kind-进行-e2e-测试">使用 kind 进行 e2e 测试</h1>
+
+<h2 id="kind-简介">Kind 简介</h2>
+
+<ul>
+<li>Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。</li>
+<li>Kind 可以作为一种本地集群搭建的工具进</li>
+<li>由于便于快速搭建环境，经常被用来做 k8s 相关测试准备</li>
+</ul>
+
+<h2 id="流程">流程</h2>
+
+<ol>
+<li>构建环境</li>
+<li>测试</li>
+</ol>
+
+<h2 id="手动搭建单节点环境测试">手动搭建单节点环境测试</h2>
+
+<ul>
+<li><p>关闭 kind 自带的 kindnet 网络插件,并将其设置为 Calico 的默认子网，编写一个 kind-calico.yaml 文件</p>
+
+<pre><code class="language-yaml">kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+networking:
+disableDefaultCNI: true # disable kindnet
+podSubnet: 192.168.0.0/16 # set to Calico's default subnet
+</code></pre></li>
+
+<li><p>使用该文件创建 不带网络插件的集群</p>
+
+<pre><code class="language-sh">[root@k8s-master01 kind]# kind create cluster --config kind-calico.yaml
+Creating cluster &quot;kind&quot; ...
+✓ Ensuring node image (kindest/node:v1.16.3) 🖼
+✓ Preparing nodes 📦
+✓ Writing configuration 📜
+✓ Starting control-plane 🕹️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️️ 
+✓ Installing StorageClass 💾
+Set kubectl context to &quot;kind-kind&quot;
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Thanks for using kind! 😊
+
+</code></pre></li>
+
+<li><p>导入 calico 镜像 并部署</p>
+
+<pre><code class="language-sh"># 将calico 镜像打包
+docker save calico/kube-controllers:v3.10.1 calico/node:v3.10.1 calico/pod2daemon-flexvol:v3.10.1  calico/cni:v3.10.1 -o calico.tar
+
+# 导入 calico 相关镜像
+kind load image-archive calico.tar
+
+# 部署 calico 网络
+wget https://docs.projectcalico.org/v3.10/manifests/calico.yaml
+kubectl create -f calico.yaml
+</code></pre></li>
+</ul>
+
+<p>看到 calico 相关的所有 pod 正常启动运行</p>
+
+<pre><code class="language-sh">NAMESPACE        NAME                                         READY   STATUS             RESTARTS   AGE   IP             NODE                 NOMINATED NODE   READINESS GATES
+kube-system      calico-kube-controllers-6b64bcd855-xmvfb     1/1     Running            0          22m   192.168.82.1   kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      calico-node-5lk9m                            1/1     Running            0          22m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      coredns-5644d7b6d9-6l2w5                     1/1     Running            0          28m   192.168.82.2   kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      coredns-5644d7b6d9-rzqfn                     1/1     Running            0          28m   192.168.82.3   kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      etcd-kind-control-plane                      1/1     Running            0          27m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      kube-apiserver-kind-control-plane            1/1     Running            0          27m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      kube-controller-manager-kind-control-plane   1/1     Running            0          27m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      kube-proxy-srbjr                             1/1     Running            0          28m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+kube-system      kube-scheduler-kind-control-plane            1/1     Running            0          27m   172.17.0.2     kind-control-plane   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+
+<ul>
+<li><p>导入 e2e 测试所需镜像</p>
+
+<pre><code class="language-sh"># server 镜像
+kind load docker-image beyond.io:5000/kubernetes-e2e-test-images/agnhost:2.6
+
+# client 镜像
+kind load docker-image beyond.io:5000/busybox:1.29
+</code></pre></li>
+
+<li><p>使用准备好的 e2e 二进制进行测试</p>
+
+<pre><code class="language-sh">./e2e.test --ginkgo.focus=&quot;NetworkPolicy&quot;
+</code></pre></li>
+</ul>
+
+<h2 id="手动搭建多节点环境测试">手动搭建多节点环境测试</h2>
+
+<ul>
+<li><p>多节点配置 muilt-nodes.yaml</p>
+
+<pre><code class="language-yaml">kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+networking:
+disableDefaultCNI: true
+serviceSubnet: &quot;10.96.0.1/12&quot;
+podSubnet: &quot;192.168.0.0/16&quot;
+</code></pre></li>
+</ul>
+
+<p>后续安装 calico 及 测试和单节点一致</p>
+
+<h2 id="构建脚本测试">构建脚本测试</h2>
+
+<h2 id="脚本-模板">脚本 模板</h2>
+
+<pre><code class="language-sh">#!/usr/bin/env bash
+
+NAME=&quot;test-cluster&quot;
+
+echo &quot;+++ Cleaning up old test artifacts&quot;
+kind delete cluster --name &quot;${NAME}&quot; &gt; /dev/null 2&gt;&amp;1 || true
+rm sample-controller &gt; /dev/null 2&gt;&amp;1 || true
+
+echo &quot;+++ Creating test cluster&quot;
+kind create cluster --name &quot;${NAME}&quot; --config config.yaml
+export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;{$NAME}&quot;)&quot;
+
+echo &quot;+++ Building sample-controller&quot;
+CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o sample-controller
+
+echo &quot;+++ Building Docker image&quot;
+docker build -t sample-controller:test .
+
+echo &quot;+++ Loading image into kind container&quot;
+kind load docker-image --name &quot;{$NAME}&quot; sample-controller:test
+
+echo &quot;+++ Deploying sample-controller&quot;
+kubectl apply -f sample-manifest.yaml
+
+echo &quot;+++ Deploying example Foo resource&quot;
+kubectl apply -f example-foo.yaml
+</code></pre>
+
+<h2 id="高可用配置">高可用配置</h2>
+
+<pre><code class="language-yaml">kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: ClusterConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+  nodeRegistration:
+    kubeletExtraArgs:
+      pod-infra-container-image: registry.aliyuncs.com/google_containers/pause:3.1
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: InitConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+nodes:
+- role: control-plane
+- role: control-plane
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+
+</code></pre>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/k8s/kind/">https://TomatoAres.github.io/posts/k8s/kind/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/leetcode/flag/">立个 flag </a></li>
+        
+        <li><a href="/posts/about/">About</a></li>
+        
+        <li><a href="/posts/storage/storage-cluster/">集群化存储课程总结</a></li>
+        
+        <li><a href="/posts/go/translated/20160828-how-to-call-privite-functions-in-go/">如何调用 Golang 私有函数（绑定到隐藏符号）</a></li>
+        
+        <li><a href="/posts/go/translated/3-step-build-minix-image/">仅需三个步骤即可构建最小的 Docker 映像</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "TomatoAres/TomatoAres.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(9)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Go/">Go(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Translate/">Translate(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    
+    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

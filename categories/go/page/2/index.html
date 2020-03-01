@@ -7,22 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>go | 西红柿的博客</title>
-    <meta property="og:title" content="go - 西红柿的博客">
+    <title>Go | 西红柿的博客</title>
+    <meta property="og:title" content="Go - 西红柿的博客">
     <meta property="og:type" content="article">
         
         
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="go">
+    <meta name="description" content="Go">
         
     <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/categories/go/">
+    <meta property="og:url" content="https://TomatoAres.github.io/categories/Go/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://TomatoAres.github.io/categories/go/index.xml" title="西红柿的博客" />
+    <link rel="alternate" type="application/rss+xml+xml" href="https://TomatoAres.github.io/categories/Go/index.xml" title="西红柿的博客" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
@@ -43,7 +43,7 @@
                         西红柿的博客
                     </a>
                 
-                <p class="description">Awesome TomatoAres</p>
+                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -69,7 +69,7 @@
                     
                     <h3 class="archive-title">
                         分类
-                        <span class="keyword">go</span>
+                        <span class="keyword">Go</span>
                         中的文章
                     </h3>
                     
@@ -78,230 +78,122 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">Defer Recover Panic 三剑客</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/heap-stack/"> Go 堆栈的理解</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019年9月19日
+                                2019年9月2日
                             </date>
                             
                             <div class="post-meta meta-category">
                                 |
                                 
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
+                                    <a href="https://TomatoAres.github.io/categories/Go">Go</a>
                                 
                             </div>
                             
                             <div class="post-content">
-                                recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&gt;defer-&gt;recover……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer-recover-panic/">阅读全文</a></p>
+                                来源：Go 堆栈的理解
+在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
+什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
+数据结构的堆栈：
+堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。
+栈：一种先进后出的数据结构。……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/heap-stack/">阅读全文</a></p>
                             </div>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/defer/">Defer 总结</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/GC-Go/">Go GC </a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019年9月19日
+                                2019年9月2日
                             </date>
                             
                             <div class="post-meta meta-category">
                                 |
                                 
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
+                                    <a href="https://TomatoAres.github.io/categories/Go">Go</a>
                                 
                             </div>
                             
                             <div class="post-content">
-                                虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
-面试题 下面代码输出什么？
-package main import &quot;fmt&quot; func calc(index string, a, b int) int { ret := a + b fmt.……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/defer/">阅读全文</a></p>
+                                参考：GO GC 垃圾回收机制
+Go 作为一门高级语言，具有 自动垃圾回收 的功能。
+常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/GC-Go/">阅读全文</a></p>
                             </div>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/GMP/">GMP</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019年9月19日
+                                2019年9月2日
                             </date>
                             
                             <div class="post-meta meta-category">
                                 |
                                 
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
+                                    <a href="https://TomatoAres.github.io/categories/Go">Go</a>
                                 
                             </div>
                             
                             <div class="post-content">
-                                在 Hacker News 和 Reddit 你可以找到相关讨论
-我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20161218-modern-garbage-collection/">阅读全文</a></p>
+                                ……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/GMP/">阅读全文</a></p>
                             </div>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/">Vet 命令：超出预期的强大</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/benchmark/">性能测试中 allocs/op 和 B/op 的含义</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019年9月19日
+                                2019年8月29日
                             </date>
                             
                             <div class="post-meta meta-category">
                                 |
                                 
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
+                                    <a href="https://TomatoAres.github.io/categories/Go">Go</a>
                                 
                             </div>
                             
                             <div class="post-content">
-                                Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
-内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20190802-go-vet-command-is-more-powerful-than-you-think/">阅读全文</a></p>
+                                 allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  ……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/benchmark/">阅读全文</a></p>
                             </div>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/">Go：关于 Cobra 的想法</a>
+                                    <a href="https://TomatoAres.github.io/posts/go/channel/">channel 总结</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019年9月19日
+                                2019年8月21日
                             </date>
                             
                             <div class="post-meta meta-category">
                                 |
                                 
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
+                                    <a href="https://TomatoAres.github.io/categories/Go">Go</a>
                                 
                             </div>
                             
                             <div class="post-content">
-                                Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。
-设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体：……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/20190807-go-thoughts-about-cobra/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/">为什么 Go 适合微服务</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月18日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/microservice">microservice</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">Go Struct Tag 是怎么玩的</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月18日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                利用 go 反射机制，通过 不同的 tag name 进行不同的处理
-package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &quot;validate&quot; type employee struct { ID int `json:&quot;id&quot;` Name string `json:&quot;名字&quot; validate:&quot;presence,min=2,max=40&quot;` Age int `json:&quot;年龄&quot;` Desc string `json:&quot;描述&quot; back:&quot;好看否&quot;` weight float64 `json:&quot;weight&quot; 单位:&quot;kg&quot;` Salary float64 `json:&quot;-&quot;` Email string `validate:&quot;email,required&quot;` MateName string `json:&quot;mate_name,omitempty&quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &quot;张三&quot;, Age: 18, Desc: &quot;秀色可餐&quot;, weight: 48.……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">Go xml json 小结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月11日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
-解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&rdquo;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/translated/microservices-in-go/">Go 语言中的微服务</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月14日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/go">go</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/microservice">microservice</a>
-                                
-                                    <a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
-在这里，我要介绍以下框架：
- Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/translated/microservices-in-go/">阅读全文</a></p>
+                                1. 声明和类型 ChannelType = ( &quot;chan&quot; | &quot;chan&quot; &quot;&lt;-&quot; | &quot;&lt;-&quot; &quot;chan&quot; ) ElementType .……
+                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/channel/">阅读全文</a></p>
                             </div>
                         </article>
                     
@@ -313,17 +205,17 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
 <ol class="page-navigator">
     
     <li class="prev">
-        <a href="https://TomatoAres.github.io/categories/go/">上一页</a>
+        <a href="https://TomatoAres.github.io/categories/Go/">上一页</a>
     </li>
     
 
     
     <li >
-        <a href="https://TomatoAres.github.io/categories/go/">1</a>
+        <a href="https://TomatoAres.github.io/categories/Go/">1</a>
     </li>
     
     <li  class="current">
-        <a href="https://TomatoAres.github.io/categories/go/page/2/">2</a>
+        <a href="https://TomatoAres.github.io/categories/Go/page/2/">2</a>
     </li>
     
 
@@ -350,7 +242,19 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/" title="Ceph 和 Kubernetes 集成">Ceph 和 Kubernetes 集成</a>
+        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
@@ -358,35 +262,23 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
     </li>
     
 </ul>
@@ -403,7 +295,23 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
     </li>
     
     <li>
@@ -411,23 +319,19 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(19)</a>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(1)</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
     </li>
     
     <li>
@@ -435,43 +339,35 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(3)</a>
+        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(6)</a>
+        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(5)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(6)</a>
+        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%9D%82%E8%AE%B0/">杂记(1)</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
+        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(5)</a>
     </li>
     
 </ul>
@@ -481,23 +377,51 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
     
     <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
     
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
+    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    
     <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    
+    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
     
     <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
     
     <a href="https://TomatoAres.github.io/tags/database/">database</a>
     
     <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
     
     <a href="https://TomatoAres.github.io/tags/go/">go</a>
     
@@ -505,21 +429,23 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
     
     <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
     
+    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
     <a href="https://TomatoAres.github.io/tags/network/">network</a>
     
     <a href="https://TomatoAres.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/test/">test</a>
-    
     <a href="https://TomatoAres.github.io/tags/web/">web</a>
     
     <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
     
+    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
     <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%9D%82%E8%AE%B0/">杂记</a>
+    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
     
     <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
     
@@ -573,7 +499,7 @@ package main import ( &quot;fmt&quot; &quot;reflect&quot; // 这里引入reflect
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

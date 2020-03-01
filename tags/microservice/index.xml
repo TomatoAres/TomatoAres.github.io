@@ -13,10 +13,10 @@
     
     <item>
       <title>Go 编译器概述</title>
-      <link>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</link>
+      <link>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</link>
       <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/translated/go-compiler-overview/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</guid>
       <description>首发于：https://studygolang.com/articles/24554
   本文基于 Go 1.13
  Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
@@ -24,19 +24,19 @@
     
     <item>
       <title>为什么 Go 适合微服务</title>
-      <link>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</link>
+      <link>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/translated/why-go-is-good-language-for-microservices/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
       <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</description>
     </item>
     
     <item>
       <title>Go 语言中的微服务</title>
-      <link>https://TomatoAres.github.io/posts/translated/microservices-in-go/</link>
+      <link>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</link>
       <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/translated/microservices-in-go/</guid>
+      <guid>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</guid>
       <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
 在这里，我要介绍以下框架：
  Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>

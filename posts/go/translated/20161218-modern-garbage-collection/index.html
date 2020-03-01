@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>现代垃圾收集策略 —— Go 的 GC 策略 | 西红柿的博客</title>
+    <meta property="og:title" content="现代垃圾收集策略 —— Go 的 GC 策略 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-19T12:29:00&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-19T12:29:00&#43;08:00">
+        
+    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="description" content="现代垃圾收集策略 —— Go 的 GC 策略">
+        
+    <meta name="author" content="TomatoAres">
+    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/translated/20161218-modern-garbage-collection/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://TomatoAres.github.io/">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    
+                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">现代垃圾收集策略 —— Go 的 GC 策略</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月19日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/modern-garbage-collection/gc.jpeg" alt="gc" /></p>
+
+<p>在 <a href="https://news.ycombinator.com/item?id=13218550">Hacker News</a> 和 <a href="https://www.reddit.com/r/golang/comments/5j7phw/modern_garbage_collection/">Reddit</a> 你可以找到相关讨论</p>
+
+<p>我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。</p>
+
+<p><a href="https://blog.golang.org/go15gc">这是新版本（Go 1.5）垃圾收集器的首次公告</a>:</p>
+
+<blockquote>
+<p>Go 正在构建一个垃圾收集器（GC），不止适用于 2015 年，甚至适用于 2025 年，甚至更长时间 &hellip; go 1.5 及以后的版本，重点解决 gc 中 stop-the-world 问题不再是安全可靠语言的障碍。未来应用程序可以毫不费力地随硬件一起扩展，随着硬件变得越来越强大，GC 不再是成为更好、更具可扩展性的软件的障碍。适用于未来十年甚至更久。</p>
+</blockquote>
+
+<p>Go 官方团队声称不仅解决了 GC 暂停的问题，而且还让整个事情变得无脑：</p>
+
+<!-- TODO: GC 旋钮  GC knobs怎么翻译？ 先 旋钮（knob） -->
+
+<!-- Turner Employment Act ？？就业法案？ -->
+
+<blockquote>
+<p>在更高的层次上，解决性能问题的一种方法是添加 GC 旋钮（knob），每个性能问题添加一个。然后，程序员可以旋转旋钮（knob）以搜索适合其应用的设置。不利的一面是，每年使用一个或两个新旋钮（knob），十年之后，你最终会得到 GC 旋钮（knob）特纳就业法案（Turner Employment Act 应该的意思是：需要详细的文档描述说明各个 knob 的详细信息）。Go 不会走那条路。相反，我们只提供了一个叫做 GOGC 的旋钮（knob）。</p>
+
+<p>此外，没有持续支持数十个旋钮（knob）的影响，负责运行时开发、优化工作的团队可以专注于根据真实客户应用程序的反馈改进提高运行时系统性能。</p>
+</blockquote>
+
+<p>我毫不怀疑许多 Go 用户对新 GC 的运行时间非常满意。但是我对这些说法有所质疑——在我看来，这就像是一种误导性的营销方式。随着这些声明在博客圈中重复出现，现在是时候深入了解它们了。</p>
+
+<p>事实上，Go 的 GC 并没有真正实现任何新办法或者新的研究进展。正如他们的公告所承认的那样，它是基于 20 世纪 70 年代的方法，是一个直接的并发 <strong>标记/清除</strong> 收集器。值得注意的只是因为它的设计目的是优化暂停时间，但代价却是牺牲 GC 中所有其他期望的的特性。Go 的<a href="https://talks.golang.org/2015/go-gc.pdf">技术讲座</a>和营销材料似乎没有提及任何这些平衡，让不熟悉垃圾收集技术的开发人员认为不存在这样的平衡，并且暗示，Go 的竞争对手只是糟糕的垃圾堆。而 Go 鼓励这种看法：</p>
+
+<blockquote>
+<p>为了创造适用于未来十年的垃圾收集器，我们转向了几十年前的算法。Go 新的垃圾收集器是一个<strong>并发的，三色，标记-清除收集器</strong>，这个想法被 <a href="http://dl.acm.org/citation.cfm?id=359655">Dijkstra</a> 于 1978 年率先提出。这与当今大多数“企业级”垃圾收集器的不同，但我们认为它非常适合现代硬件的属性和现代软件的延迟要求。</p>
+</blockquote>
+
+<p>阅读上述公告，如果你认为企业级” GC 在过去 40 年的研究根本没有取得任何成果，是可以被原谅的；</p>
+
+<h2 id="gc-理论入门">GC 理论入门</h2>
+
+<p>设计垃圾收集算法时，需要考虑以下不同的因素：</p>
+
+<ul>
+<li><strong>程序吞吐量</strong>：您的算法减慢了多少程序？这有时表示为垃圾收集与有用工作所花费的 CPU 时间的百分比。</li>
+<li><strong>GC 吞吐量</strong>：在给定固定的 CPU 时间量的情况下，收集器可以清除多少垃圾？</li>
+<li><strong>堆开销</strong>：收集器理论上至少需要多少额外内存？如果你的算法在收集时分配临时结构，是否会使你的程序的内存使用非常紧张？</li>
+<li><strong>暂停时间</strong>：你的收集器停止一次的时间有多长？</li>
+<li><strong>暂停频率</strong>：您的收集器多久停止一次？</li>
+<li><strong>暂停分布</strong>：您喜欢多数情况都是短暂的暂停，偶尔很长的暂停时间？还是时间更长但是更稳定的暂停时间？</li>
+<li><strong>分配性能</strong>：新内存分配是快？是慢？还是不可预测？</li>
+<li><strong>紧凑</strong>：在有足够的可用空间来满足需求情况下，是否会因为该空间已经分散在堆中的小块中，您的收集器是否会报告内存不足（OOM）错误？如果没有，你可能会发现你的程序变慢并最终死亡，即使它实际上有足够的内存。</li>
+<li><strong>并发</strong>：您的收集器在多核机器的表现如何？</li>
+<li><strong>伸缩性</strong>：对大小规模不等的 heap ，gc 表现怎么样</li>
+<li><strong>配置</strong>：收集器的配置很复杂吗？是否可以开箱即用并获得最佳性能？</li>
+<li><strong>预热时间</strong>：您的算法是否根据行为进行自我调整？如果是，需要多长时间才能达到最佳状态？</li>
+<li><strong>内存页释放</strong>：您的算法是否会将未使用的内存释放回操作系统？如果是的话，何时？</li>
+<li><strong>可移植性</strong>：您的 GC 是否在 CPU 体系结构上工作，提供比 x86 更弱的内存一致性保证？</li>
+<li><strong>兼容性</strong>：您的收集器使用哪些语言和编译器？是否可以使用非 GC 设计的语言运行，比如 C ++？它需要编译器修改吗？如果是这样，更改 GC 算法是否需要重新编译所有程序和依赖项？</li>
+</ul>
+
+<p>你可以发现，设计垃圾收集器需要考虑很多不同的影响因素，其中一些因素会影响您平台周围更广泛的生态系统的设计。我不确定是否列出了所有的因素。</p>
+
+<p>由于设计影响因素太多，必然复杂，垃圾收集是计算机科学研究论文中的一个子领域。学术界和工业界都在以稳定的速度提出并实施新算法。不幸的是，还没有人找到适合所有情况的单一算法。</p>
+
+<h2 id="平衡-平衡各种因素">平衡，平衡各种因素</h2>
+
+<p>下边让我们更具体一点。</p>
+
+<p>第一个垃圾收集算法是为单处理器机器和具有小堆的程序设计的。当时，CPU 和 RAM 价格昂贵，而且用户要求不高，所以可见暂停是允许的。因此，设计的算法优先考虑最小化收集器的 CPU 和堆开销。这意味着： 内存分配完了才让 GC 工作。然后程序将暂停，并对堆进行一次完整的 标记/清除，以尽可能快地标记空闲部分</p>
+
+<p>这些类型的收集器虽古老，但仍然具有一些优点——简单，不收集程序时不会减慢速度，也不会增加任何内存开销。对于像 <a href="http://www.hboehm.info/gc/">Boehm GC</a> 这样古老的收集器，他们甚至不需要更改编译器或编程语言！这通常可以使它们适用于具有小堆的桌面应用程序，包括 <a href="https://wiki.unrealengine.com/Garbage_Collection_Overview">3A 视频游戏</a>，其中大部分 RAM 由不需要清除的数据文件占据。</p>
+
+<p>Stop-the-world（STW）标记/清除是本科计算机科学课程中最常用的 GC 算法。在做面试时我有时候会让候选人谈谈 GC，而且几乎总是，他们要么把 GC 视为一个黑盒而根本不知道它，或者认为它现在仍然使用这个非常古老的技术。</p>
+
+<!--  heaps/allocation rates 堆分配速率 -->
+
+<p>问题是简单的 STW 标记/清除伸缩性非常差。随着 cpu 核数增加、堆分配速率更大，此算法将无法正常运行。但是，有时你确实有一个小堆，并且来自上述简单 GC 的暂停时间也足够好！在这种情况下，也许您仍然希望使用这种方法将内存开销保持在较低水平。</p>
+
+<p>另一方面，也许你在拥有数十个内核的机器上使用数百 GB 的堆。也许您的服务器正在进行金融市场交易或运行搜索引擎，因此低停顿时间对您来说非常重要。在这些情况下，您可能愿意使用一种算法，该算法为实现在后台以低暂停时间进行垃圾回收，会降低程序速度。</p>
+
+<p>这并非简单的堆大小问题。在更高维度，你可能有大量的批处理作业（job）。由于他们是非交互式程序，暂停时间并不重要，仅关心垃圾回收总时间。在这种情况下，您最好使用一种将吞吐量最大化的算法，即所做的有用工作与用于收集的时间之比。</p>
+
+<!--  GC tuning -->
+
+<p>问题在于没有一种算法在所有方面都是完美的。语言运行时也不能知道您的程序是批处理作业还是交互式延迟敏感程序。这就是“GC tuning(性能调优)”存在的起因——这不是因为运行时工程师是愚蠢的。它反映了我们计算机科学能力的基本限制。</p>
+
+<h2 id="代际假说-the-generational-hypothesis">代际假说（The Generational Hypothesis）</h2>
+
+<!-- PL 具体指什么？ -->
+
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.4295&amp;rep=rep1&amp;type=pdf">自 1984 年以来，人们就知道大多数分配内存“早夭”</a>，即内存分配后很快就会变成垃圾。这种现象被称为代际假说（The Generational Hypothesis），是整个 PL 工程领域中最强大的经验之一。在不同类型的编程语言和软件行业数十年的变革中，无论对于函数式语言，命令式语言，以及动态语言、静态语言，它都如此。</p>
+
+<p>这个发现很有用，因为它意味着可以利用它设计 GC 算法。这些新一代 GC 在旧 STW 风格上有很多改进：</p>
+
+<ul>
+<li><strong>GC 吞吐量</strong>：他们可以更快地收集更多垃圾。</li>
+<li><strong>分配性能</strong>：分配新内存不再需要在堆中搜索以寻找空闲时隙，因此分配实际上是免费的。</li>
+<li><strong>程序吞吐量</strong>：分配整齐地排布在彼此相邻的空间中，从而显着提高了缓存利用率。分代收集器确实要求程序在运行时执行一些额外的工作，但从经验上看，他被提升的缓存效果所击败</li>
+<li><strong>暂停时间</strong>：大多数（但不是全部）暂停时间变得更短。</li>
+</ul>
+
+<p>他们还介绍了一些缺点：</p>
+
+<ul>
+<li><strong>兼容性</strong>：实现分代收集器需要能够在内存中移动内容，并在程序在某些情况下写入指针时执行额外的工作。这意味着 GC 必须与编译器紧密集成。C ++没有分代 GC 。</li>
+<li><!-- *  remember set？ --></li>
+<li><strong>堆开销</strong>：这些收集器通过在各种“空间”之间来回复制分配来工作。因为必须有空间可以复制到，所以这些收集器会产生一些堆开销。此外，它们需要维护各种指针映射（记住的集合），这进一步增加了开销。</li>
+<li><strong>暂停分布</strong>：虽然许多 GC 暂停现在非常快，但仍有一些需要在整个堆上进行完整的 标记/清除。</li>
+<li><strong>调优（tuning）</strong>：分代 GC 引入了“年轻一代”或“伊甸园空间”的概念，程序性能变得对这个空间的大小非常敏感。</li>
+<li><strong>预热时间</strong>：为了响应调优问题，一些收集器通过观察程序在实践中如何运行来动态调整年轻代的大小，但现在暂停时间取决于程序运行的时间长短。实际上，这在基准测试之外很少有用。</li>
+</ul>
+
+<p>然而，好处是如此巨大，基本上所有现代 GC 算法都是 <strong>分代收集</strong> 的。如果你（可）能负担得起，你就会想要。分代收集器增强各种其他特性，典型的现代 GC 将支持 并发，并行，压缩等所有特性。</p>
+
+<h2 id="go-并发收集器">Go 并发收集器</h2>
+
+<!-- 很别扭，找不到主语 -->
+
+<p>由于 Go 是一种具有值类型的相对普通的命令式语言，其内存访问模式可能与 C＃ 相当，其中分代假设当然成立，因此 .NET 使用分代收集器。</p>
+
+<p>事实上，Go 程序通常是 请求/响应 处理，如 HTTP 服务器，这意味着 Go 程序表现出强烈的分代收集行为，而 Go 团队正在探索未来可能使用的——称为<a href="https://docs.google.com/document/d/1gCsFxXamW8RRvOe5hECz98Ftk-tcRRJcDFANj2VwCB0/edit">“面向请求的收集器”</a>的东西。<a href="https://news.ycombinator.com/item?id=11969740">现在看来，这实际上是一个重新命名的分代 GC，具有调整任期策略功能</a>。这个 GC 可以在 请求/响应 处理的其他运行时中进行模拟，方法是确保年轻的一代足够大，能够容纳处理请求生成的所有垃圾。</p>
+
+<p>尽管如此，Go 目前的 GC 还不是分代收集的。它只是在后台运行一个普通的古老的 标记/清除。</p>
+
+<p>这样做有一个好处——你可以获得非常短的暂停时间——但几乎所有其他方面都变得更糟。难道就像这样吗？那么，从上面的基本理论我们可以看到：</p>
+
+<ul>
+<li><strong>GC 吞吐量</strong>：清除堆所需的时间与堆的大小成比例。简单来说，程序使用的内存越多，释放内存的速度就越慢，相对处理有效工作时间，计算机用于收集垃圾时间也就越多。如果您的程序根本不并行化，但是您可以无限制地继续向 GC 添加核心数，是唯一不好的地方。</li>
+<li><strong>紧凑</strong>：由于没有压缩，程序最终会将堆碎片化。我将在下面详细讨论堆碎片。在缓存中整齐排列也不会带来收益。</li>
+<li><strong>程序吞吐量</strong>：由于在每一轮循环中 gc 都需要做大量的工作，其将从 应用程序本身偷取 cpu 时间，并使其变慢</li>
+<li><strong>暂停分布</strong>：任何与程序并发运行的垃圾收集器都可能遇到 Java 世界所称的并发模式故障:程序创建垃圾的速度比 GC 线程清理垃圾的速度还快。在这种情况下，运行时别无选择，只能完全停止程序，等待 GC 循环完成。因此，当 Go 声明 GC 暂停时间很短时，这种声明只适用于 GC 有足够的 CPU 时间和内存空间超过主程序（分配内存的速度快过主程序）时。另外，go 编译器不支持稳定停下线程的特性，也就是说，暂停时间的长短很大程度上取决于你的程序什么时候运行，例如：在单一线程上解码一个巨大的 base64 会使暂停时间升高。</li>
+<li><strong>堆开销</strong>：因为通过 标记/清除 收集堆非常慢，所以需要大量空闲空间来确保不会出现“并发模式故障”。Go 默认的堆开销为 100%，它将使程序所需的内存增加一倍。</li>
+</ul>
+
+<p>我们可以在<a href="https://groups.google.com/d/msg/golang-dev/Ab1sFeoZg_8/pv0Yg7tkAwAJ">golang-dev 的帖子</a>中看到这些平衡，如下所示：</p>
+
+<blockquote>
+<p>服务 1 分配的数量超过服务 2，因此 服务 1 STW 暂停值更高。但是 STW 暂停持续时间在两种服务上都下降了一个数量级。在切换两种服务后，我们看到在 GC 中花费的 CPU 使用率增加了约 20%。</p>
+</blockquote>
+
+<p>所以在这个特定的例子中，Go 在暂停时间上获得了一个数量级的下降，但代价是一个更慢的收集器。这是一个很好的平衡吗？还是暂停时间已经足够低了?海报上没有说。</p>
+
+<p>但有一点，需要更多硬件才能获得更低的暂停时间不再有意义。如果您的服务器暂停时间从 10 毫秒到 1 毫秒，您的用户是否真的会注意到这一点？如果你不得不使你的机器数量加倍来实现它？</p>
+
+<p>go 以吞吐量为代价来优化暂停时间。以至于它似乎愿意将程序的速度降低几乎任何程度，以获得稍微短一点的暂停时间。</p>
+
+<h2 id="与-java-相比">与 Java 相比</h2>
+
+<p>HotSpot JVM 有几种 GC 算法，您可以在命令行中选择。Java 没有像 Go 这样短的暂停时间，因为它们更看重其他因素。有必要对比一下，可以了解他们是怎么平衡这些因素的。</p>
+
+<p>因为在程序运行时进行编译，只需重新启动程序就可以在 GC 之间切换，可以根据需要和问题编译和优化不同算法。</p>
+
+<p>所有现代计算机上的默认都是吞吐量收集器。这是为批处理作业设计的，默认情况下没有任何暂停时间目标（可以在命令行上给出一个）。</p>
+
+<!-- 前后矛盾，前糟糕；后都是优势？ -->
+
+<p>人们倾向于认为，这种默认选择是 java gc 必然有些糟糕的原因： 开箱即用，Java 试图让你的应用程序尽可能快地运行，尽可能减少内存开销，但却有该死的暂停时间。</p>
+
+<p>如果暂停时间对您更重要，那么您可能会切换到并发标记/清除收集器（CMS）。这是最接近 Go 的算法。但它也是分代的，这就是为什么它的暂停时间比 Go 长：年轻一代被压缩而应用暂停，因为它涉及移动对象。CMS 中有两种类型的暂停：第一种速度更快，可能持续约 25 毫秒。第二种可能更接近 20 毫秒。CMS 是自适应的:因为它是并发的，所以它必须预测什么时候开始运行(就像 Go 一样)。Go 要求您配置堆开销来优化它，而 CMS 将在运行时自我调整，以尝试并避免发模式失败。由于堆的大部分是普通的标记/清除，因此可能会出现堆碎片导致的问题和速度下降。</p>
+
+<p>最新一代 Java GC 被称为“垃圾优先”（“G1”）。Java 8 中没有预置，而是在 Java 9 中。它旨在成为通用的“一刀切”算法，或者尽可能接近现在的样子。它主要是整个堆的并发，生成和压缩。它也在很大程度上是自我调整，但是因为（像所有的 GC 算法一样）它无法知道你真正想要的东西，它允许你指定你喜欢的平衡：只需告诉它你将允许它使用的最大 RAM 量和暂停时间目标（以毫秒为单位），当应用程序运行以尝试满足暂停时间目标时，它将调整其他所有内容。默认暂停时间目标大约为 100 毫秒，因此除非您指定不同的结果，否则您不应该期望看到更好的结果：G1 会偏向于应用运行得比暂停时更快。暂停并不完全一致——大多数都非常快（&lt; 1 ms），而一些在压缩堆时会更慢（更像是 50ms）。G1 非常好。有报道称人们使用 TB 级大小的堆。它还有一些简洁的功能，比如对堆中的字符串去重。</p>
+
+<p>最后，开发了一种名为 Shenandoah 的新 GC 算法。它用于 OpenJDK ，但仅能在使用 Red Hat（赞助项目）的特殊 Java 时构建，而不能 Java 9 中使用。无论堆大小如何，它都可以提供非常低的暂停时间，同时也可以进行压缩。成本是额外的堆开销和更多障碍：在应用程序仍在运行时移动对象需要指针读写，以便与 GC 交互。在这个意义上，它类似于 Azul 的“无暂停（pauseless）” GC 。</p>
+
+<h2 id="结论">结论</h2>
+
+<p>本文的重点不是说服您使用不同的编程语言或工具。</p>
+
+<p><strong>你从这篇文章中可以学到的一点：垃圾收集是一个非常非常难的问题，几十年来，计算机科学家一直在研究。所以要经常质疑别人是否做出了所谓的突破。别人宣称的“突破”更有可能只是伪装下的奇怪的、不同寻常的平衡，而其他人（Java）只是出于某些原因而避免这样做，这些原因可能要到后来才会显现出来。</strong></p>
+
+<p>但是，如果您希望以牺牲其他所有特性为代价来最小化暂停时间，那么请务必查看 Go GC。</p>
+
+<hr />
+
+<p>via: <a href="https://blog.plan99.net/modern-garbage-collection-911ef4f8bd8e?gi=90cab303c568">https://blog.plan99.net/modern-garbage-collection-911ef4f8bd8e?gi=90cab303c568</a></p>
+
+<p>作者：<a href="https://blog.plan99.net/@octskyward">Mike Hearn</a>
+译者：<a href="https://github.com/TomatoAres">TomatoAres</a>
+校对：<a href="https://github.com/DingdingZhou">DingdingZhou</a></p>
+
+<p>本文由 <a href="https://github.com/studygolang/GCTT">GCTT</a> 原创编译，<a href="https://studygolang.com/">Go 中文网</a> 荣誉推出</p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/translated/20161218-modern-garbage-collection/">https://TomatoAres.github.io/posts/go/translated/20161218-modern-garbage-collection/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/">Vet 命令：超出预期的强大</a></li>
+        
+        <li><a href="/posts/go/translated/20190807-go-thoughts-about-cobra/">Go：关于 Cobra 的想法</a></li>
+        
+        <li><a href="/posts/go/translated/why-go-is-good-language-for-microservices/">为什么 Go 适合微服务</a></li>
+        
+        <li><a href="/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/">Go Struct Tag 是怎么玩的</a></li>
+        
+        <li><a href="/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">Go xml json 小结</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "TomatoAres/TomatoAres.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    
+    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    
+    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    
+    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    
+    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    
+    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    
+    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

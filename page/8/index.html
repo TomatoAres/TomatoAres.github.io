@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>西红柿的博客 | Awesome TomatoAres</title>
-    <meta property="og:title" content="西红柿的博客 | Awesome TomatoAres">
+    <title>西红柿的博客 | 读不在三更五鼓,功只怕一曝十寒</title>
+    <meta property="og:title" content="西红柿的博客 | 读不在三更五鼓,功只怕一曝十寒">
     <meta property="og:type" content="website">
     <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
     <meta name="description" content="A nook preserved in Cyberspace where I can be myself.">
@@ -41,7 +41,7 @@
                         </a>
                     </h1>
                 
-                <p class="description">Awesome TomatoAres</p>
+                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
@@ -68,23 +68,58 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/k8s/unix-linux/" title="" ></a>
+                                    <a href="https://TomatoAres.github.io/posts/others/hugo/hugo-no-article/" title="Hugo 文章不显示" >Hugo 文章不显示</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                1年1月1日
+                                2019年8月14日
                             </date>
                             
-                            <div class="post-content">
-                                Unix 和 Linux 的区别 1. 历史 Unix 早于 linux. Linux 的思想源于 Unix……
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Tool">Tool</a></span>
+                                
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/k8s/unix-linux/">阅读全文</a></p>
+                            
+                            <div class="post-content">
+                                draft 草稿，若为真，则不现实
+所以：
+将 draft:true 改为 false 即可
+draft:false  ……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/others/hugo/hugo-no-article/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/" title="" ></a>
+                                    <a href="https://TomatoAres.github.io/posts/go/translated/microservices-in-go/" title="Go 语言中的微服务" >Go 语言中的微服务</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年8月14日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
+在这里，我要介绍以下框架：
+ Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。……
+                            </div>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/translated/microservices-in-go/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://TomatoAres.github.io/posts/storage/storage-source-code/" title="" ></a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -92,11 +127,10 @@
                             </date>
                             
                             <div class="post-content">
-                                概念准备 只有UDP套接字允许广播或多播
-无状态 无连接 使用UDP协议进行信息的传输之前不需要建议连接。换句话说就是客户端向服务器发送信息，客户端只需要给出服务器的ip地址和端口号，然后将信息封装到一个待发送的报文中并且发送出去。至于服务器端是否存在，或者能否收到该报文，客户端根本不用管。
- 单播用于两个主机之间的端对端通信，广播用于一个主机对整个局域网上所有主机上的数据通信。单播和广播是两个极端，要么对一个主机进行通信，要么对整个局域网上的主机进行通信。实际情况下，经常需要对一组特定的主机进行通信，而不是整个局域网上的所有主机，这就是多播的用途。  　通常我们讨论的udp的程序都是一对一的单播程序。本章将讨论一对多的服务：广播（broadcast）、多播（multicast）。对于广播，网络中的所有主机都会接收一份数据副本。对于多播，消息只是发送到一个多播地址，网络知识将数据分发给哪些表示想要接收发送到该多播地址的数据的主机。总得来说，……
+                                kubernetes ceph rbd storage 源码探索 概述 kubernetes 当前存储对接第三方存储后端实现有两种模式共存
+ in-tree：各种存储后端功能侵入式存在于源码中，耦合性高，不便于扩展与维护 out-of-tree:和源码解耦，类似于 CNI 的 CSI 有统一的接口规范，便于维护扩展  ，支持各种后端存储，csi 是一种理想，还在路上，也是可参与的 -- 以 ceph-rbd 为例看 provisioner（github.……
                             </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/">阅读全文</a></p>
+                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/storage/storage-source-code/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
@@ -183,43 +217,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
     </li>
     
 </ul>
@@ -232,31 +266,47 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(8)</a>
+        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
+        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
+        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
+        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
+        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
+        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
+        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
     </li>
     
     <li>
@@ -264,43 +314,35 @@
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
+        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(6)</a>
+        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(4)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(6)</a>
+        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(7)</a>
+        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%9D%82%E8%AE%B0/">杂记(1)</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
+        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
     </li>
     
     <li>
         <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
-    
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(6)</a>
     </li>
     
 </ul>
@@ -310,21 +352,51 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
     
     <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
     
     <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
     
+    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    
     <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    
+    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    
+    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    
+    <a href="https://TomatoAres.github.io/tags/container/">container</a>
     
     <a href="https://TomatoAres.github.io/tags/database/">database</a>
     
     <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    
+    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    
+    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
     
     <a href="https://TomatoAres.github.io/tags/go/">go</a>
     
@@ -332,21 +404,23 @@
     
     <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
     
+    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    
     <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
     
     <a href="https://TomatoAres.github.io/tags/network/">network</a>
     
     <a href="https://TomatoAres.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/test/">test</a>
-    
     <a href="https://TomatoAres.github.io/tags/web/">web</a>
     
     <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
     
+    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
     <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%9D%82%E8%AE%B0/">杂记</a>
+    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
     
     <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
     
@@ -400,7 +474,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
+        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

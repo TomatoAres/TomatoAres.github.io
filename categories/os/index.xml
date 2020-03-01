@@ -21,34 +21,5 @@
  Open vSwitch 是一个高质量的、多层虚拟交换机， 使用开源 Apache2.0 许可协议，由 Nicira Networks 开发，主要实现代码为可移植的 C 代码。 目的是让大规模网络自动化可以通过编程扩展，同时仍然支持标准的管理接口和协议（例如 NetFlow, sFlow, SPAN, RSPAN, CLI, LACP, 802.</description>
     </item>
     
-    <item>
-      <title>Linux Control Group 简介</title>
-      <link>https://TomatoAres.github.io/posts/system/cgroup/</link>
-      <pubDate>Thu, 26 Sep 2019 00:13:30 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/system/cgroup/</guid>
-      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</description>
-    </item>
-    
-    <item>
-      <title>常见 IO 模型研究 </title>
-      <link>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</link>
-      <pubDate>Sun, 22 Sep 2019 14:13:45 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</guid>
-      <description>核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段：</description>
-    </item>
-    
-    <item>
-      <title>进程线程协程总结</title>
-      <link>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
-      <pubDate>Thu, 22 Aug 2019 11:55:05 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
-      <description>通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别
- 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
- 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。</description>
-    </item>
-    
   </channel>
 </rss>

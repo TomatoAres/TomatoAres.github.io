@@ -6,19 +6,10 @@
     <description>Recent content in Storage on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Dec 2019 23:41:07 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2019 23:40:07 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/tags/Storage/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Ceph 和 Kubernetes 集成</title>
-      <link>https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/</link>
-      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/storage/ceph&#43;k8s/</guid>
-      <description>关键词  PV PVC StorageClass Secret  方式  静态 动态  步骤  安装 ceph 创建存储池 并启用 RBD 功能 创建 Ceph 用户，提供给 K8s 使用 复制 ceph.</description>
-    </item>
     
     <item>
       <title>集群化存储课程总结</title>

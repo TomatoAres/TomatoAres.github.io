@@ -6,19 +6,10 @@
     <description>Recent content in 工具 on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 22 Oct 2019 00:52:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2019 00:20:48 +0800</lastBuildDate>
     
 	<atom:link href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Iperf3 小结</title>
-      <link>https://TomatoAres.github.io/posts/network/iperf/</link>
-      <pubDate>Tue, 22 Oct 2019 00:52:45 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/network/iperf/</guid>
-      <description>定义  iPerf3 是用于主动测量 IP 网络上可达到的最大带宽的工具。 它支持与时序，缓冲区和协议（TCP，UDP，带有 IPv4 和 IPv6 的 SCTP）相关的各种参数的调整。 对于每个测试，它都会报告带宽，损耗和其他参数。 不向后兼容——可以说已经不是 iperf  功能 基本——Iperf2 也有  TCP 和 UDP 测试 （-u） 设置端口（-p） 设置 TCP 选项：无延迟，MSS 等。 设置 UDP 带宽（-b） 设置套接字缓冲区大小（-w） 报告间隔（-i） 设置 iPerf 缓冲区（-l） 绑定到特定接口（-B） IPv6 测试（-6） 要传输的字节数（-n） 测试时间（-t） 并行流（-P） 设置 DSCP / TOS 位向量（-S） 更改号码输出格式（-f）  iPerf 3.</description>
-    </item>
     
     <item>
       <title>kubernetes 节点和核心资源</title>

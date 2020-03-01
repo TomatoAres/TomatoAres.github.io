@@ -20,5 +20,14 @@
       <description>定义  通过虚拟化技术将一台计算机虚拟为多态逻辑计算机。简单来说：虚拟化使得在一台物理的服务器上可以跑多台虚拟机 虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。  每台逻辑计算机可以运行不同的操作系统。 应用程序可以相互独立的运行在不同的空间内  物理机我们一般称为宿主机（Host），宿主机上面的虚拟机称为客户机（Guest） 显著提高资源使用率，和计算机工作效率  对比 |虚拟化前|虚拟化后| |&amp;mdash;|&amp;mdash;| |每台主机一个操作系统|多个操作系统| |软硬件结合，操作系统与硬件紧密结合|虚拟机独立于硬件，能在任何硬件上运行| |死板|灵活|</description>
     </item>
     
+    <item>
+      <title>Linux Control Group 简介</title>
+      <link>https://TomatoAres.github.io/posts/system/cgroup/</link>
+      <pubDate>Thu, 26 Sep 2019 00:13:30 +0800</pubDate>
+      
+      <guid>https://TomatoAres.github.io/posts/system/cgroup/</guid>
+      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</description>
+    </item>
+    
   </channel>
 </rss>

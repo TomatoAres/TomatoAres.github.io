@@ -1,2 +1,1 @@
 User-agent: *
-Sitemap: https://tomatoares.github.io/sitemap.xml
