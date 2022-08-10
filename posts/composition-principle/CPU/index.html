@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>CPU 内存 显卡 | 西红柿的博客</title>
     <meta property="og:title" content="CPU 内存 显卡 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-10-20T21:43:29&#43;08:00">
+    <meta property="article:published_time" content='2019-10-20T21:43:29&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-10-20T21:43:29&#43;08:00">
+    <meta property="article:modified_time" content='2019-10-20T21:43:29&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="CPU 内存 显卡">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/composition-principle/CPU/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/composition-principle/CPU/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,149 +67,231 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#分类">分类</a></li>
+    <li><a href="#南北桥">南北桥</a></li>
+    <li><a href="#倍频-外频-超频">倍频 外频 超频</a></li>
+    <li><a href="#32-位与-64-位">32 位与 64 位</a></li>
+    <li><a href="#内存cpu-所使用的数据都是来自于主存储器main-memory">内存：CPU 所使用的数据都是来自于主存储器(main memory)</a>
+      <ul>
+        <li><a href="#容量">容量</a></li>
+        <li><a href="#双通道设计">双通道设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#cpu-缓存">CPU 缓存</a></li>
+    <li><a href="#rom-与-bios">ROM 与 BIOS</a></li>
+    <li><a href="#显卡">显卡</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">CPU 内存 显卡</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年10月20日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86'>组成原理</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">CPU 内存 显卡</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年10月20日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86">组成原理</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<h2 id="分类">分类</h2>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="分类">分类</h2>
 <p>CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。</p>
-
 <ol>
-<li><p>精简指令集 (Reduced Instruction Set Computing, RISC)：
+<li>
+<p>精简指令集 (Reduced Instruction Set Computing, RISC)：
 这种 CPU 的设计中，微指令集较为精简，每个指令的运行时间都很短，完成的动作也很单纯，指令的执行效能较佳； 但是若要做复杂的事情，就要由多个指令来完成。常见的 RISC 微指令集 CPU 主要：</p>
-
 <ol>
 <li>升阳 (Sun) 公司的 SPARC 系列： 常用于学术领域的大型工作站中，包括银行金融体系的主服务器也都有这类的计算机架构；</li>
 <li>IBM 公司的 Power Architecture（包括 PowerPC) 系列：Sony 公司出产的 Play Station3(PS3) 就是使用 PowerPC 架构的 Cell 处理器</li>
 <li>与 ARM 系列：你常使用的各厂牌手机、 PDA、导航系统、网络设备（交换器、路由器等）等，几乎都是使用 ARM 架构的 CPU 喔！ 老实说，目前世界上使用范围最广的 CPU 可能就是 ARM 呢！</li>
-</ol></li>
-
-<li><p>复杂指令集 (Complex Instruction Set Computer, CISC)。
-与 RISC 不同的，CISC 在微指令集的每个小指令可以执行一些较低阶的硬件操作，指令数目多而且复杂， 每条指令的长度并不相同。因为指令执行较为复杂所以每条指令花费的时间较长， 但每条个别指令可以处理的工作较为丰富。常见的 CISC 微指令集 CPU 主要有 AMD、 Intel、 VIA 等的 x86 架构的 CPU。</p></li>
 </ol>
-
+</li>
+<li>
+<p>复杂指令集 (Complex Instruction Set Computer, CISC)。
+与 RISC 不同的，CISC 在微指令集的每个小指令可以执行一些较低阶的硬件操作，指令数目多而且复杂， 每条指令的长度并不相同。因为指令执行较为复杂所以每条指令花费的时间较长， 但每条个别指令可以处理的工作较为丰富。常见的 CISC 微指令集 CPU 主要有 AMD、 Intel、 VIA 等的 x86 架构的 CPU。</p>
+</li>
+</ol>
 <blockquote>
 <p>个人计算机常被称为 x86 架构的计算机！那为何称为 x86 架构呢？</p>
-
 <p>这是因为最早的那颗 Intel 发展出来的 CPU 代号称为 8086，后来依此架构又开发出 80286, 80386&hellip;， 因此这种架构的 CPU 就被称为 x86 架构了。其中 64 位处理器，叫做 x86_64 架构。</p>
 </blockquote>
-
 <h2 id="南北桥">南北桥</h2>
-
 <ol>
 <li>北桥：负责链接速度较快的 CPU、主存储器与显示适配器等组件；</li>
 <li>南桥：负责连接速度较慢的周边接口， 包括硬盘、 USB、网络卡等等。</li>
 </ol>
-
 <h2 id="倍频-外频-超频">倍频 外频 超频</h2>
-
 <p>各个组件都是透过北桥与南桥所连接在一起。 但就像一群人共同在处理一个连续作业一般，如果这一群人里面有个人的动作特别快或特别慢， 将导致前面或者是后面的人事情一堆处理不完！也就是说，这一群人最好能够速度一致较佳！所以，CPU 与外部各组件的速度理论上应该要一致才好。但是因为 CPU 需要较强大的运算能力， 因为很多判断与数学都是在 CPU 内处理的，因此 CPU 开发商就在 CPU 内再加上一个加速功能， 所以 CPU 有所谓的外频与倍频！</p>
-
 <ol>
-<li>外频指的是 CPU 与外部组件进行数据传输时的速度，</li>
-
-<li><p>倍频则是 CPU 内部用来加速工作效能的一个倍数</p>
-
-<p>两者相乘才是 CPU 的频率速度。例如：频率是 3.0GHz， 而外频是 333MHz，因此倍频就是 9 倍啰！(3.0G=333Mx9, 其中 1G=1000M)</p></li>
-
-<li><p>超频指的是： 将 CPU 的倍频或者是外频透过主板的设定功能更改成较高频率的一种方式。
+<li>
+<p>外频指的是 CPU 与外部组件进行数据传输时的速度，</p>
+</li>
+<li>
+<p>倍频则是 CPU 内部用来加速工作效能的一个倍数</p>
+<p>两者相乘才是 CPU 的频率速度。例如：频率是 3.0GHz， 而外频是 333MHz，因此倍频就是 9 倍啰！(3.0G=333Mx9, 其中 1G=1000M)</p>
+</li>
+<li>
+<p>超频指的是： 将 CPU 的倍频或者是外频透过主板的设定功能更改成较高频率的一种方式。
 但因为 CPU 的倍频通常在出厂时已经被锁定而无法修改， 因此较常被超频的为外频。
-举例来说，像上述 3.0GHz 的 CPU 如果想要超频， 可以将他的外频 333MHz 调整成为 400MHz，但如此一来整个主板的各个组件的运作频率可能都会被增加成原本的 1.333 倍 (<sup>4</sup>&frasl;<sub>3</sub>)， 虽然 CPU 可能可以到达 3.6GHz，但却因为频率并非正常速度，故可能会造成当机等问题。</p></li>
+举例来说，像上述 3.0GHz 的 CPU 如果想要超频， 可以将他的外频 333MHz 调整成为 400MHz，但如此一来整个主板的各个组件的运作频率可能都会被增加成原本的 1.333 倍 (4/3)， 虽然 CPU 可能可以到达 3.6GHz，但却因为频率并非正常速度，故可能会造成当机等问题。</p>
+</li>
 </ol>
-
 <h2 id="32-位与-64-位">32 位与 64 位</h2>
-
 <p>前面谈到 CPU 运算的数据都是由主存储器提供的，主存储器与 CPU 的沟通速度靠的是外部频率， 那么每次工作可以传送的资料量有多大呢？那就是总线的功能了。一般主板芯片组有分北桥与南桥， 北
 桥的总线称为系统总线，因为是内存传输的主要信道，所以速度较快。</p>
-
 <p>南桥就是所谓的输入输出 (I/O) 总线，主要在联系硬盘、 USB、网络卡等接口设备。</p>
-
 <p>目前北桥所支持的频率可高达 333/400/533/800/1066/1333/1600MHz 等不同频率，支持情况依芯片组功能而有不同。 北桥所支持的频率我们称为<strong>前端总线速度 (Front Side Bus, FSB)</strong>， 而每次传送的位数则是<strong>总线宽度</strong>。</p>
-
-<p>那所谓的<strong>总线带宽则</strong>是：『FSBx 总线宽度』亦即每秒钟可传送的最大数据量。 目前常见的<strong>总线宽</strong>度有 <sup>32</sup>&frasl;<sub>64</sub> 位 (bits)。</p>
-
-<p>例如：架构中前端总线最高速度可达 1600MHz。 我们看到内存与北桥的带宽为 12.8GBytes/s，亦即是 1600MHz*64bits = 1600MHz*8Bytes = 12800MByes/s = 12.8GBytes/s</p>
-
+<p>那所谓的<strong>总线带宽则</strong>是：『FSBx 总线宽度』亦即每秒钟可传送的最大数据量。 目前常见的<strong>总线宽</strong>度有 32/64 位 (bits)。</p>
+<p>例如：架构中前端总线最高速度可达 1600MHz。 我们看到内存与北桥的带宽为 12.8GBytes/s，亦即是 1600MHz<em>64bits = 1600MHz</em>8Bytes = 12800MByes/s = 12.8GBytes/s</p>
 <p>与总线宽度相似 <strong>（不同）</strong> 的，CPU 每次能够处理的数据量称为<strong>字组大小 (word size)</strong>， 字组大小依据 CPU 的设计而有 32 位与 64 位。我们现在所称的计算机是 32 或 64 位主要是依据这个 CPU 解析的字组大小而来的！早期的 32 位 CPU 中，因为 CPU 每次能够解析的数据量有限， 因此由主存储器传来的数据量就有所限制了。 这也导致 32 位的 CPU 最多只能支持最大到 4GBytes 的内存。</p>
-
-<h2 id="内存-cpu-所使用的数据都是来自于主存储器-main-memory">内存：CPU 所使用的数据都是来自于主存储器(main memory)</h2>
-
+<h2 id="内存cpu-所使用的数据都是来自于主存储器main-memory">内存：CPU 所使用的数据都是来自于主存储器(main memory)</h2>
 <p>不论是软件程序还是数据，都必须要读入主存储器后 CPU 才能利用。 个人计算机的主存储器主要组件为动态随机存取内存(Dynamic Random Access Memory, DRAM)， 随机存取内存只有在通电时才能记录与使用，断电后数据就消失了。因此我们也称这种 RAM 为挥发性内存</p>
-
 <p>技术发展： DRAM-&gt;SDRAM-&gt;DDR</p>
-
 <p>DDR 是所谓的双倍数据传送速度(Double Data Rate)， 他可以在一次工作周期中进行两次数据的传送，感觉上就好像是 CPU 的倍频啦！ 所以传
 输频率方面比 SDRAM 还要好。</p>
-
 <h3 id="容量">容量</h3>
-
 <p>因为所有的数据都得要加载内存当中才能够被 CPU 判读，如果内存容量不够大的话将会导致某些大容量数据无法被完整的加载， 此时已存在内存当中但暂时没有被使用到的数据必须要先被释放，使得可用内存容量大于该数据，那份新数据才能够被加载呢！ 所以，通常越大的内存代表越快速的系统，这是因为系统不用常常释放一些内存内部的数据。 以服务器来说，主存储器的容量有时比 CPU 的速度还要来的重要的！</p>
-
 <h3 id="双通道设计">双通道设计</h3>
-
 <p>由于所有的数据都必须要存放在主存储器，所以主存储器的数据宽度当然是越大越好。 但传统的总线宽度一般大约仅达 64 位，为了要加大这个宽度，因此芯片组厂商就将两个主存储器汇整在一起， 如果一支内存可达 64 位，两支内存就可以达到 128 位了，这就是双通道的设计理念。</p>
-
 <p>启动双信道内存功能时，数据是同步写入/读出这一对主存储器中</p>
-
 <h2 id="cpu-缓存">CPU 缓存</h2>
-
 <p>CPU 的数据都是由主存储器提供，但主存储器的数据毕竟得经由北桥送到 CPU 内。 如果某些很常用的程序或数据可以放置到 CPU 内部的话，那么 CPU 资料的读取就不需要透过北桥了！ 对于效能来说不就可以大大的提升了？这就是第二层快取的设计概念。</p>
-
 <p>第二层快取与主存储器及 CPU 的关系： （CPU &lt;-&gt; 缓存） &lt;-&gt; 主存储器 &lt;-&gt; 外部存储器</p>
-
 <h2 id="rom-与-bios">ROM 与 BIOS</h2>
-
 <p>BIOS(Basic Input Output System)是一套程序，这套程序是写死到主板上面的一个内存芯片中， 这个内存芯片在没有通电时也能够将数据记录下来，那就是只读存储器(Read Only Memory, ROM)。 ROM 是一种非挥发性的内存。另外，BIOS 对于个人计算机来说是非常重要的， 因为他是系统在开机的时候首先会去读取的一个小程序喔！</p>
-
 <h2 id="显卡">显卡</h2>
-
 <p>示适配器又称为 VGA(Video Graphics Array)，他对于图形影像的显示扮演相当关键的角色。 一般对于图形影像的显示重点在于分辨率与颜色深度，因为每个图像显示的颜色会占用掉内存， 因此显示
 适配器上面会有一个内存的容量，这个显示适配器内存容量将会影响到最终你的屏幕分辨率与颜色深度。</p>
-
 <p>除了显示适配器内存之外，现在由于三度空间游戏(3D game)与一些 3D 动画的流行，因此显示适配器的『运算能力』越来越重要。 一些 3D 的运算早期是交给 CPU 去运作的，但是 CPU 并非完全针对这些
 3D 来进行设计的，而且 CPU 平时已经非常忙碌了呢！ 所以后来显示适配器厂商直接在显示适配器上面嵌入一个 3D 加速的芯片，这就是所谓的 GPU 称谓的由来——图形处理单元(Graphic Processing Units)。</p>
-
 <h2 id="参考">参考</h2>
-
 <p>《鸟哥 Linux 私房菜（第三版）》</p>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/composition-principle/CPU/">https://TomatoAres.github.io/posts/composition-principle/CPU/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/composition-principle/CPU/">https://tomatoares.github.io/posts/composition-principle/CPU/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -213,7 +299,7 @@
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
@@ -223,49 +309,114 @@
         
         <li><a href="/posts/leetcode/008-atoi/">Atoi 实现</a></li>
         
+        <li><a href="/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/">单播 广播 组播</a></li>
+        
         <li><a href="/posts/system/cgroup/">Linux Control Group 简介</a></li>
         
         <li><a href="/posts/go/byte-rune/">Go 中 Byte Rune——类型别名</a></li>
-        
-        <li><a href="/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/">为什么要使用 go module proxy</a></li>
         
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86">组成原理</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86'>组成原理</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -275,43 +426,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -320,253 +471,175 @@
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

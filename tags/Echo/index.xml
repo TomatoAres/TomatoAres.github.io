@@ -2,25 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>“echo” on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/echo/</link>
+    <link>https://tomatoares.github.io/tags/echo/</link>
     <description>Recent content in “echo” on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 16 Aug 2019 16:57:56 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/echo/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Aug 2019 16:57:56 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/echo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Echo 框架的简单使用</title>
-      <link>https://TomatoAres.github.io/posts/web/echo/</link>
+      <link>https://tomatoares.github.io/posts/web/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/echo/</guid>
-      <description>本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
-源码
-特性概述 总的来说：轻量·高效
- 优化的 HTTP 路由器，巧妙地确定路由优先级</description>
+      <guid>https://tomatoares.github.io/posts/web/echo/</guid>
+      <description>本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。 源码 特性概述 总的来说：轻量·高效 优化的 HTTP 路由器，巧妙地确定路由优先级 构建健壮且可伸缩的 RESTful API 组 API 可扩展的中间件框架 以根，组或路径级别定义中间件 JSON，XML 和表单的数据绑定 便捷地发送各种 HTTP 响应 集中的 HTTP 错误处理 可以使</description>
     </item>
     
   </channel>

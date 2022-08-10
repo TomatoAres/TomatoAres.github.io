@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GCTT on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/GCTT/</link>
+    <link>https://tomatoares.github.io/tags/GCTT/</link>
     <description>Recent content in GCTT on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/GCTT/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Sep 2019 21:49:04 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/GCTT/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>为什么 Go 适合微服务</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
-      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。 1. 静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。 生产事故的故事 去年，在</description>
     </item>
     
   </channel>

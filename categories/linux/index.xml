@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>linux on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/linux/</link>
+    <link>https://tomatoares.github.io/categories/linux/</link>
     <description>Recent content in linux on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Sep 2019 22:53:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 11 Sep 2019 22:53:00 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BSD 是什么</title>
-      <link>https://TomatoAres.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <link>https://tomatoares.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
       <pubDate>Wed, 11 Sep 2019 22:53:00 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
-      <description>关键词：操作系统，风格  BSD (Berkeley Software Distribution，伯克利软件套件)是 Unix 的衍生系统，在 1977 至 1995 年间由加州大学伯克利分校开发和发布的。</description>
+      <guid>https://tomatoares.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>关键词：操作系统，风格 BSD (Berkeley Software Distribution，伯克利软件套件)是 Unix 的衍生系统，在 1977 至 1995 年间由加州大学伯克利分校开发和发布的。 历史上， BSD 曾经被认为是 UNIX 的一支——&amp;ldquo;BSD UNIX&amp;rdquo;, 因为它和 AT&amp;amp;T UNIX 操作系统共享基础代码和设计。 在 20 世纪 80 年代，衍生出了许多变形的 UNIX 授权软件。比较著</description>
     </item>
     
   </channel>

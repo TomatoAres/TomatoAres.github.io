@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Atoi 实现 | 西红柿的博客</title>
     <meta property="og:title" content="Atoi 实现 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-27T23:29:24&#43;08:00">
+    <meta property="article:published_time" content='2019-09-27T23:29:24&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-09-27T23:29:24&#43;08:00">
+    <meta property="article:modified_time" content='2019-09-27T23:29:24&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="Atoi 实现">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/leetcode/008-atoi/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/leetcode/008-atoi/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,276 +67,362 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#历史问题">历史问题</a></li>
+    <li><a href="#题目">题目</a>
+      <ul>
+        <li><a href="#说明">说明：</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现">实现</a></li>
+    <li><a href="#单元测试">单元测试</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Atoi 实现</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月27日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E7%AE%97%E6%B3%95'>算法</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">Atoi 实现</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年9月27日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95">算法</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<h2 id="历史问题">历史问题</h2>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="历史问题">历史问题</h2>
 <p>Q:明明是 string to int 为什么是 Atoi？
 A: Atoi (Ascii to Integer)，Ascii 即上古时期的 string，流传至今</p>
-
 <h2 id="题目">题目</h2>
-
 <p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
-
 <p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
-
 <p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
-
 <p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
-
 <p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
-
 <p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
-
 <h3 id="说明">说明：</h3>
-
 <p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
-
 <h2 id="实现">实现</h2>
-
-<pre><code class="language-golang">package problem0008
-
-import &quot;strings&quot;
-import &quot;math&quot;
-
-func myAtoi(s string) int {
-    return convert(clean(s))
-}
-
-func clean(s string) (sign int, abs string) {
-    // 除去首尾的空格
-    s = strings.TrimSpace(s)
-    if s == &quot;&quot; {
-        return
-    }
-
-
-    switch s[0] {
-    case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-        sign, abs = 1, s
-    case '+':
-        sign, abs = 1, s[1:]
-    case '-':
-        sign, abs = -1, s[1:]
-    default:
-        abs = &quot;&quot;
-        return
-    }
-
-    // 不完全是数字了 仅截取数字部分
-    for i, b := range abs {
-        if b &lt; '0' || '9' &lt; b {
-            abs = abs[:i]
-            break
-        }
-    }
-
-    return
-}
-
-func convert(sign int, absStr string) int {
-    abs := 0
-
-    for _, b := range absStr {
-        abs = abs*10 + int(b-'0')
-        // 检查溢出
-        switch {
-        case sign == 1 &amp;&amp; abs &gt; math.MaxInt32:
-            return math.MaxInt32
-        case sign == -1 &amp;&amp; sign*abs &lt; math.MinInt32:
-            return math.MinInt32
-        }
-    }
-
-    return sign * abs
-}
-
-</code></pre>
-
-<h2 id="单元测试">单元测试</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">problem0008</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;strings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myAtoi</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">s</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">clean</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">abs</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 除去首尾的空格
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSpace</span>(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#e6db74">&#39;9&#39;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;+&#39;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;-&#39;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sign</span>, <span style="color:#a6e22e">abs</span> = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>:]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">abs</span> = <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 不完全是数字了 仅截取数字部分
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">abs</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> &lt; <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;9&#39;</span> &lt; <span style="color:#a6e22e">b</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">abs</span> = <span style="color:#a6e22e">abs</span>[:<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">convert</span>(<span style="color:#a6e22e">sign</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">absStr</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">abs</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">absStr</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">abs</span> = <span style="color:#a6e22e">abs</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> int(<span style="color:#a6e22e">b</span><span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 检查溢出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">switch</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">abs</span> &gt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">sign</span><span style="color:#f92672">*</span><span style="color:#a6e22e">abs</span> &lt; <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sign</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">abs</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="单元测试">单元测试</h2>
 <p>这道题如果有思路会发现，实现不难主要是特殊情况比较多，单元测试需列举所有情况：</p>
-
-<pre><code class="language-golang">package problem0008
-
-import (
-    &quot;testing&quot;
-
-    &quot;math&quot;
-
-    &quot;github.com/stretchr/testify/assert&quot;
-)
-
-type para struct {
-    one string
-}
-
-type ans struct {
-    one int
-}
-
-type question struct {
-    p para
-    a ans
-}
-
-func Test_OK(t *testing.T) {
-    ast := assert.New(t)
-
-    qs := []question{
-        // 超过边界最大
-        question{
-
-            p: para{
-                one: &quot;10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000522545459&quot;,
-            },
-            a: ans{
-                one: math.MaxInt32,
-            },
-        },
-        // 正常
-        question{
-            p: para{
-                one: &quot;123&quot;,
-            },
-            a: ans{
-                one: 123,
-            },
-        },
-        // 正常负数
-        question{
-            p: para{
-                one: &quot;-123&quot;,
-            },
-            a: ans{
-                one: -123,
-            },
-        },
-        // 最大正数
-        question{
-            p: para{
-                one: &quot;2147483648&quot;,
-            },
-            a: ans{
-                one: math.MaxInt32,
-            },
-        },
-        // 最大负数
-        question{
-            p: para{
-                one: &quot;-2147483649&quot;,
-            },
-            a: ans{
-                one: math.MinInt32,
-            },
-        },
-        // 中间有字母
-        question{
-            p: para{
-                one: &quot; 1234a6789&quot;,
-            },
-            a: ans{
-                one: 1234,
-            },
-        },
-        // 负数 中间有字母
-        question{
-            p: para{
-                one: &quot;  -0012a42 &quot;,
-            },
-            a: ans{
-                one: -12,
-            },
-        },
-        // 全字母
-        question{
-            p: para{
-                one: &quot; asdfdfs &quot;,
-            },
-            a: ans{
-                one: 0,
-            },
-        },
-        // 空格
-        question{
-            p: para{
-                one: &quot; &quot;,
-            },
-            a: ans{
-                one: 0,
-            },
-        },
-        // 数字 和 空格
-        question{
-            p: para{
-                one: &quot; +1   &quot;,
-            },
-            a: ans{
-                one: 1,
-            },
-        },
-
-        // 只有符号
-        question{
-            p: para{
-                one: &quot;-&quot;,
-            },
-            a: ans{
-                one: 0,
-            },
-        },
-        // 超过最大值
-        question{
-            p: para{
-                one: &quot;922337999995452345782348957234895793875923845789234758923745987239485798345789237598235980234859023849058349058903890869059068490683490869038690385690385906839056890548690586904568905468905908590839056890345869034856903568903854690835906834906839045869034869034568903458690356903569056908345906839056890586903546890345869034568903586905689054685690905689035468905689056890879056907890879086903548690387905469054690890689035869038569034856908356908345906890345869056890356890358690569083546908549086905690345869038569034569083590689058690385690358690586908345906839086390689056903869058690345869038690586908569054690834590689054869083569035490689035689058690586905409689086905869038569083549068390468903586903569038549068905869054690345906890346904856903546908345906890568903569054690590685906905689058690586905869056890869035869035890789068790907903890835657428975457575789075098759084752897589475029847589047589234759028475902847592834752908759827589725987517891598715908749871908579841790817598715901875901874190879085791879018571897491837249874987235987589734897123489712390847913857190287549018735902036854775809&quot;,
-            },
-            a: ans{
-                one: math.MaxInt32,
-            },
-        },
-    }
-
-    for _, q := range qs {
-        a, p := q.a, q.p
-        ast.Equal(a.one, myAtoi(p.one), &quot;输入:%v&quot;, p)
-    }
-}
-
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">problem0008</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/stretchr/testify/assert&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">para</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">one</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">one</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">question</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#a6e22e">para</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_OK</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ast</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">t</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">qs</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 超过边界最大
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000522545459&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 正常
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;123&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">123</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 正常负数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;-123&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">123</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 最大正数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;2147483648&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 最大负数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;-2147483649&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MinInt32</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 中间有字母
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34; 1234a6789&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">1234</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 负数 中间有字母
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;  -0012a42 &#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 全字母
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34; asdfdfs &#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 空格
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34; &#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 数字 和 空格
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34; +1   &#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 只有符号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;-&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 超过最大值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">question</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span>: <span style="color:#a6e22e">para</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#e6db74">&#34;922337999995452345782348957234895793875923845789234758923745987239485798345789237598235980234859023849058349058903890869059068490683490869038690385690385906839056890548690586904568905468905908590839056890345869034856903568903854690835906834906839045869034869034568903458690356903569056908345906839056890586903546890345869034568903586905689054685690905689035468905689056890879056907890879086903548690387905469054690890689035869038569034856908356908345906890345869056890356890358690569083546908549086905690345869038569034569083590689058690385690358690586908345906839086390689056903869058690345869038690586908569054690834590689054869083569035490689035689058690586905409689086905869038569083549068390468903586903569038549068905869054690345906890346904856903546908345906890568903569054690590685906905689058690586905869056890869035869035890789068790907903890835657428975457575789075098759084752897589475029847589047589234759028475902847592834752908759827589725987517891598715908749871908579841790817598715901875901874190879085791879018571897491837249874987235987589734897123489712390847913857190287549018735902036854775809&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>: <span style="color:#a6e22e">ans</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">one</span>: <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">MaxInt32</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">qs</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">p</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">one</span>, <span style="color:#a6e22e">myAtoi</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">one</span>), <span style="color:#e6db74">&#34;输入:%v&#34;</span>, <span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="参考">参考</h2>
 <ol>
 <li><a href="https://segmentfault.com/q/1010000009729121/a-1020000009734747">C 中的 Atoi 是什么意思</a></li>
 <li><a href="https://stackoverflow.com/questions/2909768/where-did-the-name-atoi-come-from/2909772#2909772">Where did the name atoi come from?</a></li>
@@ -340,13 +430,13 @@ func Test_OK(t *testing.T) {
 <li><a href="https://github.com/aQuaYi/LeetCode-in-Go">leetcode-in-go</a></li>
 </ol>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/">https://TomatoAres.github.io/posts/leetcode/008-atoi/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/leetcode/008-atoi/">https://tomatoares.github.io/posts/leetcode/008-atoi/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -354,61 +444,126 @@ func Test_OK(t *testing.T) {
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/">单播 广播 组播</a></li>
+        
         <li><a href="/posts/system/cgroup/">Linux Control Group 简介</a></li>
         
         <li><a href="/posts/go/byte-rune/">Go 中 Byte Rune——类型别名</a></li>
         
+        <li><a href="/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/">k8s 搭建过程总结</a></li>
+        
         <li><a href="/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/">为什么要使用 go module proxy</a></li>
-        
-        <li><a href="/posts/go/translated/20180717-buffered-and-unbuffered-channels/">无缓冲和有缓冲通道</a></li>
-        
-        <li><a href="/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/">常见 IO 模型研究 </a></li>
         
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95">算法</a></li>
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/leetcode">leetcode</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/%E7%AE%97%E6%B3%95'>算法</a></li>
+                
+                <li><a href='/tags/leetcode'>leetcode</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -418,43 +573,43 @@ func Test_OK(t *testing.T) {
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -463,253 +618,175 @@ func Test_OK(t *testing.T) {
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

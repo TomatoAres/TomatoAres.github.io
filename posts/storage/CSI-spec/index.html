@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>CSI - 容器存储接口 | 西红柿的博客</title>
+    <meta property="og:title" content="CSI - 容器存储接口 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-03-01T15:03:59&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-03-01T15:03:59&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
+    <meta name="description" content="CSI - 容器存储接口">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/storage/CSI-spec/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://tomatoares.github.io">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
+                    
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#接口规范翻译">接口规范翻译</a></li>
+    <li><a href="#术语">术语</a></li>
+    <li><a href="#设计目标">设计目标</a>
+      <ul>
+        <li><a href="#mvp最小基本-可用产品目标">MVP(最小/基本 可用产品)目标</a></li>
+        <li><a href="#mvp最小基本-可用产品不用做的">MVP(最小/基本 可用产品)不用做的</a></li>
+      </ul>
+    </li>
+    <li><a href="#解决方案简述">解决方案简述</a>
+      <ul>
+        <li><a href="#架构">架构</a></li>
+        <li><a href="#volume-lifecycle">Volume Lifecycle</a></li>
+      </ul>
+    </li>
+    <li><a href="#容器存储接口">容器存储接口</a>
+      <ul>
+        <li><a href="#rpc接口">RPC接口</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">CSI - 容器存储接口</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年3月1日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Storage'>Storage</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <!-- raw HTML omitted -->
+<h2 id="接口规范翻译">接口规范翻译</h2>
+<h2 id="术语">术语</h2>
+<table>
+<thead>
+<tr>
+<th>词条</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volume</td>
+<td>A unit of storage that will be made available inside of a CO-managed container, via the CSI.</td>
+</tr>
+<tr>
+<td>Block Volume</td>
+<td>在容器内以块设备形式存在的挂载卷。</td>
+</tr>
+<tr>
+<td>Mounted Volume</td>
+<td>A volume that will be mounted using the specified file system and appear as a directory inside the container.</td>
+</tr>
+<tr>
+<td>CO</td>
+<td>容器编排系统（Container Orchestration system）, 使用 CSI 的 RPC 和 插件通信.</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>存储供应商（Storage Provider）, CSI 的第三方实现</td>
+</tr>
+<tr>
+<td>RPC</td>
+<td><a href="https://en.wikipedia.org/wiki/Remote_procedure_call">Remote Procedure Call</a>.</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>A host where the user workload will be running, uniquely identifiable from the perspective of a Plugin by a node ID.</td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td>Aka “plugin implementation”, a gRPC endpoint that implements the CSI Services.</td>
+</tr>
+<tr>
+<td>Plugin Supervisor</td>
+<td>Process that governs the lifecycle of a Plugin, MAY be the CO.</td>
+</tr>
+<tr>
+<td>Workload</td>
+<td>The atomic unit of &ldquo;work&rdquo; scheduled by a CO. This MAY be a container or a collection of containers.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="设计目标">设计目标</h2>
+<p>定义行业标准——“容器存储接口”（CSI），这将使存储供应商（SP）能够一次开发一个插件，并使它可在多个容器编排（CO）系统中工作。</p>
+<h3 id="mvp最小基本-可用产品目标">MVP(最小/基本 可用产品)目标</h3>
+<p>CSI 须做到：</p>
+<ol>
+<li>使存储提供商（SP）作者能够编写一个与CSI兼容的插件，该插件在实现了 CSI 的所有容器编配系统中“能用”。</li>
+<li>需定义以下 API（RPC）：
+<ol>
+<li>动态**调配（provisioning）和取消调配（deprovisioning）**卷。</li>
+<li>向节点**附加（attaching）或分离（detaching）**卷。</li>
+<li>向节点<strong>安装（mount）/卸载卷（unmount）</strong>。</li>
+<li>可使用（消费） <strong>块和可挂载卷</strong>。</li>
+<li>本地存储（例如，设备映射器，lvm）。</li>
+<li>创建和删除快照（快照的源是卷）。</li>
+<li>从快照置备新卷（如果还原快照容量超出范围，还原快照将删除原始卷中的数据并用快照中的数据替换）。</li>
+</ol>
+</li>
+<li>定义插件协议<strong>推荐</strong>。
+<ol>
+<li>描述<strong>Supervisor</strong>配置插件的过程。</li>
+<li>容器部署注意事项（CAP_SYS_ADMIN，挂载名称空间等）。</li>
+</ol>
+</li>
+</ol>
+<h3 id="mvp最小基本-可用产品不用做的">MVP(最小/基本 可用产品)不用做的</h3>
+<p>容器存储接口（CSI）不会明确定义，提供或规定：</p>
+<ol>
+<li>Supervisor 插件程序用来管理插件生命周期的特定机制，包括：
+<ol>
+<li>如何维护状态（例如，已连接，已安装的设备等）。</li>
+<li>如何部署，安装，升级，卸载，监视或重新生成（在意外终止的情况下）插件。</li>
+</ol>
+</li>
+<li>代表“存储等级”（又称“存储等级”）的一流消息结构/字段。</li>
+<li>协议级身份验证和授权。</li>
+<li>封装插件。</li>
+<li>符合POSIX：CSI不保证所提供的卷是POSIX兼容的文件系统。遵从性由插件实现（及其依赖的任何后端存储系统）确定。CSI不会以与POSIX兼容的方式阻止插件管理程序或CO与插件管理的卷进行交互。</li>
+</ol>
+<h2 id="解决方案简述">解决方案简述</h2>
+<p>该规范定义了一个接口，以及为实现CSI兼容插件而为存储提供商（SP）提供的最低操作和包装建议。该接口声明插件必须公开的RPC：这是CSI规范的主要重点。任何操作和包装建议均提供了其他指南，以促进跨CO兼容性。</p>
+<h3 id="架构">架构</h3>
+<ul>
+<li>
+<p>本规范的主要重点是CO和插件之间的<strong>协议</strong>。</p>
+</li>
+<li>
+<p>应该有可能为各种部署架构提供跨CO兼容的插件。</p>
+</li>
+<li>
+<p>应配备CO，以处理集中式插件和无头插件，以及拆分组件插件和统一插件。</p>
+</li>
+<li>
+<p>下图中说明了这些可能性中的几种。</p>
+</li>
+</ul>
+<pre tabindex="0"><code>                             CO &#34;Master&#34; Host
++-------------------------------------------+
+|                                           |
+|  +------------+           +------------+  |
+|  |     CO     |   gRPC    | Controller |  |
+|  |            +-----------&gt;   Plugin   |  |
+|  +------------+           +------------+  |
+|                                           |
++-------------------------------------------+
+                            CO &#34;Node&#34; Host(s)
++-------------------------------------------+
+|                                           |
+|  +------------+           +------------+  |
+|  |     CO     |   gRPC    |    Node    |  |
+|  |            +-----------&gt;   Plugin   |  |
+|  +------------+           +------------+  |
+|                                           |
++-------------------------------------------+
+
+图1：集群中的所有节点上都安装运行 插件：
+编排系统的 master 节点上运行 中心化的控制插件，
+工作节点上运行 Node 插件
+</code></pre><pre tabindex="0"><code>                            CO &#34;Node&#34; Host(s)
++-------------------------------------------+
+|                                           |
+|  +------------+           +------------+  |
+|  |     CO     |   gRPC    | Controller |  |
+|  |            +--+--------&gt;   Plugin   |  |
+|  +------------+  |        +------------+  |
+|                  |                        |
+|                  |                        |
+|                  |        +------------+  |
+|                  |        |    Node    |  |
+|                  +--------&gt;   Plugin   |  |
+|                           +------------+  |
+|                                           |
++-------------------------------------------+
+Figure 2: Headless Plugin deployment, only the CO Node hosts run
+Plugins. Separate, split-component Plugins supply the Controller
+Service and the Node Service respectively.
+
+图2：无头插件部署，仅在编排系统的节点host上运行插件。
+控制和工作节点服务分别
+</code></pre><pre tabindex="0"><code>                            CO &#34;Node&#34; Host(s)
++-------------------------------------------+
+|                                           |
+|  +------------+           +------------+  |
+|  |     CO     |   gRPC    | Controller |  |
+|  |            +-----------&gt;    Node    |  |
+|  +------------+           |   Plugin   |  |
+|                           +------------+  |
+|                                           |
++-------------------------------------------+
+Figure 3: Headless Plugin deployment, only the CO Node hosts run
+Plugins. A unified Plugin component supplies both the Controller
+Service and Node Service.
+</code></pre><pre tabindex="0"><code>                            CO &#34;Node&#34; Host(s)
++-------------------------------------------+
+|                                           |
+|  +------------+           +------------+  |
+|  |     CO     |   gRPC    |    Node    |  |
+|  |            +-----------&gt;   Plugin   |  |
+|  +------------+           +------------+  |
+|                                           |
++-------------------------------------------+
+Figure 4: Headless Plugin deployment, only the CO Node hosts run
+Plugins. A Node-only Plugin component supplies only the Node Service.
+Its GetPluginCapabilities RPC does not report the CONTROLLER_SERVICE
+capability.
+</code></pre><h3 id="volume-lifecycle">Volume Lifecycle</h3>
+<pre tabindex="0"><code>   CreateVolume +------------+ DeleteVolume
+ +-------------&gt;|  CREATED   +--------------+
+ |              +---+----+---+              |
+ |       Controller |    | Controller       v
++++         Publish |    | Unpublish       +++
+|X|          Volume |    | Volume          | |
++-+             +---v----+---+             +-+
+                | NODE_READY |
+                +---+----^---+
+               Node |    | Node
+            Publish |    | Unpublish
+             Volume |    | Volume
+                +---v----+---+
+                | PUBLISHED  |
+                +------------+
+Figure 5: The lifecycle of a dynamically provisioned volume, from
+creation to destruction.
+</code></pre><pre tabindex="0"><code>   CreateVolume +------------+ DeleteVolume
+ +-------------&gt;|  CREATED   +--------------+
+ |              +---+----+---+              |
+ |       Controller |    | Controller       v
++++         Publish |    | Unpublish       +++
+|X|          Volume |    | Volume          | |
++-+             +---v----+---+             +-+
+                | NODE_READY |
+                +---+----^---+
+               Node |    | Node
+              Stage |    | Unstage
+             Volume |    | Volume
+                +---v----+---+
+                |  VOL_READY |
+                +------------+
+               Node |    | Node
+            Publish |    | Unpublish
+             Volume |    | Volume
+                +---v----+---+
+                | PUBLISHED  |
+                +------------+
+Figure 6: The lifecycle of a dynamically provisioned volume, from
+creation to destruction, when the Node Plugin advertises the
+STAGE_UNSTAGE_VOLUME capability.
+</code></pre><pre tabindex="0"><code>    Controller                  Controller
+       Publish                  Unpublish
+        Volume  +------------+  Volume
+ +-------------&gt;+ NODE_READY +--------------+
+ |              +---+----^---+              |
+ |             Node |    | Node             v
++++         Publish |    | Unpublish       +++
+|X| &lt;-+      Volume |    | Volume          | |
++++   |         +---v----+---+             +-+
+ |    |         | PUBLISHED  |
+ |    |         +------------+
+ +----+
+   Validate
+   Volume
+   Capabilities
+Figure 7: The lifecycle of a pre-provisioned volume that requires
+controller to publish to a node (`ControllerPublishVolume`) prior to
+publishing on the node (`NodePublishVolume`).
+</code></pre><pre tabindex="0"><code>       +-+  +-+
+       |X|  | |
+       +++  +^+
+        |    |
+   Node |    | Node
+Publish |    | Unpublish
+ Volume |    | Volume
+    +---v----+---+
+    | PUBLISHED  |
+    +------------+
+Figure 8: Plugins MAY forego other lifecycle steps by contraindicating
+them via the capabilities API. Interactions with the volumes of such
+plugins is reduced to `NodePublishVolume` and `NodeUnpublishVolume`
+calls.
+</code></pre><p>The above diagrams illustrate a general expectation with respect to how a CO MAY manage the lifecycle of a volume via the API presented in this specification.
+Plugins SHOULD expose all RPCs for an interface: Controller plugins SHOULD implement all RPCs for the <code>Controller</code> service.
+Unsupported RPCs SHOULD return an appropriate error code that indicates such (e.g. <code>CALL_NOT_IMPLEMENTED</code>).
+The full list of plugin capabilities is documented in the <code>ControllerGetCapabilities</code> and <code>NodeGetCapabilities</code> RPCs.</p>
+<p>上图说明了关于CO可以如何通过本规范中介绍的API管理卷的生命周期的一般期望。
+插件应该公开接口的所有RPC：控制器插件应该为Controller服务实现所有RPC 。
+不支持的RPC应该返回一个适当的错误代码来指示这种情况（例如<code>CALL_NOT_IMPLEMENTED</code>）。
+插件功能的完整列表记录在<code>ControllerGetCapabilities</code>和<code>NodeGetCapabilities</code> RPC中。</p>
+<h2 id="容器存储接口">容器存储接口</h2>
+<p>本节描述了CO和插件之间的接口。</p>
+<h3 id="rpc接口">RPC接口</h3>
+<p>CO通过RPC与插件交互。
+每个SP必须提供：</p>
+<ul>
+<li><strong>节点插件</strong>：一个服务于CSI RPC的gRPC端点，该CSI RPC必须在该节点上运行，随后将发布SP设置的卷。</li>
+<li><strong>Controller Plugin</strong>：一个gCSI端点，它可以在任何地方运行CSI RPC。</li>
+<li>在某些情况下，单个gRPC端点可以为所有CSI RPC服务（请参见[ 体系结构 ]（＃architecture）中的图3 ）。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span>syntax <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;proto3&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#f92672">package</span> csi<span style="color:#f92672">.</span>v1;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;google/protobuf/descriptor.proto&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;google/protobuf/timestamp.proto&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;google/protobuf/wrappers.proto&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">option</span> go_package <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;csi&#34;</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">extend</span> <span style="color:#a6e22e">google</span><span style="color:#f92672">.</span>protobuf.FieldOptions {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#75715e">// Indicates that a field MAY contain information that is sensitive
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// and MUST be treated as such (e.g. not logged).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">bool</span> csi_secret <span style="color:#f92672">=</span> <span style="color:#ae81ff">1059</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>There are three sets of RPCs:</p>
+<ul>
+<li><strong>Identity Service</strong>: Both the Node Plugin and the Controller Plugin MUST implement this sets of RPCs.</li>
+<li><strong>Controller Service</strong>: The Controller Plugin MUST implement this sets of RPCs.</li>
+<li><strong>Node Service</strong>: The Node Plugin MUST implement this sets of RPCs.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">service</span> Identity {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> GetPluginInfo(GetPluginInfoRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (GetPluginInfoResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> GetPluginCapabilities(GetPluginCapabilitiesRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (GetPluginCapabilitiesResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> Probe (ProbeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ProbeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">service</span> Controller {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> CreateVolume (CreateVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (CreateVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> DeleteVolume (DeleteVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (DeleteVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ControllerPublishVolume (ControllerPublishVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ControllerPublishVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ControllerUnpublishVolume (ControllerUnpublishVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ControllerUnpublishVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ValidateVolumeCapabilities (ValidateVolumeCapabilitiesRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ValidateVolumeCapabilitiesResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ListVolumes (ListVolumesRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ListVolumesResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> GetCapacity (GetCapacityRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (GetCapacityResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ControllerGetCapabilities (ControllerGetCapabilitiesRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ControllerGetCapabilitiesResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> CreateSnapshot (CreateSnapshotRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (CreateSnapshotResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> DeleteSnapshot (DeleteSnapshotRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (DeleteSnapshotResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ListSnapshots (ListSnapshotsRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ListSnapshotsResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> ControllerExpandVolume (ControllerExpandVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (ControllerExpandVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">service</span> Node {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeStageVolume (NodeStageVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeStageVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeUnstageVolume (NodeUnstageVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeUnstageVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodePublishVolume (NodePublishVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodePublishVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeUnpublishVolume (NodeUnpublishVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeUnpublishVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeGetVolumeStats (NodeGetVolumeStatsRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeGetVolumeStatsResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeExpandVolume(NodeExpandVolumeRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeExpandVolumeResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeGetCapabilities (NodeGetCapabilitiesRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeGetCapabilitiesResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">rpc</span> NodeGetInfo (NodeGetInfoRequest)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">returns</span> (NodeGetInfoResponse) {}<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h4 id="并发">并发</h4>
+<p>In general the Cluster Orchestrator (CO) is responsible for ensuring that there is no more than one call “in-flight” per volume at a given time.
+However, in some circumstances, the CO MAY lose state (for example when the CO crashes and restarts), and MAY issue multiple calls simultaneously for the same volume.
+The plugin SHOULD handle this as gracefully as possible.
+The error code <code>ABORTED</code> MAY be returned by the plugin in this case (see the <a href="#error-scheme">Error Scheme</a> section for details).</p>
+<h4 id="字段要求">字段要求</h4>
+<p>The requirements documented herein apply equally and without exception, unless otherwise noted, for the fields of all protobuf message types defined by this specification.
+Violation of these requirements MAY result in RPC message data that is not compatible with all CO, Plugin, and/or CSI middleware implementations.</p>
+<h5 id="size-limits">Size Limits</h5>
+<p>CSI defines general size limits for fields of various types (see table below).
+The general size limit for a particular field MAY be overridden by specifying a different size limit in said field&rsquo;s description.
+Unless otherwise specified, fields SHALL NOT exceed the limits documented here.
+These limits apply for messages generated by both COs and plugins.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Field Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>128 bytes</td>
+<td>string</td>
+</tr>
+<tr>
+<td>4 KiB</td>
+<td>map&lt;string, string&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2>
+<p><a href="https://github.com/container-storage-interface/spec/blob/master/spec.md">接口规范</a>
+<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md">插件设计文档</a>
+<a href="https://jimmysong.io/kubernetes-handbook/concepts/csi.html#%E5%8F%82%E8%80%83">CSI - Container Storage Interface（容器存储接口)·宋净超</a></p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/storage/CSI-spec/">https://tomatoares.github.io/posts/storage/CSI-spec/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/storage/external-storage/">external-storage 探索</a></li>
+        
+        <li><a href="/posts/storage/ceph-rbd-resize/">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a></li>
+        
+        <li><a href="/posts/storage/Ceph%E9%83%A8%E7%BD%B2/">Ceph 的部署</a></li>
+        
+        <li><a href="/posts/storage/issue-csi/">Ceph 的部署</a></li>
+        
+        <li><a href="/posts/storage/ceph/">Ceph 搭建网盘</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Storage'>Storage</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
+    
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
+    
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
+    
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
+    
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
+    
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
+    
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
+    
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
+    
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
+    
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
+    
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
+    
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
+    
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
+    
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

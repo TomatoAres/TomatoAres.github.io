@@ -2,33 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>k8s on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/k8s/</link>
+    <link>https://tomatoares.github.io/tags/k8s/</link>
     <description>Recent content in k8s on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Mar 2020 15:02:30 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Mar 2020 15:02:30 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>无法正常删除节点资源—— kubelet 问题排查</title>
-      <link>https://TomatoAres.github.io/posts/cloud/kubelet-Q/</link>
+      <link>https://tomatoares.github.io/posts/cloud/kubelet-Q/</link>
       <pubDate>Sun, 01 Mar 2020 15:02:30 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/kubelet-Q/</guid>
-      <description>问题 删除 pod 时 发现，特定节点上的资源卡在 Terminating 这个状态
-NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE default test 1/1 Terminating 20 26d 192.</description>
+      <guid>https://tomatoares.github.io/posts/cloud/kubelet-Q/</guid>
+      <description>问题 删除 pod 时 发现，特定节点上的资源卡在 Terminating 这个状态 NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE default test 1/1 Terminating 20 26d 192.168.196.133 node01 &amp;lt;none&amp;gt; kube-system fabric-node-7p2z8 0/2 Terminating 0 21m &amp;lt;none&amp;gt; node01 &amp;lt;none&amp;gt; describe pod，查看 events，有的 没有事件，有的 卡在了 scheduler 这一步： Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal Scheduled 22m default-scheduler Successfully assigned kube-system/fabric-node-7p2z8 to node01 接下来，理应由 kubelet 接手进行对 pod 进行清理，但是卡在这里，我们查看 对应节点上的 kubelet</description>
+    </item>
+    
+    <item>
+      <title>使用 kind 进行 e2e 测试</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/kind/</link>
+      <pubDate>Sat, 01 Feb 2020 14:40:05 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/kind/</guid>
+      <description>Kind 简介 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。 Kind 可以作为一种本地集群搭建的工具进 由于便于快速搭建环境，经常被用来做 k8s 相关测试准备 流程 构建环境 测试 手动搭建单节点环境测试 关闭 kind 自带的 kindnet 网络插件,并将其设置为 Calico 的默认子网，编写一个 kind-calico.yaml 文件 kind: Cluster apiVersion: kind.sigs.k8s.io/v1alpha3 networking: disableDefaultCNI: true # disable</description>
+    </item>
+    
+    <item>
+      <title>PVC 问题解决记录</title>
+      <link>https://tomatoares.github.io/posts/storage/pvc/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/pvc/</guid>
+      <description>问题发现 github 上 16 年 12 月就提出来了 describe pod describe pvc kube-controller 日志 kubectl describe pod ceph-static Events: Type Reason Age From Message ---- ------ ---- ---- ------- Warning FailedScheduling 102s (x1480 over 15h) default-scheduler pod has unbound immediate PersistentVolumeClaims kubectl describe pvc ceph-kube-claim Type Reason Age From Message ---- ------ ---- ---- ------- Warning ProvisioningFailed 54s (x417 over 15h) persistentvolume-controller Failed to provision volume with StorageClass &amp;#34;rbd&amp;#34;: failed to create rbd image: executable file not found in $PATH, command output: Mounted By: ceph-static 已知的两种解决方式 替换 kube-controller 镜像 使用 CSI 记录 kube-controller 没有 rbd 二进制 同样的方式验证 使用镜像替换 使用 CSI in-tree&amp;ndash;&amp;gt;out-of-tree sidecar 模式 使</description>
+    </item>
+    
+    <item>
+      <title>k8s 搭建过程总结</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Wed, 25 Sep 2019 00:06:28 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</guid>
+      <description>从今年年初就陆陆续续搭建过 1.13 ，1.15 版本，每次搭建都要在网上找 blog，自己虽有总结，却总不完善，现在（2019 年 9 月 24 日） 1.16 版本已经发布，希望此次能有一份完善的总结。 一、安装虚拟机 我使用的 VMware 安装的 Centos 7 最小安装，这个过程不再详述，属于基本操作，网上资源也很多。 二、配置虚拟机 改 yum</description>
     </item>
     
     <item>
       <title>kubernetes 节点和核心资源</title>
-      <link>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
       <pubDate>Fri, 20 Sep 2019 00:20:48 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
-      <description>1. Master  集群控制节点  3 个核心进程：
- kube-apiserver：  提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序  kube-controller manager：  所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等； 可以理解为资源对象的：“大总管”  kube-scheduler：  负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上； 理解为：调度室    另外 etcd 必不可少：所有资源的数据都是保存在 etcd 中  2.</description>
+      <guid>https://tomatoares.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
+      <description>1. Master 集群控制节点 3 个核心进程： kube-apiserver： 提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序 kube-controller manager： 所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；</description>
     </item>
     
   </channel>

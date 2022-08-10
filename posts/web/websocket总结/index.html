@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Websocket 总结 | 西红柿的博客</title>
     <meta property="og:title" content="Websocket 总结 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-08-31T16:36:01&#43;08:00">
+    <meta property="article:published_time" content='2019-08-31T16:36:01&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-08-31T16:36:01&#43;08:00">
+    <meta property="article:modified_time" content='2019-08-31T16:36:01&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="Websocket 总结">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,283 +67,364 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#是什么">是什么</a></li>
+    <li><a href="#过程">过程</a></li>
+    <li><a href="#websocket-原理">WebSocket 原理</a></li>
+    <li><a href="#实现">实现</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Websocket 总结</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月31日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">Websocket 总结</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年8月31日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Web">Web</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<h2 id="是什么">是什么</h2>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="是什么">是什么</h2>
 <ol>
 <li>WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。</li>
 <li>在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭</li>
 </ol>
-
 <p>在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特定的时间间隔内，由浏览器对服务器发出 HTTP Request，服务器在收到请求后，返回最新的数据给浏览器刷新，“轮询”使得浏览器需要对服务器不断发出请求，这样会占用大量带宽。</p>
-
 <p>WebSocket 采用了一些特殊的报头，使得浏览器和服务器只需要做一个握手的动作，就可以在浏览器和服务器之间建立一条连接通道。且此连接会保持在活动状态，你可以使用 JavaScript 来向连接写入或从中接收数据，就像在使用一个常规的 TCP Socket 一样。它解决了 Web 实时化的问题，相比传统 HTTP 有如下好处：</p>
-
 <ul>
 <li>一个 Web 客户端只建立一个 TCP 连接</li>
 <li>Websocket 服务端可以推送 (push) 数据到 web 客户端。</li>
 <li>有更加轻量级的头，减少数据传送量</li>
 </ul>
-
 <p>WebSocket URL 的起始输入是 ws:// 或是 wss://（在 SSL 上）。</p>
-
 <h2 id="过程">过程</h2>
-
 <ol>
 <li>客户端浏览器首先要向服务器发起一个 HTTP 请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息 <em>&ldquo;Upgrade: WebSocket&rdquo;</em> 表明这是一个申请协议升级的 HTTP 请求</li>
 <li>服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的 WebSocket 连接就建立起来了</li>
 <li>双方就可以通过这个连接通道自由的传递信息</li>
 <li>持续存在直到客户端或者服务器端的某一方主动的关闭连接。</li>
 </ol>
-
 <h2 id="websocket-原理">WebSocket 原理</h2>
-
 <p>WebSocket 的协议颇为简单，在第一次 handshake 通过以后，连接便建立成功，其后的通讯数据都是以”\x00″开头，
 以”\xFF”结尾。在客户端，这个是透明的，WebSocket 组件会自动将原始数据“掐头去尾”。</p>
-
 <p><a href="http://www.zhihu.com/question/20215561">在知乎上看到一个完美的回答</a></p>
-
 <h2 id="实现">实现</h2>
-
 <p>echo 框架版 echo_server.go, 使用的第三方库： <code>github.com/gorilla/websocket</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/labstack/echo&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/gorilla/websocket&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/labstack/echo/middleware&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">upgrader</span> = <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Upgrader</span>{}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ws</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">upgrader</span>.<span style="color:#a6e22e">Upgrade</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>(), <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>(), <span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Write
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">WriteMessage</span>(<span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">TextMessage</span>, []byte(<span style="color:#e6db74">&#34;Hello, Client!&#34;</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Read
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">ReadMessage</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s\n&#34;</span>, <span style="color:#a6e22e">msg</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Recover</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/echo&#34;</span>, <span style="color:#a6e22e">hello</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:6666&#34;</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>官方库：<code>golang.org/x/net/websocket</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;golang.org/x/net/websocket&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;net/http&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//错误处理函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">extra</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">formatStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34; Err : %s\n&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">extra</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">formatStr</span> = <span style="color:#a6e22e">extra</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">formatStr</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#a6e22e">formatStr</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">svrConnHandler</span>(<span style="color:#a6e22e">conn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">request</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">128</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">readLen</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">request</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Read&#34;</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//socket被关闭了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">readLen</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Client connection close!&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//输出接收到的信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">request</span>[:<span style="color:#a6e22e">readLen</span>]))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//发送
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;World !&#34;</span>));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">request</span> = make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">128</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Handle</span>(<span style="color:#e6db74">&#34;/echo&#34;</span>, <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Handler</span>(<span style="color:#a6e22e">svrConnHandler</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:6666&#34;</span>, <span style="color:#66d9ef">nil</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;ListenAndServe&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Func finish.&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>client 测试代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;golang.org/x/net/websocket&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gLocker</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>;    <span style="color:#75715e">//全局锁
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gCondition</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Cond</span>; <span style="color:#75715e">//全局条件变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">origin</span> = <span style="color:#e6db74">&#34;http://127.0.0.1:6666/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;ws://127.0.0.1:6666/echo&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//错误处理函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">extra</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">formatStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34; Err : %s\n&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">extra</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">formatStr</span> = <span style="color:#a6e22e">extra</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">formatStr</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#a6e22e">formatStr</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//连接处理函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">clientConnHandler</span>(<span style="color:#a6e22e">conn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">gLocker</span>.<span style="color:#a6e22e">Lock</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">gLocker</span>.<span style="color:#a6e22e">Unlock</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">request</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">128</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">readLen</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">request</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Read&#34;</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gCondition</span>.<span style="color:#a6e22e">Signal</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//socket被关闭了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">readLen</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Server connection close!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//条件变量同步通知
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">gCondition</span>.<span style="color:#a6e22e">Signal</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//输出接收到的信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">request</span>[:<span style="color:#a6e22e">readLen</span>]))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//发送
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;Hello !&#34;</span>));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">request</span> = make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">128</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#a6e22e">url</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">origin</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">checkErr</span>(<span style="color:#a6e22e">err</span>, <span style="color:#e6db74">&#34;Dial&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">gLocker</span>.<span style="color:#a6e22e">Lock</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">gCondition</span> = <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">NewCond</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gLocker</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#e6db74">&#34;Hello !&#34;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">clientConnHandler</span>(<span style="color:#a6e22e">conn</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//主线程阻塞，等待Singal结束
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//条件变量同步等待
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">gCondition</span>.<span style="color:#a6e22e">Wait</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">gLocker</span>.<span style="color:#a6e22e">Unlock</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Client finish.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
 
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;log&quot;
-    &quot;time&quot;
-
-    &quot;github.com/labstack/echo&quot;
-
-    &quot;github.com/gorilla/websocket&quot;
-    &quot;github.com/labstack/echo/middleware&quot;
-)
-
-var (
-    upgrader = websocket.Upgrader{}
-)
-
-func hello(c echo.Context) error {
-    ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
-    if err != nil {
-        return err
-    }
-    defer ws.Close()
-
-    for {
-        // Write
-        time.Sleep(time.Second)
-        err := ws.WriteMessage(websocket.TextMessage, []byte(&quot;Hello, Client!&quot;))
-        if err != nil {
-            log.Fatal(err)
-        }
-
-        // Read
-        _, msg, err := ws.ReadMessage()
-        if err != nil {
-            log.Fatal(err)
-        }
-        fmt.Printf(&quot;%s\n&quot;, msg)
-    }
-}
-
-func main() {
-    e := echo.New()
-    e.Use(middleware.Logger())
-    e.Use(middleware.Recover())
-    e.GET(&quot;/echo&quot;, hello)
-    e.Logger.Fatal(e.Start(&quot;:6666&quot;))
-}
-</code></pre>
-
-<p>官方库：<code>golang.org/x/net/websocket</code></p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;golang.org/x/net/websocket&quot;
-    &quot;net/http&quot;
-    &quot;os&quot;
-    &quot;time&quot;
-)
-
-//错误处理函数
-func checkErr(err error, extra string) bool {
-    if err != nil {
-        formatStr := &quot; Err : %s\n&quot;;
-        if extra != &quot;&quot; {
-            formatStr = extra + formatStr;
-        }
-
-        fmt.Fprintf(os.Stderr, formatStr, err.Error());
-        return true;
-    }
-
-    return false;
-}
-
-func svrConnHandler(conn *websocket.Conn) {
-    request := make([]byte, 128);
-    defer conn.Close();
-    for {
-        readLen, err := conn.Read(request)
-        if checkErr(err, &quot;Read&quot;) {
-            break;
-        }
-
-        //socket被关闭了
-        if readLen == 0 {
-            fmt.Println(&quot;Client connection close!&quot;);
-            break;
-        } else {
-            //输出接收到的信息
-            fmt.Println(string(request[:readLen]))
-
-            time.Sleep(time.Second);
-            //发送
-            conn.Write([]byte(&quot;World !&quot;));
-        }
-
-        request = make([]byte, 128);
-    }
-}
-
-func main() {
-    http.Handle(&quot;/echo&quot;, websocket.Handler(svrConnHandler));
-    err := http.ListenAndServe(&quot;:6666&quot;, nil);
-    checkErr(err, &quot;ListenAndServe&quot;);
-    fmt.Println(&quot;Func finish.&quot;);
-}
-</code></pre>
-
-<p>client 测试代码：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;golang.org/x/net/websocket&quot;
-    &quot;os&quot;
-    &quot;sync&quot;
-)
-
-var gLocker sync.Mutex;    //全局锁
-var gCondition *sync.Cond; //全局条件变量
-
-var origin = &quot;http://127.0.0.1:6666/&quot;
-var url = &quot;ws://127.0.0.1:6666/echo&quot;
-
-//错误处理函数
-func checkErr(err error, extra string) bool {
-    if err != nil {
-        formatStr := &quot; Err : %s\n&quot;;
-        if extra != &quot;&quot; {
-            formatStr = extra + formatStr;
-        }
-
-        fmt.Fprintf(os.Stderr, formatStr, err.Error());
-        return true;
-    }
-
-    return false;
-}
-
-//连接处理函数
-func clientConnHandler(conn *websocket.Conn) {
-    gLocker.Lock();
-    defer gLocker.Unlock();
-    defer conn.Close();
-    request := make([]byte, 128);
-    for {
-        readLen, err := conn.Read(request)
-        if checkErr(err, &quot;Read&quot;) {
-            gCondition.Signal();
-            break;
-        }
-
-        //socket被关闭了
-        if readLen == 0 {
-            fmt.Println(&quot;Server connection close!&quot;);
-
-            //条件变量同步通知
-            gCondition.Signal();
-            break;
-        } else {
-            //输出接收到的信息
-            fmt.Println(string(request[:readLen]))
-
-            //发送
-            conn.Write([]byte(&quot;Hello !&quot;));
-        }
-
-        request = make([]byte, 128);
-    }
-}
-
-func main() {
-    conn, err := websocket.Dial(url, &quot;&quot;, origin);
-    if checkErr(err, &quot;Dial&quot;) {
-        return;
-    }
-
-    gLocker.Lock();
-    gCondition = sync.NewCond(&amp;gLocker);
-    _, err = conn.Write([]byte(&quot;Hello !&quot;));
-    go clientConnHandler(conn);
-
-    //主线程阻塞，等待Singal结束
-    for {
-        //条件变量同步等待
-        gCondition.Wait();
-        break;
-    }
-    gLocker.Unlock();
-    fmt.Println(&quot;Client finish.&quot;)
-}
-
-</code></pre>
-
-                        </div>
-
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/">https://TomatoAres.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/">https://tomatoares.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -347,7 +432,7 @@ func main() {
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
@@ -359,49 +444,114 @@ func main() {
         
         <li><a href="/posts/others/hugo/hugo-%E6%A0%B7%E5%BC%8F/">Hugo github.io 无样式问题</a></li>
         
-        <li><a href="/posts/go/benchmark/">性能测试中 allocs/op 和 B/op 的含义</a></li>
+        <li><a href="/posts/go/go-test/">go test 工具的简单介绍和使用</a></li>
         
-        <li><a href="/posts/network/TCP-%E6%80%BB%E7%BB%93/">TCP 总结</a></li>
+        <li><a href="/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/">golang struct 能否比较</a></li>
         
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/Web">Web</a></li>
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/Websocket">Websocket</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Web'>Web</a></li>
+                
+                <li><a href='/tags/Websocket'>Websocket</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -411,43 +561,43 @@ func main() {
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -456,253 +606,175 @@ func main() {
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

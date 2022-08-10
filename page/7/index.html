@@ -1,55 +1,61 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
+	<meta name="generator" content="Hugo 0.101.0" />
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
-    <title>西红柿的博客 | 读不在三更五鼓,功只怕一曝十寒</title>
-    <meta property="og:title" content="西红柿的博客 | 读不在三更五鼓,功只怕一曝十寒">
+    <title>西红柿的博客 | 专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</title>
+    <meta property="og:title" content="西红柿的博客 | 专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS">
     <meta property="og:type" content="website">
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
-    <meta name="description" content="A nook preserved in Cyberspace where I can be myself.">
-    <meta property="og:url" content="https://TomatoAres.github.io/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
+    <meta name="description" content="专注于IT互联网，包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS">
+    <meta property="og:url" content="https://tomatoares.github.io/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://TomatoAres.github.io/index.xml" title="西红柿的博客" />
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    
-
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml" href="https://tomatoares.github.io/index.xml" title="西红柿的博客" />
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
-
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
                     <h1>
-                        <a id="logo" href="https://TomatoAres.github.io/">
+                        <a id="logo" href="https://tomatoares.github.io">
                             西红柿的博客
                         </a>
                     </h1>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -57,313 +63,366 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
+                <div class="col-8" id="main">
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/" title="TCP 总结" >TCP 总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月29日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Network">Network</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                通信过程 服务端：
- socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解+动图）……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" title="进程线程协程总结" >进程线程协程总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">操作系统</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                一句话 CPU 占用时间间隔的单位
-通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别
- 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
- 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/" title="Docker 简介" >Docker 简介</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/go/channel/" title="channel 总结" >channel 总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月21日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Go">Go</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1. 声明和类型 ChannelType = ( &quot;chan&quot; | &quot;chan&quot; &quot;&lt;-&quot; | &quot;&lt;-&quot; &quot;chan&quot; ) ElementType .……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/go/channel/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/network/tcp-udp/" title="TCP UDP 总结" >TCP UDP 总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月18日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Network">Network</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
-UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP 是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP 一般用于多点通信和实时的数据业务，比如……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/network/tcp-udp/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/" title="Influxdb 简介" >Influxdb 简介</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月18日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/leetcode/maxSumArray/" title="MaxSumArray" >MaxSumArray</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月17日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95">算法</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例:
-Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/leetcode/maxSumArray/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/web/echo/" title="Echo 框架的简单使用" >Echo 框架的简单使用</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Web">Web</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
-源码
-特性概述 总的来说：轻量·高效
- 优化的 HTTP 路由器，巧妙地确定路由优先级……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/web/echo/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/cloud/horizon-vertical/" title="横向·纵向扩展区别" >横向·纵向扩展区别</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/docker">docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
- 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
- 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/cloud/horizon-vertical/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/others/how-to-ask-questions/" title="How to Ask Questions—— 如何提问" >How to Ask Questions—— 如何提问</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月15日
-                            </date>
-                            
-                            <div class="post-content">
-                                提问的智慧 艾瑞克。史蒂文。雷蒙德（Eric Steven Raymond） Thyrsus Enterprises
-esr@thyrsus.com
-瑞克。莫恩（Rick Moen） respond-auto@linuxmafia.……
-                            </div>
-                            <p class="readmore"><a href="https://TomatoAres.github.io/posts/others/how-to-ask-questions/">阅读全文</a></p>
-                        </article>
-                    
-                    
+<div class="res-cons">
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/" title="Go xml json 小结">Go xml json 小结</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问 解析 XML，反序列化，Unmarshal 如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&quot;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/web/%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81%E7%9A%84%E5%8F%91%E5%B1%95/" title="登录状态保持的发展——session，token">登录状态保持的发展——session，token</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            根本原因 http 是无状态的协议 以后能从这根本上解决吗？ 1.很久以前：没有这个需求 很久很久以前，Web 基本上就是文档的浏览而已，既然是浏览，作为服务器，不需要记录谁在某一段时间里都浏览了什么文档，每次请求都是一个新的 HTTP 协议， 就是请求加响应， 尤其是我不用记住是谁刚刚发了 HTTP 请求， 每个请求对我……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/web/%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81%E7%9A%84%E5%8F%91%E5%B1%95/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/" title="MongoDB 简介">MongoDB 简介</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            MongoDB 是什么 是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/" title="防止多次重复提交表单">防止多次重复提交表单</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            解决方案 1 是在表单中添加一个带有唯一值的隐藏字段。在验证表单时，先检查带有该惟一值的表单是否已经递交过了。如果是，拒绝再次递交；如果不是，则处理表单进行逻辑处理。 解决方案 2 如果是采用了 Ajax 模式递交表单的话，当表单递交后，通过 javascript 来禁用表单的递交按钮……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/" title="Go 时区设置">Go 时区设置</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            获取 time 对象 设置时区 按设置的时区输出 package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { now := time.Now() // 1. 获取 time 对象 // 2. 设置时区 local1, err1 := time.LoadLocation(&#34;&#34;) //等同于&#34;UTC&#34; if err1 != nil { fmt.Println(err1) } local2, err2 := time.LoadLocation(&#34;Local&#34;)//本地的时区 if err2 != nil { fmt.Println(err2) } local3, err3 := time.LoadLocation(&#34;America/Los_Angeles&#34;) if err3 != nil { fmt.Println(err3) } // 3. 按设置的……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/" title="Go Http 工作过程">Go Http 工作过程</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            Go 代码的执行流程 通过对 http 包的分析之后，现在让我们来梳理一下整个的代码执行过程。 首先调用 Http.HandleFunc 按顺序做了几件事： 调用了 DefaultServerMux 的 HandleFunc 调用了 DefaultServerMux 的 Handle 往 DefaultServeMux 的 map[string]muxEntry 中增加对应的 handler 和路由规则 其次调用 http.ListenAndServe(&quot;:9090&quot;, nil) 按顺序做了几件事情： 实例化 Server 调用 Server 的 ListenAndServe() 调用 net.Listen(&ldquo;tcp&rdquo;, addr) 监听端口 动一个 for 循环，在循环体中 Accept 请求 对每个请求实例化一个 C……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/" title="无状态 和 Keep Alive 的区别">无状态 和 Keep Alive 的区别</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月10日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            无状态 = 无记忆 无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。 HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能保持 TCP 连接，更不能代表 HTTP 使用的是 UDP 协议（面对无连接）。 Keep alive 保持……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/" title="Http 状态码小结">Http 状态码小结</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            HTTP 响应状态代码指示特定 HTTP 请求的 状态（是否完成）。 响应分为五类： 信息响应(100–199) 成功响应(200–299)， 重定向(300–399)， 客户端错误(400–499) 服务器错误 (500–599)。 信息响应节 100 Continue 这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/" title="行数据库 vs 列数据库">行数据库 vs 列数据库</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            是什么 列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。 举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/" title="Iptables 使用">Iptables 使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            是什么 Linux 上常用的防火墙软件，是 netfilter 项目的一部分。 可以直接配置，也可以通过许多前端和图形界面配置 语法 iptables(选项)(参数) 选项 -t, &ndash;table table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。 通用匹配：源地址目标地址的匹……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/">阅读全文</a></p>
+    </article>
+    
+    
+    
 
 
 
 <ol class="page-navigator">
     
     <li class="prev">
-        <a href="https://TomatoAres.github.io/page/6/">上一页</a>
+        <a href="https://tomatoares.github.io/page/6/">上一页</a>
     </li>
     
 
     
     <li >
-        <a href="https://TomatoAres.github.io/">1</a>
+        <a href="https://tomatoares.github.io/">1</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/2/">2</a>
+        <a href="https://tomatoares.github.io/page/2/">2</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/3/">3</a>
+        <a href="https://tomatoares.github.io/page/3/">3</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/4/">4</a>
+        <a href="https://tomatoares.github.io/page/4/">4</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/5/">5</a>
+        <a href="https://tomatoares.github.io/page/5/">5</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/6/">6</a>
+        <a href="https://tomatoares.github.io/page/6/">6</a>
     </li>
     
     <li  class="current">
-        <a href="https://TomatoAres.github.io/page/7/">7</a>
+        <a href="https://tomatoares.github.io/page/7/">7</a>
     </li>
     
     <li >
-        <a href="https://TomatoAres.github.io/page/8/">8</a>
+        <a href="https://tomatoares.github.io/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/page/9/">9</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/page/10/">10</a>
     </li>
     
 
     
     <li class="next">
-        <a href="https://TomatoAres.github.io/page/8/">下一页</a>
+        <a href="https://tomatoares.github.io/page/8/">下一页</a>
     </li>
     
 </ol>
 
 
 
-                </div>
-            </div>
+</div>
 
-            <div id="secondary">
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -373,43 +432,43 @@ esr@thyrsus.com
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -418,237 +477,175 @@ esr@thyrsus.com
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-
 </body>
+
 </html>

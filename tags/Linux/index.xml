@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/Linux/</link>
+    <description>Recent content in Linux on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Dec 2019 00:59:39 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unix Vs Linux</title>
+      <link>https://tomatoares.github.io/posts/others/unix-linux/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/others/unix-linux/</guid>
+      <description>1. 历史 Unix 早于 linux. Linux 的思想源于 Unix |Linux 的源头要追溯到最古老的 UNIX。1969 年，Bell 实验室的 Ken Thompson 开始利用一台闲置的 PDP-7 计算机开发了一种多用户，多任务操作系统。很快，Dennis Richie 加入了这个项目，在他们共同努力下诞生了最早的 UNIX。Richie 受一个更早的项目——MULTICS 的启发</description>
+    </item>
+    
+    <item>
+      <title>Iptables 使用</title>
+      <link>https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 13:17:16 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/</guid>
+      <description>是什么 Linux 上常用的防火墙软件，是 netfilter 项目的一部分。 可以直接配置，也可以通过许多前端和图形界面配置 语法 iptables(选项)(参数) 选项 -t, &amp;ndash;table table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。 通用匹配：源地址目标地址的匹</description>
+    </item>
+    
+    <item>
+      <title>Tcpdump 使用</title>
+      <link>https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 13:16:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/</guid>
+      <description>是什么 用简单的话来定义 tcpdump，就是：dump the traffic on a network，根据使用者的定义对网络上的数据包进行截获的包分析工具。 tcpdump 可以将网络中传送的数据包的“头”完全截获下来提供分析。 它支持针对网络层、协议、主机、网络或端口的过滤，并提供 and、or、not 等逻辑语句来帮助你去</description>
+    </item>
+    
+  </channel>
+</rss>

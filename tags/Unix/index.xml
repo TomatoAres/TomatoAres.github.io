@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unix on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/Unix/</link>
+    <description>Recent content in Unix on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Dec 2019 00:59:39 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/Unix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unix Vs Linux</title>
+      <link>https://tomatoares.github.io/posts/others/unix-linux/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/others/unix-linux/</guid>
+      <description>1. 历史 Unix 早于 linux. Linux 的思想源于 Unix |Linux 的源头要追溯到最古老的 UNIX。1969 年，Bell 实验室的 Ken Thompson 开始利用一台闲置的 PDP-7 计算机开发了一种多用户，多任务操作系统。很快，Dennis Richie 加入了这个项目，在他们共同努力下诞生了最早的 UNIX。Richie 受一个更早的项目——MULTICS 的启发</description>
+    </item>
+    
+  </channel>
+</rss>

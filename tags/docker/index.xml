@@ -2,61 +2,63 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/docker/</link>
+    <link>https://tomatoares.github.io/tags/docker/</link>
     <description>Recent content in docker on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Mon, 16 Sep 2019 23:32:37 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 16 Sep 2019 23:32:37 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker machine 介绍</title>
-      <link>https://TomatoAres.github.io/posts/cloud/dockerMachine/</link>
+      <link>https://tomatoares.github.io/posts/cloud/dockerMachine/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/dockerMachine/</guid>
-      <description>已经淘汰了！ 现在不怎么用了
-是什么 Machine 是一款 Docker 工具，可以非常轻松地在您的计算机，云提供商和您自己的数据中心内创建 Docker 主机。它创建服务器，在它们上安装 Docker，然后配置 Docker 客户端与它们通信。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/dockerMachine/</guid>
+      <description>已经淘汰了！ 现在不怎么用了 是什么 Machine 是一款 Docker 工具，可以非常轻松地在您的计算机，云提供商和您自己的数据中心内创建 Docker 主机。它创建服务器，在它们上安装 Docker，然后配置 Docker 客户端与它们通信。 Docker Engine 和 Docker Machine 有什么区别？ ![docker machine](\static\image\docker\docker machine.png) 当人们说“Docker”时，他们通常指的是 Docker Engine，由 Docker 守护程</description>
+    </item>
+    
+    <item>
+      <title>Docker 网络 总结</title>
+      <link>https://tomatoares.github.io/posts/cloud/docker-network/</link>
+      <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/docker-network/</guid>
+      <description>4 种模式 bridge：默认网络， Docker 启动后创建一个 docker0 网桥，默认创建的容器也是添加到这个网桥中； IP 地址段是 172.17.0.1/16 host：容器不会获得一个独立的 network namespace，而是与宿主机共用一个。 none：获取独立的 network namespace，但不为容器进行任何网络配置。 创建 docker run &amp;ndash;network none 无 ip mac 等配置 仅 exec 方</description>
     </item>
     
     <item>
       <title>Dockerfile 总结</title>
-      <link>https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</guid>
-      <description>FROM 构建的新镜像是基于哪个镜像，也可以直接构建基本镜像
-scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类似注释 ，最好都得有</description>
+      <guid>https://tomatoares.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</guid>
+      <description>FROM 构建的新镜像是基于哪个镜像，也可以直接构建基本镜像 scratch 制作 base image centos 基于 centos:latest 镜像 LABEL 说明，类似注释 ，最好都得有 RUN &amp;amp; CMD &amp;amp; ENTRYPOINT WORKDIR ADD &amp;amp; COPY 大部分情况：copy 优先 add add 有解压功能 远程目录使用 curl or wget ADD hello / # 将 hello 添加到/下 ADD test.tar.gz / # ADD 有解压功能 WORKDIR /root # workdir 和 add 联合使用 ADD hello test/ # /root/test/hello WORKDIR /root # workdir 和 add 联合使用 COPY hello test/ # /root/test/hello ENV</description>
     </item>
     
     <item>
       <title>容器和镜像</title>
-      <link>https://TomatoAres.github.io/posts/cloud/image-container/</link>
+      <link>https://tomatoares.github.io/posts/cloud/image-container/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/image-container/</guid>
-      <description>什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
-镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/image-container/</guid>
+      <description>什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。 镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面</description>
     </item>
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/cloud/docker/</link>
+      <link>https://tomatoares.github.io/posts/cloud/docker/</link>
       <pubDate>Mon, 16 Sep 2019 22:32:14 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/docker/</guid>
-      <description>docker 是什么  应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————*容器*：  标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离   基本架构：C/S  Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请求， 比如创建运行容器等 Client: 主要是 Cli 命令行，客户端为用户提供一系列指令与 Docker daemon 交互 通过 restful api 进行通信   有人命名为：洋葱模型  远程还有个 Registry 存储仓库，类似 github 一样，有公共的 dockerhub，也可以自己搭私有的仓库  技术组件  LXC： Linux 容器技术，共享内核，容器共享宿主机资源，使用 namespace 和 cgroups 对资源限制与隔离。 Cgroups（control groups）： Linux 内核提供的一种限制单进程或者多进程资源的机制；比如 CPU、内存等资源的使用限制。 NameSpace：命名空间，也称名字空间， Linux 内核提供的一种限制单进程或者多进程资源隔离机制；一个进程可以属于多个命名空间。 Linux 内核提供了六种 NameSpace：  UTS：文件 IPC：通信 PID：进程 Network：网络 Mount： User：用户  UFS（UnionFS）：联合文件系统，支持将不同位置的目录挂载到同一虚拟文件系统，形成一种分层的模型；成员目录称为虚拟文件系统的一个分支（branch） AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种，每个 branch 可以指定 readonly（只读）readwrite（读写）和 whiteout-able（wo 隐藏）权限；一般情况下， aufs 只有最上层的 branch 才有读写权限，其他 branch 均为只读权限。  和虚拟机对比 同样是虚拟化技术，它和虚拟机的区别：</description>
+      <guid>https://tomatoares.github.io/posts/cloud/docker/</guid>
+      <description>docker 是什么 应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————容器： 标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离 基本架构：C/S Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请</description>
     </item>
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
+      <link>https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:18:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
-      <description>是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构</description>
+      <guid>https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
+      <description>是什么？ 容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现 能干什么？ 持续集成 简化配置 代码流水线管理 快速部署 提高开发效率 版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全 和虚拟机比的优势 轻量 M G —— 资源都是钱 性能高 共享主机内核， 没有 Hypervisor 层开销 系</description>
     </item>
     
   </channel>

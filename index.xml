@@ -2,756 +2,926 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>西红柿的博客</title>
-    <link>https://TomatoAres.github.io/</link>
+    <link>https://tomatoares.github.io/</link>
     <description>Recent content on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Mar 2020 15:02:30 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Mar 2020 15:03:59 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSI - 容器存储接口</title>
+      <link>https://tomatoares.github.io/posts/storage/CSI-spec/</link>
+      <pubDate>Sun, 01 Mar 2020 15:03:59 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/CSI-spec/</guid>
+      <description>接口规范翻译 术语 词条 定义 Volume A unit of storage that will be made available inside of a CO-managed container, via the CSI. Block Volume 在容器内以块设备形式存在的挂载卷。 Mounted Volume A volume that will be mounted using the specified file system and appear as a directory inside the container. CO 容器编排系统（Container Orchestration system）, 使用 CSI 的 RPC 和 插件通信. SP 存储供应商（Storage Provider）, CSI 的第三方实现 RPC Remote</description>
+    </item>
     
     <item>
       <title>无法正常删除节点资源—— kubelet 问题排查</title>
-      <link>https://TomatoAres.github.io/posts/cloud/kubelet-Q/</link>
+      <link>https://tomatoares.github.io/posts/cloud/kubelet-Q/</link>
       <pubDate>Sun, 01 Mar 2020 15:02:30 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/kubelet-Q/</guid>
-      <description>问题 删除 pod 时 发现，特定节点上的资源卡在 Terminating 这个状态
-NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE default test 1/1 Terminating 20 26d 192.</description>
+      <guid>https://tomatoares.github.io/posts/cloud/kubelet-Q/</guid>
+      <description>问题 删除 pod 时 发现，特定节点上的资源卡在 Terminating 这个状态 NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE default test 1/1 Terminating 20 26d 192.168.196.133 node01 &amp;lt;none&amp;gt; kube-system fabric-node-7p2z8 0/2 Terminating 0 21m &amp;lt;none&amp;gt; node01 &amp;lt;none&amp;gt; describe pod，查看 events，有的 没有事件，有的 卡在了 scheduler 这一步： Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal Scheduled 22m default-scheduler Successfully assigned kube-system/fabric-node-7p2z8 to node01 接下来，理应由 kubelet 接手进行对 pod 进行清理，但是卡在这里，我们查看 对应节点上的 kubelet</description>
     </item>
     
     <item>
       <title>深入浅出 Istio [读书笔记]</title>
-      <link>https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/</link>
+      <link>https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/</link>
       <pubDate>Sun, 01 Mar 2020 15:01:10 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/</guid>
-      <description>chapter 1 历史·时间轴  单体服务 微服务 微服务问题 核心之一——微服务治理 Kubernetes + Docker 编排 Service Mesh 可观测性  Service Mesh 时间轴  Spring Cloud——核心问题 代码嵌入前辈·标杆 Linkerd Conduit —— 没有什么浪花，改名 Linkerd 2 Istio——  核心 Enovy ,作为数据平面，通过 Sidecar 的方式让 Enovy 同业务容器一起运行，并劫持其通信，接受控制平面的统一管理。  阿里云：Mosn 替换了 Enovy  chapter 2 核心特性 定性：一种重要的基础设施</description>
+      <guid>https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/</guid>
+      <description>chapter 1 历史·时间轴 单体服务 微服务 微服务问题 核心之一——微服务治理 Kubernetes + Docker 编排 Service Mesh 可观测性 Service Mesh 时间轴 Spring Cloud——核心问题 代码嵌入前辈·标杆 Linkerd Conduit —— 没有什么浪花，改名 Linkerd 2 Istio—— 核心 Enovy ,作为数据平面，通过 Sidecar 的方式让 Enovy 同业务容器一起运行，并劫持其通信，接受控制平面的统一管理。 阿里</description>
+    </item>
+    
+    <item>
+      <title>external-storage 探索</title>
+      <link>https://tomatoares.github.io/posts/storage/external-storage/</link>
+      <pubDate>Sun, 01 Mar 2020 14:48:40 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/external-storage/</guid>
+      <description>概述 使用 out-of-tree 形式 添加存储 不同于 in-tree 形式，需要改变 controller-manager 等核心部分 和 CSI 的关系 核心组成 provisioner 用于创建 PV ，指定 voulume 真正的后端存储 controller 包含Provisioner接口和ProvisionController，ProvisionController是一个自定义的Kubernetes 控制器，用于监视Persi</description>
     </item>
     
     <item>
       <title>立个 flag </title>
-      <link>https://TomatoAres.github.io/posts/leetcode/flag/</link>
+      <link>https://tomatoares.github.io/posts/leetcode/flag/</link>
       <pubDate>Sun, 01 Mar 2020 14:33:34 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/leetcode/flag/</guid>
-      <description> 为了慢慢变强，立个 可以量化的 Flag
- 平均一天一道 leetcode 题 一周一总结：7 道左右 使用 golang 实现，时间充裕 补充 python 和 C 实现 按照题目类型刷 开始时间：2020-03-01T14:33:34+08:00  从链表开始先 这个计划私下里已经立了几次了，没放出来过，希望能坚持 100 T  读不在三更五鼓,功只怕一曝十寒  </description>
+      <guid>https://tomatoares.github.io/posts/leetcode/flag/</guid>
+      <description>为了慢慢变强，立个 可以量化的 Flag 平均一天一道 leetcode 题 一周一总结：7 道左右 使用 golang 实现，时间充裕 补充 python 和 C 实现 按照题目类型刷 开始时间：2020-03-01T14:33:34+08:00 从链表开始先 这个计划私下里已经立了几次了，没放出来过，希望能坚持 100 T 读不在三更五鼓,功只怕一曝十寒</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://TomatoAres.github.io/posts/about/</link>
+      <link>https://tomatoares.github.io/posts/about/</link>
       <pubDate>Sun, 01 Mar 2020 14:02:57 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/about/</guid>
-      <description> 关于本站  本站基于 hugo 创建 主题是 maupassant-hugo 主要存储一些自己的总结，翻译，以及一些看到的不错的他人的文章; 文中有引用，我都会标注原文链接； 若有问题，直接站内发 issue 或者 直接 @TomatoAres  关于本人  一个梦想成为大牛的菜鸟程序员 擅长写各种语言的 helloworld，深入（工作）用过的有 python 和 golang 正在从事 kubernetes 相关开发工作  </description>
+      <guid>https://tomatoares.github.io/posts/about/</guid>
+      <description>关于本站 本站基于 hugo 创建 主题是 maupassant-hugo 主要存储一些自己的总结，翻译，以及一些看到的不错的他人的文章; 文中有引用，我都会标注原文链接； 若有问题，直接站内发 issue 或者 直接 @TomatoAres 关于本人 一个梦想成为大牛的菜鸟程序员 擅长写各种语言的 helloworld，深入（工作）用过的有 python 和 golang 正在从事 kubernetes 相关开发工作</description>
+    </item>
+    
+    <item>
+      <title>使用 kind 进行 e2e 测试</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/kind/</link>
+      <pubDate>Sat, 01 Feb 2020 14:40:05 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/kind/</guid>
+      <description>Kind 简介 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。 Kind 可以作为一种本地集群搭建的工具进 由于便于快速搭建环境，经常被用来做 k8s 相关测试准备 流程 构建环境 测试 手动搭建单节点环境测试 关闭 kind 自带的 kindnet 网络插件,并将其设置为 Calico 的默认子网，编写一个 kind-calico.yaml 文件 kind: Cluster apiVersion: kind.sigs.k8s.io/v1alpha3 networking: disableDefaultCNI: true # disable</description>
+    </item>
+    
+    <item>
+      <title>cka 考试准备</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/cka/</link>
+      <pubDate>Tue, 31 Dec 2019 20:39:51 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/cka/</guid>
+      <description>简介 CNCF 认证 有效期 3 年 官网</description>
+    </item>
+    
+    <item>
+      <title>kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</link>
+      <pubDate>Sat, 28 Dec 2019 23:42:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</guid>
+      <description>需求分析 环境 kubernetes 1.12.6 使用 storageclass 和 pvc 动态生成 pv storageclass 后端存储使用 ceph rbd 使用 kubectl edit 编辑 pvc，对已有的 pvc 进行扩容，并且容器内部文件系统自动扩容 1. kubernetes 1.12.6 环境部署 由于 1.12.6 版本比较古老，kubeadm 易用性远不如后边较新几个版本，使用方式不太一致，并且存在一定的不合理的问题 docker 版本最高 18.6:yum install -y docker-ce-18.06.0.ce-3.el7 docker-ce-cli-18.06.0.ce-3.el7 能翻墙的话，尽量</description>
+    </item>
+    
+    <item>
+      <title>Ceph 的部署</title>
+      <link>https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Thu, 19 Dec 2019 23:05:27 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/</guid>
+      <description>Ceph 的部署工具 ceph-deploy：官方的部署工具 ceph-ansible：红帽的部署工具 ceph-chef：利用 chef 进行自动部署 Ceph 的工具 puppet-ceph：puppet 的 ceph 模块 Public Network 192.168.200.161-164 Cluster Network 192.168.100.161-164 版本：Mimic 13 版 部署前提 这是一个前提条件 关闭 SELinux 关闭 firewalld，并禁止开机自启</description>
+    </item>
+    
+    <item>
+      <title>Ceph 的部署</title>
+      <link>https://tomatoares.github.io/posts/storage/issue-csi/</link>
+      <pubDate>Thu, 19 Dec 2019 23:05:27 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/issue-csi/</guid>
+      <description>@cofyc Thanks to you reply! I have tried it in default namespace according to readme and in rbac mode,but I have failed [root@k8s-master01 examples]# kubectl create -f examples/class.yaml error: the path &amp;#34;examples/class.yaml&amp;#34; does not exist [root@k8s-master01 examples]# cd .. [root@k8s-master01 rbd]# kubectl create -f examples/class.yaml storageclass.storage.k8s.io/rbd created [root@k8s-master01 rbd]# kubectl create -f examples/claim.yaml persistentvolumeclaim/claim1 created [root@k8s-master01 rbd]# kubectl get pvc NAME STATUS VOLUME CAPACITY ACCESS MODES STORAGECLASS AGE claim1 Pending rbd 5s [root@k8s-master01 rbd]# kubectl describe pvc claim1 Name: claim1 Namespace: default StorageClass: rbd Status: Pending Volume: Labels: &amp;lt;none&amp;gt; Annotations: volume.beta.kubernetes.io/storage-provisioner: ceph.com/rbd Finalizers: [kubernetes.io/pvc-protection] Capacity: Access Modes: VolumeMode: Filesystem Mounted By: &amp;lt;none&amp;gt; Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal ExternalProvisioning 10s (x3 over 16s) persistentvolume-controller waiting for a volume to be created, either by external provisioner &amp;#34;ceph.com/rbd&amp;#34; or manually created by system administrator Normal Provisioning</description>
+    </item>
+    
+    <item>
+      <title>Ceph 搭建网盘</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph/</link>
+      <pubDate>Wed, 18 Dec 2019 23:42:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph/</guid>
+      <description>云盘分解 存储 DAS NAS SAN 分布式存储 glusterfs moosefs hdfs fastdfs ceph 文件存储 块设备 核心：对象存储 应用 owncloud php 开发 nextcloud seafile 参考 ceph-两小时玩转企业级私有云盘</description>
+    </item>
+    
+    <item>
+      <title>Ceph 和 Kubernetes 集成</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph&#43;k8s/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph&#43;k8s/</guid>
+      <description>方式 静态 如果没有合适的 pv, pvc 会一直 pending 动态 说明 使用 RBD 做存储，因为 cephFS 不稳定 准备环境 安装 ceph 大工程，暂时跳过，有空补 有单节点的快速安装脚本 ceph 创建存储池 并启用 RBD 功能 ceph osd pool create csj 1024 查看：ceph osd pool ls 创建 Ceph 用户，提供给 K8s 使用 ceph auth get-or-create client.kube mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbdpool&#39; 上条命令会生产 keyring 密钥 查看用户：ceph auth ls 有</description>
+    </item>
+    
+    <item>
+      <title>PVC 问题解决记录</title>
+      <link>https://tomatoares.github.io/posts/storage/pvc/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/pvc/</guid>
+      <description>问题发现 github 上 16 年 12 月就提出来了 describe pod describe pvc kube-controller 日志 kubectl describe pod ceph-static Events: Type Reason Age From Message ---- ------ ---- ---- ------- Warning FailedScheduling 102s (x1480 over 15h) default-scheduler pod has unbound immediate PersistentVolumeClaims kubectl describe pvc ceph-kube-claim Type Reason Age From Message ---- ------ ---- ---- ------- Warning ProvisioningFailed 54s (x417 over 15h) persistentvolume-controller Failed to provision volume with StorageClass &amp;#34;rbd&amp;#34;: failed to create rbd image: executable file not found in $PATH, command output: Mounted By: ceph-static 已知的两种解决方式 替换 kube-controller 镜像 使用 CSI 记录 kube-controller 没有 rbd 二进制 同样的方式验证 使用镜像替换 使用 CSI in-tree&amp;ndash;&amp;gt;out-of-tree sidecar 模式 使</description>
+    </item>
+    
+    <item>
+      <title>kubernetes ceph rbd storage 源码探索</title>
+      <link>https://tomatoares.github.io/posts/storage/storage-source-code/</link>
+      <pubDate>Wed, 18 Dec 2019 23:40:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/storage-source-code/</guid>
+      <description>概述 kubernetes 当前存储对接第三方存储后端实现有两种模式共存 in-tree：各种存储后端功能侵入式存在于源码中，耦合性高，不便于扩展与维护 out-of-tree:和源码解耦，类似于 CNI 的 CSI 有统一的接口规范，便于维护扩展 以 ceph-rbd 为例看 provisioner（github.com\kubernete</description>
     </item>
     
     <item>
       <title>集群化存储课程总结</title>
-      <link>https://TomatoAres.github.io/posts/storage/storage-cluster/</link>
+      <link>https://tomatoares.github.io/posts/storage/storage-cluster/</link>
       <pubDate>Wed, 18 Dec 2019 23:40:07 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/storage/storage-cluster/</guid>
-      <description>概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准    文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用</description>
+      <guid>https://tomatoares.github.io/posts/storage/storage-cluster/</guid>
+      <description>概述 用于存储的网络技术：连接 DAS: Direct Attached Storage 直接附加存储 直连主机：通过数据线，光缆，SATA 优点 技术简单 传输效率高 缺点 与主机绑定太死，不易于后期扩展 NAS: Network Attached Storage 网络附加存储 通过网络与主机相连 优点 技术相对简单 不要求直连主机，局域网即可 缺点 传输效率慢 SAN: Storage Area Network 存储区域网络 隔离：生产网络——存储网络</description>
     </item>
     
     <item>
       <title>如何调用 Golang 私有函数（绑定到隐藏符号）</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</link>
       <pubDate>Sun, 15 Dec 2019 23:50:59 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</guid>
-      <description>变量名称在 Golang 中的重要性和任何其他语言一样。但是在 golang 中，它们甚至具有语义效果：变量第一个字符大写则在外部可见。
-有时为了更好地组织代码，或者访问包中对外隐藏的函数（外部不可见的函数），需要突破这个限制。
-golang 源码中大量使用了这些技术 这也是相关技术信息的主要来源。而网上相关信息明显不足。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</guid>
+      <description>变量名称在 Golang 中的重要性和任何其他语言一样。但是在 golang 中，它们甚至具有语义效果：变量第一个字符大写则在外部可见。 有时为了更好地组织代码，或者访问包中对外隐藏的函数（外部不可见的函数），需要突破这个限制。 golang 源码中大量使用了这些技术 这也是相关技术信息的主要来源。而网上相关信息明显不足。 在</description>
     </item>
     
     <item>
       <title>仅需三个步骤即可构建最小的 Docker 映像</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/3-step-build-minix-image/</link>
       <pubDate>Thu, 05 Dec 2019 00:56:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/</guid>
-      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/3-step-build-minix-image/</guid>
+      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。 1. 选择 Go 版本 尽管使用 golang:latest 或者 仅使用 golang 的版本镜像很诱人，但由于各种问题，这样做都不太好，其中主要的一个问</description>
     </item>
     
     <item>
       <title>Go 编译器概述</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</link>
       <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</guid>
-      <description>首发于：https://studygolang.com/articles/24554
-  本文基于 Go 1.13
- Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554 本文基于 Go 1.13 Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看</description>
+    </item>
+    
+    <item>
+      <title>kubectl create 和 apply 对比解读</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 18.04 安装 k8s</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</guid>
+      <description>更换 软件源 翻墙 基本配置 内存交换 防火墙 selinux 安装 docker 配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install -y apt-transport-https curl curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - cat &amp;lt;&amp;lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list deb https://apt.kubernetes.io/ kubernetes-xenial main EOF sudo apt-get update sudo apt-get install -y kubelet kubeadm kubectl sudo apt-mark hold kubelet kubeadm kubectl 没有梯子的启动方法 有梯子 FAQ apt-get update locked root@ubuntu:/etc/apt# apt-get update 正在读取软件包列表。.. 完成 E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用） E: 无法对目录 /var/lib/apt/lists/ 加锁 其</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 无法远程 ssh 问题</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu 权限相关</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</guid>
+      <description>用户 who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户， 后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普</description>
+    </item>
+    
+    <item>
+      <title>Unix Vs Linux</title>
+      <link>https://tomatoares.github.io/posts/others/unix-linux/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/others/unix-linux/</guid>
+      <description>1. 历史 Unix 早于 linux. Linux 的思想源于 Unix |Linux 的源头要追溯到最古老的 UNIX。1969 年，Bell 实验室的 Ken Thompson 开始利用一台闲置的 PDP-7 计算机开发了一种多用户，多任务操作系统。很快，Dennis Richie 加入了这个项目，在他们共同努力下诞生了最早的 UNIX。Richie 受一个更早的项目——MULTICS 的启发</description>
     </item>
     
     <item>
       <title>理解 Go 的空接口</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</link>
       <pubDate>Sun, 03 Nov 2019 00:10:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</guid>
-      <description>空接口可用于保存任何数据，它可以是一个有用的参数，因为它可以使用任何类型。要理解空接口如何工作以及如何保存任何类型，我们首先应该理解空接口名称背后的概念。
-接口（interface{}） Jordan Oreilli 对空接口的一个很好的定义：
- 接口是两件事物：它是一组方法，但它也是一种类型。
-interface{} 类型是没有方法的接口。由于没有 implements 关键字，所有类型都至少实现零个方法，并且自动满足接口，所有类型都满足空接口。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</guid>
+      <description>空接口可用于保存任何数据，它可以是一个有用的参数，因为它可以使用任何类型。要理解空接口如何工作以及如何保存任何类型，我们首先应该理解空接口名称背后的概念。 接口（interface{}） Jordan Oreilli 对空接口的一个很好的定义： 接口是两件事物：它是一组方法，但它也是一种类型。 interface{} 类型是没有方法的</description>
     </item>
     
     <item>
       <title>使用 Goland 安装多个版本的 go</title>
-      <link>https://TomatoAres.github.io/posts/go/mult-version-go/</link>
+      <link>https://tomatoares.github.io/posts/go/mult-version-go/</link>
       <pubDate>Sun, 27 Oct 2019 22:48:31 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/mult-version-go/</guid>
-      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。
-开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本  选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可  参考 goland 官方文档</description>
+      <guid>https://tomatoares.github.io/posts/go/mult-version-go/</guid>
+      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。 开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本 选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可 参考 goland 官方文档</description>
     </item>
     
     <item>
       <title>Iperf3 小结</title>
-      <link>https://TomatoAres.github.io/posts/network/iperf/</link>
+      <link>https://tomatoares.github.io/posts/network/iperf/</link>
       <pubDate>Tue, 22 Oct 2019 00:52:45 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/iperf/</guid>
-      <description>定义  iPerf3 是用于主动测量 IP 网络上可达到的最大带宽的工具。 它支持与时序，缓冲区和协议（TCP，UDP，带有 IPv4 和 IPv6 的 SCTP）相关的各种参数的调整。 对于每个测试，它都会报告带宽，损耗和其他参数。 不向后兼容——可以说已经不是 iperf  功能 基本——Iperf2 也有  TCP 和 UDP 测试 （-u） 设置端口（-p） 设置 TCP 选项：无延迟，MSS 等。 设置 UDP 带宽（-b） 设置套接字缓冲区大小（-w） 报告间隔（-i） 设置 iPerf 缓冲区（-l） 绑定到特定接口（-B） IPv6 测试（-6） 要传输的字节数（-n） 测试时间（-t） 并行流（-P） 设置 DSCP / TOS 位向量（-S） 更改号码输出格式（-f）  iPerf 3.</description>
+      <guid>https://tomatoares.github.io/posts/network/iperf/</guid>
+      <description>定义 iPerf3 是用于主动测量 IP 网络上可达到的最大带宽的工具。 它支持与时序，缓冲区和协议（TCP，UDP，带有 IPv4 和 IPv6 的 SCTP）相关的各种参数的调整。 对于每个测试，它都会报告带宽，损耗和其他参数。 不向后兼容——可以说已经不是 iperf 功能 基本——Iperf2 也有 TCP 和 UDP 测试 （-u） 设置端口（-p） 设</description>
     </item>
     
     <item>
       <title>OpenvSwitch 初探</title>
-      <link>https://TomatoAres.github.io/posts/network/openvswitch/</link>
+      <link>https://tomatoares.github.io/posts/network/openvswitch/</link>
       <pubDate>Tue, 22 Oct 2019 00:08:36 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/openvswitch/</guid>
-      <description>定义 一句话：openvswitch 就是软件（虚拟）交换机。
- Open vSwitch 是一个高质量的、多层虚拟交换机， 使用开源 Apache2.0 许可协议，由 Nicira Networks 开发，主要实现代码为可移植的 C 代码。 目的是让大规模网络自动化可以通过编程扩展，同时仍然支持标准的管理接口和协议（例如 NetFlow, sFlow, SPAN, RSPAN, CLI, LACP, 802.</description>
+      <guid>https://tomatoares.github.io/posts/network/openvswitch/</guid>
+      <description>定义 一句话：openvswitch 就是软件（虚拟）交换机。 Open vSwitch 是一个高质量的、多层虚拟交换机， 使用开源 Apache2.0 许可协议，由 Nicira Networks 开发，主要实现代码为可移植的 C 代码。 目的是让大规模网络自动化可以通过编程扩展，同时仍然支持标准的管理接口和协议（例如 NetFlow, sFlow, SPAN, RSPAN, CLI, LACP, 802.1ag）。 此外，它被设计</description>
     </item>
     
     <item>
       <title>虚拟化总结</title>
-      <link>https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 21 Oct 2019 23:22:55 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/</guid>
-      <description>定义  通过虚拟化技术将一台计算机虚拟为多态逻辑计算机。简单来说：虚拟化使得在一台物理的服务器上可以跑多台虚拟机 虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。  每台逻辑计算机可以运行不同的操作系统。 应用程序可以相互独立的运行在不同的空间内  物理机我们一般称为宿主机（Host），宿主机上面的虚拟机称为客户机（Guest） 显著提高资源使用率，和计算机工作效率  对比 |虚拟化前|虚拟化后| |&amp;mdash;|&amp;mdash;| |每台主机一个操作系统|多个操作系统| |软硬件结合，操作系统与硬件紧密结合|虚拟机独立于硬件，能在任何硬件上运行| |死板|灵活|</description>
+      <guid>https://tomatoares.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/</guid>
+      <description>定义 通过虚拟化技术将一台计算机虚拟为多态逻辑计算机。简单来说：虚拟化使得在一台物理的服务器上可以跑多台虚拟机 虚拟机共享物理机的 CPU、内存、IO 硬件资源，但逻辑上虚拟机之间是相互隔离的。 每台逻辑计算机可以运行不同的操作系统。 应用程序可以相互独立的运行在不同的空间内 物理机我们一般称</description>
     </item>
     
     <item>
       <title>CPU 内存 显卡</title>
-      <link>https://TomatoAres.github.io/posts/composition-principle/CPU/</link>
+      <link>https://tomatoares.github.io/posts/composition-principle/CPU/</link>
       <pubDate>Sun, 20 Oct 2019 21:43:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/composition-principle/CPU/</guid>
-      <description>分类 CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。</description>
+      <guid>https://tomatoares.github.io/posts/composition-principle/CPU/</guid>
+      <description>分类 CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。 精简指令集 (Reduced Instruction Set Computing, RISC)： 这种 CPU 的设计中，微指令集较为精简，每个指</description>
     </item>
     
     <item>
       <title>磁盘和文件系统</title>
-      <link>https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://tomatoares.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Sun, 20 Oct 2019 21:43:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
-      <description>磁盘接口分类  IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经被淘汰了，而其后发展分支出更多类型的硬盘接口，比如 ATA(Advanced Technology Attachment)、Ultra ATA、DMA、Ultra DMA 等接口都属于 IDE 硬盘。其特点为：价格低廉，兼容性强，性价比高，数据传输慢，不支持热插拔等等。</description>
+      <guid>https://tomatoares.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
+      <description>磁盘接口分类 IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经</description>
     </item>
     
     <item>
       <title>Atoi 实现</title>
-      <link>https://TomatoAres.github.io/posts/leetcode/008-atoi/</link>
+      <link>https://tomatoares.github.io/posts/leetcode/008-atoi/</link>
       <pubDate>Fri, 27 Sep 2019 23:29:24 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/leetcode/008-atoi/</guid>
-      <description>历史问题 Q:明明是 string to int 为什么是 Atoi？ A: Atoi (Ascii to Integer)，Ascii 即上古时期的 string，流传至今</description>
+      <guid>https://tomatoares.github.io/posts/leetcode/008-atoi/</guid>
+      <description>历史问题 Q:明明是 string to int 为什么是 Atoi？ A: Atoi (Ascii to Integer)，Ascii 即上古时期的 string，流传至今 题目 请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者</description>
+    </item>
+    
+    <item>
+      <title>单播 广播 组播</title>
+      <link>https://tomatoares.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/</link>
+      <pubDate>Fri, 27 Sep 2019 23:29:24 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/network/%E5%8D%95%E6%92%AD-%E5%B9%BF%E6%92%AD-%E5%A4%9A%E6%92%AD/</guid>
+      <description>概念准备 只有 UDP 套接字允许广播或多播 无状态 无连接 使用 UDP 协议进行信息的传输之前不需要建议连接。换句话说就是客户端向服务器发送信息，客户端只需要给出服务器的 ip 地址和端口号，然后将信息封装到一个待发送的报文中并且发送出去。至于服务器端是否存在，或者能否收到该报文，客户端根本不用管。 单播用</description>
     </item>
     
     <item>
       <title>Linux Control Group 简介</title>
-      <link>https://TomatoAres.github.io/posts/system/cgroup/</link>
+      <link>https://tomatoares.github.io/posts/system/cgroup/</link>
       <pubDate>Thu, 26 Sep 2019 00:13:30 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/system/cgroup/</guid>
-      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</description>
+      <guid>https://tomatoares.github.io/posts/system/cgroup/</guid>
+      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源： CPU time：进程占用的 CPU 时间 Memory：进程占用的物理内存 Block IO：进程访问块设备的 bandwidth 或 IOPS Network IO：进程访问网络的 bandwidth 或 packages 的数</description>
     </item>
     
     <item>
       <title>Go 中 Byte Rune——类型别名</title>
-      <link>https://TomatoAres.github.io/posts/go/byte-rune/</link>
+      <link>https://tomatoares.github.io/posts/go/byte-rune/</link>
       <pubDate>Wed, 25 Sep 2019 23:11:24 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/byte-rune/</guid>
-      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</description>
+      <guid>https://tomatoares.github.io/posts/go/byte-rune/</guid>
+      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。 uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32 // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values. type byte = uint8 // rune is an alias for int32 and is equivalent to int32 in all ways. It is</description>
+    </item>
+    
+    <item>
+      <title>k8s 搭建过程总结</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Wed, 25 Sep 2019 00:06:28 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/</guid>
+      <description>从今年年初就陆陆续续搭建过 1.13 ，1.15 版本，每次搭建都要在网上找 blog，自己虽有总结，却总不完善，现在（2019 年 9 月 24 日） 1.16 版本已经发布，希望此次能有一份完善的总结。 一、安装虚拟机 我使用的 VMware 安装的 Centos 7 最小安装，这个过程不再详述，属于基本操作，网上资源也很多。 二、配置虚拟机 改 yum</description>
     </item>
     
     <item>
       <title>为什么要使用 go module proxy</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:35 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</guid>
-      <description>在看过 Go module 的简介之后，我以为我已经知道了这个功能我需要知道的一切。但是很快，我意识到并不是这样。最近，人们开始提倡使用 Go module proxy。在研究了利弊之后，我得出结论，这将是近年来 Go 语言最重要的变化之一。 但为什么会这样呢？是什么让 Go module 代理如此特别？</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</guid>
+      <description>在看过 Go module 的简介之后，我以为我已经知道了这个功能我需要知道的一切。但是很快，我意识到并不是这样。最近，人们开始提倡使用 Go module proxy。在研究了利弊之后，我得出结论，这将是近年来 Go 语言最重要的变化之一。 但为什么会这样呢？是什么让 Go module 代理如此特别？ 使用 Go modules 时，如果向干净的缓存的计算机</description>
     </item>
     
     <item>
       <title>无缓冲和有缓冲通道</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</link>
       <pubDate>Tue, 24 Sep 2019 23:59:46 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</guid>
-      <description>Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。
-无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：
-package main import ( &amp;quot;sync&amp;quot; &amp;quot;time&amp;quot; ) func main() { c := make(chan string) var wg sync.</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</guid>
+      <description>Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。 无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如： package main import ( &amp;#34;sync&amp;#34; &amp;#34;time&amp;#34; ) func main() { c := make(chan string) var wg sync.WaitGroup wg.Add(2)</description>
+    </item>
+    
+    <item>
+      <title>Go Module 踩坑记录</title>
+      <link>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 24 Sep 2019 10:57:14 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
     </item>
     
     <item>
       <title>常见 IO 模型研究 </title>
-      <link>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</link>
+      <link>https://tomatoares.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</link>
       <pubDate>Sun, 22 Sep 2019 14:13:45 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</guid>
-      <description>核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段：</description>
+      <guid>https://tomatoares.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</guid>
+      <description>核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段： 等待数据准备 (Waiting for the data to be ready) 将数据从内核拷贝到进程中 (Copying the data from the kernel to the process) 记住这两</description>
     </item>
     
     <item>
       <title>go map 无序原因</title>
-      <link>https://TomatoAres.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
+      <link>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
       <pubDate>Sun, 22 Sep 2019 00:03:23 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
-      <description>连续两次被问到 map 遍历输出无序的原因
-看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。
-面试官笑得很诡异，而且就到此为止了。
-直到我看到这段代码：
-... // decide where to start r := uintptr(fastrand()) if h.</description>
+      <guid>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
+      <description>连续两次被问到 map 遍历输出无序的原因 看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。 面试官笑得很诡异，而且就到此为止了。 直到我看到这段代码： ... // decide where to start r := uintptr(fastrand()) if h.B &amp;gt; 31-bucketCntBits { r += uintptr(fastrand()) &amp;lt;&amp;lt; 31 } it.startBucket = r &amp;amp; bucketMask(h.B) it.offset = uint8(r &amp;gt;&amp;gt; h.B &amp;amp; (bucketCnt - 1)) // iterator state it.bucket = it.startBucket 遍历过程中</description>
     </item>
     
     <item>
       <title>goroutine 协程数目限制</title>
-      <link>https://TomatoAres.github.io/posts/go/goroutines/</link>
+      <link>https://tomatoares.github.io/posts/go/goroutines/</link>
       <pubDate>Sat, 21 Sep 2019 23:51:43 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/goroutines/</guid>
-      <description>协程属于用户态线程，逻辑由用户代码控制。
-系统本身不对 goroutine 数目进行限制。
-虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现：
- 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed  解决方式： buffered channel + sync.</description>
+      <guid>https://tomatoares.github.io/posts/go/goroutines/</guid>
+      <description>协程属于用户态线程，逻辑由用户代码控制。 系统本身不对 goroutine 数目进行限制。 虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现： 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed 解决方式： buffered channel +</description>
     </item>
     
     <item>
       <title>buffer 和 cache 的区别</title>
-      <link>https://TomatoAres.github.io/posts/others/cache-buffer-%E5%8C%BA%E5%88%AB/</link>
+      <link>https://tomatoares.github.io/posts/others/cache-buffer-%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Sat, 21 Sep 2019 23:15:57 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/cache-buffer-%E5%8C%BA%E5%88%AB/</guid>
-      <description>简单总结  cache 是为了弥补*高速设备*和*低速设备*的鸿沟而引入的中间层，最终起到加快访问速度的作用。 而 buffer 的主要目的进行流量整形，把突发的大数量较小规模的 I/O 整理成平稳的小数量较大规模的 I/O，以减少响应次数（比如从网上下电影，你不能下一点点数据就写一下硬盘，而是积攒一定量的数据以后一整块一起写，不然硬盘都要被你玩坏了）。   要问 Cache 和 Buffer 的区别，首先要问另一个问题：为何会存在 Cache 和 Buffer？  为了提速。</description>
+      <guid>https://tomatoares.github.io/posts/others/cache-buffer-%E5%8C%BA%E5%88%AB/</guid>
+      <description>简单总结 cache 是为了弥补高速设备和低速设备的鸿沟而引入的中间层，最终起到加快访问速度的作用。 而 buffer 的主要目的进行流量整形，把突发的大数量较小规模的 I/O 整理成平稳的小数量较大规模的 I/O，以减少响应次数（比如从网上下电影，你不能下一点点数据就写一下硬盘，而是积攒一定量的数据以后一整块一起写</description>
     </item>
     
     <item>
       <title>kubernetes 节点和核心资源</title>
-      <link>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</link>
       <pubDate>Fri, 20 Sep 2019 00:20:48 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
-      <description>1. Master  集群控制节点  3 个核心进程：
- kube-apiserver：  提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序  kube-controller manager：  所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等； 可以理解为资源对象的：“大总管”  kube-scheduler：  负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上； 理解为：调度室    另外 etcd 必不可少：所有资源的数据都是保存在 etcd 中  2.</description>
+      <guid>https://tomatoares.github.io/posts/cloud/k8s%E6%80%BB%E7%BB%93/</guid>
+      <description>1. Master 集群控制节点 3 个核心进程： kube-apiserver： 提供了 HTTP Rest 接口的关键服务进程，是资源操作的唯一入口， 并提供认证、授权、访问控制、API 注册和发现等机制； 是集群的入口程序 kube-controller manager： 所有资源对象的自动化控制：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；</description>
     </item>
     
     <item>
       <title>Defer Recover Panic 三剑客</title>
-      <link>https://TomatoAres.github.io/posts/go/defer-recover-panic/</link>
+      <link>https://tomatoares.github.io/posts/go/defer-recover-panic/</link>
       <pubDate>Thu, 19 Sep 2019 23:29:57 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/defer-recover-panic/</guid>
-      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover</description>
+      <guid>https://tomatoares.github.io/posts/go/defer-recover-panic/</guid>
+      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句 总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover 坑 函数嵌套后，defer 嵌套后就不管用 recover 必须放在 defer 中，否则只返回 nil 工作中没实际用过，有空补充点</description>
     </item>
     
     <item>
       <title>Defer 总结</title>
-      <link>https://TomatoAres.github.io/posts/go/defer/</link>
+      <link>https://tomatoares.github.io/posts/go/defer/</link>
       <pubDate>Thu, 19 Sep 2019 22:39:21 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/defer/</guid>
-      <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
-面试题 下面代码输出什么？
-package main import &amp;quot;fmt&amp;quot; func calc(index string, a, b int) int { ret := a + b fmt.</description>
+      <guid>https://tomatoares.github.io/posts/go/defer/</guid>
+      <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~ 面试题 下面代码输出什么？ package main import &amp;#34;fmt&amp;#34; func calc(index string, a, b int) int { ret := a + b fmt.Println(index, a, b, ret) return ret } func main() { a := 1 b := 2 defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b)) a = 0 defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b)) b = 1 } /* output 10 1 2 3 20 0 2 2 2 0 2 2 1 1 3 4 */ 关键知识点 defer 是什么？ defer 是 Go 语言提供的一种用于注册延迟调用的</description>
     </item>
     
     <item>
       <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20161218-modern-garbage-collection/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20161218-modern-garbage-collection/</link>
       <pubDate>Thu, 19 Sep 2019 12:29:00 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20161218-modern-garbage-collection/</guid>
-      <description>在 Hacker News 和 Reddit 你可以找到相关讨论
-我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20161218-modern-garbage-collection/</guid>
+      <description>在 Hacker News 和 Reddit 你可以找到相关讨论 我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。 这是新版本（Go 1.5）垃圾收集器的首次公告: Go 正在构建一个垃圾收集器（GC），不止适用于 2015 年，甚至适用于 2025 年</description>
     </item>
     
     <item>
       <title>Vet 命令：超出预期的强大</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
       <pubDate>Thu, 19 Sep 2019 12:27:54 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
-      <description>Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。
-内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
+      <description>Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。 内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
     </item>
     
     <item>
       <title>Go：关于 Cobra 的想法</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</link>
       <pubDate>Thu, 19 Sep 2019 12:27:06 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</guid>
-      <description>Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。
-设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体：</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</guid>
+      <description>Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。 设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体： cmd := &amp;amp;cobra.Command{ Run: runGreet, Use: `greet`, Short: &amp;#34;Greet&amp;#34;, Long: &amp;#34;This command will print Hello World&amp;#34;, } 设计非常类似于原生的 go 标准库命令，如 go env，go fmt等 比如，go fmt 命令结构： var CmdFmt = &amp;amp;base.Command{ Run: runFmt,</description>
     </item>
     
     <item>
       <title>为什么 Go 适合微服务</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
-      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。 1. 静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。 生产事故的故事 去年，在</description>
     </item>
     
     <item>
       <title>Go Struct Tag 是怎么玩的</title>
-      <link>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <link>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
       <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
-      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
+      <guid>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;reflect&amp;#34; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;#34;validate&amp;#34; type employee struct { ID int `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;名字&amp;#34; validate:&amp;#34;presence,min=2,max=40&amp;#34;` Age int `json:&amp;#34;年龄&amp;#34;` Desc string `json:&amp;#34;描述&amp;#34; back:&amp;#34;好看否&amp;#34;`</description>
     </item>
     
     <item>
       <title>Docker machine 介绍</title>
-      <link>https://TomatoAres.github.io/posts/cloud/dockerMachine/</link>
+      <link>https://tomatoares.github.io/posts/cloud/dockerMachine/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/dockerMachine/</guid>
-      <description>已经淘汰了！ 现在不怎么用了
-是什么 Machine 是一款 Docker 工具，可以非常轻松地在您的计算机，云提供商和您自己的数据中心内创建 Docker 主机。它创建服务器，在它们上安装 Docker，然后配置 Docker 客户端与它们通信。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/dockerMachine/</guid>
+      <description>已经淘汰了！ 现在不怎么用了 是什么 Machine 是一款 Docker 工具，可以非常轻松地在您的计算机，云提供商和您自己的数据中心内创建 Docker 主机。它创建服务器，在它们上安装 Docker，然后配置 Docker 客户端与它们通信。 Docker Engine 和 Docker Machine 有什么区别？ ![docker machine](\static\image\docker\docker machine.png) 当人们说“Docker”时，他们通常指的是 Docker Engine，由 Docker 守护程</description>
+    </item>
+    
+    <item>
+      <title>Docker 网络 总结</title>
+      <link>https://tomatoares.github.io/posts/cloud/docker-network/</link>
+      <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/docker-network/</guid>
+      <description>4 种模式 bridge：默认网络， Docker 启动后创建一个 docker0 网桥，默认创建的容器也是添加到这个网桥中； IP 地址段是 172.17.0.1/16 host：容器不会获得一个独立的 network namespace，而是与宿主机共用一个。 none：获取独立的 network namespace，但不为容器进行任何网络配置。 创建 docker run &amp;ndash;network none 无 ip mac 等配置 仅 exec 方</description>
     </item>
     
     <item>
       <title>Dockerfile 总结</title>
-      <link>https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</guid>
-      <description>FROM 构建的新镜像是基于哪个镜像，也可以直接构建基本镜像
-scratch 制作 base image centos 基于 centos:latest 镜像  LABEL 说明，类似注释 ，最好都得有</description>
+      <guid>https://tomatoares.github.io/posts/cloud/dockerfile%E6%80%BB%E7%BB%93/</guid>
+      <description>FROM 构建的新镜像是基于哪个镜像，也可以直接构建基本镜像 scratch 制作 base image centos 基于 centos:latest 镜像 LABEL 说明，类似注释 ，最好都得有 RUN &amp;amp; CMD &amp;amp; ENTRYPOINT WORKDIR ADD &amp;amp; COPY 大部分情况：copy 优先 add add 有解压功能 远程目录使用 curl or wget ADD hello / # 将 hello 添加到/下 ADD test.tar.gz / # ADD 有解压功能 WORKDIR /root # workdir 和 add 联合使用 ADD hello test/ # /root/test/hello WORKDIR /root # workdir 和 add 联合使用 COPY hello test/ # /root/test/hello ENV</description>
     </item>
     
     <item>
       <title>容器和镜像</title>
-      <link>https://TomatoAres.github.io/posts/cloud/image-container/</link>
+      <link>https://tomatoares.github.io/posts/cloud/image-container/</link>
       <pubDate>Mon, 16 Sep 2019 23:32:37 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/image-container/</guid>
-      <description>什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。
-镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面的只读层复制到读写层，只读层的这个文件就会覆盖，但还存在，这就实现了文件系统隔离，当删除容器后，读写层的数据将会删除，只读镜像不变。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/image-container/</guid>
+      <description>什么是镜像？ 简单说， Docker 镜像是一个不包含 Linux 内核而又精简的 Linux 操作系统。 镜像工作原理？ 当我们启动一个新的容器时， Docker 会加载只读镜像，并在其之上添加一个读写层，并将镜像中的目录复制一份到 /var/lib/docker/aufs/mnt/ 容器 ID 为目录下，我们可以使用 chroot 进入此目录。如果运行中的容器修改一个已经存在的文件，那么会将该文件从下面</description>
     </item>
     
     <item>
       <title>公有云、私有云、混合云的比较</title>
-      <link>https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <link>https://tomatoares.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Mon, 16 Sep 2019 22:34:28 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-      <description>公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。
-公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的资源支付电用。此外，由于组织可以访问服务提供商的云计算基础设施，因此他们无需担心自己安装和维护的问题。
-公共云的一个缺点与安全有关。公共云通常不能满足许多安全法规遵从性要求，因为不同的服务器驻留在多个国家，并具有各种安全法规。而且，网络问题可能发生在在线流量峰值期间。虽然公共云模型通过提供按需付费的定价方式通常具有成本效益，但在移动大量数据时，其费用会迅速增加。
-私有云 私有云是一个企业唯一拥有基础设施资源的渠道。客户可以选择让私有云位于现场数据中心或由第三方服务提供商托管。
-与公共云模型相比，私有云模型的好处是它提供了更高的安全性，因为单个公司是唯一可以访问它的指定实体。这也使组织更容易定制其资源以满足特定的 IT 要求。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/%E5%85%AC%E6%9C%89%E4%BA%91%E5%92%8C%E7%A7%81%E6%9C%89%E4%BA%91%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>公有云 公众云是大多数人在想到采用“云”时所指的。公共云之所以称之为“公共”，是因为由像亚马逊、谷歌、IBM 或微软这样的云计算服务提供商托管的，它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。 公共云有几个好处。除了通过网络提供服务外，客户只需为他们使用的</description>
     </item>
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/cloud/docker/</link>
+      <link>https://tomatoares.github.io/posts/cloud/docker/</link>
       <pubDate>Mon, 16 Sep 2019 22:32:14 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/docker/</guid>
-      <description>docker 是什么  应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————*容器*：  标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离   基本架构：C/S  Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请求， 比如创建运行容器等 Client: 主要是 Cli 命令行，客户端为用户提供一系列指令与 Docker daemon 交互 通过 restful api 进行通信   有人命名为：洋葱模型  远程还有个 Registry 存储仓库，类似 github 一样，有公共的 dockerhub，也可以自己搭私有的仓库  技术组件  LXC： Linux 容器技术，共享内核，容器共享宿主机资源，使用 namespace 和 cgroups 对资源限制与隔离。 Cgroups（control groups）： Linux 内核提供的一种限制单进程或者多进程资源的机制；比如 CPU、内存等资源的使用限制。 NameSpace：命名空间，也称名字空间， Linux 内核提供的一种限制单进程或者多进程资源隔离机制；一个进程可以属于多个命名空间。 Linux 内核提供了六种 NameSpace：  UTS：文件 IPC：通信 PID：进程 Network：网络 Mount： User：用户  UFS（UnionFS）：联合文件系统，支持将不同位置的目录挂载到同一虚拟文件系统，形成一种分层的模型；成员目录称为虚拟文件系统的一个分支（branch） AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种，每个 branch 可以指定 readonly（只读）readwrite（读写）和 whiteout-able（wo 隐藏）权限；一般情况下， aufs 只有最上层的 branch 才有读写权限，其他 branch 均为只读权限。  和虚拟机对比 同样是虚拟化技术，它和虚拟机的区别：</description>
+      <guid>https://tomatoares.github.io/posts/cloud/docker/</guid>
+      <description>docker 是什么 应用容器引擎 基于内核虚拟化技术： Linux Container 开源的 Go 语言编写 理念————容器： 标准化包：将应用和依赖打包成一个可移植的容器（镜像）， 任意系统：可发布、运行到任意 docker 引擎上， 进程级隔离：进行沙箱运行机制，程序之间相互隔离 基本架构：C/S Server: Dcoker daemon 作为服务端接受来自客户端请求， 并处理这些请</description>
     </item>
     
     <item>
       <title>Rpc 标准库的几种实现方式</title>
-      <link>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <link>https://tomatoares.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Thu, 12 Sep 2019 11:43:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
-      <description>server server.go
-package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;net&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;net/rpc&amp;quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.</description>
+      <guid>https://tomatoares.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <description>server server.go package main import ( &amp;#34;errors&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;net&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;net/rpc&amp;#34; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.A * args.B return nil } func (t *Arith) Divide(args *Args, quo *Quotient) error { if args.B == 0 { return errors.New(&amp;#34;divide by zero&amp;#34;) } quo.Quo = args.A / args.B quo.Rem = args.A % args.B return nil } func main() { arith := new(Arith) rpc.Register(arith) rpc.HandleHTTP() // http 实现 err := http.ListenAndServe(&amp;#34;:1234&amp;#34;, nil) // http rpc 监听 if err != nil { fmt.Println(err.Error()) } } // TCP 实现 //func main() { // arith := new(Arith) // rpc.Register(arith) // tcpAddr, err := net.ResolveTCPAddr(&amp;#34;tcp&amp;#34;, &amp;#34;:1234&amp;#34;) // checkError(err) // listener, err := net.ListenTCP(&amp;#34;tcp&amp;#34;, tcpAddr) // checkError(err) // for</description>
     </item>
     
     <item>
       <title>BSD 是什么</title>
-      <link>https://TomatoAres.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <link>https://tomatoares.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</link>
       <pubDate>Wed, 11 Sep 2019 22:53:00 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
-      <description>关键词：操作系统，风格  BSD (Berkeley Software Distribution，伯克利软件套件)是 Unix 的衍生系统，在 1977 至 1995 年间由加州大学伯克利分校开发和发布的。</description>
+      <guid>https://tomatoares.github.io/posts/others/BSD-%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>关键词：操作系统，风格 BSD (Berkeley Software Distribution，伯克利软件套件)是 Unix 的衍生系统，在 1977 至 1995 年间由加州大学伯克利分校开发和发布的。 历史上， BSD 曾经被认为是 UNIX 的一支——&amp;ldquo;BSD UNIX&amp;rdquo;, 因为它和 AT&amp;amp;T UNIX 操作系统共享基础代码和设计。 在 20 世纪 80 年代，衍生出了许多变形的 UNIX 授权软件。比较著</description>
+    </item>
+    
+    <item>
+      <title>Go 正则</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E6%AD%A3%E5%88%99/</link>
+      <pubDate>Wed, 11 Sep 2019 22:44:54 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E6%AD%A3%E5%88%99/</guid>
+      <description>正则作用 匹配 是否存在：match 匹配 提取：find 匹配 替换：replace 匹配 其他操作 匹配 是否存在 match matchstring matchrender re.match re.matchstring 匹配提取 find Regexp 类型提供了多达 16（2^4）个方法，用于匹配正则表达式并获取匹配的结果。它们的名字满足如下正则表达式： Find(All)?(String)?(Submatch)?(Index)? 如果&amp;rsquo;All&amp;rsquo;出现了，该方法会返</description>
     </item>
     
     <item>
       <title>Go xml json 小结</title>
-      <link>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
       <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
-      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
-解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;rdquo;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：</description>
+      <guid>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
+      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问 解析 XML，反序列化，Unmarshal 如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;quot;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子</description>
+    </item>
+    
+    <item>
+      <title>登录状态保持的发展——session，token</title>
+      <link>https://tomatoares.github.io/posts/web/%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81%E7%9A%84%E5%8F%91%E5%B1%95/</link>
+      <pubDate>Wed, 11 Sep 2019 18:56:33 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/web/%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E4%BF%9D%E6%8C%81%E7%9A%84%E5%8F%91%E5%B1%95/</guid>
+      <description>根本原因 http 是无状态的协议 以后能从这根本上解决吗？ 1.很久以前：没有这个需求 很久很久以前，Web 基本上就是文档的浏览而已，既然是浏览，作为服务器，不需要记录谁在某一段时间里都浏览了什么文档，每次请求都是一个新的 HTTP 协议， 就是请求加响应， 尤其是我不用记住是谁刚刚发了 HTTP 请求， 每个请求对我</description>
     </item>
     
     <item>
       <title>MongoDB 简介</title>
-      <link>https://TomatoAres.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</link>
+      <link>https://tomatoares.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Wed, 11 Sep 2019 18:03:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</guid>
-      <description>MongoDB 是什么  是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。  下图展示了 mysql 和 mongoDB 之间的对应关系，我们可以看出来非常的方便，但是 mongoDB 的性能非常好。 优缺点 优点：</description>
+      <guid>https://tomatoares.github.io/posts/database/MongoDB-%E7%AE%80%E4%BB%8B/</guid>
+      <description>MongoDB 是什么 是一个高性能，开源，无模式的文档型数据库， 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 他支持的数据结构非常松散，采用的是类似 json 的 bjson 格式来存储数据，因此可以存储比较复杂的数据类型。Mongo 最大的特点是他支持的查询语言非常强</description>
     </item>
     
     <item>
       <title>防止多次重复提交表单</title>
-      <link>https://TomatoAres.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/</link>
+      <link>https://tomatoares.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/</link>
       <pubDate>Wed, 11 Sep 2019 17:50:46 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/</guid>
-      <description>解决方案 1 是在表单中添加一个带有唯一值的隐藏字段。在验证表单时，先检查带有该惟一值的表单是否已经递交过了。如果是，拒绝再次递交；如果不是，则处理表单进行逻辑处理。
-解决方案 2 如果是采用了 Ajax 模式递交表单的话，当表单递交后，通过 javascript 来禁用表单的递交按钮</description>
+      <guid>https://tomatoares.github.io/posts/web/%E9%98%B2%E6%AD%A2%E5%A4%9A%E6%AC%A1%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/</guid>
+      <description>解决方案 1 是在表单中添加一个带有唯一值的隐藏字段。在验证表单时，先检查带有该惟一值的表单是否已经递交过了。如果是，拒绝再次递交；如果不是，则处理表单进行逻辑处理。 解决方案 2 如果是采用了 Ajax 模式递交表单的话，当表单递交后，通过 javascript 来禁用表单的递交按钮</description>
     </item>
     
     <item>
       <title>Go 时区设置</title>
-      <link>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <link>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
       <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
-      <description>获取 time 对象 设置时区 按设置的时区输出
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func main() { now := time.</description>
+      <guid>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <description>获取 time 对象 设置时区 按设置的时区输出 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) func main() { now := time.Now() // 1. 获取 time 对象 // 2. 设置时区 local1, err1 := time.LoadLocation(&amp;#34;&amp;#34;) //等同于&amp;#34;UTC&amp;#34; if err1 != nil { fmt.Println(err1) } local2, err2 := time.LoadLocation(&amp;#34;Local&amp;#34;)//本地的时区 if err2 != nil { fmt.Println(err2) } local3, err3 := time.LoadLocation(&amp;#34;America/Los_Angeles&amp;#34;) if err3 != nil { fmt.Println(err3) } // 3. 按设置的</description>
+    </item>
+    
+    <item>
+      <title>Go Http 工作过程</title>
+      <link>https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 11 Sep 2019 15:29:49 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/</guid>
+      <description>Go 代码的执行流程 通过对 http 包的分析之后，现在让我们来梳理一下整个的代码执行过程。 首先调用 Http.HandleFunc 按顺序做了几件事： 调用了 DefaultServerMux 的 HandleFunc 调用了 DefaultServerMux 的 Handle 往 DefaultServeMux 的 map[string]muxEntry 中增加对应的 handler 和路由规则 其次调用 http.ListenAndServe(&amp;quot;:9090&amp;quot;, nil) 按顺序做了几件事情： 实例化 Server 调用 Server 的 ListenAndServe() 调用 net.Listen(&amp;ldquo;tcp&amp;rdquo;, addr) 监听端口 动一个 for 循环，在循环体中 Accept 请求 对每个请求实例化一个 C</description>
     </item>
     
     <item>
       <title>无状态 和 Keep Alive 的区别</title>
-      <link>https://TomatoAres.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <link>https://tomatoares.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
       <pubDate>Tue, 10 Sep 2019 21:51:19 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-      <description>无状态 = 无记忆 无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。
-HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能保持 TCP 连接，更不能代表 HTTP 使用的是 UDP 协议（面对无连接）。</description>
+      <guid>https://tomatoares.github.io/posts/web/%E6%97%A0%E7%8A%B6%E6%80%81-keep-alive%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>无状态 = 无记忆 无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。 HTTP 是一个无状态的面向连接的协议，无状态不代表 HTTP 不能保持 TCP 连接，更不能代表 HTTP 使用的是 UDP 协议（面对无连接）。 Keep alive 保持</description>
     </item>
     
     <item>
       <title>Http 状态码小结</title>
-      <link>https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <link>https://tomatoares.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</link>
       <pubDate>Tue, 03 Sep 2019 16:14:53 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
-      <description> HTTP 响应状态代码指示特定 HTTP 请求的 *状态（是否完成）*。
-响应分为五类：
- 信息响应(100–199) 成功响应(200–299)， 重定向(300–399)， 客户端错误(400–499) 服务器错误 (500–599)。  信息响应节  100 Continue 这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求，如果已经完成，则忽略它。 101 Switching Protocol:该代码是响应客户端的 Upgrade 标头发送的，并且指示服务器也正在切换的协议。 102 Processing (WebDAV) :此代码表示服务器已收到并正在处理该请求，但没有响应可用。 103 Early Hints :此状态代码主要用于与 Link 链接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。  成功响应节  200 OK :请求成功。成功的含义取决于 HTTP 方法：  GET：资源已被提取并在消息正文中传输。 HEAD：实体标头位于消息正文中。 POST：描述动作结果的资源在消息体中传输。 TRACE：消息正文包含服务器收到的请求消息  201 Created: 该请求已成功，并因此创建了一个新的资源。这通常是在 POST 请求，或是某些 PUT 请求之后返回的响应。 202 Accepted :请求已经接收到，但还未响应，没有结果。意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。 203 Non-Authoritative Information :服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。当前的信息可能是原始版本的子集或者超集。 例如，包含资源的元数据可能导致原始服务器知道元信息的超集。使用此状态码不是必须的，而且只有在响应不使用此状态码便会返回 200 OK 的情况下才是合适的。 204 No Content :服务器成功处理了请求，但不需要返回任何实体内容，并且希望返回更新了的元信息。响应可能通过实体头部的形式，返回新的或更新后的元信息。 如果存在这些头部信息，则应当与所请求的变量相呼应。 如果客户端是浏览器的话，那么用户浏览器应保留发送了该请求的页面，而不产生任何文档视图上的变化，即使按照规范新的或更新后的元信息应当被应用到用户浏览器活动视图中的文档。 由于 204 响应被禁止包含任何消息体，因此它始终以消息头后的第一个空行结尾。 205 Reset Content:服务器成功处理了请求，且没有返回任何内容。 但是与 204 响应不同，返回此状态码的响应要求请求者重置文档视图。 该响应主要是被用于接受用户输入后，立即重置表单，以便用户能够轻松地开始另一次输入。与 204 响应一样，该响应也被禁止包含任何消息体，且以消息头后的第一个空行结束。 206 Partial Content: 服务器已经成功处理了部分 GET 请求。 类似于 FlashGet 或者迅雷这类的 HTTP 下载工具都是使用此类响应实现断点续传或者将一个大文档分解为多个下载段同时下载。 该请求必须包含 Range 头信息来指示客户端希望得到的内容范围，并且可能包含 If-Range 来作为请求条件。 207 Multi-Status (WebDAV): 由 WebDAV(RFC 2518) 扩展的状态码，代表之后的消息体将是一个 XML 消息，并且可能依照之前子请求数量的不同，包含一系列独立的响应代码。 208 Multi-Status (WebDAV) : 在 DAV 里面使用: propstat 响应元素以避免重复枚举多个绑定的内部成员到同一个集合。 226 IM Used (HTTP Delta encoding): 服务器已经完成了对资源的 GET 请求，并且响应是对当前实例应用的一个或多个实例操作结果的表示。  重定向节  300 Multiple Choice: 被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和浏览器驱动的商议信息。用户或浏览器能够自行选择一个首选的地址进行重定向。 301 Moved Permanently: 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。 如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。 302 Found : 请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。 只有在 Cache-Control 或 Expires 中进行了指定的情况下，这个响应才是可缓存的。 303 See Other :对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。 这个方法的存在主要是为了允许由脚本激活的 POST 请求输出重定向到一个新的资源。 304 Not Modified : 如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304 响应禁止包含消息体， 因此始终以消息头后的第一个空行结尾。 305 Use Proxy 被请求的资源必须通过指定的代理才能被访问。Location 域中将给出指定的代理所在的 URI 信息，接收者需要重复发送一个单独的请求，通过这个代理才能访问相应资源。只有原始服务器才能建立 305 响应。 306 unused 在最新版的规范中，306 状态码已经不再被使用。 307 Temporary Redirect 请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在 Cache-Control 或 Expires 中进行了指定的情况下，这个响应才是可缓存的。 308 Permanent Redirect 这意味着资源现在永久位于由 Location: HTTP Response 标头指定的另一个 URI。 这与 301 Moved Permanently HTTP 响应代码具有相同的语义，但用户代理不能更改所使用的 HTTP 方法：如果在第一个请求中使用 POST，则必须在第二个请求中使用 POST。  客户端响应节  400 Bad Request 错误请求  语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。 请求参数有误。  401 Unauthorized 未认证： 当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate 信息头用以询问用户信息。客户端可以重复提交一个包含恰当的 Authorization 头信息的请求。如果当前请求已经包含了 Authorization 证书，那么 401 响应代表着服务器验证已经拒绝了那些证书。如果 401 响应包含了与前一个响应相同的身份验证询问，且浏览器已经至少尝试了一次验证，那么浏览器应当向用户展示响应中包含的实体信息，因为这个实体信息中可能包含了相关诊断信息。 402 Payment Required： 此响应码保留以便将来使用，创造此响应码的最初目的是用于数字支付系统，然而现在并未使用。 403 Forbidden： 服务器已经理解请求，但是拒绝执行它。 *与 401 响应不同的是，身份验证并不能提供任何帮助*，而且这个请求也不应该被重复提交。 如果这不是一个 HEAD 请求，而且服务器希望能够讲清楚为何请求不能被执行，那么就应该在实体内描述拒绝的原因。 当然服务器也可以返回一个 404 响应，假如它不希望让客户端获得任何信息。 404 Not Found： 请求失败，请求所希望得到的资源未被在服务器上发现。 没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用 410 状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404 这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。 405 Method Not Allowed ：请求行中指定的请求方法不能被用于请求相应的资源。 该响应必须返回一个 Allow 头信息用以表示出当前资源能够接受的请求方法的列表。 鉴于 PUT，DELETE 方法会对服务器上的资源进行写操作，因而绝大部分的网页服务器都不支持或者在默认配置下不允许上述请求方法，对于此类请求均会返回 *405 *错误。 406 Not Acceptable ：请求的资源的内容特性无法满足请求头中的条件，因而无法生成响应实体。 407 Proxy Authentication Required： 与 401 响应类似，只不过客户端必须在代理服务器上进行身份验证。代理服务器必须返回一个 Proxy-Authenticate 用以进行身份询问。客户端可以返回一个 Proxy-Authorization 信息头用以验证。 408 Request Timeout： 请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。客户端可以随时再次提交这一请求而无需进行任何更改。 409 Conflict: 由于和被请求的资源的当前状态之间存在冲突，请求无法完成。这个代码只允许用在这样的情况下才能被使用：用户被认为能够解决冲突，并且会重新提交新的请求。该响应应当包含足够的信息以便用户发现冲突的源头。 410 Gone: 被请求的资源在服务器上已经不再可用，而且没有任何已知的转发地址。这样的状况应当被认为是永久性的。如果可能，拥有链接编辑功能的客户端应当在获得用户许可后删除所有指向这个地址的引用。如果服务器不知道或者无法确定这个状况是否是永久的，那么就应该使用 404 状态码。除非额外说明，否则这个响应是可缓存的。 411 Length Required:服务器拒绝在没有定义 Content-Length 头的情况下接受请求。在添加了表明请求消息体长度的有效 Content-Length 头之后，客户端可以再次提交该请求。 412 Precondition Failed: 服务器在验证在请求的头字段中给出先决条件时，没能满足其中的一个或多个。这个状态码允许客户端在获取资源时在请求的元信息（请求头字段数据）中设置先决条件，以此避免该请求方法被应用到其希望的内容以外的资源上。 413 Payload Too Large: 服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。此种情况下，服务器可以关闭连接以免客户端继续发送此请求。如果这个状况是临时的，服务器应当返回一个 Retry-After 的响应头，以告知客户端可以在多少时间以后重新尝试。 414 URI Too Long 请求的 URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。这比较少见，通常的情况包括：本应使用 POST 方法的表单提交变成了 GET 方法，导致查询字符串（Query String）过长。 415 Unsupported Media Type 对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。 416 Requested Range Not Satisfiable 如果请求中包含了 Range 请求头，并且 Range 中指定的任何数据范围都与当前资源的可用范围不重合，同时请求中又没有定义 If-Range 请求头，那么服务器就应当返回 416 状态码。 417 Expectation Failed 此响应代码意味着服务器无法满足 Expect 请求标头字段指示的期望值。 418 I&amp;rsquo;m a teapot 服务器拒绝尝试用 “茶壶冲泡咖啡”。 421 Misdirected Request 该请求针对的是无法产生响应的服务器。 这可以由服务器发送，该服务器未配置为针对包含在请求 URI 中的方案和权限的组合产生响应。 422 Unprocessable Entity (WebDAV) 请求格式良好，但由于语义错误而无法遵循。 423 Locked (WebDAV) 正在访问的资源被锁定。 424 Failed Dependency (WebDAV) 由于先前的请求失败，所以此次请求失败。 425 Too Early 服务器不愿意冒着风险去处理可能重播的请求。 426 Upgrade Required 服务器拒绝使用当前协议执行请求，但可能在客户机升级到其他协议后愿意这样做。 服务器在 426 响应中发送 Upgrade 头以指示所需的协议。 428 Precondition Required 原始服务器要求该请求是有条件的。 旨在防止“丢失更新”问题，即客户端获取资源状态，修改该状态并将其返回服务器，同时第三方修改服务器上的状态，从而导致冲突。 429 Too Many Requests 用户在给定的时间内发送了太多请求（“限制请求速率”）。 431 Request Header Fields Too Large 服务器不愿意处理请求，因为它的 请求头字段太大（ Request Header Fields Too Large）。 请求可以在减小请求头字段的大小后重新提交。 451 Unavailable For Legal Reasons 用户请求非法资源，例如：由政府审查的网页。  服务端响应节  500 Internal Server Error 服务器遇到了不知道如何处理的情况。 501 Not Implemented 此请求方法不被服务器支持且无法被处理。只有 GET 和 HEAD 是要求服务器支持的，它们必定不会返回此错误代码。 502 Bad Gateway 此错误响应表明服务器作为网关需要得到一个处理这个请求的响应，但是得到一个错误的响应。 503 Service Unavailable 服务器没有准备好处理请求。 常见原因是服务器因维护或重载而停机。 请注意，与此响应一起，应发送解释问题的用户友好页面。 这个响应应该用于临时条件和 Retry-After：如果可能的话，HTTP 头应该包含恢复服务之前的估计时间。 网站管理员还必须注意与此响应一起发送的与缓存相关的标头，因为这些临时条件响应通常不应被缓存。 504 Gateway Timeout 当服务器作为网关，不能及时得到响应时返回此错误代码。 505 HTTP Version Not Supported 服务器不支持请求中所使用的 HTTP 协议版本。 506 Variant Also Negotiates 服务器有一个内部配置错误：对请求的透明内容协商导致循环引用。 507 Insufficient Storage 服务器有内部配置错误：所选的变体资源被配置为参与透明内容协商本身，因此不是协商过程中的适当端点。 508 Loop Detected (WebDAV) 服务器在处理请求时检测到无限循环。 510 Not Extended 客户端需要对请求进一步扩展，服务器才能实现它。服务器会回复客户端发出扩展请求所需的所有信息。 511 Network Authentication Required 511 状态码指示客户端需要进行身份验证才能获得网络访问权限。  </description>
+      <guid>https://tomatoares.github.io/posts/web/http-%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>HTTP 响应状态代码指示特定 HTTP 请求的 状态（是否完成）。 响应分为五类： 信息响应(100–199) 成功响应(200–299)， 重定向(300–399)， 客户端错误(400–499) 服务器错误 (500–599)。 信息响应节 100 Continue 这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求</description>
     </item>
     
     <item>
       <title>行数据库 vs 列数据库</title>
-      <link>https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <link>https://tomatoares.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
       <pubDate>Tue, 03 Sep 2019 14:29:20 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>是什么  列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。  举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一个表：
-   EmpId Lastname Firstname Salary     1 Smith Joe 40000   2 Jones Mary 50000   3 Johnson Cathy 44000    这个简单的表包括员工代码(EmpId), 姓名字段(Lastname and Firstname)及工资(Salary).</description>
+      <guid>https://tomatoares.github.io/posts/database/%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93-vs-%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>是什么 列式数据库是以列相关存储架构进行数据存储的数据库，主要适合于批量数据处理和即时查询。 行式数据库，数据以行相关的存储体系架构进行空间分配，主要适合于小批量的数据处理，常用于联机事务型数据处理。 举例 数据库以行、列的二维表的形式存储数据，但是却以一维字符串的方式存储，例如以下的一</description>
+    </item>
+    
+    <item>
+      <title>Iptables 使用</title>
+      <link>https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 13:17:16 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/tools/iptables-%E4%BD%BF%E7%94%A8/</guid>
+      <description>是什么 Linux 上常用的防火墙软件，是 netfilter 项目的一部分。 可以直接配置，也可以通过许多前端和图形界面配置 语法 iptables(选项)(参数) 选项 -t, &amp;ndash;table table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。 通用匹配：源地址目标地址的匹</description>
+    </item>
+    
+    <item>
+      <title>Tcpdump 使用</title>
+      <link>https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 13:16:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/</guid>
+      <description>是什么 用简单的话来定义 tcpdump，就是：dump the traffic on a network，根据使用者的定义对网络上的数据包进行截获的包分析工具。 tcpdump 可以将网络中传送的数据包的“头”完全截获下来提供分析。 它支持针对网络层、协议、主机、网络或端口的过滤，并提供 and、or、not 等逻辑语句来帮助你去</description>
     </item>
     
     <item>
       <title>Radix Tree 基数树</title>
-      <link>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+      <link>https://tomatoares.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
       <pubDate>Mon, 02 Sep 2019 23:10:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
-      <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
-定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。</description>
+      <guid>https://tomatoares.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
+      <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习 定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。 假如树中的一个节点是父节点的唯一子节点(the only child)的话，那么该子节点将会</description>
     </item>
     
     <item>
       <title>Csrf Xss 总结·对比</title>
-      <link>https://TomatoAres.github.io/posts/web/csrf-xss/</link>
+      <link>https://tomatoares.github.io/posts/web/csrf-xss/</link>
       <pubDate>Mon, 02 Sep 2019 21:49:35 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/csrf-xss/</guid>
-      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
-CSRF 可以做什么？</description>
+      <guid>https://tomatoares.github.io/posts/web/csrf-xss/</guid>
+      <description>CSRF 是什么 CSRF（Cross-site request forgery）：跨站请求伪造。也被称为：one click attack/session riding，缩写为：CSRF/XSRF。 CSRF 可以做什么？ 你这可以这么理解 CSRF 攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF 能够做的事情包括：以你名义发送邮件，发消息，盗取你的账</description>
     </item>
     
     <item>
       <title>Http 方法总结</title>
-      <link>https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</link>
       <pubDate>Mon, 02 Sep 2019 21:16:34 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
-      <description>一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。
-使用中发现：
- postman 和浏览器均无法携带 请求体 es 查询可以  二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。</description>
+      <guid>https://tomatoares.github.io/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</guid>
+      <description>一、GET GET 方法通常用于获取资源。在 GET 请求中一般不会包含呈现数据（如 HTML 文本、图片、视频等）。 使用中发现： postman 和浏览器均无法携带 请求体 es 查询可以 二、HEAD 获取报文的首部。和 GET 方法是一样的，但是他不反悔报文实体的主体部分。主要用于确认 URL 的有效性以及资源更新的日期时间等。 三、POST 一</description>
     </item>
     
     <item>
       <title>Go 逃逸分析</title>
-      <link>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <link>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
       <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
-      <description>参考：Go 逃逸分析
-堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
- 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，</description>
+      <guid>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <description>参考：Go 逃逸分析 堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下： 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack</description>
     </item>
     
     <item>
       <title> Go 堆栈的理解</title>
-      <link>https://TomatoAres.github.io/posts/go/heap-stack/</link>
+      <link>https://tomatoares.github.io/posts/go/heap-stack/</link>
       <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/heap-stack/</guid>
-      <description>来源：Go 堆栈的理解
-在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
-什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
-数据结构的堆栈：
-堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。
-栈：一种先进后出的数据结构。</description>
+      <guid>https://tomatoares.github.io/posts/go/heap-stack/</guid>
+      <description>来源：Go 堆栈的理解 在讲 Go 的堆栈之前，先温习一下堆栈基础知识。 什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。 数据结构的堆栈： 堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时</description>
     </item>
     
     <item>
       <title>Go GC </title>
-      <link>https://TomatoAres.github.io/posts/go/GC-Go/</link>
+      <link>https://tomatoares.github.io/posts/go/GC-Go/</link>
       <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/GC-Go/</guid>
-      <description>参考：GO GC 垃圾回收机制
-Go 作为一门高级语言，具有 自动垃圾回收 的功能。
-常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.</description>
+      <guid>https://tomatoares.github.io/posts/go/GC-Go/</guid>
+      <description>参考：GO GC 垃圾回收机制 Go 作为一门高级语言，具有 自动垃圾回收 的功能。 常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。 缺点： 1. 需要额外的空间存放</description>
     </item>
     
     <item>
       <title>GMP</title>
-      <link>https://TomatoAres.github.io/posts/go/GMP/</link>
+      <link>https://tomatoares.github.io/posts/go/GMP/</link>
       <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/GMP/</guid>
+      <guid>https://tomatoares.github.io/posts/go/GMP/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mysql 面试题总结</title>
-      <link>https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sun, 01 Sep 2019 19:52:00 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</guid>
-      <description>主键 超键 候选键 外键  主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。 候选键： 是最小超键，即没有冗余元素的超键。 外 键： 在一个表中存在的另一个表的主键称此表的外键。  事务 transanction MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</description>
+      <guid>https://tomatoares.github.io/posts/database/mysql-%E6%80%BB%E7%BB%93/</guid>
+      <description>主键 超键 候选键 外键 主 键： 数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。 超 键： 在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超</description>
     </item>
     
     <item>
       <title>HTTP 2.0</title>
-      <link>https://TomatoAres.github.io/posts/web/HTTP-2.0/</link>
+      <link>https://tomatoares.github.io/posts/web/HTTP-2.0/</link>
       <pubDate>Sat, 31 Aug 2019 17:55:36 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/HTTP-2.0/</guid>
-      <description>HTTP/2 (原本的名字是 HTTP/2.0) 是万维网使用的 HTTP 网络协议的第二个主要版本。HTTP/2 提供了更快的速度和更好的用户体验。
-特性  使用二进制格式传输数据，而不是文本。使得在解析和优化扩展上更为方便。 多路复用，所有的请求都是通过一个 TCP 连接并发完成。 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量。 Server Push：服务端能够更快的把资源推送给客户端。  参考：让面试官颤抖的 HTTP 2.</description>
+      <guid>https://tomatoares.github.io/posts/web/HTTP-2.0/</guid>
+      <description>HTTP/2 (原本的名字是 HTTP/2.0) 是万维网使用的 HTTP 网络协议的第二个主要版本。HTTP/2 提供了更快的速度和更好的用户体验。 特性 使用二进制格式传输数据，而不是文本。使得在解析和优化扩展上更为方便。 多路复用，所有的请求都是通过一个 TCP 连接并发完成。 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的</description>
     </item>
     
     <item>
       <title>Websocket 总结</title>
-      <link>https://TomatoAres.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 31 Aug 2019 16:36:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</guid>
-      <description>是什么  WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。 在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭  在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特定的时间间隔内，由浏览器对服务器发出 HTTP Request，服务器在收到请求后，返回最新的数据给浏览器刷新，“轮询”使得浏览器需要对服务器不断发出请求，这样会占用大量带宽。</description>
+      <guid>https://tomatoares.github.io/posts/web/websocket%E6%80%BB%E7%BB%93/</guid>
+      <description>是什么 WebSocket 是通过单个 TCP 连接提供全双工（双向通信）通信信道的计算机通信协议。 在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。——长链接，直到关闭 在 WebSocket 出现之前，为了实现即时通信，采用的技术都是“轮询”，即在特</description>
     </item>
     
     <item>
       <title>Restful 总结</title>
-      <link>https://TomatoAres.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 31 Aug 2019 16:24:33 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</guid>
-      <description>是什么 REST(REpresentational State Transfer) 这个概念，首次出现是在 2000 年 Roy Thomas Fielding（他是 HTTP 规范的主要编写者之一）的博士论文中，它指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful 的。</description>
+      <guid>https://tomatoares.github.io/posts/web/restful%E6%80%BB%E7%BB%93/</guid>
+      <description>是什么 REST(REpresentational State Transfer) 这个概念，首次出现是在 2000 年 Roy Thomas Fielding（他是 HTTP 规范的主要编写者之一）的博士论文中，它指的是一组架构约束条件和原则。满足这些约束条件和原则的应用程序或设计就是 RESTful 的。 要理解什么是 REST，我们需要理解下面几个概念： 资源（Resources） REST 是&amp;quot;表现层状</description>
     </item>
     
     <item>
       <title>Hugo 静态文件使用</title>
-      <link>https://TomatoAres.github.io/posts/others/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
+      <link>https://tomatoares.github.io/posts/others/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 29 Aug 2019 02:05:47 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
-      <description>放入 static 文件夹下
-例如： 图片放入 image 下 network 文件下
-！[说明文字](/image/network/文件名)  </description>
+      <guid>https://tomatoares.github.io/posts/others/hugo/hugo-%E9%9D%99%E6%80%81%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE/</guid>
+      <description>放入 static 文件夹下 例如： 图片放入 image 下 network 文件下 ！[说明文字](/image/network/文件名)</description>
     </item>
     
     <item>
       <title>Hugo github.io 无样式问题</title>
-      <link>https://TomatoAres.github.io/posts/others/hugo/hugo-%E6%A0%B7%E5%BC%8F/</link>
+      <link>https://tomatoares.github.io/posts/others/hugo/hugo-%E6%A0%B7%E5%BC%8F/</link>
       <pubDate>Thu, 29 Aug 2019 01:53:01 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/hugo/hugo-%E6%A0%B7%E5%BC%8F/</guid>
-      <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式
-hugo --theme=ananke --baseUrl=&amp;quot;http://TomatoAres.github.io/&amp;quot;  将上述命令中的 http 改为 https 即可解决</description>
+      <guid>https://tomatoares.github.io/posts/others/hugo/hugo-%E6%A0%B7%E5%BC%8F/</guid>
+      <description>hugo 建站后，生成静态页面并上传 github 仓库，无法正常显示主题样式 hugo --theme=ananke --baseUrl=&amp;#34;http://TomatoAres.github.io/&amp;#34; 将上述命令中的 http 改为 https 即可解决 hugo --theme=ananke --baseUrl=&amp;#34;https://TomatoAres.github.io/&amp;#34; 参考：使用 Hugo 搭建个人博客</description>
+    </item>
+    
+    <item>
+      <title>go test 工具的简单介绍和使用</title>
+      <link>https://tomatoares.github.io/posts/go/go-test/</link>
+      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-test/</guid>
+      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go 命名方式的文件，是 go test 编译的目标（不是 go build） 在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数： 功能测试函数：以 Test 前缀命名的函数，用来检测一些程序逻辑的正</description>
+    </item>
+    
+    <item>
+      <title>golang struct 能否比较</title>
+      <link>https://tomatoares.github.io/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/</guid>
+      <description>分情况讨论 同一个 struct 实例化出来的不同对象 关键看 里边有没有不可比较的字段类型 不同struct 实例化出来的对象 是否可以强制转换——所有字段类型都可以转 是否包含：不可比较类型 可排序、可比较和不可比较 安装官方文档，可比较的类型 必须是 Assignability 可赋值性的 可排序的数据类型有三种，Integer，Flo</description>
+    </item>
+    
+    <item>
+      <title>slice 相关一道题</title>
+      <link>https://tomatoares.github.io/posts/go/go-slice-Q/</link>
+      <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-slice-Q/</guid>
+      <description>package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; ) type AutoGenerated struct { Age int `json:&amp;#34;age&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` Child []int `json:&amp;#34;child&amp;#34;` } func main() { jsonStr1 := `{&amp;#34;age&amp;#34;: 14,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[1,2,3]}` a := AutoGenerated{} json.Unmarshal([]byte(jsonStr1), &amp;amp;a) aa := a.Child fmt.Println(aa) // output:[1,2,3] jsonStr2 := `{&amp;#34;age&amp;#34;: 12,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[3,4,5,7,8,9]}` json.Unmarshal([]byte(jsonStr2), &amp;amp;a) fmt.Println(aa) // output: [3,4,5] // fmt.Println(a.Child) // output: [3,4,5,7,8,9] } 解释 type AutoGenerated struct { Child []int } Then you do a := AutoGenerated{} // (1) jsonStr1 := `{&amp;#34;age&amp;#34;: 14,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[1,2,3]}` json.Unmarshal([]byte(jsonStr1), &amp;amp;a) // (2) aa := a.Child // (3) fmt.Println(aa) jsonStr2 := `{&amp;#34;age&amp;#34;: 12,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[3,4,5,7,8,9]}` json.Unmarshal([]byte(jsonStr2), &amp;amp;a) // (4) fmt.Println(aa) So, what happens: You create a variable, a, of type AutoGenerated which is initialized to the zero value for its type. Because of that, its Child field, which is a slice, is initialized to the zero value</description>
     </item>
     
     <item>
       <title>性能测试中 allocs/op 和 B/op 的含义</title>
-      <link>https://TomatoAres.github.io/posts/go/benchmark/</link>
+      <link>https://tomatoares.github.io/posts/go/benchmark/</link>
       <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/benchmark/</guid>
-      <description> allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
+      <guid>https://tomatoares.github.io/posts/go/benchmark/</guid>
+      <description>allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好</description>
     </item>
     
     <item>
       <title>TCP 总结</title>
-      <link>https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</link>
+      <link>https://tomatoares.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</link>
       <pubDate>Thu, 29 Aug 2019 00:52:58 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</guid>
-      <description>通信过程 服务端：
- socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接  三次握手——建立通信过程 参考：TCP 的三次握手与四次挥手（详解+动图）</description>
+      <guid>https://tomatoares.github.io/posts/network/TCP-%E6%80%BB%E7%BB%93/</guid>
+      <description>通信过程 ![通信过程](/image/network/tcp 通信过程。png) 服务端： socket：建立 socket bind：绑定服务端 ip listen：开始监听 accept：等待连接（阻塞） read/write：通信 close：关闭连接 三次握手——建立通信过程 参考：TCP 的三次握手与四次挥</description>
     </item>
     
     <item>
       <title>进程线程协程总结</title>
-      <link>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
+      <link>https://tomatoares.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:55:05 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
-      <description>一句话 CPU 占用时间间隔的单位
-通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别
- 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
- 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。</description>
+      <guid>https://tomatoares.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
+      <description>一句话 CPU 占用时间间隔的单位 通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是</description>
     </item>
     
     <item>
       <title>Docker 简介</title>
-      <link>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
+      <link>https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:18:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
-      <description>是什么？  容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现  能干什么？  持续集成  简化配置 代码流水线管理 快速部署 提高开发效率  版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全  和虚拟机比的优势  轻量 M G —— 资源都是钱 性能高  共享主机内核， 没有 Hypervisor 层开销 系统级虚拟化， 占用资源少  使用更加方便  配置简单——标准化 要求低，不需要 CPU 虚拟化技术支持   虚拟机也有优势  安全性好——docker 只是进程级别的隔离，虚拟机是物理层面的隔离 有自己完整的操作系统  涉及到的技术  LXC: Linux 容器技术，共享内核 Cgroups ：control groups  内核提供的限制资源的技术（CPU，内存）  namespace：隔离技术：  UTS—— 每个容器可以有自己的 hostname 和 domainame IPC——进程间通信 每个容器有其自己的 System V IPC 和 POSIX 消息队列文件系统，因此，只有在同一个 IPC namespace 的进程之间才能互相通信 PID——进程 每个 PID namespace 中的进程可以有其独立的 PID Network、每个容器用有其独立的网络设备，IP 地址，IP 路由表， Mount——每个容器能看到不同的文件系统层次结构 User 每个 container 可以有不同的 user 和 group id  AUFS（advanced multi layered unification filesystem）：高级多层统一文件系统，是 UFS 的一种  docker engine 关键词：洋葱模型，cs 架构</description>
+      <guid>https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/</guid>
+      <description>是什么？ 容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现 能干什么？ 持续集成 简化配置 代码流水线管理 快速部署 提高开发效率 版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全 和虚拟机比的优势 轻量 M G —— 资源都是钱 性能高 共享主机内核， 没有 Hypervisor 层开销 系</description>
     </item>
     
     <item>
       <title>channel 总结</title>
-      <link>https://TomatoAres.github.io/posts/go/channel/</link>
+      <link>https://tomatoares.github.io/posts/go/channel/</link>
       <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/channel/</guid>
-      <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType .</description>
+      <guid>https://tomatoares.github.io/posts/go/channel/</guid>
+      <description>1. 声明和类型 ChannelType = ( &amp;#34;chan&amp;#34; | &amp;#34;chan&amp;#34; &amp;#34;&amp;lt;-&amp;#34; | &amp;#34;&amp;lt;-&amp;#34; &amp;#34;chan&amp;#34; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &amp;lt;- chan int 仅可写：var OnlyWriteChannel chan &amp;lt;- int 初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer 2. 操作 c := make(chan int) 读:i := &amp;lt;- c 写: c &amp;lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值</description>
     </item>
     
     <item>
       <title>TCP UDP 总结</title>
-      <link>https://TomatoAres.github.io/posts/network/tcp-udp/</link>
+      <link>https://tomatoares.github.io/posts/network/tcp-udp/</link>
       <pubDate>Sun, 18 Aug 2019 23:30:07 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/tcp-udp/</guid>
-      <description>UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
-UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP 是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP 一般用于多点通信和实时的数据业务，比如</description>
+      <guid>https://tomatoares.github.io/posts/network/tcp-udp/</guid>
+      <description>UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。 UDP 特点 无连接：UDP 是面向无连接</description>
     </item>
     
     <item>
       <title>Influxdb 简介</title>
-      <link>https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</link>
+      <link>https://tomatoares.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Sun, 18 Aug 2019 23:07:22 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</guid>
-      <description>概述  使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法  三大特性：</description>
+      <guid>https://tomatoares.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/</guid>
+      <description>概述 使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法 三大特性： 时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，</description>
     </item>
     
     <item>
       <title>MaxSumArray</title>
-      <link>https://TomatoAres.github.io/posts/leetcode/maxSumArray/</link>
+      <link>https://tomatoares.github.io/posts/leetcode/maxSumArray/</link>
       <pubDate>Sat, 17 Aug 2019 17:40:19 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/leetcode/maxSumArray/</guid>
-      <description>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例:
-Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</description>
+      <guid>https://tomatoares.github.io/posts/leetcode/maxSumArray/</guid>
+      <description>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例: Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</description>
     </item>
     
     <item>
       <title>Echo 框架的简单使用</title>
-      <link>https://TomatoAres.github.io/posts/web/echo/</link>
+      <link>https://tomatoares.github.io/posts/web/echo/</link>
       <pubDate>Fri, 16 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/web/echo/</guid>
-      <description>本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。
-源码
-特性概述 总的来说：轻量·高效
- 优化的 HTTP 路由器，巧妙地确定路由优先级</description>
+      <guid>https://tomatoares.github.io/posts/web/echo/</guid>
+      <description>本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。 源码 特性概述 总的来说：轻量·高效 优化的 HTTP 路由器，巧妙地确定路由优先级 构建健壮且可伸缩的 RESTful API 组 API 可扩展的中间件框架 以根，组或路径级别定义中间件 JSON，XML 和表单的数据绑定 便捷地发送各种 HTTP 响应 集中的 HTTP 错误处理 可以使</description>
     </item>
     
     <item>
       <title>横向·纵向扩展区别</title>
-      <link>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</link>
+      <link>https://tomatoares.github.io/posts/cloud/horizon-vertical/</link>
       <pubDate>Fri, 16 Aug 2019 16:54:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/cloud/horizon-vertical/</guid>
-      <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错
- 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。
- 如成千上万的蚂蚁完成一项搬运工作  纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。</description>
+      <guid>https://tomatoares.github.io/posts/cloud/horizon-vertical/</guid>
+      <description>经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。 如成千上万的蚂蚁完成一项搬运工作 纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。 如利用 1 个人的能力，如蜘蛛侠逼停火车</description>
     </item>
     
     <item>
       <title>How to Ask Questions—— 如何提问</title>
-      <link>https://TomatoAres.github.io/posts/others/how-to-ask-questions/</link>
+      <link>https://tomatoares.github.io/posts/others/how-to-ask-questions/</link>
       <pubDate>Thu, 15 Aug 2019 17:02:52 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/how-to-ask-questions/</guid>
-      <description>提问的智慧 艾瑞克。史蒂文。雷蒙德（Eric Steven Raymond） Thyrsus Enterprises
-esr@thyrsus.com
-瑞克。莫恩（Rick Moen） respond-auto@linuxmafia.</description>
+      <guid>https://tomatoares.github.io/posts/others/how-to-ask-questions/</guid>
+      <description>提问的智慧 艾瑞克。史蒂文。雷蒙德（Eric Steven Raymond） Thyrsus Enterprises esr@thyrsus.com 瑞克。莫恩（Rick Moen） respond-auto@linuxmafia.com 版权©2001, 2006 Eric S. Raymond, Rick Moen 修订历史 修订版 3.9 2013 年 4 月 23 日 esr 修正链接 修订版 3.8 2012 年 6 月 19 日 esr 修正链接 修订版 3.7 2010 年 12 月 6 日 esr 对于英语为第二语言人士的有益建议 修订版 3.7 2010 年 11 月 2 日 esr 几种翻译不</description>
+    </item>
+    
+    <item>
+      <title>Content</title>
+      <link>https://tomatoares.github.io/README/</link>
+      <pubDate>Wed, 14 Aug 2019 23:22:38 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/README/</guid>
+      <description>content 存储原文</description>
     </item>
     
     <item>
       <title>Hugo 文章不显示</title>
-      <link>https://TomatoAres.github.io/posts/others/hugo/hugo-no-article/</link>
+      <link>https://tomatoares.github.io/posts/others/hugo/hugo-no-article/</link>
       <pubDate>Wed, 14 Aug 2019 23:10:09 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/others/hugo/hugo-no-article/</guid>
-      <description>draft 草稿，若为真，则不现实
-所以：
-将 draft:true 改为 false 即可
-draft:false  </description>
+      <guid>https://tomatoares.github.io/posts/others/hugo/hugo-no-article/</guid>
+      <description>draft 草稿，若为真，则不现实 所以： 将 draft:true 改为 false 即可 draft:false</description>
     </item>
     
     <item>
       <title>Go 语言中的微服务</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</link>
       <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</guid>
-      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
-在这里，我要介绍以下框架：
- Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://TomatoAres.github.io/posts/storage/storage-source-code/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/storage/storage-source-code/</guid>
-      <description>kubernetes ceph rbd storage 源码探索 概述 kubernetes 当前存储对接第三方存储后端实现有两种模式共存
- in-tree：各种存储后端功能侵入式存在于源码中，耦合性高，不便于扩展与维护 out-of-tree:和源码解耦，类似于 CNI 的 CSI 有统一的接口规范，便于维护扩展  ，支持各种后端存储，csi 是一种理想，还在路上，也是可参与的 -- 以 ceph-rbd 为例看 provisioner（github.</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</guid>
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。 在这里，我要介绍以下框架： Go Micro Go Kit Gizmo Kite 框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最</description>
     </item>
     
     <item>
       <title>归档</title>
-      <link>https://TomatoAres.github.io/archives/</link>
+      <link>https://tomatoares.github.io/archives/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://TomatoAres.github.io/archives/</guid>
+      <guid>https://tomatoares.github.io/archives/</guid>
       <description></description>
     </item>
     

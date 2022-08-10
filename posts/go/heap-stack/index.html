@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title> Go 堆栈的理解 | 西红柿的博客</title>
     <meta property="og:title" content=" Go 堆栈的理解 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-02T20:39:15&#43;08:00">
+    <meta property="article:published_time" content='2019-09-02T20:39:15&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-09-02T20:39:15&#43;08:00">
+    <meta property="article:modified_time" content='2019-09-02T20:39:15&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content=" Go 堆栈的理解">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/heap-stack/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/go/heap-stack/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,89 +67,175 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#堆栈缓存方式">堆栈缓存方式</a></li>
+        <li><a href="#堆栈跟踪">堆栈跟踪</a></li>
+        <li><a href="#变量是堆heap还是堆栈stack">变量是堆（heap）还是堆栈（stack）</a></li>
+        <li><a href="#how-do-i-know-whether-a-variable-is-allocated-on-the-heap-or-the-stack">How do I know whether a variable is allocated on the heap or the stack?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title"> Go 堆栈的理解</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title"> Go 堆栈的理解</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年9月2日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Go">Go</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<p>来源：<a href="https://segmentfault.com/a/1190000017498101">Go 堆栈的理解</a></p>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>来源：<a href="https://segmentfault.com/a/1190000017498101">Go 堆栈的理解</a></p>
 <p>在讲 Go 的堆栈之前，先温习一下堆栈基础知识。</p>
-
 <p>什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。</p>
-
 <p><strong>数据结构的堆栈：</strong></p>
-
 <p>堆：堆可以被看成是一棵树，如：<a href="https://baike.baidu.com/item/%E5%A0%86%E6%8E%92%E5%BA%8F/2840151?fr=aladdin">堆排序</a>。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。</p>
-
 <p>栈：一种先进后出的数据结构。</p>
-
 <p>这里着重讲的是内存分配中的堆和栈。</p>
-
 <p><strong>内存分配中的堆和栈</strong></p>
-
 <p>栈（操作系统）：由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</p>
-
 <p>堆（操作系统）： 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链表。</p>
-
 <h3 id="堆栈缓存方式">堆栈缓存方式</h3>
-
 <p>栈使用的是一级缓存， 他们通常都是被调用时处于存储空间中，调用完毕立即释放。</p>
-
 <p>堆则是存放在二级缓存中，生命周期由<a href="https://baike.sogou.com/lemma/ShowInnerLink.htm?lemmaId=171478&amp;ss_c=ssc.citiao.link">虚拟机</a>的垃圾回收算法来决定（并不是一旦成为孤儿对象就能被回收）。所以调用这些对象的速度要相对来得低一些。</p>
-
 <h3 id="堆栈跟踪">堆栈跟踪</h3>
-
 <p>下面讨论堆栈跟踪信息以及如何在堆栈中识别函数所传递的参数。</p>
-
 <p>以下测试案例的版本是Go 1.11</p>
-
 <p>示例：</p>
+<pre tabindex="0"><code>package main
 
-<pre><code>package main
-
-import &quot;runtime/debug&quot;
+import &#34;runtime/debug&#34;
 
 func main() {
    slice := make([]string, 2, 4)
-   Example(slice, &quot;hello&quot;, 10)
+   Example(slice, &#34;hello&#34;, 10)
 }
 func Example(slice []string, str string, i int) {
    debug.PrintStack()
 }
-</code></pre>
-
-<p>列表1是一个简单的程序， main函数在第5行调用Example函数。Example函数在第9行声明，它有三个参数，一个字符串slice,一个字符串和一个整数。它的方法体也很简单，只有一行，debug.PrintStack（），这会立即产生一个堆栈跟踪信息:</p>
-
-<pre><code>goroutine 1 [running]:
+</code></pre><p>列表1是一个简单的程序， main函数在第5行调用Example函数。Example函数在第9行声明，它有三个参数，一个字符串slice,一个字符串和一个整数。它的方法体也很简单，只有一行，debug.PrintStack（），这会立即产生一个堆栈跟踪信息:</p>
+<pre tabindex="0"><code>goroutine 1 [running]:
 runtime/debug.Stack(0x1, 0x0, 0x0)
 	C:/Go/src/runtime/debug/stack.go:24 +0xae
 runtime/debug.PrintStack()
@@ -154,36 +244,23 @@ main.Example(0xc000077f48, 0x2, 0x4, 0x4abd9e, 0x5, 0xa)
 	D:/gopath/src/example/example/main.go:10 +0x27
 main.main()
 	D:/gopath/src/example/example/main.go:7 +0x79
-</code></pre>
-
-<p>堆栈跟踪信息：</p>
-
+</code></pre><p>堆栈跟踪信息：</p>
 <p>第一行显示运行的goroutine是id为 1的goroutine。</p>
-
 <p>第二行 debug.Stack()被调用</p>
-
 <p>第四行 debug.PrintStack() 被调用</p>
-
 <p>第六行 调用debug.PrintStack()的代码位置，位于main package下的Example函数。它也显示了代码所在的文件和路径，以及debug.PrintStack()发生的行数(第10行)。</p>
-
 <p>第八行 也调用Example的函数的名字，它是main package的main函数。它也显示了文件名和路径，以及调用Example函数的行数。</p>
-
 <p>下面主要分析 传递Example函数传参信息</p>
-
-<pre><code>// Declaration
+<pre tabindex="0"><code>// Declaration
 main.Example(slice []string, str string, i int)
 // Call to Example by main.
 slice := make([]string, 2, 4)
-Example(slice, &quot;hello&quot;, 10)
+Example(slice, &#34;hello&#34;, 10)
 // Stack trace
 main.Example(0x2080c3f50, 0x2, 0x4, 0x425c0, 0x5, 0xa)
-</code></pre>
-
-<p>上面列举了Example函数的声明，调用以及传递给它的值的信息。当你比较函数的声明以及传递的值时，发现它们并不一致。函数声明只接收三个参数，而堆栈中却显示6个16进制表示的值。理解这一点的关键是要知道每个参数类型的实现机制。</p>
-
+</code></pre><p>上面列举了Example函数的声明，调用以及传递给它的值的信息。当你比较函数的声明以及传递的值时，发现它们并不一致。函数声明只接收三个参数，而堆栈中却显示6个16进制表示的值。理解这一点的关键是要知道每个参数类型的实现机制。</p>
 <p>让我们看第一个[]string类型的参数。slice是引用类型，这意味着那个值是一个指针的头信息(header value)，它指向一个字符串。对于slice,它的头是三个word数，指向一个数组。因此前三个值代表这个slice。</p>
-
-<pre><code>// Slice parameter value
+<pre tabindex="0"><code>// Slice parameter value
 slice := make([]string, 2, 4)
 // Slice header values
 Pointer:  0xc00006df48
@@ -193,14 +270,11 @@ Capacity: 0x4
 main.Example(slice []string, str string, i int)
 // Stack trace
 main.Example(0xc00006df48, 0x2, 0x4, 0x4abd9e, 0x5, 0xa)
-
-</code></pre>
-
-<p>显示了<code>0xc00006df48</code>代表第一个参数[]string的指针，<code>0x2</code>代表slice长度，<code>0x4</code>代表容量。这三个值代表第一个参数。</p>
-
-<p><img src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.png?raw=true" alt="" /></p>
-
-<pre><code>// String parameter value
+</code></pre><p>显示了<code>0xc00006df48</code>代表第一个参数[]string的指针，<code>0x2</code>代表slice长度，<code>0x4</code>代表容量。这三个值代表第一个参数。</p>
+<p>
+        <img class="mx-auto" alt="" src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.png?raw=true" />   
+    </p>
+<pre tabindex="0"><code>// String parameter value
 “hello”
 // String header values
 Pointer: 0x4abd9e
@@ -209,16 +283,12 @@ Length:  0x5
 main.Example(slice []string, str string, i int)
 // Stack trace
 main.Example(0xc00006df48, 0x2, 0x4, 0x4abd9e, 0x5, 0xa) 
-
-</code></pre>
-
-<p>显示堆栈跟踪信息中的第4个和第5个参数代表字符串的参数。<code>0x4abd9e</code>是指向这个字符串底层数组的指针，<code>0x5</code>是&rdquo;hello&rdquo;字符串的长度，他们俩作为第二个参数。</p>
-
-<p><img src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.1.png?raw=true" alt="" /></p>
-
+</code></pre><p>显示堆栈跟踪信息中的第4个和第5个参数代表字符串的参数。<code>0x4abd9e</code>是指向这个字符串底层数组的指针，<code>0x5</code>是&quot;hello&quot;字符串的长度，他们俩作为第二个参数。</p>
+<p>
+        <img class="mx-auto" alt="" src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.1.png?raw=true" />   
+    </p>
 <p>第三个参数是一个整数，它是一个简单的word值。</p>
-
-<pre><code>// Integer parameter value
+<pre tabindex="0"><code>// Integer parameter value
 10
 // Integer value
 Base 16: 0xa
@@ -226,21 +296,17 @@ Base 16: 0xa
 main.Example(slice []string, str string, i int)
 // Stack trace
 main.Example(0xc00006df48, 0x2, 0x4, 0x4abd9e, 0x5, 0xa) 
-</code></pre>
-
-<p>显示堆栈中的最后一个参数就是Example声明中的第三个参数，它的值是<code>0xa</code>，也就是整数10。</p>
-
-<p><img src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.2.png?raw=true" alt="" /></p>
-
+</code></pre><p>显示堆栈中的最后一个参数就是Example声明中的第三个参数，它的值是<code>0xa</code>，也就是整数10。</p>
+<p>
+        <img class="mx-auto" alt="" src="https://github.com/guyan0319/golang_development_notes/blob/master/images/9.4.2.png?raw=true" />   
+    </p>
 <p><strong>Methods</strong></p>
-
 <p>接下来让我们稍微改动一下程序，让Example变成方法。</p>
-
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 import (
-   &quot;fmt&quot;
-   &quot;runtime/debug&quot;
+   &#34;fmt&#34;
+   &#34;runtime/debug&#34;
 )
 
 type trace struct{}
@@ -248,19 +314,15 @@ type trace struct{}
 func main() {
    slice := make([]string, 2, 4)
    var t trace
-   t.Example(slice, &quot;hello&quot;, 10)
+   t.Example(slice, &#34;hello&#34;, 10)
 }
 func (t *trace) Example(slice []string, str string, i int) {
-   fmt.Printf(&quot;Receiver Address: %p\n&quot;, t)
+   fmt.Printf(&#34;Receiver Address: %p\n&#34;, t)
    debug.PrintStack()
 }
-</code></pre>
-
-<p>上例在第8行新增加了一个类型trace，在第15将example改变为trace的pointer receiver的一个方法。第12行声明t的类型为trace，第13行调用它的方法。</p>
-
+</code></pre><p>上例在第8行新增加了一个类型trace，在第15将example改变为trace的pointer receiver的一个方法。第12行声明t的类型为trace，第13行调用它的方法。</p>
 <p>因为这个方法声明为pointer receiver的方法，Go使用t的指针来支持receiver type，即使代码中使用值来调用这个方法。当程序运行时，堆栈跟踪信息如下：</p>
-
-<pre><code>Receiver Address: 0x5781c8
+<pre tabindex="0"><code>Receiver Address: 0x5781c8
 goroutine 1 [running]:
 runtime/debug.Stack(0x15, 0xc000071ef0, 0x1)
 	C:/Go/src/runtime/debug/stack.go:24 +0xae
@@ -270,14 +332,10 @@ main.(*trace).Example(0x5781c8, 0xc000071f48, 0x2, 0x4, 0x4c04bb, 0x5, 0xa)
 	D:/gopath/src/example/example/main.go:17 +0x7c
 main.main()
 	D:/gopath/src/example/example/main.go:13 +0x9a
-</code></pre>
-
-<p>第7行清晰的表明方法的receiver为pointer type。方法名和报包名中间有(*trace)。第二个值得注意的是堆栈信息中方法的第一个参数为receiver的值。方法调用总是转换成函数调用，并将receiver的值作为函数的第一个参数。我们可以总堆栈信息中看到实现的细节。</p>
-
+</code></pre><p>第7行清晰的表明方法的receiver为pointer type。方法名和报包名中间有(*trace)。第二个值得注意的是堆栈信息中方法的第一个参数为receiver的值。方法调用总是转换成函数调用，并将receiver的值作为函数的第一个参数。我们可以总堆栈信息中看到实现的细节。</p>
 <p><strong>Packing</strong></p>
-
-<pre><code>import (
-   &quot;runtime/debug&quot;
+<pre tabindex="0"><code>import (
+   &#34;runtime/debug&#34;
 )
 
 func main() {
@@ -287,11 +345,8 @@ func Example(b1, b2, b3 bool, i uint8) {
 
    debug.PrintStack()
 }
-</code></pre>
-
-<p>再次改变Example的方法，让它接收4个参数。前三个参数是布尔类型的，第四个参数是8bit无符号整数。布尔类型也是8bit表示的，所以这四个参数可以被打包成一个word，包括32位架构和64位架构。当程序运行的时候，会产生有趣的堆栈：</p>
-
-<pre><code>goroutine 1 [running]:
+</code></pre><p>再次改变Example的方法，让它接收4个参数。前三个参数是布尔类型的，第四个参数是8bit无符号整数。布尔类型也是8bit表示的，所以这四个参数可以被打包成一个word，包括32位架构和64位架构。当程序运行的时候，会产生有趣的堆栈：</p>
+<pre tabindex="0"><code>goroutine 1 [running]:
 runtime/debug.Stack(0x4, 0xc00007a010, 0xc000077f88)
 	C:/Go/src/runtime/debug/stack.go:24 +0xae
 runtime/debug.PrintStack()
@@ -300,11 +355,8 @@ main.Example(0xc019010001)
 	D:/gopath/src/example/example/main.go:12 +0x27
 main.main()
 	D:/gopath/src/example/example/main.go:8 +0x30
-</code></pre>
-
-<p>可以看到四个值被打包成一个单一的值了0xc019010001</p>
-
-<pre><code>// Parameter values
+</code></pre><p>可以看到四个值被打包成一个单一的值了0xc019010001</p>
+<pre tabindex="0"><code>// Parameter values
 true, false, true, 25
 
 // Word value
@@ -319,57 +371,35 @@ main.Example(b1, b2, b3 bool, i uint8)
 
 // Stack trace
 main.Example(0x19010001)
-</code></pre>
-
-<p>显示了堆栈的值如何和参数进行匹配的。true用1表示，占8bit, false用0表示，占8bit,uint8值25的16进制为x19,用8bit表示。我们课哟看到它们是如何表示成一个word值的。</p>
-
+</code></pre><p>显示了堆栈的值如何和参数进行匹配的。true用1表示，占8bit, false用0表示，占8bit,uint8值25的16进制为x19,用8bit表示。我们课哟看到它们是如何表示成一个word值的。</p>
 <p>Go运行时提供了详细的信息来帮助我们调试程序。通过堆栈跟踪信息stack trace，解码传递个堆栈中的方法的参数有助于我们快速定位BUG。</p>
-
-<h3 id="变量是堆-heap-还是堆栈-stack">变量是堆（heap）还是堆栈（stack）</h3>
-
+<h3 id="变量是堆heap还是堆栈stack">变量是堆（heap）还是堆栈（stack）</h3>
 <p>写过c语言都知道，有明确的堆栈和堆的相关概念。而Go声明语法并没有提到堆栈或堆，只是在<a href="https://golang.org/doc/faq">Go的FAQ</a>里面有这么一段解释：</p>
-
 <h3 id="how-do-i-know-whether-a-variable-is-allocated-on-the-heap-or-the-stack">How do I know whether a variable is allocated on the heap or the stack?</h3>
-
 <p>From a correctness standpoint, you don&rsquo;t need to know. Each variable in Go exists as long as there are references to it. The storage location chosen by the implementation is irrelevant to the semantics of the language.</p>
-
 <p>The storage location does have an effect on writing efficient programs. When possible, the Go compilers will allocate variables that are local to a function in that function&rsquo;s stack frame. However, if the compiler cannot prove that the variable is not referenced after the function returns, then the compiler must allocate the variable on the garbage-collected heap to avoid dangling pointer errors. Also, if a local variable is very large, it might make more sense to store it on the heap rather than the stack.</p>
-
 <p>In the current compilers, if a variable has its address taken, that variable is a candidate for allocation on the heap. However, a basic <em>escape analysis</em> recognizes some cases when such variables will not live past the return from the function and can reside on the stack.</p>
-
 <p>意思：从正确的角度来看，您不需要知道。Go中的每个变量都存在，只要有对它的引用即可。实现选择的存储位置与语言的语义无关。</p>
-
 <p>存储位置确实会影响编写高效的程序。如果可能，Go编译器将为该函数的堆栈帧中的函数分配本地变量。但是，如果编译器在函数返回后无法证明变量未被引用，则编译器必须在垃圾收集堆上分配变量以避免悬空指针错误。此外，如果局部变量非常大，将它存储在堆而不是堆栈上可能更有意义。</p>
-
-<p>在当前的编译器中，如果变量具有其地址，则该变量是堆上分配的候选变量。但是，基本的*转义分析可以*识别某些情况，这些变量不会超过函数的返回值并且可以驻留在堆栈上。</p>
-
+<p>在当前的编译器中，如果变量具有其地址，则该变量是堆上分配的候选变量。但是，基本的<em>转义分析可以</em>识别某些情况，这些变量不会超过函数的返回值并且可以驻留在堆栈上。</p>
 <p>Go的编译器会决定在哪(堆or栈)分配内存，保证程序的正确性。</p>
-
 <p>下面通过反汇编查看具体内存分配情况：</p>
-
 <p>新建 main.go</p>
+<pre tabindex="0"><code>package main
 
-<pre><code>package main
-
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func main() {
    var a [1]int
    c := a[:]
    fmt.Println(c)
 }
-</code></pre>
-
-<p>查看汇编代码</p>
-
-<pre><code>go tool compile -S main.go
-</code></pre>
-
-<p>输出：</p>
-
-<pre><code>[root@localhost example]# go tool compile -S main.go 
-&quot;&quot;.main STEXT size=183 args=0x0 locals=0x60
-	0x0000 00000 (main.go:5)	TEXT	&quot;&quot;.main(SB), $96-0
+</code></pre><p>查看汇编代码</p>
+<pre tabindex="0"><code>go tool compile -S main.go
+</code></pre><p>输出：</p>
+<pre tabindex="0"><code>[root@localhost example]# go tool compile -S main.go 
+&#34;&#34;.main STEXT size=183 args=0x0 locals=0x60
+	0x0000 00000 (main.go:5)	TEXT	&#34;&#34;.main(SB), $96-0
 	0x0000 00000 (main.go:5)	MOVQ	(TLS), CX
 	0x0009 00009 (main.go:5)	CMPQ	SP, 16(CX)
 	0x000d 00013 (main.go:5)	JLS	173
@@ -389,28 +419,21 @@ func main() {
 	0x0031 00049 (main.go:6)	MOVQ	8(SP), AX
 	0x0036 00054 (main.go:8)	PCDATA	$2, $0
 	0x0036 00054 (main.go:8)	PCDATA	$0, $1
-	0x0036 00054 (main.go:8)	MOVQ	AX, &quot;&quot;..autotmp_4+64(SP)
+	0x0036 00054 (main.go:8)	MOVQ	AX, &#34;&#34;..autotmp_4+64(SP)
 。。。。。
-</code></pre>
-
-<p>注意到有调用newobject！其中main.go:6说明变量a的内存是在堆上分配的!</p>
-
+</code></pre><p>注意到有调用newobject！其中main.go:6说明变量a的内存是在堆上分配的!</p>
 <p>修改main.go</p>
-
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
 func main() {
    var a [1]int
    c := a[:]
    println(c)
 }
-</code></pre>
-
-<p>再查看汇编代码</p>
-
-<pre><code>[root@localhost example]# go tool compile -S main.go 
-\&quot;&quot;.main STEXT size=102 args=0x0 locals=0x28
-	0x0000 00000 (main.go:3)	TEXT	&quot;&quot;.main(SB), $40-0
+</code></pre><p>再查看汇编代码</p>
+<pre tabindex="0"><code>[root@localhost example]# go tool compile -S main.go 
+\&#34;&#34;.main STEXT size=102 args=0x0 locals=0x28
+	0x0000 00000 (main.go:3)	TEXT	&#34;&#34;.main(SB), $40-0
 	0x0000 00000 (main.go:3)	MOVQ	(TLS), CX
 	0x0009 00009 (main.go:3)	CMPQ	SP, 16(CX)
 	0x000d 00013 (main.go:3)	JLS	95
@@ -422,10 +445,10 @@ func main() {
 	0x001d 00029 (main.go:3)	FUNCDATA	$3, gclocals·9fb7f0986f647f17cb53dda1484e0f7a(SB)
 	0x001d 00029 (main.go:4)	PCDATA	$2, $0
 	0x001d 00029 (main.go:4)	PCDATA	$0, $0
-	0x001d 00029 (main.go:4)	MOVQ	$0, &quot;&quot;.a+24(SP)
+	0x001d 00029 (main.go:4)	MOVQ	$0, &#34;&#34;.a+24(SP)
 	0x0026 00038 (main.go:6)	CALL	runtime.printlock(SB)
 	0x002b 00043 (main.go:6)	PCDATA	$2, $1
-	0x002b 00043 (main.go:6)	LEAQ	&quot;&quot;.a+24(SP), AX
+	0x002b 00043 (main.go:6)	LEAQ	&#34;&#34;.a+24(SP), AX
 	0x0030 00048 (main.go:6)	PCDATA	$2, $0
 	0x0030 00048 (main.go:6)	MOVQ	AX, (SP)
 	0x0034 00052 (main.go:6)	MOVQ	$1, 8(SP)
@@ -433,30 +456,21 @@ func main() {
 	0x0046 00070 (main.go:6)	CALL	runtime.printslice(SB)
 	0x004b 00075 (main.go:6)	CALL	runtime.printnl(SB)
 	0x0050 00080 (main.go:6)	CALL	runtime.printunlock(SB)
-
-</code></pre>
-
-<p>没有发现调用newobject，这段代码a是在堆栈上分配的。</p>
-
+</code></pre><p>没有发现调用newobject，这段代码a是在堆栈上分配的。</p>
 <p>结论：</p>
-
 <p>Go 编译器自行决定变量分配在堆栈或堆上，以保证程序的正确性。</p>
-
 <p>参考资料：</p>
-
 <p><a href="https://www.ardanlabs.com/blog/2015/01/stack-traces-in-go.html">https://www.ardanlabs.com/blog/2015/01/stack-traces-in-go.html</a></p>
-
 <p><a href="https://zhuanlan.zhihu.com/p/28484133">https://zhuanlan.zhihu.com/p/28484133</a></p>
-
 <p><a href="https://golang.org/doc/faq">https://golang.org/doc/faq</a></p>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/heap-stack/">https://TomatoAres.github.io/posts/go/heap-stack/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/go/heap-stack/">https://tomatoares.github.io/posts/go/heap-stack/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -464,7 +478,7 @@ func main() {
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
@@ -474,49 +488,114 @@ func main() {
         
         <li><a href="/posts/go/GMP/">GMP</a></li>
         
+        <li><a href="/posts/go/go-test/">go test 工具的简单介绍和使用</a></li>
+        
         <li><a href="/posts/go/channel/">channel 总结</a></li>
         
         <li><a href="/posts/go/translated/microservices-in-go/">Go 语言中的微服务</a></li>
-        
-        <li><a href="/posts/database/mysql-%E6%80%BB%E7%BB%93/">Mysql 面试题总结</a></li>
         
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go'>go</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -526,43 +605,43 @@ func main() {
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -571,253 +650,175 @@ func main() {
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

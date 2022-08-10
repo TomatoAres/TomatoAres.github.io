@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Go xml json 小结 | 西红柿的博客</title>
     <meta property="og:title" content="Go xml json 小结 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-11T19:45:08&#43;08:00">
+    <meta property="article:published_time" content='2019-09-11T19:45:08&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-09-11T19:45:08&#43;08:00">
+    <meta property="article:modified_time" content='2019-09-11T19:45:08&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="Go xml json 小结">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,233 +67,330 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#最常见错误">最常见错误</a></li>
+    <li><a href="#解析-xml反序列化unmarshal">解析 XML，反序列化，Unmarshal</a></li>
+    <li><a href="#生成-xml序列化marshal">生成 xml，序列化，Marshal</a></li>
+    <li><a href="#json-概述">Json 概述</a></li>
+    <li><a href="#解析-json">解析 json</a>
+      <ul>
+        <li><a href="#解析到结构体">解析到结构体</a></li>
+        <li><a href="#解析到-interface">解析到 interface</a></li>
+        <li><a href="#解析到-mapstringinterface">解析到 map[string]interface</a></li>
+        <li><a href="#interface-到指定类型">interface 到指定类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#生成-json序列化marshal">生成 json,序列化，Marshal</a></li>
+    <li><a href="#更好用的-githubcombitlygo-simplejsonhttpsgithubcombitlygo-simplejson">更好用的 <a href="https://github.com/bitly/go-simplejson">github.com/bitly/go-simplejson</a></a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Go xml json 小结</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">Go xml json 小结</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年9月11日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/Go">Go</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<h2 id="最常见错误">最常见错误</h2>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="最常见错误">最常见错误</h2>
 <p>struct 字段小写，序列化反序列化都无法访问——无法外部访问</p>
-
-<h2 id="解析-xml-反序列化-unmarshal">解析 XML，反序列化，Unmarshal</h2>
-
+<h2 id="解析-xml反序列化unmarshal">解析 XML，反序列化，Unmarshal</h2>
 <ol>
-<li><p>如果 struct 的一个字段是 string 或者[]byt 类型且它的  tag  含有&rdquo;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上
+<li>
+<p>如果 struct 的一个字段是 string 或者[]byt 类型且它的  tag  含有&quot;,inner xml &ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上
 比如下边例子中的 description，最终输出为：</p>
-
-<pre><code class="language-xml">&lt;server&gt;
-&lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
-&lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
-&lt;/server&gt;
-&lt;server&gt;
-    &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
-    &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
-&lt;/server&gt;
-</code></pre></li>
-
-<li><p>如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。</p>
-
-<pre><code class="language-shell">{ servers}
-</code></pre></li>
-
-<li><p>如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。</p></li>
-
-<li><p>如果某个 struct 字段的 tag 定义了中含有&rdquo;,attr&rdquo;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。</p></li>
-
-<li><p>如果某个 struct 字段的 tag 定义 型如&rdquo;a&gt;b&gt;c&rdquo;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。</p></li>
-
-<li><p>如果某个 struct 字段的 tag 定义了&rdquo;-&ldquo;,那么不会为该字段解析匹配任何 xml 数据。</p></li>
-
-<li><p>如果 struct 字段后面的 tag 定义了&rdquo;,any&rdquo;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。</p></li>
-
-<li><p>如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&rdquo;,comments&rdquo;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。</p></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;serverName&gt;</span>Shanghai_VPN<span style="color:#f92672">&lt;/serverName&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;serverIP&gt;</span>127.0.0.1<span style="color:#f92672">&lt;/serverIP&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&lt;serverName&gt;</span>Beijing_VPN<span style="color:#f92672">&lt;/serverName&gt;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&lt;serverIP&gt;</span>127.0.0.2<span style="color:#f92672">&lt;/serverIP&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;/server&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>如果 struct 中有一个叫做 XMLName(必须是这个)，且类型为 xml .Name 字段，那么在解析的时候就会保存这个 element 的名字到该字段,如下例子中的 servers 。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">{</span> servers<span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>如果某个 struct 字段的 tag 定义中含有 XML 结构中 element 的名称，那么解析的时候就会把相应的 element 值赋值给该字段，如下 servername 和 serverip 定义。</p>
+</li>
+<li>
+<p>如果某个 struct 字段的 tag 定义了中含有&rdquo;,attr&quot;，那么解析的时候就会将该结构所对应的 element 的与字段同名的属性的值赋值给该字段，如下 version 定义。</p>
+</li>
+<li>
+<p>如果某个 struct 字段的 tag 定义 型如&quot;a&gt;b&gt;c&quot;,则解析的时候，会将 xml 结构 a 下面的 b 下面的 c 元素的值赋值给该字段。</p>
+</li>
+<li>
+<p>如果某个 struct 字段的 tag 定义了&quot;-&quot;,那么不会为该字段解析匹配任何 xml 数据。</p>
+</li>
+<li>
+<p>如果 struct 字段后面的 tag 定义了&quot;,any&quot;，如果他的子元素在不满足其他的规则的时候就会匹配到这个字段。</p>
+</li>
+<li>
+<p>如果某个 XML 元素包含一条或者多条注释，那么这些注释将被累加到第一个 tag 含有&quot;,comments&quot;的字段上，这个字段的类型可能是[]byte 或 string,如果没有这样的字段存在，那么注释将会被抛弃。</p>
+</li>
 </ol>
-
 <p>只要设置对了 tag，那么 XML 解析就如上面示例般简单，tag 和 XML 的 element 是一一对应的关系，
 如下所示，我们还可以通过 slice 来表示多个同级元素。</p>
-
 <p>例子：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;encoding/xml&quot;
-    &quot;fmt&quot;
-    &quot;io/ioutil&quot;
-    &quot;os&quot;
-)
-
-type Recurlyservers struct {
-    XMLName     xml.Name `xml:&quot;servers&quot;`
-    Version     string   `xml:&quot;version,attr&quot;`
-    Svs         []server `xml:&quot;server&quot;`
-    Description string   `xml:&quot;,innerxml&quot;`
-}
-type server struct {
-    //XMLName    xml.Name `xml:&quot;server&quot;` // 不会有这个值
-    ServerName string   `xml:&quot;serverName&quot;`
-    ServerIP   string   `xml:&quot;serverIP&quot;`
-}
-
-func main() {
-    file, err := os.Open(&quot;servers.xml&quot;) // For read access.
-    if err != nil {
-        fmt.Printf(&quot;error: %v&quot;, err)
-        return
-    }
-    defer file.Close()
-    data, err := ioutil.ReadAll(file)
-    if err != nil {
-        fmt.Printf(&quot;error: %v&quot;, err)
-        return
-    }
-    v := Recurlyservers{}
-    err = xml.Unmarshal(data, &amp;v)
-    if err != nil {
-        fmt.Printf(&quot;error: %v&quot;, err)
-        return
-    }
-    fmt.Println(&quot;===result====&quot;)
-    fmt.Println(v)
-    fmt.Println(&quot;===result====&quot;)
-
-    fmt.Println(&quot;===description====&quot;)
-    fmt.Println(v.Description)
-    fmt.Println(&quot;===description====&quot;)
-}
-// out
-// ===result====
-// {{ servers} 1 [{Shanghai_VPN 127.0.0.1} {Beijing_VPN 127.0.0.2}]
-//     &lt;server&gt;
-//         &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
-//         &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
-//     &lt;/server&gt;
-//     &lt;server&gt;
-//         &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
-//         &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
-//     &lt;/server&gt;
-// }
-// ===result====
-// ===description====
-
-//     &lt;server&gt;
-//         &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
-//         &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
-//     &lt;/server&gt;
-//     &lt;server&gt;
-//         &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
-//         &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
-//     &lt;/server&gt;
-
-// ===description====
-
-</code></pre>
-
-<p>官方例子：</p>
-
-<pre><code class="language-go">type Email struct {
-    Where string `xml:&quot;where,attr&quot;`
-    Addr  string
-}
-type Address struct {
-    City, State string
-}
-type Result struct {
-    XMLName xml.Name `xml:&quot;Person&quot;`
-    Name    string   `xml:&quot;FullName&quot;`
-    Phone   string
-    Email   []Email
-    Groups  []string `xml:&quot;Group&gt;Value&quot;`
-    Address
-}
-v := Result{Name: &quot;none&quot;, Phone: &quot;none&quot;}
-data := `
-                &lt;Person&gt;
-                        &lt;FullName&gt;Grace R. Emlin&lt;/FullName&gt;
-                        &lt;Company&gt;Example Inc.&lt;/Company&gt;
-                        &lt;Email where=&quot;home&quot;&gt;
-                                &lt;Addr&gt;gre@example.com&lt;/Addr&gt;
-                        &lt;/Email&gt;
-                        &lt;Email where='work'&gt;
-                                &lt;Addr&gt;gre@work.com&lt;/Addr&gt;
-                        &lt;/Email&gt;
-                        &lt;Group&gt;
-                                &lt;Value&gt;Friends&lt;/Value&gt;
-                                &lt;Value&gt;Squash&lt;/Value&gt;
-                        &lt;/Group&gt;
-                        &lt;City&gt;Hanga Roa&lt;/City&gt;
-                        &lt;State&gt;Easter Island&lt;/State&gt;
-                &lt;/Person&gt;
-        `
-err := xml.Unmarshal([]byte(data), &amp;v)
-if err != nil {
-    fmt.Printf(&quot;error: %v&quot;, err)
-    return
-}
-fmt.Printf(&quot;XMLName: %#v\n&quot;, v.XMLName)
-fmt.Printf(&quot;Name: %q\n&quot;, v.Name)
-fmt.Printf(&quot;Phone: %q\n&quot;, v.Phone)
-fmt.Printf(&quot;Email: %v\n&quot;, v.Email)
-fmt.Printf(&quot;Groups: %v\n&quot;, v.Groups)
-fmt.Printf(&quot;Address: %v\n&quot;, v.Address)
-</code></pre>
-
-<p>输出：</p>
-
-<pre><code class="language-shell">XMLName: xml.Name{Space:&quot;&quot;, Local:&quot;Person&quot;}
-Name: &quot;Grace R. Emlin&quot;
-Phone: &quot;none&quot;
-Email: [{home gre@example.com} {work gre@work.com}]
-Groups: [Friends Squash]
-Address: {Hanga Roa Easter Island}
-</code></pre>
-
-<h2 id="生成-xml-序列化-marshal">生成 xml，序列化，Marshal</h2>
-
-<pre><code class="language-sh">func Marshal(v interface{}) ([]byte, error)
-func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error) // 带缩进，前缀
-</code></pre>
-
-<p>我们看到 Marshal 函数接收的参数 v 是 interface{} 类型的，即它可以接受任意类型的参数，那么 xml 包，根据什么规则来生成相应的 XML 文件呢？</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;encoding/xml&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Recurlyservers</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">XMLName</span>     <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Name</span> <span style="color:#e6db74">`xml:&#34;servers&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Version</span>     <span style="color:#66d9ef">string</span>   <span style="color:#e6db74">`xml:&#34;version,attr&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Svs</span>         []<span style="color:#a6e22e">server</span> <span style="color:#e6db74">`xml:&#34;server&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Description</span> <span style="color:#66d9ef">string</span>   <span style="color:#e6db74">`xml:&#34;,innerxml&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">server</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//XMLName    xml.Name `xml:&#34;server&#34;` // 不会有这个值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ServerName</span> <span style="color:#66d9ef">string</span>   <span style="color:#e6db74">`xml:&#34;serverName&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ServerIP</span>   <span style="color:#66d9ef">string</span>   <span style="color:#e6db74">`xml:&#34;serverIP&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;servers.xml&#34;</span>) <span style="color:#75715e">// For read access.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;error: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadAll</span>(<span style="color:#a6e22e">file</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;error: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Recurlyservers</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;error: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;===result====&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;===result====&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;===description====&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Description</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;===description====&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// out
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ===result====
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// {{ servers} 1 [{Shanghai_VPN 127.0.0.1} {Beijing_VPN 127.0.0.2}]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;/server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;/server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ===result====
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ===description====
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverName&gt;Shanghai_VPN&lt;/serverName&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverIP&gt;127.0.0.1&lt;/serverIP&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;/server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverName&gt;Beijing_VPN&lt;/serverName&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         &lt;serverIP&gt;127.0.0.2&lt;/serverIP&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     &lt;/server&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ===description====
+</span></span></span></code></pre></div><p>官方例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Where</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`xml:&#34;where,attr&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Addr</span>  <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Address</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">City</span>, <span style="color:#a6e22e">State</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Result</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">XMLName</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Name</span> <span style="color:#e6db74">`xml:&#34;Person&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span>    <span style="color:#66d9ef">string</span>   <span style="color:#e6db74">`xml:&#34;FullName&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Phone</span>   <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Email</span>   []<span style="color:#a6e22e">Email</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Groups</span>  []<span style="color:#66d9ef">string</span> <span style="color:#e6db74">`xml:&#34;Group&gt;Value&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Address</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Result</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;none&#34;</span>, <span style="color:#a6e22e">Phone</span>: <span style="color:#e6db74">&#34;none&#34;</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;Person&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;FullName&gt;Grace R. Emlin&lt;/FullName&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;Company&gt;Example Inc.&lt;/Company&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;Email where=&#34;home&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                &lt;Addr&gt;gre@example.com&lt;/Addr&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;/Email&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;Email where=&#39;work&#39;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                &lt;Addr&gt;gre@work.com&lt;/Addr&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;/Email&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;Group&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                &lt;Value&gt;Friends&lt;/Value&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                &lt;Value&gt;Squash&lt;/Value&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;/Group&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;City&gt;Hanga Roa&lt;/City&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;State&gt;Easter Island&lt;/State&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;/Person&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">Unmarshal</span>([]byte(<span style="color:#a6e22e">data</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;error: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;XMLName: %#v\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">XMLName</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Name: %q\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Name</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Phone: %q\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Phone</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Email: %v\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Email</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Groups: %v\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Groups</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Address: %v\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Address</span>)
+</span></span></code></pre></div><p>输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>XMLName: xml.Name<span style="color:#f92672">{</span>Space:<span style="color:#e6db74">&#34;&#34;</span>, Local:<span style="color:#e6db74">&#34;Person&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>Name: <span style="color:#e6db74">&#34;Grace R. Emlin&#34;</span>
+</span></span><span style="display:flex;"><span>Phone: <span style="color:#e6db74">&#34;none&#34;</span>
+</span></span><span style="display:flex;"><span>Email: <span style="color:#f92672">[{</span>home gre@example.com<span style="color:#f92672">}</span> <span style="color:#f92672">{</span>work gre@work.com<span style="color:#f92672">}]</span>
+</span></span><span style="display:flex;"><span>Groups: <span style="color:#f92672">[</span>Friends Squash<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Address: <span style="color:#f92672">{</span>Hanga Roa Easter Island<span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="生成-xml序列化marshal">生成 xml，序列化，Marshal</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>func Marshal<span style="color:#f92672">(</span>v interface<span style="color:#f92672">{})</span> <span style="color:#f92672">([]</span>byte, error<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>func MarshalIndent<span style="color:#f92672">(</span>v interface<span style="color:#f92672">{}</span>, prefix, indent string<span style="color:#f92672">)</span> <span style="color:#f92672">([]</span>byte, error<span style="color:#f92672">)</span> // 带缩进，前缀
+</span></span></code></pre></div><p>我们看到 Marshal 函数接收的参数 v 是 interface{} 类型的，即它可以接受任意类型的参数，那么 xml 包，根据什么规则来生成相应的 XML 文件呢？</p>
 <ol>
 <li>如果 v 是 array 或者 slice，那么输出每一个元素，类似 value</li>
 <li>如果 v 是指针，那么会 Marshal 指针指向的内容，如果指针为空，什么都不输出</li>
 <li>如果 v 是 interface，那么就处理 interface 所包含的数据</li>
 <li>如果 v 是其他数据类型，就会输出这个数据类型所拥有的字段信息</li>
 </ol>
-
 <p>生成的 XML 文件中的 element 的名字又是根据什么决定的呢？元素名按照如下优先级从 struct 中获取：</p>
-
 <ol>
 <li>如果 v 是 struct，XMLName 的 tag 中定义的名称</li>
 <li>类型为 xml.Name 的名叫 XMLName 的字段的值</li>
@@ -297,145 +398,117 @@ func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error) // 带�
 <li>通过 strcut 的字段名用来获取</li>
 <li>marshal 的类型名称</li>
 </ol>
-
 <p>我们应如何设置 struct 中字段的 tag 信息以控制最终 xml 文件的生成呢？</p>
-
 <ol>
 <li>XMLName 不会被输出</li>
-<li>tag 中含有&rdquo;-&ldquo;的字段不会输出</li>
-<li>tag 中含有&rdquo;name,attr&rdquo;，会以 name 作为属性名，字段值作为值输出为这个 XML 元素的属性，如上 version 字段所描述</li>
-<li>tag 中含有&rdquo;,attr&rdquo;，会以这个 struct 的字段名作为属性名输出为 XML 元素的属性，类似上一条，只是这个 name 默认是字段名了。</li>
-<li>tag 中含有&rdquo;,chardata&rdquo;，输出为 xml 的 character data 而非 element。</li>
-<li>tag 中含有&rdquo;,innerxml&rdquo;，将会被原样输出，而不会进行常规的编码过程</li>
-<li>tag 中含有&rdquo;,comment&rdquo;，将被当作 xml 注释来输出，而不会进行常规的编码过程，字段值中不能含有&rdquo;&ndash;&ldquo;字符串</li>
-<li>tag 中含有&rdquo;omitempty&rdquo;,如果该字段的值为空值那么该字段就不会被输出到 xml ，空值包括：false、0、nil 指针或 nil 接口，任何长度为 0 的 array, slice, map 或者 string</li>
-
-<li><p>tag 中含有&rdquo;a&gt;b&gt;c&rdquo;，那么就会循环输出三个元素 a 包含 b，b 包含 c，例如如下代码就会输出</p>
-
-<pre><code class="language-sh"># Input
-FirstName string `xml:&quot;name&gt;first&quot;`
-LastName string `xml:&quot;name&gt;last&quot;`
-#output
-&lt;name&gt;
-&lt;first&gt;Asta&lt;/first&gt;
-&lt;last&gt;Xie&lt;/last&gt;
-&lt;/name&gt;
-</code></pre></li>
+<li>tag 中含有&quot;-&ldquo;的字段不会输出</li>
+<li>tag 中含有&quot;name,attr&rdquo;，会以 name 作为属性名，字段值作为值输出为这个 XML 元素的属性，如上 version 字段所描述</li>
+<li>tag 中含有&quot;,attr&quot;，会以这个 struct 的字段名作为属性名输出为 XML 元素的属性，类似上一条，只是这个 name 默认是字段名了。</li>
+<li>tag 中含有&quot;,chardata&quot;，输出为 xml 的 character data 而非 element。</li>
+<li>tag 中含有&quot;,innerxml&quot;，将会被原样输出，而不会进行常规的编码过程</li>
+<li>tag 中含有&quot;,comment&quot;，将被当作 xml 注释来输出，而不会进行常规的编码过程，字段值中不能含有&quot;&ndash;&ldquo;字符串</li>
+<li>tag 中含有&quot;omitempty&rdquo;,如果该字段的值为空值那么该字段就不会被输出到 xml ，空值包括：false、0、nil 指针或 nil 接口，任何长度为 0 的 array, slice, map 或者 string</li>
+<li>tag 中含有&quot;a&gt;b&gt;c&quot;，那么就会循环输出三个元素 a 包含 b，b 包含 c，例如如下代码就会输出</li>
 </ol>
-
-<h2 id="json-概述">Json 概述</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Input</span>
+</span></span><span style="display:flex;"><span>FirstName string <span style="color:#e6db74">`</span>xml:<span style="color:#e6db74">&#34;name&gt;first&#34;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>LastName string <span style="color:#e6db74">`</span>xml:<span style="color:#e6db74">&#34;name&gt;last&#34;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#output</span>
+</span></span><span style="display:flex;"><span>&lt;name&gt;
+</span></span><span style="display:flex;"><span>&lt;first&gt;Asta&lt;/first&gt;
+</span></span><span style="display:flex;"><span>&lt;last&gt;Xie&lt;/last&gt;
+</span></span><span style="display:flex;"><span>&lt;/name&gt;
+</span></span></code></pre></div><h2 id="json-概述">Json 概述</h2>
 <ul>
 <li>JSON（Javascript Object Notation）是一种轻量级的数据交换语言，以文字为基础，具有自我描述性且易于让人阅读。</li>
 <li>JSON 与 XML 最大的不同在于 XML 是一个完整的标记语言，而 JSON 不是。</li>
 <li>JSON 由于比 XML 更小、更快，更易解析,以及浏览器的内建快速解析支持,使得其更适用于网络数据传输领域。</li>
 </ul>
-
 <h2 id="解析-json">解析 json</h2>
-
 <h3 id="解析到结构体">解析到结构体</h3>
-
 <h3 id="解析到-interface">解析到 interface</h3>
-
 <p>Go 类型和 JSON 类型的对应关系如下：</p>
-
 <ul>
 <li>bool 代表 JSON booleans,</li>
 <li>float64 代表 JSON numbers,</li>
 <li>string 代表 JSON strings,</li>
 <li>nil 代表 JSON null.</li>
 </ul>
-
-<h3 id="解析到-map-string-interface">解析到 map[string]interface{}</h3>
-
+<h3 id="解析到-mapstringinterface">解析到 map[string]interface</h3>
 <p>键必须是 string</p>
-
 <h3 id="interface-到指定类型">interface 到指定类型</h3>
-
 <p>通过断言之后，你就可以通过如下方式来访问里面的数据了</p>
-
-<pre><code class="language-go">for k, v := range m {
-    switch vv := v.(type) {
-    case string:
-        fmt.Println(k, &quot;is string&quot;, vv)
-    case int:
-        fmt.Println(k, &quot;is int&quot;, vv)
-    case []interface{}:
-        fmt.Println(k, &quot;is an array:&quot;)
-        for i, u := range vv {
-            fmt.Println(i, u)
-            }
-    default:
-    fmt.Println(k, &quot;is of a type I don't know how to handle&quot;)
-        }
-    }
-</code></pre>
-
-<h2 id="生成-json-序列化-marshal">生成 json,序列化，Marshal</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">vv</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">string</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;is string&#34;</span>, <span style="color:#a6e22e">vv</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">int</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;is int&#34;</span>, <span style="color:#a6e22e">vv</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> []<span style="color:#66d9ef">interface</span>{}:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;is an array:&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">vv</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">u</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;is of a type I don&#39;t know how to handle&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="生成-json序列化marshal">生成 json,序列化，Marshal</h2>
 <p>针对 JSON 的输出，我们在定义 struct tag 的时候需要注意的几点是:</p>
-
 <ol>
-<li>字段的 tag 是 &ldquo;-&ldquo;，那么这个字段不会输出到 JSON</li>
+<li>字段的 tag 是 &ldquo;-&quot;，那么这个字段不会输出到 JSON</li>
 <li>tag 中带有自定义名称，那么这个自定义名称会出现在 JSON 的字段名中</li>
-<li>tag 中如果带有&rdquo;omitempty&rdquo;选项，那么如果该字段值为空，就不会输出到 JSON 串中</li>
-<li>如果字段类型是 bool, string, int, int64 等，而 tag 中带有&rdquo;,string&rdquo;选项，那么这个字段在输出到 JSON 的时候会把该字段对应的值转换成 JSON 字符串</li>
+<li>tag 中如果带有&quot;omitempty&quot;选项，那么如果该字段值为空，就不会输出到 JSON 串中</li>
+<li>如果字段类型是 bool, string, int, int64 等，而 tag 中带有&rdquo;,string&quot;选项，那么这个字段在输出到 JSON 的时候会把该字段对应的值转换成 JSON 字符串</li>
 </ol>
-
-<h2 id="更好用的-github-com-bitly-go-simplejson-https-github-com-bitly-go-simplejson">更好用的 <a href="https://github.com/bitly/go-simplejson">github.com/bitly/go-simplejson</a></h2>
-
+<h2 id="更好用的-githubcombitlygo-simplejsonhttpsgithubcombitlygo-simplejson">更好用的 <a href="https://github.com/bitly/go-simplejson">github.com/bitly/go-simplejson</a></h2>
 <p>不用进行复杂的类型断言</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;fmt&quot;
-    &quot;github.com/bitly/go-simplejson&quot;
-)
-
-func main() {
-    js, err := simplejson.NewJson([]byte(`
-        {
-        &quot;test&quot;: {
-        &quot;array&quot;: [1, &quot;2&quot;, 3],
-        &quot;int&quot;: 10,
-        &quot;float&quot;: 5.150,
-        &quot;bignum&quot;: 9223372036854775807,
-        &quot;string&quot;: &quot;simplejson&quot;,
-        &quot;bool&quot;: true
-        }
-        }`))
-
-    if err != nil {
-        panic(err)
-    }
-    arr, _ := js.Get(&quot;test&quot;).Get(&quot;array&quot;).Array()
-    i, _ := js.Get(&quot;test&quot;).Get(&quot;int&quot;).Int()
-    ms := js.Get(&quot;test&quot;).Get(&quot;string&quot;).MustString(&quot;test&quot;)
-    ms2 := js.Get(&quot;test&quot;).Get(&quot;string2&quot;).MustString(&quot;test&quot;)
-
-    fmt.Println(&quot;arr:&quot;, arr)
-    fmt.Println(i)
-    fmt.Println(ms)
-    fmt.Println(ms2)
-}
-
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/bitly/go-simplejson&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">js</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">simplejson</span>.<span style="color:#a6e22e">NewJson</span>([]byte(<span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;test&#34;: {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;array&#34;: [1, &#34;2&#34;, 3],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;int&#34;: 10,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;float&#34;: 5.150,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;bignum&#34;: 9223372036854775807,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;string&#34;: &#34;simplejson&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;bool&#34;: true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }`</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">js</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;array&#34;</span>).<span style="color:#a6e22e">Array</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">js</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;int&#34;</span>).<span style="color:#a6e22e">Int</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ms</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">js</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;string&#34;</span>).<span style="color:#a6e22e">MustString</span>(<span style="color:#e6db74">&#34;test&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ms2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">js</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;string2&#34;</span>).<span style="color:#a6e22e">MustString</span>(<span style="color:#e6db74">&#34;test&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;arr:&#34;</span>, <span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ms</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">ms2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="参考">参考</h2>
 <ol>
 <li>《go web 编程》</li>
 <li>官方文档：<a href="https://studygolang.com/pkgdoc">https://studygolang.com/pkgdoc</a></li>
 </ol>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/">https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -443,7 +516,7 @@ func main() {
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
@@ -463,39 +536,104 @@ func main() {
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go'>go</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -505,43 +643,43 @@ func main() {
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -550,253 +688,175 @@ func main() {
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Tcpdump 使用 | 西红柿的博客</title>
+    <meta property="og:title" content="Tcpdump 使用 - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2019-09-03T13:16:07&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2019-09-03T13:16:07&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
+    <meta name="description" content="Tcpdump 使用">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://tomatoares.github.io">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
+                    
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#是什么">是什么</a></li>
+    <li><a href="#怎么用">怎么用</a>
+      <ul>
+        <li><a href="#常用命令">常用命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#例子">例子</a>
+      <ul>
+        <li><a href="#监视指定网络接口的数据包">监视指定网络接口的数据包</a></li>
+        <li><a href="#监视指定主机的数据包">监视指定主机的数据包</a></li>
+        <li><a href="#监视指定主机和端口的数据包">监视指定主机和端口的数据包</a></li>
+        <li><a href="#监视指定网络的数据包">监视指定网络的数据包</a></li>
+        <li><a href="#监视指定协议的数据包">监视指定协议的数据包</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Tcpdump 使用</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月3日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="是什么">是什么</h2>
+<p>用简单的话来定义 tcpdump，就是：dump the traffic on a network，根据使用者的定义对网络上的数据包进行截获的包分析工具。</p>
+<ul>
+<li>tcpdump 可以将网络中传送的数据包的“头”完全截获下来提供分析。</li>
+<li>它支持针对网络层、协议、主机、网络或端口的过滤，并提供 and、or、not 等逻辑语句来帮助你去掉无用的信息。</li>
+</ul>
+<h2 id="怎么用">怎么用</h2>
+<p>命令  <code>tcpdump</code>  如果报错，说明未安装</p>
+<p><code>yum install tcpdump</code></p>
+<h3 id="常用命令">常用命令</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>man tcpdump
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#f92672">[</span> -AbdDefhHIJKlLnNOpqStuUvxX# <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -B buffer_size <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -c count <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -C file_size <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -G rotate_seconds <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -F file <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -i interface <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -j tstamp_type <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m module <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -M secret <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> --number <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -Q in|out|inout <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -r file <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -V file <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -s snaplen <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -T type <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -w file <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -W filecount <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -E spi@ipaddr algo:secret,...  <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> -y datalinktype <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -z postrotate-command <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -Z user <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> --time-stamp-precision<span style="color:#f92672">=</span>tstamp_precision <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> --immediate-mode <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> --version <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span> expression <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>选项翻译如下：
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-l：使标准输出变为缓冲行形式；
+</span></span><span style="display:flex;"><span>-c：抓包次数；
+</span></span><span style="display:flex;"><span>-nn：直接以 IP 及 Port Number 显示，而非主机名与服务名称；
+</span></span><span style="display:flex;"><span>-s ：&lt;数据包大小&gt; 设置每个数据包的大小；
+</span></span><span style="display:flex;"><span>-i：指定监听的网络接口；
+</span></span><span style="display:flex;"><span>-r：从指定的文件中读取包；
+</span></span><span style="display:flex;"><span>-w：输出信息保存到指定文件；
+</span></span><span style="display:flex;"><span>-a：将网络地址和广播地址转变成名字；
+</span></span><span style="display:flex;"><span>-d：将匹配信息包的代码以人们能够理解的汇编格式给出；
+</span></span><span style="display:flex;"><span>-e：在输出行打印出数据链路层的头部信息；
+</span></span><span style="display:flex;"><span>-f：将外部的Internet地址以数字的形式打印出来；
+</span></span><span style="display:flex;"><span>-t：在输出的每一行不打印时间戳；
+</span></span><span style="display:flex;"><span>-v ：输出稍微详细的报文信息；--vv则输出更详细信息。
+</span></span></code></pre></div><h2 id="例子">例子</h2>
+<h3 id="监视指定网络接口的数据包">监视指定网络接口的数据包</h3>
+<p><code>tcpdump -i eth1</code>
+如果不指定网卡，默认 tcpdump 只会监视第一个网络接口，一般是 eth0，下面的例子都没有指定网络接口。</p>
+<h3 id="监视指定主机的数据包">监视指定主机的数据包</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>tcpdump host sundown // 打印所有进入或离开 sundown 的数据包.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump host 210.27.48.1 // 也可以指定 ip,例如截获所有 210.27.48.1 的主机收到的和发出的所有的数据包
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump host helios and <span style="color:#ae81ff">\(</span> hot or ace <span style="color:#ae81ff">\)</span> //打印helios 与 hot 或者与 ace 之间通信的数据包
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump host 210.27.48.1 and <span style="color:#ae81ff">\ </span><span style="color:#f92672">(</span>210.27.48.2 or 210.27.48.3 <span style="color:#ae81ff">\)</span> // 截获主机210.27.48.1 和主机210.27.48.2 或210.27.48.3的通信
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump ip host ace and not helios // 打印ace与任何其他主机之间通信的IP 数据包, 但不包括与helios之间的数据包.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump ip host 210.27.48.1 and ! 210.27.48.2 // 获取主机210.27.48.1除了和主机210.27.48.2之外所有主机通信的ip包
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump -i eth0 src host hostname // 截获主机hostname 发送的<span style="color:#f92672">(</span>源<span style="color:#f92672">)</span>所有数据
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump -i eth0 dst host hostname // 监视所有送到（目的）主机hostname的数据包
+</span></span></code></pre></div><h3 id="监视指定主机和端口的数据包">监视指定主机和端口的数据包</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>如果想要获取主机210.27.48.1接收或发出的telnet包，使用如下命令
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump tcp port <span style="color:#ae81ff">23</span> and host 210.27.48.1
+</span></span><span style="display:flex;"><span>对本机的udp <span style="color:#ae81ff">123</span> 端口进行监视 <span style="color:#ae81ff">123</span> 为ntp的服务端口
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump udp port <span style="color:#ae81ff">123</span>
+</span></span></code></pre></div><h3 id="监视指定网络的数据包">监视指定网络的数据包</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>打印本地主机与 Berkeley 网络上的主机之间的所有通信数据包<span style="color:#f92672">(</span>nt: ucb-ether, 此处可理解为<span style="color:#e6db74">&#39;Berkeley网络&#39;</span>的网络地址,此表达式最原始的含义可表达为: 打印网络地址为ucb-ether的所有数据包<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump net ucb-ether
+</span></span><span style="display:flex;"><span>打印所有通过网关snup的ftp数据包<span style="color:#f92672">(</span>注意, 表达式被单引号括起来了, 这可以防止shell对其中的括号进行错误解析<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;gateway snup and (port ftp or ftp-data)&#39;</span>
+</span></span><span style="display:flex;"><span>打印所有源地址或目标地址是本地主机的IP数据包
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>如果本地网络通过网关连到了另一网络, 则另一网络并不能算作本地网络.<span style="color:#f92672">(</span>nt: 此句翻译曲折,需补充<span style="color:#f92672">)</span>.localnet 实际使用时要真正替换成本地网络的名字<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump ip and not net localnet
+</span></span></code></pre></div><h3 id="监视指定协议的数据包">监视指定协议的数据包</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>打印TCP会话中的的开始和结束数据包, 并且数据包的源或目的不是本地网络上的主机.<span style="color:#f92672">(</span>nt: localnet, 实际使用时要真正替换成本地网络的名字<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;tcp[tcpflags] &amp; (tcp-syn|tcp-fin) != 0 and not src and dst net localnet&#39;</span>
+</span></span><span style="display:flex;"><span>打印所有源或目的端口是80, 网络层协议为IPv4, 并且含有数据,而不是SYN,FIN以及ACK-only等不含数据的数据包.<span style="color:#f92672">(</span>ipv6的版本的表达式可做练习<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>nt: 可理解为, ip<span style="color:#f92672">[</span>2:2<span style="color:#f92672">]</span>表示整个ip数据包的长度, <span style="color:#f92672">(</span>ip<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>&amp;0xf<span style="color:#f92672">)</span><span style="color:#e6db74">&lt;&lt;2)表示ip数据包包头的长度(ip[0]&amp;0xf代表包中的IHL域, 而此域的单位为32</span>bit, 要换算
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>成字节数需要乘以4,　即左移2.　<span style="color:#f92672">(</span>tcp<span style="color:#f92672">[</span>12<span style="color:#f92672">]</span>&amp;0xf0<span style="color:#f92672">)</span>&gt;&gt;4 表示tcp头的长度, 此域的单位也是32bit,　换算成比特数为 <span style="color:#f92672">((</span>tcp<span style="color:#f92672">[</span>12<span style="color:#f92672">]</span>&amp;0xf0<span style="color:#f92672">)</span> &gt;&gt; 4<span style="color:#f92672">)</span>　&lt;&lt;　２,　
+</span></span><span style="display:flex;"><span>即 <span style="color:#f92672">((</span>tcp<span style="color:#f92672">[</span>12<span style="color:#f92672">]</span>&amp;0xf0<span style="color:#f92672">)</span>&gt;&gt;2<span style="color:#f92672">)</span>.　<span style="color:#f92672">((</span>ip<span style="color:#f92672">[</span>2:2<span style="color:#f92672">]</span> - <span style="color:#f92672">((</span>ip<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>&amp;0xf<span style="color:#f92672">)</span><span style="color:#e6db74">&lt;&lt;2)) - ((tcp[12</span><span style="color:#f92672">]</span>&amp;0xf0<span style="color:#f92672">)</span>&gt;&gt;2<span style="color:#f92672">))</span> !<span style="color:#f92672">=</span> 0　表示: 整个ip数据包的长度减去ip头的长度,再减去
+</span></span><span style="display:flex;"><span>tcp头的长度不为0, 这就意味着, ip数据包中确实是有数据.对于ipv6版本只需考虑ipv6头中的<span style="color:#e6db74">&#39;Payload Length&#39;</span> 与 <span style="color:#e6db74">&#39;tcp头的长度&#39;</span>的差值, 并且其中表达方式<span style="color:#e6db74">&#39;ip[]&#39;</span>需换成<span style="color:#e6db74">&#39;ip6[]&#39;</span>.<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>打印长度超过576字节, 并且网关地址是snup的IP数据包
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;gateway snup and ip[2:2] &gt; 576&#39;</span>
+</span></span><span style="display:flex;"><span>打印所有IP层广播或多播的数据包， 但不是物理以太网层的广播或多播数据报
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;ether[0] &amp; 1 = 0 and ip[16] &gt;= 224&#39;</span>
+</span></span><span style="display:flex;"><span>打印除<span style="color:#e6db74">&#39;echo request&#39;</span>或者<span style="color:#e6db74">&#39;echo reply&#39;</span>类型以外的ICMP数据包<span style="color:#f92672">(</span> 比如,需要打印所有非ping 程序产生的数据包时可用到此表达式 .
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>nt: <span style="color:#e6db74">&#39;echo reuqest&#39;</span> 与 <span style="color:#e6db74">&#39;echo reply&#39;</span> 这两种类型的ICMP数据包通常由ping程序产生<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tcpdump <span style="color:#e6db74">&#39;icmp[icmptype] != icmp-echo and icmp[icmptype] != icmp-echoreply&#39;</span>
+</span></span></code></pre></div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/">https://tomatoares.github.io/posts/tools/tcpdump-%E4%BD%BF%E7%94%A8/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/">Radix Tree 基数树</a></li>
+        
+        <li><a href="/posts/web/csrf-xss/">Csrf Xss 总结·对比</a></li>
+        
+        <li><a href="/posts/web/http-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">Http 方法总结</a></li>
+        
+        <li><a href="/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">Go 逃逸分析</a></li>
+        
+        <li><a href="/posts/go/heap-stack/"> Go 堆栈的理解</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/linux'>linux</a></li>
+                
+                <li><a href='/tags/tool'>tool</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
+    
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
+    
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
+    
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
+    
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
+    
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
+    
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
+    
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
+    
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
+    
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
+    
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
+    
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
+    
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
+    
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

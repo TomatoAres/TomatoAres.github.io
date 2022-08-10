@@ -1,24 +1,289 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/Go/</link>
-    <description>Recent content in Go on 西红柿的博客</description>
+    <title>go on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/go/</link>
+    <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 27 Oct 2019 22:48:31 +0800</lastBuildDate>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 15 Dec 2019 23:50:59 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何调用 Golang 私有函数（绑定到隐藏符号）</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</link>
+      <pubDate>Sun, 15 Dec 2019 23:50:59 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/</guid>
+      <description>变量名称在 Golang 中的重要性和任何其他语言一样。但是在 golang 中，它们甚至具有语义效果：变量第一个字符大写则在外部可见。 有时为了更好地组织代码，或者访问包中对外隐藏的函数（外部不可见的函数），需要突破这个限制。 golang 源码中大量使用了这些技术 这也是相关技术信息的主要来源。而网上相关信息明显不足。 在</description>
+    </item>
     
-	<atom:link href="https://TomatoAres.github.io/tags/Go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>仅需三个步骤即可构建最小的 Docker 映像</title>
+      <link>https://tomatoares.github.io/posts/go/translated/3-step-build-minix-image/</link>
+      <pubDate>Thu, 05 Dec 2019 00:56:09 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/3-step-build-minix-image/</guid>
+      <description>Go——仅需三个步骤即可构建最小的 Docker 映像 当您为 docker 构建 Go 应用程序时，通常从诸如 golang:1.13 之类的映像开始。但将这个映像实际运行时会浪费资源。让我们看一下如何将 Go 应用程序构建为绝对最小的 Docker 映像。 1. 选择 Go 版本 尽管使用 golang:latest 或者 仅使用 golang 的版本镜像很诱人，但由于各种问题，这样做都不太好，其中主要的一个问</description>
+    </item>
     
+    <item>
+      <title>Go 编译器概述</title>
+      <link>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554 本文基于 Go 1.13 Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看</description>
+    </item>
+    
+    <item>
+      <title>kubectl create 和 apply 对比解读</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 18.04 安装 k8s</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</guid>
+      <description>更换 软件源 翻墙 基本配置 内存交换 防火墙 selinux 安装 docker 配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install -y apt-transport-https curl curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - cat &amp;lt;&amp;lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list deb https://apt.kubernetes.io/ kubernetes-xenial main EOF sudo apt-get update sudo apt-get install -y kubelet kubeadm kubectl sudo apt-mark hold kubelet kubeadm kubectl 没有梯子的启动方法 有梯子 FAQ apt-get update locked root@ubuntu:/etc/apt# apt-get update 正在读取软件包列表。.. 完成 E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用） E: 无法对目录 /var/lib/apt/lists/ 加锁 其</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 无法远程 ssh 问题</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu 权限相关</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</guid>
+      <description>用户 who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户， 后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普</description>
+    </item>
+    
+    <item>
+      <title>理解 Go 的空接口</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</link>
+      <pubDate>Sun, 03 Nov 2019 00:10:37 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/</guid>
+      <description>空接口可用于保存任何数据，它可以是一个有用的参数，因为它可以使用任何类型。要理解空接口如何工作以及如何保存任何类型，我们首先应该理解空接口名称背后的概念。 接口（interface{}） Jordan Oreilli 对空接口的一个很好的定义： 接口是两件事物：它是一组方法，但它也是一种类型。 interface{} 类型是没有方法的</description>
+    </item>
     
     <item>
       <title>使用 Goland 安装多个版本的 go</title>
-      <link>https://TomatoAres.github.io/posts/go/mult-version-go/</link>
+      <link>https://tomatoares.github.io/posts/go/mult-version-go/</link>
       <pubDate>Sun, 27 Oct 2019 22:48:31 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/mult-version-go/</guid>
-      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。
-开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本  选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可  参考 goland 官方文档</description>
+      <guid>https://tomatoares.github.io/posts/go/mult-version-go/</guid>
+      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。 开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本 选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可 参考 goland 官方文档</description>
+    </item>
+    
+    <item>
+      <title>Go 中 Byte Rune——类型别名</title>
+      <link>https://tomatoares.github.io/posts/go/byte-rune/</link>
+      <pubDate>Wed, 25 Sep 2019 23:11:24 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/byte-rune/</guid>
+      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。 uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32 // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values. type byte = uint8 // rune is an alias for int32 and is equivalent to int32 in all ways. It is</description>
+    </item>
+    
+    <item>
+      <title>为什么要使用 go module proxy</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</link>
+      <pubDate>Wed, 25 Sep 2019 00:00:35 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20190802-why-you-should-use-a-go-module-proxy/</guid>
+      <description>在看过 Go module 的简介之后，我以为我已经知道了这个功能我需要知道的一切。但是很快，我意识到并不是这样。最近，人们开始提倡使用 Go module proxy。在研究了利弊之后，我得出结论，这将是近年来 Go 语言最重要的变化之一。 但为什么会这样呢？是什么让 Go module 代理如此特别？ 使用 Go modules 时，如果向干净的缓存的计算机</description>
+    </item>
+    
+    <item>
+      <title>无缓冲和有缓冲通道</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</link>
+      <pubDate>Tue, 24 Sep 2019 23:59:46 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</guid>
+      <description>Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。 无缓冲通道 无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如： package main import ( &amp;#34;sync&amp;#34; &amp;#34;time&amp;#34; ) func main() { c := make(chan string) var wg sync.WaitGroup wg.Add(2)</description>
+    </item>
+    
+    <item>
+      <title>Go Module 踩坑记录</title>
+      <link>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 24 Sep 2019 10:57:14 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go map 无序原因</title>
+      <link>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
+      <pubDate>Sun, 22 Sep 2019 00:03:23 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
+      <description>连续两次被问到 map 遍历输出无序的原因 看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。 面试官笑得很诡异，而且就到此为止了。 直到我看到这段代码： ... // decide where to start r := uintptr(fastrand()) if h.B &amp;gt; 31-bucketCntBits { r += uintptr(fastrand()) &amp;lt;&amp;lt; 31 } it.startBucket = r &amp;amp; bucketMask(h.B) it.offset = uint8(r &amp;gt;&amp;gt; h.B &amp;amp; (bucketCnt - 1)) // iterator state it.bucket = it.startBucket 遍历过程中</description>
+    </item>
+    
+    <item>
+      <title>goroutine 协程数目限制</title>
+      <link>https://tomatoares.github.io/posts/go/goroutines/</link>
+      <pubDate>Sat, 21 Sep 2019 23:51:43 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/goroutines/</guid>
+      <description>协程属于用户态线程，逻辑由用户代码控制。 系统本身不对 goroutine 数目进行限制。 虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现： 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed 解决方式： buffered channel +</description>
+    </item>
+    
+    <item>
+      <title>Defer Recover Panic 三剑客</title>
+      <link>https://tomatoares.github.io/posts/go/defer-recover-panic/</link>
+      <pubDate>Thu, 19 Sep 2019 23:29:57 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/defer-recover-panic/</guid>
+      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句 总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover 坑 函数嵌套后，defer 嵌套后就不管用 recover 必须放在 defer 中，否则只返回 nil 工作中没实际用过，有空补充点</description>
+    </item>
+    
+    <item>
+      <title>Defer 总结</title>
+      <link>https://tomatoares.github.io/posts/go/defer/</link>
+      <pubDate>Thu, 19 Sep 2019 22:39:21 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/defer/</guid>
+      <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~ 面试题 下面代码输出什么？ package main import &amp;#34;fmt&amp;#34; func calc(index string, a, b int) int { ret := a + b fmt.Println(index, a, b, ret) return ret } func main() { a := 1 b := 2 defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b)) a = 0 defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b)) b = 1 } /* output 10 1 2 3 20 0 2 2 2 0 2 2 1 1 3 4 */ 关键知识点 defer 是什么？ defer 是 Go 语言提供的一种用于注册延迟调用的</description>
+    </item>
+    
+    <item>
+      <title>现代垃圾收集策略 —— Go 的 GC 策略</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20161218-modern-garbage-collection/</link>
+      <pubDate>Thu, 19 Sep 2019 12:29:00 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20161218-modern-garbage-collection/</guid>
+      <description>在 Hacker News 和 Reddit 你可以找到相关讨论 我最近看过很多文章，它们以令我困扰的方式推广 Go 语言最新的垃圾收集器。其中一些文章来自 Go 官方项目本身。他们声称这意味着 GC 技术已经有根本性的突破。 这是新版本（Go 1.5）垃圾收集器的首次公告: Go 正在构建一个垃圾收集器（GC），不止适用于 2015 年，甚至适用于 2025 年</description>
+    </item>
+    
+    <item>
+      <title>Vet 命令：超出预期的强大</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:54 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20190802-go-vet-command-is-more-powerful-than-you-think/</guid>
+      <description>Go vet 命令在编写代码时非常有用。它可以帮助您检测应用程序中任何可疑、异常或无用的代码。该命令实际上由几个子分析器组成，甚至可以与您的自定义分析器一起工作。让我们首先回顾一下内置的分析器。 内置分析器 可以通过命令 go tool vet help 获取 内置分析器 列表。让我们分析一些不太明显的例子，以便更好地理解。</description>
+    </item>
+    
+    <item>
+      <title>Go：关于 Cobra 的想法</title>
+      <link>https://tomatoares.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</link>
+      <pubDate>Thu, 19 Sep 2019 12:27:06 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/20190807-go-thoughts-about-cobra/</guid>
+      <description>Cobra 是 Golang 生态系统中最着名的项目之一。它简单，高效，并得到 Go 社区的大力支持。让我们来深入探索一下。 设计 Cobra 中的 Command 是一个具有名称，使用描述和运行逻辑函数的结构体： cmd := &amp;amp;cobra.Command{ Run: runGreet, Use: `greet`, Short: &amp;#34;Greet&amp;#34;, Long: &amp;#34;This command will print Hello World&amp;#34;, } 设计非常类似于原生的 go 标准库命令，如 go env，go fmt等 比如，go fmt 命令结构： var CmdFmt = &amp;amp;base.Command{ Run: runFmt,</description>
+    </item>
+    
+    <item>
+      <title>为什么 Go 适合微服务</title>
+      <link>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
+      <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。 1. 静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。 生产事故的故事 去年，在</description>
+    </item>
+    
+    <item>
+      <title>Go Struct Tag 是怎么玩的</title>
+      <link>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;reflect&amp;#34; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;#34;validate&amp;#34; type employee struct { ID int `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;名字&amp;#34; validate:&amp;#34;presence,min=2,max=40&amp;#34;` Age int `json:&amp;#34;年龄&amp;#34;` Desc string `json:&amp;#34;描述&amp;#34; back:&amp;#34;好看否&amp;#34;`</description>
+    </item>
+    
+    <item>
+      <title>Go xml json 小结</title>
+      <link>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
+      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问 解析 XML，反序列化，Unmarshal 如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;quot;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子</description>
+    </item>
+    
+    <item>
+      <title>Go 时区设置</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <description>获取 time 对象 设置时区 按设置的时区输出 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) func main() { now := time.Now() // 1. 获取 time 对象 // 2. 设置时区 local1, err1 := time.LoadLocation(&amp;#34;&amp;#34;) //等同于&amp;#34;UTC&amp;#34; if err1 != nil { fmt.Println(err1) } local2, err2 := time.LoadLocation(&amp;#34;Local&amp;#34;)//本地的时区 if err2 != nil { fmt.Println(err2) } local3, err3 := time.LoadLocation(&amp;#34;America/Los_Angeles&amp;#34;) if err3 != nil { fmt.Println(err3) } // 3. 按设置的</description>
+    </item>
+    
+    <item>
+      <title>Go 逃逸分析</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <description>参考：Go 逃逸分析 堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下： 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack</description>
+    </item>
+    
+    <item>
+      <title> Go 堆栈的理解</title>
+      <link>https://tomatoares.github.io/posts/go/heap-stack/</link>
+      <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/heap-stack/</guid>
+      <description>来源：Go 堆栈的理解 在讲 Go 的堆栈之前，先温习一下堆栈基础知识。 什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。 数据结构的堆栈： 堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时</description>
+    </item>
+    
+    <item>
+      <title>Go GC </title>
+      <link>https://tomatoares.github.io/posts/go/GC-Go/</link>
+      <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/GC-Go/</guid>
+      <description>参考：GO GC 垃圾回收机制 Go 作为一门高级语言，具有 自动垃圾回收 的功能。 常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。 缺点： 1. 需要额外的空间存放</description>
+    </item>
+    
+    <item>
+      <title>GMP</title>
+      <link>https://tomatoares.github.io/posts/go/GMP/</link>
+      <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/GMP/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go test 工具的简单介绍和使用</title>
+      <link>https://tomatoares.github.io/posts/go/go-test/</link>
+      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-test/</guid>
+      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go 命名方式的文件，是 go test 编译的目标（不是 go build） 在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数： 功能测试函数：以 Test 前缀命名的函数，用来检测一些程序逻辑的正</description>
+    </item>
+    
+    <item>
+      <title>channel 总结</title>
+      <link>https://tomatoares.github.io/posts/go/channel/</link>
+      <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/channel/</guid>
+      <description>1. 声明和类型 ChannelType = ( &amp;#34;chan&amp;#34; | &amp;#34;chan&amp;#34; &amp;#34;&amp;lt;-&amp;#34; | &amp;#34;&amp;lt;-&amp;#34; &amp;#34;chan&amp;#34; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &amp;lt;- chan int 仅可写：var OnlyWriteChannel chan &amp;lt;- int 初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer 2. 操作 c := make(chan int) 读:i := &amp;lt;- c 写: c &amp;lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值</description>
+    </item>
+    
+    <item>
+      <title>Go 语言中的微服务</title>
+      <link>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</link>
+      <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</guid>
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。 在这里，我要介绍以下框架： Go Micro Go Kit Gizmo Kite 框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最</description>
     </item>
     
   </channel>

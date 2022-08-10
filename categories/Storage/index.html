@@ -1,57 +1,62 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>Storage | 西红柿的博客</title>
     <meta property="og:title" content="Storage - 西红柿的博客">
     <meta property="og:type" content="article">
         
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="Storage">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/categories/Storage/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/categories/Storage/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://TomatoAres.github.io/categories/Storage/index.xml" title="西红柿的博客" />
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    
-
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml" href="https://tomatoares.github.io/categories/Storage/index.xml" title="西红柿的博客" />
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
-
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -59,84 +64,319 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
+                <div class="col-8" id="main">
                     
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">Storage</span>
-                        中的文章
-                    </h3>
-                    
+<div class="res-cons">
+    
+    <h3 class="archive-title">
+        分类
+        <span class="keyword">Storage</span>
+        中的文章
+    </h3>
+    
 
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/">集群化存储课程总结</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年12月18日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/Storage">Storage</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准    文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/storage/storage-cluster/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">磁盘和文件系统</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月20日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="https://TomatoAres.github.io/categories/Storage">Storage</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                磁盘接口分类  IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经被淘汰了，而其后发展分支出更多类型的硬盘接口，比如 ATA(Advanced Technology Attachment)、Ultra ATA、DMA、Ultra DMA 等接口都属于 IDE 硬盘。其特点为：价格低廉，兼容性强，性价比高，数据传输慢，不支持热插拔等等。……
-                                <p class="readmore"><a href="https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/CSI-spec/">CSI - 容器存储接口</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年3月1日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            接口规范翻译 术语 词条 定义 Volume A unit of storage that will be made available inside of a CO-managed container, via the CSI. Block Volume 在容器内以块设备形式存在的挂载卷。 Mounted Volume A volume that will be mounted using the specified file system and appear as a directory inside the container. CO 容器编排系统（Container Orchestration system）, 使用 CSI 的 RPC 和 插件通信. SP 存储供应商（Storage Provider）, CSI 的第三方实现 RPC Remote……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/CSI-spec/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/external-storage/">external-storage 探索</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年3月1日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            概述 使用 out-of-tree 形式 添加存储 不同于 in-tree 形式，需要改变 controller-manager 等核心部分 和 CSI 的关系 核心组成 provisioner 用于创建 PV ，指定 voulume 真正的后端存储 controller 包含Provisioner接口和ProvisionController，ProvisionController是一个自定义的Kubernetes 控制器，用于监视Persi……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/external-storage/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月28日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            需求分析 环境 kubernetes 1.12.6 使用 storageclass 和 pvc 动态生成 pv storageclass 后端存储使用 ceph rbd 使用 kubectl edit 编辑 pvc，对已有的 pvc 进行扩容，并且容器内部文件系统自动扩容 1. kubernetes 1.12.6 环境部署 由于 1.12.6 版本比较古老，kubeadm 易用性远不如后边较新几个版本，使用方式不太一致，并且存在一定的不合理的问题 docker 版本最高 18.6:yum install -y docker-ce-18.06.0.ce-3.el7 docker-ce-cli-18.06.0.ce-3.el7 能翻墙的话，尽量……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/">Ceph 的部署</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月19日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            Ceph 的部署工具 ceph-deploy：官方的部署工具 ceph-ansible：红帽的部署工具 ceph-chef：利用 chef 进行自动部署 Ceph 的工具 puppet-ceph：puppet 的 ceph 模块 Public Network 192.168.200.161-164 Cluster Network 192.168.100.161-164 版本：Mimic 13 版 部署前提 这是一个前提条件 关闭 SELinux 关闭 firewalld，并禁止开机自启……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/issue-csi/">Ceph 的部署</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月19日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            @cofyc Thanks to you reply! I have tried it in default namespace according to readme and in rbac mode,but I have failed [root@k8s-master01 examples]# kubectl create -f examples/class.yaml error: the path &#34;examples/class.yaml&#34; does not exist [root@k8s-master01 examples]# cd .. [root@k8s-master01 rbd]# kubectl create -f examples/class.yaml storageclass.storage.k8s.io/rbd created [root@k8s-master01 rbd]# kubectl create -f examples/claim.yaml persistentvolumeclaim/claim1 created [root@k8s-master01 rbd]# kubectl get pvc NAME STATUS VOLUME CAPACITY ACCESS MODES STORAGECLASS AGE claim1 Pending rbd 5s [root@k8s-master01 rbd]# kubectl describe pvc claim1 Name: claim1 Namespace: default StorageClass: rbd Status: Pending Volume: Labels: &lt;none&gt; Annotations: volume.beta.kubernetes.io/storage-provisioner: ceph.com/rbd Finalizers: [kubernetes.io/pvc-protection] Capacity: Access Modes: VolumeMode: Filesystem Mounted By: &lt;none&gt; Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal ExternalProvisioning 10s (x3 over 16s) persistentvolume-controller waiting for a volume to be created, either by external provisioner &#34;ceph.com/rbd&#34; or manually created by system administrator Normal Provisioning……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/issue-csi/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/ceph/">Ceph 搭建网盘</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            云盘分解 存储 DAS NAS SAN 分布式存储 glusterfs moosefs hdfs fastdfs ceph 文件存储 块设备 核心：对象存储 应用 owncloud php 开发 nextcloud seafile 参考 ceph-两小时玩转企业级私有云盘……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/ceph/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/ceph&#43;k8s/">Ceph 和 Kubernetes 集成</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            方式 静态 如果没有合适的 pv, pvc 会一直 pending 动态 说明 使用 RBD 做存储，因为 cephFS 不稳定 准备环境 安装 ceph 大工程，暂时跳过，有空补 有单节点的快速安装脚本 ceph 创建存储池 并启用 RBD 功能 ceph osd pool create csj 1024 查看：ceph osd pool ls 创建 Ceph 用户，提供给 K8s 使用 ceph auth get-or-create client.kube mon 'allow r' osd 'allow class-read object_prefix rbd_children,allow rwx pool=rbdpool' 上条命令会生产 keyring 密钥 查看用户：ceph auth ls 有……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/ceph&#43;k8s/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/pvc/">PVC 问题解决记录</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            问题发现 github 上 16 年 12 月就提出来了 describe pod describe pvc kube-controller 日志 kubectl describe pod ceph-static Events: Type Reason Age From Message ---- ------ ---- ---- ------- Warning FailedScheduling 102s (x1480 over 15h) default-scheduler pod has unbound immediate PersistentVolumeClaims kubectl describe pvc ceph-kube-claim Type Reason Age From Message ---- ------ ---- ---- ------- Warning ProvisioningFailed 54s (x417 over 15h) persistentvolume-controller Failed to provision volume with StorageClass &#34;rbd&#34;: failed to create rbd image: executable file not found in $PATH, command output: Mounted By: ceph-static 已知的两种解决方式 替换 kube-controller 镜像 使用 CSI 记录 kube-controller 没有 rbd 二进制 同样的方式验证 使用镜像替换 使用 CSI in-tree&ndash;&gt;out-of-tree sidecar 模式 使……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/pvc/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/storage-source-code/">kubernetes ceph rbd storage 源码探索</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            概述 kubernetes 当前存储对接第三方存储后端实现有两种模式共存 in-tree：各种存储后端功能侵入式存在于源码中，耦合性高，不便于扩展与维护 out-of-tree:和源码解耦，类似于 CNI 的 CSI 有统一的接口规范，便于维护扩展 以 ceph-rbd 为例看 provisioner（github.com\kubernete……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/storage-source-code/">阅读全文</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/storage-cluster/">集群化存储课程总结</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月18日
+        </date>
+        
+        <div class="post-meta meta-category">
+            |
+            
+            <a href='/categories/Storage'>Storage</a>
+            
+        </div>
+        
+        <div class="post-content">
+            概述 用于存储的网络技术：连接 DAS: Direct Attached Storage 直接附加存储 直连主机：通过数据线，光缆，SATA 优点 技术简单 传输效率高 缺点 与主机绑定太死，不易于后期扩展 NAS: Network Attached Storage 网络附加存储 通过网络与主机相连 优点 技术相对简单 不要求直连主机，局域网即可 缺点 传输效率慢 SAN: Storage Area Network 存储区域网络 隔离：生产网络——存储网络……
+            <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/storage-cluster/">阅读全文</a></p>
+        </div>
+    </article>
+    
 
-                    
+    
+
+
+
+<ol class="page-navigator">
+    
+
+    
+    <li  class="current">
+        <a href="https://tomatoares.github.io/categories/Storage/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/categories/Storage/page/2/">2</a>
+    </li>
+    
+
+    
+    <li class="next">
+        <a href="https://tomatoares.github.io/categories/Storage/page/2/">下一页</a>
+    </li>
+    
+</ol>
+
+
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
 
 
 
 
+    <script src='/js/douban.js'></script>
 
                 </div>
-            </div>
 
-            <div id="secondary">
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -146,43 +386,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -191,237 +431,175 @@
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
-
 </body>
+
 </html>

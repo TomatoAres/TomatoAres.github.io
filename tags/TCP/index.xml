@@ -2,23 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TCP on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/TCP/</link>
+    <link>https://tomatoares.github.io/tags/TCP/</link>
     <description>Recent content in TCP on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Aug 2019 23:30:07 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/TCP/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 18 Aug 2019 23:30:07 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/TCP/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TCP UDP 总结</title>
-      <link>https://TomatoAres.github.io/posts/network/tcp-udp/</link>
+      <link>https://tomatoares.github.io/posts/network/tcp-udp/</link>
       <pubDate>Sun, 18 Aug 2019 23:30:07 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/tcp-udp/</guid>
-      <description>UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。
-UDP 特点  无连接：UDP 是面向无连接的通讯协议，UDP 数据包括目的端口号和源端口号信息，由于通讯不需要连接，所以可以实现广播发送。 大小限制：UDP 传输数据时有大小限制，每个被传输的数据报必须限定在 64KB 之内。 不可靠： UDP 是一个不可靠的协议，发送方所发送的数据报并不一定以相同的次序到达接收方。  应用：注重速度流畅的业务 UDP 是面向消息的协议，通信时不需要建立连接，数据的传输自然是不可靠的，UDP 一般用于多点通信和实时的数据业务，比如</description>
+      <guid>https://tomatoares.github.io/posts/network/tcp-udp/</guid>
+      <description>UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。 UDP 特点 无连接：UDP 是面向无连接</description>
     </item>
     
   </channel>

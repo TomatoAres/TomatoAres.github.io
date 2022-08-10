@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>go test 工具的简单介绍和使用 | 西红柿的博客</title>
     <meta property="og:title" content="go test 工具的简单介绍和使用 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-08-29T01:44:15&#43;08:00">
+    <meta property="article:published_time" content='2019-08-29T01:44:15&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-08-29T01:44:15&#43;08:00">
+    <meta property="article:modified_time" content='2019-08-29T01:44:15&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="go test 工具的简单介绍和使用">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/go-test/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/go/go-test/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">Awesome TomatoAres</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,636 +67,682 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简单介绍">简单介绍</a></li>
+    <li><a href="#简单使用">简单使用</a>
+      <ul>
+        <li><a href="#功能函数">功能函数</a></li>
+        <li><a href="#单元测试">单元测试</a></li>
+        <li><a href="#注意事项">注意事项</a></li>
+        <li><a href="#常用的测试命令及参数介绍">常用的测试命令及参数介绍</a></li>
+        <li><a href="#执行结果">执行结果</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用的测试方法">常用的测试方法</a>
+      <ul>
+        <li><a href="#基于表的测试方法">基于表的测试方法</a></li>
+        <li><a href="#随机测试">随机测试</a></li>
+        <li><a href="#白盒测试">白盒测试</a></li>
+        <li><a href="#外部测试包黑盒测试">外部测试包/黑盒测试</a></li>
+        <li><a href="#testmain-的使用">TestMain 的使用</a></li>
+        <li><a href="#golang-中覆盖率测试">Golang 中覆盖率测试</a></li>
+        <li><a href="#benchmark-函数">Benchmark 函数</a></li>
+        <li><a href="#性能剖析">性能剖析</a></li>
+        <li><a href="#example-函数">Example 函数</a></li>
+        <li><a href="#go-test-的参数解读">go test 的参数解读</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">go test 工具的简单介绍和使用</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月29日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">go test 工具的简单介绍和使用</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年8月29日
-                        </date>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<h2 id="简单介绍">简单介绍</h2>
-
-<p>go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go命名方式的文件，是go test编译的目标（不是go build）</p>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简单介绍">简单介绍</h2>
+<p>go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go 命名方式的文件，是 go test 编译的目标（不是 go build）</p>
 <p>在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数：</p>
-
 <ul>
-<li>功能测试函数：以Test前缀命名的函数，用来检测一些程序逻辑的正确性</li>
-<li>基准测试函数：以Benchmark开头，用来测试某些操作的性能</li>
-<li>示例函数：以Example开头，用来提供机器检查过的文档</li>
-<li><a href="https://www.jb51.net/article/121053.htm">参考代码1</a></li>
-<li><a href="https://www.cnblogs.com/davygeek/p/7741616.html">参考代码2</a></li>
+<li>功能测试函数：以 Test 前缀命名的函数，用来检测一些程序逻辑的正确性</li>
+<li>基准测试函数：以 Benchmark 开头，用来测试某些操作的性能</li>
+<li>示例函数：以 Example 开头，用来提供机器检查过的文档</li>
+<li><a href="https://www.jb51.net/article/121053.htm">参考代码 1</a></li>
+<li><a href="https://www.cnblogs.com/davygeek/p/7741616.html">参考代码 2</a></li>
 </ul>
-
 <h2 id="简单使用">简单使用</h2>
-
-<h3 id="test函数">Test函数</h3>
-
-<p>首先，在某一工程目录下创建两个文件：test.go(即源码文件)和test_test.go(即单元测试文件)，因为go test 命令只能在一个相应的目录下执行所有文件</p>
-
-<h4 id="test-go源码文件-创建一个test包-并实现一个除法运算">test.go源码文件，创建一个test包，并实现一个除法运算</h4>
-
-<pre><code class="language-go">  package test
-
-  import (
-    &quot;errors&quot;
-  )
-
-  func Division(a, b float64) (float64, error) {
-    if b == 0 {
-      return 0, errors.New(&quot;除数不能为0&quot;)
-      }
-      return a / b, nil
-  }
-
-</code></pre>
-
-<h4 id="test-test-go-测试单元文件">test_test.go 测试单元文件</h4>
-
+<h3 id="功能函数">功能函数</h3>
 <ul>
-<li><p>注意事项：</p>
-
-<ul>
-<li>文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码</li>
-<li>你必须import testing这个包</li>
-<li>测试用例会按照源代码中写的顺序依次执行</li>
-<li>测试格式：func TestXxx (t *testing.T),Xxx部分可以为任意的字母数字的组合，但是首字母一定为大写字母</li>
-<li>函数中通过调用testing.T的一些方法来说明测试通过或不通过：</li>
-<li>调用t.Error()或t.Errorf()方法记录日志并标记测试失败,测试函数中的某条测试用例执行结果与预期不符时使用</li>
-<li>Log和Logf方法用于日志输出，默认只输出错误日志，如果要输出全部日志需要使用-v</li>
-<li>Fail标记用例失败，但继续执行当前用例。FailNow标记用例失败并且立即停止执行当前用例，继续执行下一个（默认按书写顺序）用例</li>
-<li>Error等价于Log加Fail，Errorf等价于Logf加Fail</li>
-<li>使用t.Fatal()和t.Fatalf()方法，在某条测试用例失败后就<em>跳出该测试函数</em></li>
-<li>SkipNow标记跳过并停止执行该用例，继续执行下一个用例。Skip等价于Log加SkipNow，Skipf等价于Logf加SkipNow，Skipped返还用例是否被跳过
-if testing.Short() {t.Skip(&ldquo;slow test; skipping&rdquo;)}</li>
-<li>t.Parallel()示意该测试用例和其它并行用例（也调用该方法的）一起并行执行</li>
-<li>func (c *T) Run(name string, f func(t *T)) bool</li>
-<li>和普通的Golang源代码一样，测试代码中也能定义init函数，init函数会在引入外部包、定义常量、声明变量之后被自动调用，可以在init函数里编写测试相关的初始化代码</li>
-</ul></li>
-
-<li><p>测试用例代码</p>
-
-<pre><code class="language-GO">package test
-
-import  &quot;testing&quot;
-
-/*功能测试函数*/
-func TestDivision(t *testing.T) {
-    // 除数不为零的情况
-    if ans, err := Division(2, 1); err == nil {
-        t.Logf(&quot;测试通过，结果为：%f\n&quot;, ans) //测试用例预期的结果
-    } else {
-        t.Errorf(&quot;测试不通过：%s\n&quot;, err)    //非预期结果
-    }
-    //除数为零
-    if _, err := Division(7, 0); err == nil {
-        t.Errorf(&quot;测试不通过：%s\n&quot;, err)   //非预期结果
-    } else {
-        t.Logf(&quot;测试通过：%s\n&quot;, err)       //测试用例预期的结果
-    }
-}
-</code></pre></li>
+<li>首先，在某一工程目录下创建两个文件：divide.go（即源码文件）和 divide_test.go（即单元测试文件），因为 go test 命令只能在一个相应的目录下执行所有文件</li>
 </ul>
-
-<h4 id="常用的测试命令及参数介绍">常用的测试命令及参数介绍</h4>
-
+<p><code>divide.go</code>源码文件，创建一个 <code>calc</code> 包，并实现一个除法运算</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">calc</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;errors&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Division</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">float64</span>) (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;除数不能为 0&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">b</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="单元测试">单元测试</h3>
+<p>divide_test.go 测试单元文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">calc</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>  <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*功能测试函数*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestDivision</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 除数不为零的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;测试通过，结果为：%f\n&#34;</span>, <span style="color:#a6e22e">ans</span>) <span style="color:#75715e">//测试用例预期的结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;测试不通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>)    <span style="color:#75715e">//非预期结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//除数为零
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;测试不通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>)   <span style="color:#75715e">//非预期结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;测试通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>)       <span style="color:#75715e">//测试用例预期的结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="注意事项">注意事项</h3>
+<ul>
+<li>文件名必须是_test.go 结尾的，这样在执行 go test 的时候才会执行到相应的代码</li>
+<li>你必须 import testing 这个包</li>
+<li>测试用例会按照源代码中写的顺序依次执行</li>
+<li>测试格式：func TestXxx (t *testing.T),Xxx 部分可以为任意的字母数字的组合，但是首字母一定为大写字母</li>
+<li>函数中通过调用 testing.T 的一些方法来说明测试通过或不通过：
+<ol>
+<li>调用 t.Error() 或 t.Errorf() 方法记录日志并标记测试失败，测试函数中的某条测试用例执行结果与预期不符时使用</li>
+<li>Log 和 Logf 方法用于日志输出，默认只输出错误日志，如果要输出全部日志需要使用-v</li>
+<li>Fail 标记用例失败，但继续执行当前用例。FailNow 标记用例失败并且立即停止执行当前用例，继续执行下一个（默认按书写顺序）用例</li>
+<li>Error 等价于 Log 加 Fail，Errorf 等价于 Logf 加 Fail</li>
+<li>使用 t.Fatal() 和 t.Fatalf() 方法，在某条测试用例失败后就_跳出该测试函数_</li>
+<li>SkipNow 标记跳过并停止执行该用例，继续执行下一个用例。Skip 等价于 Log 加 SkipNow，Skipf 等价于 Logf 加 SkipNow，Skipped 返还用例是否被跳过
+if testing.Short() {t.Skip(&ldquo;slow test; skipping&rdquo;)}</li>
+<li>t.Parallel() 示意该测试用例和其它并行用例（也调用该方法的）一起并行执行</li>
+<li>func (c *T) Run(name string, f func(t *T)) bool</li>
+</ol>
+</li>
+<li>和普通的 Golang 源代码一样，测试代码中也能定义 init 函数，init 函数会在引入外部包、定义常量、声明变量之后被自动调用，可以在 init 函数里编写测试相关的初始化代码</li>
+</ul>
+<h3 id="常用的测试命令及参数介绍">常用的测试命令及参数介绍</h3>
 <ul>
 <li><code>go test [-v] [-run]</code></li>
-<li><code>go test</code>: 下执行是不会显示测试通过的信息的,但会显示测试不通过的测试用例名称和执行时间</li>
+<li><code>go test</code>: 下执行是不会显示测试通过的信息的，但会显示测试不通过的测试用例名称和执行时间</li>
 <li><code>-v</code>: 可以输出包中每个测试用例的名称和执行时间（go test -v）</li>
 <li><code>-run</code> : 匹配一个正则表达式，它可以运行指定的测试函数（go test –v –run=”Division”）</li>
-
-<li><p>执行结果如下：</p>
-
-<pre><code class="language-GO">$ go test
-PASS
-ok      git.cloud.top/kingfs/gotest/src 0.175s
-</code></pre>
-
-<pre><code class="language-GO">$ go test -v
-=== RUN   TestDivision
---- PASS: TestDivision (0.00s)
-    test_test.go:11: 测试通过，结果为：2.000000
-    test_test.go:19: 测试通过：除数不能为0
-PASS
-ok      git.cloud.top/kingfs/gotest/src 0.165s
-</code></pre></li>
 </ul>
-
-<h4 id="常用的测试方法">常用的测试方法</h4>
-
-<h5 id="基于表的测试方法">基于表的测试方法</h5>
-
+<h3 id="执行结果">执行结果</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">test</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">PASS</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ok</span>      <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span> <span style="color:#ae81ff">0.175</span><span style="color:#a6e22e">s</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">v</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">==</span>= <span style="color:#a6e22e">RUN</span>   <span style="color:#a6e22e">TestDivision</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">---</span> <span style="color:#a6e22e">PASS</span>: <span style="color:#a6e22e">TestDivision</span> (<span style="color:#ae81ff">0.00</span><span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">test_test</span>.<span style="color:#66d9ef">go</span>:<span style="color:#ae81ff">11</span>: <span style="color:#a6e22e">测试通过</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">结果为</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#ae81ff">2.000000</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">test_test</span>.<span style="color:#66d9ef">go</span>:<span style="color:#ae81ff">19</span>: <span style="color:#a6e22e">测试通过</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">除数不能为</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">PASS</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ok</span>      <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span> <span style="color:#ae81ff">0.165</span><span style="color:#a6e22e">s</span>
+</span></span></code></pre></div><h2 id="常用的测试方法">常用的测试方法</h2>
+<h3 id="基于表的测试方法">基于表的测试方法</h3>
 <ul>
-<li><p>一般格式：</p>
-
-<pre><code class="language-GO">var ** = []struct{
-name T
-want T
-}{
-{##,##},
-{##,##},
-...
-}
-</code></pre></li>
-
-<li><p>基于表的测试方法在Go里面很常见，根据需要添加新的表项很直观</p></li>
-
-<li><p>示例：</p>
-
-<pre><code class="language-GO">func TestDivision_table(t *testing.T) {
-var tests = []struct {
-a    float64
-b    float64
-want float64
-}{
-{100, 4, 25},
-{6, 2, 3},
-{0, 100, 0},
-{3, 0, math.NaN()},
-}
-for _, test := range tests {
-if ans, err := Division(test.a, test.b); math.IsNaN(test.want) == false &amp;&amp; test.want == ans {
-	    t.Logf(&quot;测试通过，结果为：%f\n&quot;, ans) //测试用例预期的结果
-} else if math.IsNaN(test.want) == false &amp;&amp; test.want != ans {
-	    t.Errorf(&quot;测试不通过：%s\n&quot;, err) //非预期结果
-} else if math.IsNaN(test.want) == true &amp;&amp; err != nil {
-	    t.Logf(&quot;测试通过：%s\n&quot;, err)
-} else if math.IsNaN(test.want) == true &amp;&amp; err == nil {
-	    t.Errorf(&quot;测试不通过：%s\n&quot;, err)
-}
-}
-}
-</code></pre></li>
+<li>一般格式：</li>
 </ul>
-
-<h5 id="随机测试">随机测试</h5>
-
-<p>这里随机测试就是通过构建随机输入来扩展测试的覆盖范围(和随机测试工具<strong>go-fuzz</strong>不一样)
-  例子见test_test.go：通过通过构建伪随机数生成随机回文字符串，来测试函数
-  随机数生成参考链接：
-  <a href="https://blog.csdn.net/u011304970/article/details/72721747">1</a>
-  <a href="https://www.cnblogs.com/benlightning/articles/4441010.html">2</a></p>
-
-<h5 id="白盒测试">白盒测试</h5>
-
-<p>黑盒测试：假设测试者对包的了解仅通过公开的API和文档，而包的内部逻辑则是不透明的
-  白盒测试：可以访问源码内部函数和数据结构
-  在白盒测试中对全局变量的更新有时会存在风险，我们需要恢复这个测试全局变量的值，这样后面的测试才不会受影响，这种情况可以使用defer
-  以这种方式来使用全局变量是安全的，因为go test一般不会并发执行多个测试
-  defer参考:
-   <a href="https://blog.csdn.net/u010230794/article/details/62231965">defer1</a>
-             <a href="http://lib.csdn.net/article/go/34618">defer2</a>
-  * 例子：</p>
-
-<pre><code class="language-GO">  //example.go
-  package mypackage
-  import &quot;fmt&quot;
-  var Flag int=1
-
-  func mulFlag(){
-    if Flag==1{Flag*=5}
-    fmt.Println(Flag)
-  }
-  func AddFlag(){
-    if Flag==1{Flag+=1}
-    fmt.Println(Flag)
-  }
-
-  //example_test.go
-  package mypackage
-  import &quot;testing&quot;
-  func TestMulFlag(t *testing.T){
-    // saved := Flag
-	  // defer func() { Flag = saved }()
-    mulFlag()
-  }
-  func TestAddFlag(t *testing.T){
-    AddFlag()
-  }
-</code></pre>
-
-<h5 id="外部测试包-黑盒测试">外部测试包/黑盒测试</h5>
-
-<pre><code>上面的测试和源码都属于同一个包，外部测试包有一个额外的后缀**_test**,_test告诉go test 工具它应该单独的编译一个包。它可以解决包循环引用问题(GO规范禁止循环引用)例如：在被测试的包 “a” 被 “b” 导入，并且 “a“ 的测试也需要导入 ”b“ 时 - 测试可以被移动到 “a_test“ 包，然后可以（同时）导入 “a” 和 “b”，这样就没有循环导入的问题。
-</code></pre>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#f92672">**</span> = []<span style="color:#66d9ef">struct</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span> <span style="color:#a6e22e">T</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">want</span> <span style="color:#a6e22e">T</span>
+</span></span><span style="display:flex;"><span>}{
+</span></span><span style="display:flex;"><span>  {<span style="color:#960050;background-color:#1e0010">##</span>,<span style="color:#960050;background-color:#1e0010">##</span>},
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>基于表的测试方法在 Go 里面很常见，根据需要添加新的表项很直观</li>
+<li>示例：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestDivision_table</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tests</span> = []<span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">a</span>    <span style="color:#66d9ef">float64</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">b</span>    <span style="color:#66d9ef">float64</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">want</span> <span style="color:#66d9ef">float64</span>
+</span></span><span style="display:flex;"><span>          }{
+</span></span><span style="display:flex;"><span>          {<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">25</span>},
+</span></span><span style="display:flex;"><span>          {<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>},
+</span></span><span style="display:flex;"><span>          {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">0</span>},
+</span></span><span style="display:flex;"><span>          {<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>()},
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">test</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tests</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ans</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Division</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">b</span>); <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ans</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;测试通过，结果为：%f\n&#34;</span>, <span style="color:#a6e22e">ans</span>) <span style="color:#75715e">//测试用例预期的结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">ans</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;测试不通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>) <span style="color:#75715e">//非预期结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;测试通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">want</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;测试不通过：%s\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>              }}}
+</span></span></code></pre></div><h3 id="随机测试">随机测试</h3>
+<p>这里随机测试就是通过构建随机输入来扩展测试的覆盖范围（和随机测试工具** go-fuzz **不一样）
+例子见 test_test.go：通过通过构建伪随机数生成随机回文字符串，来测试函数
+随机数生成参考链接：
+<a href="https://blog.csdn.net/u011304970/article/details/72721747">1</a>
+<a href="https://www.cnblogs.com/benlightning/articles/4441010.html">2</a></p>
+<h3 id="白盒测试">白盒测试</h3>
+<p>黑盒测试：假设测试者对包的了解仅通过公开的 API 和文档，而包的内部逻辑则是不透明的
+白盒测试：可以访问源码内部函数和数据结构
+在白盒测试中对全局变量的更新有时会存在风险，我们需要恢复这个测试全局变量的值，这样后面的测试才不会受影响，这种情况可以使用 defer
+以这种方式来使用全局变量是安全的，因为 go test 一般不会并发执行多个测试
+defer 参考：
+<a href="https://blog.csdn.net/u010230794/article/details/62231965">defer1</a>
+<a href="http://lib.csdn.net/article/go/34618">defer2</a></p>
 <ul>
-<li><p>例子如下：</p>
-
-<pre><code class="language-GO">  //example.go
-  package myexample
-
-  import (
-      &quot;errors&quot;
-  )
-
-  func Division(a, b float64) (float64, error) {
-      if b == 0 {
-        return a / b, errors.New(&quot;除数不能为0&quot;)
-      }
-
-      return a / b, nil
-  }
-  //example_test.go(与example.go不在同一目录)
-  package myexample_test
-
-  import (
-      &quot;fmt&quot;
-      . &quot;test&quot;                       //这里表示的是路径，导入实际包名为myexample
-      &quot;testing&quot;
-  )
-
-  func TestDvision(t *testing.T) {
-    fmt.Println(Division(4, 2))
-  }
+<li>例子：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#75715e">//example.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">mypackage</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Flag</span> <span style="color:#66d9ef">int</span>=<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">mulFlag</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">Flag</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>{<span style="color:#a6e22e">Flag</span><span style="color:#f92672">*=</span><span style="color:#ae81ff">5</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Flag</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">AddFlag</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">Flag</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>{<span style="color:#a6e22e">Flag</span><span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Flag</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//example_test.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">mypackage</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestMulFlag</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// saved := Flag
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// defer func() { Flag = saved }()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mulFlag</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestAddFlag</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">AddFlag</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="外部测试包黑盒测试">外部测试包/黑盒测试</h3>
+<pre><code>上面的测试和源码都属于同一个包，外部测试包有一个额外的后缀**_test**,_test 告诉 go test 工具它应该单独的编译一个包。它可以解决包循环引用问题 (GO 规范禁止循环引用）例如：在被测试的包 “a” 被 “b” 导入，并且 “a“ 的测试也需要导入 ”b“ 时 - 测试可以被移动到 “a_test“ 包，然后可以（同时）导入 “a” 和 “b”，这样就没有循环导入的问题。
 </code></pre>
-
 <ul>
+<li>例子如下：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#75715e">//example.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">myexample</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;errors&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Division</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">float64</span>) (<span style="color:#66d9ef">float64</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;除数不能为 0&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">b</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//example_test.go（与 example.go 不在同一目录）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">myexample_test</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    . <span style="color:#e6db74">&#34;test&#34;</span>                       <span style="color:#75715e">//这里表示的是路径，导入实际包名为 myexample
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestDvision</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
 <li>有时候，外部测试包需要对待测试包拥有特殊的访问权限，为了避免循环引用，一个白盒测试必须存在于一个单独的包中</li>
-
-<li><p>解决小技巧：在包测试文件_test.go中添加一些函数申明，将包的内部功能暴露给外部测试，如果一个源文件存在且只是为测试提供包的一个&rdquo;后门&rdquo;，他们一般称作export_test.go,这种方式在源码中很常见</p>
-
-<h4 id="子用例">子用例</h4>
-
-<pre><code class="language-GO">func TestRunSuits(t *testing.T) { 
-t.Run(&quot;A=1&quot;, func(t *testing.T) { t.Log(&quot;sub test A=1&quot;) }) 
-t.Run(&quot;A=2&quot;, func(t *testing.T) { t.Log(&quot;sub test A=2&quot;) }) 
-t.Run(&quot;B=1&quot;, func(t *testing.T) { t.Log(&quot;sub test B=1&quot;) }) 
-t.Run(&quot;B=2&quot;, func(t *testing.T) { t.Log(&quot;sub test B=2&quot;) }) 
-}
-</code></pre>
-
-<p>Run 运行一个名为name的子用例，返回该子用例是否通过。可以通过-run exp正则表达式参数指定要运行的子用例，例如上面例子中可以通过go test -v -run &ldquo;/A&rdquo; 运行两个子用例，正则表达式的顶层以 / 开头。子用例的引入方便更好的对测试用例进行组织
-<a href="https://www.jianshu.com/p/df04c36cb8d4">参考链接</a></p>
-
-<h4 id="web中handler函数测试">web中Handler函数测试</h4></li>
-</ul></li>
-
-<li><p>示例代码</p>
-
-<pre><code class="language-GO">//test.go中
-import (
-&quot;log&quot;
-&quot;fmt&quot;
-	&quot;net/http&quot;
-)
-
-//hangdle
-func GetUrlPath(w http.ResponseWriter, r *http.Request) {
-	  if r != nil {
-		  fmt.Fprintf(w, &quot;%s&quot;, r.URL.Path)
-	  }
-}
-
-//创建web服务
-func CreateWeb() {
-	http.HandleFunc(&quot;/&quot;, GetUrlPath)
-	err := http.ListenAndServe(&quot;:1234&quot;, nil)
-	if err != nil {
-		log.Fatal(&quot;ListenAndServe:&quot;, err)
-	  }
-}
-
-//test_test.go中
-import (
-	&quot;net/http&quot;
-	&quot;net/http/httptest&quot;
-	&quot;testing&quot;
-)
-
-func TestGetUrlPath(t *testing.T) {
-	//创建一个请求
-	req, err := http.NewRequest(&quot;GET&quot;, &quot;http://127.0.0.1:1234/aaa/bbb&quot;, nil)
-	if err != nil {
-		t.Error(&quot;NewRequest:&quot;, err)
-	}
-	//创建一个接受响应
-	ww := httptest.NewRecorder()
-	//调用handle
-	GetUrlPath(ww, req)
-	//检测返回状态
-	if status := ww.Code; status != http.StatusOK {
-		t.Errorf(&quot;handle get wrong status:%v,want:%v\n&quot;, status, http.StatusOK)
-	}
-	//检测返回数据
-	ans := &quot;/aaa/bbb&quot;
-	if str := ww.Body.String(); str != ans {
-		t.Errorf(&quot;---got:%s,want:%s\n&quot;, str, ans)
-	}
-}
-</code></pre></li>
+<li>解决小技巧：在包测试文件_test.go 中添加一些函数申明，将包的内部功能暴露给外部测试，如果一个源文件存在且只是为测试提供包的一个&quot;后门&quot;，他们一般称作 export_test.go, 这种方式在源码中很常见</li>
 </ul>
-
-<h3 id="testmain的使用">TestMain的使用</h3>
-
-<pre><code>有时会遇到这样的场景：
-进行测试之前需要初始化操作(例如打开连接)，测试结束后，需要做清理工作(例如关闭连接)等等。这个时候就可以使用TestMain()
-</code></pre>
-
-<ul>
-<li><p>例子：</p>
-
-<pre><code class="language-GO">func TestMain(m *testing.M) {
-  fmt.Println(&quot;begin&quot;)
-  m.Run()
-  fmt.Println(&quot;end&quot;)
+</li>
+</ul>
+<h4 id="子用例">子用例</h4>
+<pre><code>```GO
+func TestRunSuits(t *testing.T) { 
+  t.Run(&quot;A=1&quot;, func(t *testing.T) { t.Log(&quot;sub test A=1&quot;) }) 
+  t.Run(&quot;A=2&quot;, func(t *testing.T) { t.Log(&quot;sub test A=2&quot;) }) 
+  t.Run(&quot;B=1&quot;, func(t *testing.T) { t.Log(&quot;sub test B=1&quot;) }) 
+  t.Run(&quot;B=2&quot;, func(t *testing.T) { t.Log(&quot;sub test B=2&quot;) }) 
 }
+```
 </code></pre>
-
-<h3 id="golang中覆盖率测试">Golang中覆盖率测试</h3></li>
-
-<li><p>执行 go tool cover 可以看到cover 工具的使用和参数信息</p></li>
-
-<li><p>覆盖率的统计模式有三种：</p>
-
+<p>Run 运行一个名为 name 的子用例，返回该子用例是否通过。可以通过-run exp 正则表达式参数指定要运行的子用例，例如上面例子中可以通过 go test -v -run &ldquo;/A&rdquo; 运行两个子用例，正则表达式的顶层以 / 开头。子用例的引入方便更好的对测试用例进行组织
+<a href="https://www.jianshu.com/p/df04c36cb8d4">参考链接</a></p>
+<h4 id="web-中-handler-函数测试">web 中 Handler 函数测试</h4>
+<ul>
+<li>示例代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#75715e">//test.go 中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;net/http&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//hangdle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetUrlPath</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  	  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;%s&#34;</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//创建 web 服务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CreateWeb</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">GetUrlPath</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:1234&#34;</span>, <span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;ListenAndServe:&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//test_test.go 中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;net/http&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;net/http/httptest&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestGetUrlPath</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//创建一个请求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;http://127.0.0.1:1234/aaa/bbb&#34;</span>, <span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#e6db74">&#34;NewRequest:&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//创建一个接受响应
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ww</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRecorder</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//调用 handle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">GetUrlPath</span>(<span style="color:#a6e22e">ww</span>, <span style="color:#a6e22e">req</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//检测返回状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ww</span>.<span style="color:#a6e22e">Code</span>; <span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;handle get wrong status:%v,want:%v\n&#34;</span>, <span style="color:#a6e22e">status</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//检测返回数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;/aaa/bbb&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ww</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">String</span>(); <span style="color:#a6e22e">str</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">ans</span> {
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;---got:%s,want:%s\n&#34;</span>, <span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">ans</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="testmain-的使用">TestMain 的使用</h3>
+<pre><code>有时会遇到这样的场景：
+进行测试之前需要初始化操作（例如打开连接），测试结束后，需要做清理工作（例如关闭连接）等等。这个时候就可以使用 TestMain()
+</code></pre>
+<ul>
+<li>例子：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestMain</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">M</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;begin&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Run</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;end&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="golang-中覆盖率测试">Golang 中覆盖率测试</h3>
+<ul>
+<li>执行 go tool cover 可以看到 cover 工具的使用和参数信息</li>
+<li>覆盖率的统计模式有三种：
 <ol>
-<li>set : 缺省模式, 只记录语句是否被执行过</li>
+<li>set : 缺省模式，只记录语句是否被执行过</li>
 <li>count : 记录语句被执行的次数</li>
 <li>atomic : 记录语句被执行的次数，并保证在并发执行时的正确性</li>
-</ol></li>
-
-<li><p>覆盖率测试一般步骤：</p>
-
+</ol>
+</li>
+<li>覆盖率测试一般步骤：
 <ol>
 <li>先用 -coverprofile 标记来运行测试
 $ go test -run=TestDivision_table -coverprofile=c.out
-&gt; 若想改变覆盖率统计模式可以用参数：-covermode=## 来标记指定
-&gt; profile文件：c.out 第一排记录着覆盖率的统计模式</li>
-
-<li><p>若只想得到统计结果只需要参数：-cover 即可</p>
-
-<pre><code class="language-GO">$ go test -cover
- PASS
- coverage: 100.0% of statements
- ok      git.cloud.top/kingfs/gotest/src 0.134s
-</code></pre></li>
-
-<li><p>生成数据后，我们来处理生成的日志，可以生成一个HTML报告，并在新的浏览器中打开它</p>
-
-<pre><code class="language-GO">$ go tool cover -html=c.out
-</code></pre></li>
-
-<li><p>生成HTML报告文件</p>
-
-<pre><code class="language-GO">$ go tool cover -html=c.out -o coverage.html
-</code></pre>
-
-<h3 id="benchmark函数">Benchmark函数</h3></li>
-</ol></li>
-
-<li><p>概述：
-基准测试即压力测试就是在一定的工作负载下检测程序性能的一种方法</p>
-
+<blockquote>
+<p>若想改变覆盖率统计模式可以用参数：-covermode=## 来标记指定
+profile 文件：c.out 第一排记录着覆盖率的统计模式</p>
+</blockquote>
+</li>
+<li>若只想得到统计结果只需要参数：-cover 即可
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">cover</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">PASS</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">coverage</span>: <span style="color:#ae81ff">100.0</span><span style="color:#f92672">%</span> <span style="color:#a6e22e">of</span> <span style="color:#a6e22e">statements</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ok</span>      <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span> <span style="color:#ae81ff">0.134</span><span style="color:#a6e22e">s</span>
+</span></span></code></pre></div></li>
+<li>生成数据后，我们来处理生成的日志，可以生成一个 HTML 报告，并在新的浏览器中打开它
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">tool</span> <span style="color:#a6e22e">cover</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">html</span>=<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">out</span>
+</span></span></code></pre></div></li>
+<li>生成 HTML 报告文件
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">tool</span> <span style="color:#a6e22e">cover</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">html</span>=<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">out</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">coverage</span>.<span style="color:#a6e22e">html</span>
+</span></span></code></pre></div></li>
+</ol>
+</li>
+</ul>
+<h3 id="benchmark-函数">Benchmark 函数</h3>
 <ul>
-<li>文件名也必须以_test.go结尾</li>
+<li>概述：
+基准测试即压力测试就是在一定的工作负载下检测程序性能的一种方法</li>
+</ul>
+<ul>
+<li>文件名也必须以_test.go 结尾</li>
 <li>基准测试格式：func BenchmarkXXX(b *testing.B) { &hellip; }</li>
-<li>go test不会默认执行压力测试的函数，如果要执行压力测试需要带上参数-test.bench，语法: -test.bench=&ldquo;test_name_regex&rdquo;,例如go test -test.bench=&ldquo;.*&ldquo;表示测试全部的压力测试函数</li>
-<li>在压力测试用例中,请记得在循环体内使用testing.B.N,以使测试可以正常的运行</li>
-<li>testing.B类型的常用方法的用法
-
+<li>go test 不会默认执行压力测试的函数，如果要执行压力测试需要带上参数-test.bench，语法：-test.bench=&ldquo;test_name_regex&rdquo;, 例如 go test -test.bench=&quot;.*&ldquo;表示测试全部的压力测试函数</li>
+<li>在压力测试用例中，请记得在循环体内使用 testing.B.N, 以使测试可以正常的运行</li>
+<li>testing.B 类型的常用方法的用法
 <ol>
-<li>在函数中调用t.ReportAllocs() ，启用内存使用分析</li>
-<li>通过 b.StopTimer() 、b.ResetTimer() 、b.StartTimer()来停止、重置、启动 时间经过和内存分配计数</li>
-<li>调用b.SetBytes()记录在一个操作中处理的字节数</li>
-<li>通过b.RunParallel()方法和 *testing.PB类型的Next()方法来并发执行被测对象
+<li>在函数中调用 t.ReportAllocs() ，启用内存使用分析</li>
+<li>通过 b.StopTimer() 、b.ResetTimer() 、b.StartTimer() 来停止、重置、启动 时间经过和内存分配计数</li>
+<li>调用 b.SetBytes() 记录在一个操作中处理的字节数</li>
+<li>通过 b.RunParallel() 方法和 *testing.PB 类型的 Next() 方法来并发执行被测对象
 <a href="https://www.jb51.net/article/98326.htm">参考链接</a></li>
-</ol></li>
-</ul></li>
-
-<li><p>基准测试函数列子</p>
-
-<pre><code class="language-GO">//压力测试
-func Benchmark_Division(b *testing.B) {
-      for i := 0; i &lt; b.N; i++ {
-        Division(7, 3)
-      }
-}
-
-//压力测试排除一些初始化工作时间
-func Benchmark_Division_Update(b *testing.B) {
-      b.StopTimer()
-      b.StartTimer()
-      b.ReportAllocs()
-      for i := 0; i &lt; b.N; i++ {
-        Division(7, 3)
-      }
-}
-</code></pre></li>
-
-<li><p>执行命令 ：</p>
-
+</ol>
+</li>
+</ul>
 <ul>
-<li>go test -bench=&ldquo;.*&rdquo;</li>
-<li>go test -bench=&ldquo;Benchmark_Division_Update&rdquo; -count=5 （-count指定执行次数）</li>
+<li>基准测试函数列子</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#75715e">//压力测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark_Division</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//压力测试排除一些初始化工作时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark_Division_Update</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">StopTimer</span>()
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">StartTimer</span>()
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ReportAllocs</span>()
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>执行命令 ：
+<ul>
+<li>go test -bench=&rdquo;.*&quot;</li>
+<li>go test -bench=&ldquo;Benchmark_Division_Update&rdquo; -count=5 （-count 指定执行次数）</li>
 <li>go test –bench=. –benchmem
-参数：-benchtime 可以控制benchmark的运行时间（-benchtime=”3s”）</li>
-</ul></li>
-
-<li><p>执行结果 ：</p>
-
-<pre><code class="language-GO"> $ go test -bench=.
-    goos: windows
-    goarch: amd64
-    pkg: git.cloud.top/kingfs/gotest/src
-    Benchmark_Division-4            2000000000               0.32 ns/op
-    Benchmark_Division_Update-4     2000000000               0.32 ns/op            0 B/op          0 allocs/op
-    PASS
-    ok      git.cloud.top/kingfs/gotest/src 1.498s
-</code></pre>
-
-<pre><code class="language-GO"> $ go test -bench=. -benchmem
-    goos: windows
-    goarch: amd64
-    pkg: git.cloud.top/kingfs/gotest/src
-    Benchmark_Division-4            2000000000               0.33 ns/op            0 B/op          0 allocs/op
-    Benchmark_Division_Update-4     2000000000               0.34 ns/op            0 B/op          0 allocs/op
-    PASS
-    ok      git.cloud.top/kingfs/gotest/src 1.544s
-</code></pre></li>
-
-<li><p>结果分析 ：
-表示函数Benchmark_Division* ，-4表示4个CUP线程执行，2000000000共执行次数，0.32 ns/op 表示每次执行耗时0.32纳秒，0 B/op 表示每次执行分配0字节内存，0 allocs/op 表示每次执行分配0次对象
-函数中b.ReportAllocs() 使得结果repor中包含内存分配信息,这个与参数“-benchmem”效果一样</p>
-
-<h3 id="性能剖析">性能剖析</h3></li>
-
-<li><p>主要包括3类性能剖析：</p>
-
+参数：-benchtime 可以控制 benchmark 的运行时间（-benchtime=”3s”）</li>
+</ul>
+</li>
+<li>执行结果 ：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">bench</span>=.
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">goos</span>: <span style="color:#a6e22e">windows</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">goarch</span>: <span style="color:#a6e22e">amd64</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">pkg</span>: <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">Benchmark_Division</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>            <span style="color:#ae81ff">2000000000</span>               <span style="color:#ae81ff">0.32</span> <span style="color:#a6e22e">ns</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">Benchmark_Division_Update</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">2000000000</span>               <span style="color:#ae81ff">0.32</span> <span style="color:#a6e22e">ns</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>            <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>          <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">allocs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">PASS</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">ok</span>      <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span> <span style="color:#ae81ff">1.498</span><span style="color:#a6e22e">s</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-GO" data-lang="GO"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">bench</span>=. <span style="color:#f92672">-</span><span style="color:#a6e22e">benchmem</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">goos</span>: <span style="color:#a6e22e">windows</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">goarch</span>: <span style="color:#a6e22e">amd64</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">pkg</span>: <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">Benchmark_Division</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>            <span style="color:#ae81ff">2000000000</span>               <span style="color:#ae81ff">0.33</span> <span style="color:#a6e22e">ns</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>            <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>          <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">allocs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">Benchmark_Division_Update</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">2000000000</span>               <span style="color:#ae81ff">0.34</span> <span style="color:#a6e22e">ns</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>            <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>          <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">allocs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">op</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">PASS</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">ok</span>      <span style="color:#a6e22e">git</span>.<span style="color:#a6e22e">cloud</span>.<span style="color:#a6e22e">top</span><span style="color:#f92672">/</span><span style="color:#a6e22e">kingfs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gotest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">src</span> <span style="color:#ae81ff">1.544</span><span style="color:#a6e22e">s</span>
+</span></span></code></pre></div></li>
+<li>结果分析 ：
+表示函数 Benchmark_Division* ，-4 表示 4 个 CUP 线程执行，2000000000 共执行次数，0.32 ns/op 表示每次执行耗时 0.32 纳秒，0 B/op 表示每次执行分配 0 字节内存，0 allocs/op 表示每次执行分配 0 次对象
+函数中 b.ReportAllocs() 使得结果 repor 中包含内存分配信息，这个与参数“-benchmem”效果一样</li>
+</ul>
+<h3 id="性能剖析">性能剖析</h3>
+<p>主要包括 3 类性能剖析：</p>
 <ul>
-<li>CPU性能剖析：识别出执行过程需要CPU最多的函数</li>
+<li>CPU 性能剖析：识别出执行过程需要 CPU 最多的函数</li>
 <li>堆性能剖析：识别出负责分配最多内存的语句</li>
 <li>阻塞性能剖析：识别出那些阻塞协程最久的操作</li>
-</ul></li>
-
-<li><p>CPU性能剖析
- 生成性能剖析的可执行文件和性能剖析日志的格式如下：
- <code>go test -run=文件名字 -bench=bench名字 -cpuprofile=cprofile文件名称 文件夹</code></p>
-
+</ul>
+<ol>
+<li>CPU 性能剖析
+生成性能剖析的可执行文件和性能剖析日志的格式如下：</li>
+</ol>
+<p><code>go test -run=文件名字 -bench=bench 名字 -cpuprofile=cprofile 文件名称 文件夹</code></p>
 <ul>
-<li><p>执行命令：</p>
-
-<pre><code>$ go test -run=NONE -bench=. -cpuprofile=cpu.out
- goos: windows
- goarch: amd64
- pkg: git.cloud.top/kingfs/gotest/src
- Benchmark_Division-4            2000000000               0.33 ns/op
- Benchmark_Division_Update-4     2000000000               0.33 ns/op            0 B/op          0 allocs/op
- PASS
- ok      git.cloud.top/kingfs/gotest/src 1.584s
-</code></pre>
-
+<li>
+<p>执行命令</p>
+<pre tabindex="0"><code>$ go test -run=NONE -bench=. -cpuprofile=cpu.out
+  goos: windows
+  goarch: amd64
+  pkg: git.cloud.top/kingfs/gotest/src
+  Benchmark_Division-4            2000000000               0.33 ns/op
+  Benchmark_Division_Update-4     2000000000               0.33 ns/op            0 B/op          0 allocs/op
+  PASS
+  ok      git.cloud.top/kingfs/gotest/src 1.584s
+</code></pre><blockquote>
+<p>在执行命令后在工程目录中你会发现多出了两个文件：*.test 的可执行文件和 profile 文件</p>
+</blockquote>
+<pre tabindex="0"><code>$ go tool pprof *.test  profile 文件      （*进入交互模式*）
+</code></pre><pre tabindex="0"><code>$ go tool pprof src.test.exe cpu.out
+  File: src.test.exe
+  Type: cpu
+  Time: Jun 21, 2018 at 7:39pm (CST)
+  Duration: 1.55s, Total samples = 1.43s (91.96%)
+  Entering interactive mode (type &#34;help&#34; for commands, &#34;o&#34; for options)
+  (pprof)
+</code></pre></li>
+<li>
+<p>在交互模式下常用到命令有：top web svg pdf text 等</p>
+</li>
+<li>
+<p>web 命令会生成性能剖析图，并以 web 界面形式展示</p>
 <blockquote>
-<p>在执行命令后在工程目录中你会发现多出了两个文件: *.test的可执行文件和 profile文件</p>
-
-<pre><code>$ go tool pprof *.test  profile文件      （*进入交互模式*）
-</code></pre>
-
-<pre><code>$ go tool pprof src.test.exe cpu.out
- File: src.test.exe
- Type: cpu
- Time: Jun 21, 2018 at 7:39pm (CST)
- Duration: 1.55s, Total samples = 1.43s (91.96%)
- Entering interactive mode (type &quot;help&quot; for commands, &quot;o&quot; for options)
- (pprof)
-</code></pre>
-</blockquote></li>
-
-<li><p>在交互模式下常用到命令有：top web svg pdf text 等</p></li>
-
-<li><p>web命令会生成性能剖析图，并以web 界面形式展示
-&gt; 注：<strong>要生成性能剖析图要先下载安装graphviz工具</strong>
-&gt;&gt; <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">graphviz下载链接</a>
-&gt;&gt; 解压包至某一目录，并将解压后的<code>bin</code>目录添加至环境变量<code>path</code>中
-&gt;&gt; 验证，命令行输入：dot -version
-<img src="D:GOGoprojectssrcgit.cloud.topkingfsgotestimagePackagecpu001.JPG" alt="" />
-CPU性能剖析图</p></li>
-
-<li><p>$ go tool pprof –web *.test profile文件      （等同于交互模式下的 web命令）</p></li>
-
-<li><p>$ go tool pprof –svg  profile文件 &gt;  *.svg   （等同于交互模式下的 pdf命令）</p></li>
-
-<li><p>$ go tool pprof –pdf  profile文件 &gt;  *.pdf    (等同于交互模式下的 pdf命令)
-这两命令可以将性能分析图生成svg和pdf格式的文件</p></li>
-
-<li><p>交互模式下top命令各字段意思：</p>
-
+<p>注：<strong>要生成性能剖析图要先下载安装 graphviz 工具</strong></p>
+<blockquote>
+<p><a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">graphviz 下载链接</a>
+解压包至某一目录，并将解压后的<code>bin</code>目录添加至环境变量<code>path</code>中
+验证，命令行输入：dot -version</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
 <ul>
-<li>flat :采样点落在该函数中的次数</li>
-<li>flat%:采样点落在该函数中的百分比</li>
-<li>sum% :上一项的累积百分比</li>
-<li>cum  :采样点落在该函数，以及被它调用的函数中的总次数</li>
-<li>cum% :采样点落在该函数，以及被它调用的函数中的总次数百分比</li>
+<li>$ go tool pprof –web *.test profile 文件      （等同于交互模式下的 web 命令）</li>
+<li>$ go tool pprof –svg  profile 文件 &gt;  *.svg   （等同于交互模式下的 pdf 命令）</li>
+<li>$ go tool pprof –pdf  profile 文件 &gt;  *.pdf    （等同于交互模式下的 pdf 命令）
+这两命令可以将性能分析图生成 svg 和 pdf 格式的文件</li>
+<li>交互模式下 top 命令各字段意思：
+<ul>
+<li>flat : 采样点落在该函数中的次数</li>
+<li>flat%: 采样点落在该函数中的百分比</li>
+<li>sum% : 上一项的累积百分比</li>
+<li>cum  : 采样点落在该函数，以及被它调用的函数中的总次数</li>
+<li>cum% : 采样点落在该函数，以及被它调用的函数中的总次数百分比</li>
 <li>最后一列表示函数</li>
-</ul></li>
-</ul></li>
-
-<li><p>堆性能剖析</p>
-
+</ul>
+</li>
+</ul>
+<ol>
+<li>堆性能剖析
 <ul>
-<li>go test -run=文件名字 -bench=bench名字 –blockprofile=*.out 文件夹
-go tool pprof 操作和cup性能分析一样</li>
-</ul></li>
-
-<li><p>阻塞性能剖析</p>
-
+<li>go test -run=文件名字 -bench=bench 名字 –blockprofile=*.out 文件夹
+go tool pprof 操作和 cup 性能分析一样</li>
+</ul>
+</li>
+<li>阻塞性能剖析
 <ul>
-<li><p>go test -run=文件名字 -bench=bench名字 –memprofile=*.out  文件夹</p>
-
-<h3 id="example函数">Example函数</h3>
-
-<p>有三大作用：</p></li>
-</ul></li>
-
-<li><p>作为文档</p></li>
-
-<li><p>godoc会将示例函数和所演示包相关联,go doc 工具会解析示例函数的函数体作为对应 包/函数/类型/类型的方法 的用法</p></li>
-
-<li><p>提供手动试验代码
-godoc详解请参考<a href="https://blog.csdn.net/u012210379/article/details/50443647">godoc</a></p></li>
-
-<li><p>例子：</p>
-
-<pre><code class="language-go">func ExampleDivision() {
-	  Division(4, 2)
-	  //Output
-	  //2
-}
-</code></pre>
-
-<h3 id="go-test的参数解读">go test的参数解读</h3></li>
-
-<li><p>格式形如：
-<code>go test [-c] [-i] [build flags] [packages] [flags for test binary]</code></p></li>
-
-<li><p>参数解读</p></li>
-
-<li><p>-c : 编译go test成为可执行的二进制文件，但是不运行测试。</p></li>
-
-<li><p>-i : 安装测试包依赖的package，但是不运行测试。</p></li>
-
-<li><p>关于build flags，调用go help build，这些是编译运行过程中需要使用到的参数，一般设置为空</p></li>
-
-<li><p>关于packages，调用go help packages，这些是关于包的管理，一般设置为空</p></li>
-
-<li><p>关于flags for test binary，调用go help testflag，这些是go test过程中经常使用到的参数</p></li>
-
-<li><p>-test.v : 是否输出全部的单元测试用例（不管成功或者失败），默认没有加上，所以只输出失败的单元测试用例。</p></li>
-
-<li><p>-test.run pattern: 只跑哪些单元测试用例</p></li>
-
-<li><p>-test.bench patten: 只跑那些性能测试用例</p></li>
-
-<li><p>-test.benchmem : 是否在性能测试的时候输出内存情况</p></li>
-
-<li><p>-test.benchtime t : 性能测试运行的时间，默认是1s</p></li>
-
-<li><p>-test.cpuprofile cpu.out : 是否输出cpu性能分析文件</p></li>
-
-<li><p>-test.memprofile mem.out : 是否输出内存性能分析文件</p></li>
-
-<li><p>-test.blockprofile block.out : 是否输出内部goroutine阻塞的性能分析文件</p></li>
-
-<li><p>-test.memprofilerate n : 内存性能分析的时候有一个分配了多少的时候才打点记录的问题。这个参数就是设置打点的内存分配间隔，也就是profile中一个sample代表的内存大小。默认是设置为512 * 1024的。如果你将它设置为1，则每分配一个内存块就会在profile中有个打点，那么生成的profile的sample就会非常多。如果你设置为0，那就是不做打点了。
-你可以通过设置memprofilerate=1和GOGC=off来关闭内存回收，并且对每个内存块的分配进行观察。</p></li>
-
-<li><p>-test.blockprofilerate n: 基本同上，控制的是goroutine阻塞时候打点的纳秒数。默认不设置就相当于-test.blockprofilerate=1，每一纳秒都打点记录一下</p></li>
-
-<li><p>-test.parallel n : 性能测试的程序并行cpu数，默认等于GOMAXPROCS。<a href="https://blog.csdn.net/bbhe_work/article/details/53439419">GOMAXPROCS</a></p></li>
-
-<li><p>-test.timeout t : 如果测试用例运行时间超过t，则抛出panic</p></li>
-
-<li><p>-test.cpu 1,2,4 : 程序运行在哪些CPU上面，使用二进制的1所在位代表，和nginx的nginx_worker_cpu_affinity是一个道理</p></li>
-
-<li><p>-test.short : 将那些运行时间较长的测试用例运行时间缩短</p></li>
+<li>go test -run=文件名字 -bench=bench 名字 –memprofile=*.out  文件夹</li>
+</ul>
+</li>
+</ol>
+<h3 id="example-函数">Example 函数</h3>
+<p>有三大作用：</p>
+<ol>
+<li>作为文档</li>
+<li>godoc 会将示例函数和所演示包相关联，go doc 工具会解析示例函数的函数体作为对应 包/函数/类型/类型的方法 的用法</li>
+<li>提供手动试验代码</li>
+</ol>
+<ul>
+<li>
+<p>godoc 详解请参考 <a href="https://blog.csdn.net/u012210379/article/details/50443647">godoc</a></p>
+</li>
+<li>
+<p>例子：</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ExampleDivision</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//Output
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="go-test-的参数解读">go test 的参数解读</h3>
+<ul>
+<li>格式形如：
+<code>go test [-c] [-i] [build flags] [packages] [flags for test binary]</code></li>
+<li>参数解读</li>
+<li>-c : 编译 go test 成为可执行的二进制文件，但是不运行测试。</li>
+<li>-i : 安装测试包依赖的 package，但是不运行测试。</li>
+<li>关于 build flags，调用 go help build，这些是编译运行过程中需要使用到的参数，一般设置为空</li>
+<li>关于 packages，调用 go help packages，这些是关于包的管理，一般设置为空</li>
+<li>关于 flags for test binary，调用 go help testflag，这些是 go test 过程中经常使用到的参数</li>
+<li>-test.v : 是否输出全部的单元测试用例（不管成功或者失败），默认没有加上，所以只输出失败的单元测试用例。</li>
+<li>-test.run pattern: 只跑哪些单元测试用例</li>
+<li>-test.bench patten: 只跑那些性能测试用例</li>
+<li>-test.benchmem : 是否在性能测试的时候输出内存情况</li>
+<li>-test.benchtime t : 性能测试运行的时间，默认是 1s</li>
+<li>-test.cpuprofile cpu.out : 是否输出 cpu 性能分析文件</li>
+<li>-test.memprofile mem.out : 是否输出内存性能分析文件</li>
+<li>-test.blockprofile block.out : 是否输出内部 goroutine 阻塞的性能分析文件</li>
+<li>-test.memprofilerate n : 内存性能分析的时候有一个分配了多少的时候才打点记录的问题。这个参数就是设置打点的内存分配间隔，也就是 profile 中一个 sample 代表的内存大小。默认是设置为 512 * 1024 的。如果你将它设置为 1，则每分配一个内存块就会在 profile 中有个打点，那么生成的 profile 的 sample 就会非常多。如果你设置为 0，那就是不做打点了。
+你可以通过设置 memprofilerate=1 和 GOGC=off 来关闭内存回收，并且对每个内存块的分配进行观察。</li>
+<li>-test.blockprofilerate n: 基本同上，控制的是 goroutine 阻塞时候打点的纳秒数。默认不设置就相当于-test.blockprofilerate=1，每一纳秒都打点记录一下</li>
+<li>-test.parallel n : 性能测试的程序并行 cpu 数，默认等于 GOMAXPROCS。<a href="https://blog.csdn.net/bbhe_work/article/details/53439419">GOMAXPROCS</a></li>
+<li>-test.timeout t : 如果测试用例运行时间超过 t，则抛出 panic</li>
+<li>-test.cpu 1,2,4 : 程序运行在哪些 CPU 上面，使用二进制的 1 所在位代表，和 nginx 的 nginx_worker_cpu_affinity 是一个道理</li>
+<li>-test.short : 将那些运行时间较长的测试用例运行时间缩短</li>
 </ul>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/go-test/">https://TomatoAres.github.io/posts/go/go-test/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/go/go-test/">https://tomatoares.github.io/posts/go/go-test/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -700,61 +750,126 @@ godoc详解请参考<a href="https://blog.csdn.net/u012210379/article/details/50
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/posts/go/benchmark/">性能测试中 allocs/op 和 B/op 的含义</a></li>
-        
         <li><a href="/posts/go/channel/">channel 总结</a></li>
         
-        <li><a href="/posts/web/echo/">Echo 框架的简单使用</a></li>
+        <li><a href="/posts/go/translated/microservices-in-go/">Go 语言中的微服务</a></li>
         
-        <li><a href="/posts/translated/microservices-in-go/">Go 语言中的微服务</a></li>
+        <li><a href="/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/">golang struct 能否比较</a></li>
         
-        <li><a href="/posts/network/TCP-%E6%80%BB%E7%BB%93/">TCP 总结</a></li>
+        <li><a href="/posts/go/go-slice-Q/">slice 相关一道题</a></li>
+        
+        <li><a href="/posts/go/benchmark/">性能测试中 allocs/op 和 B/op 的含义</a></li>
         
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/test">test</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go'>go</a></li>
+                
+                <li><a href='/tags/test'>test</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -764,43 +879,43 @@ godoc详解请参考<a href="https://blog.csdn.net/u012210379/article/details/50
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/network/iperf/" title="Iperf3 小结">Iperf3 小结</a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/network/openvswitch/" title="OpenvSwitch 初探">OpenvSwitch 初探</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%80%BB%E7%BB%93/" title="虚拟化总结">虚拟化总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/hard/CPU/" title="CPU 内存 显卡">CPU 内存 显卡</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/hard/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="磁盘和文件系统">磁盘和文件系统</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/008-atoi/" title="Atoi 实现">Atoi 实现</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/system/cgroup/" title="Linux Control Group 简介">Linux Control Group 简介</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/byte-rune/" title="Go 中 Byte Rune——类型别名">Go 中 Byte Rune——类型别名</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -809,213 +924,175 @@ godoc详解请参考<a href="https://blog.csdn.net/u012210379/article/details/50
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(8)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/HTTP/">HTTP(7)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/database/">database(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/go/">go(16)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/leetcode/">leetcode(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/microservice/">microservice(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/web/">web(7)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E5%B7%A5%E5%85%B7/">工具(7)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%9D%82%E8%AE%B0/">杂记(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%BF%90%E7%BB%B4/">运维(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Echo/">Echo</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/data-struct/">data-struct</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/test/">test</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%9D%82%E8%AE%B0/">杂记</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
+    
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
+    
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
+    
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
+    
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
+    
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
+    
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
+    
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2019 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

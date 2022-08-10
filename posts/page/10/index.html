@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Posts | 西红柿的博客</title>
+    <meta property="og:title" content="Posts - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
+    <meta name="description" content="Posts">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="alternate" type="application/rss+xml" href="https://tomatoares.github.io/posts/index.xml" title="西红柿的博客" />
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://tomatoares.github.io">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
+                    
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/" title="Docker 简介">Docker 简介</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月22日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/docker'>docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            是什么？ 容器引擎——核心 开源 go 编写 基于 LXC(Linux Container) 内核虚拟化实现 能干什么？ 持续集成 简化配置 代码流水线管理 快速部署 提高开发效率 版本控制 可移植性 —— 可以移动到任意一台 Docker 主机上 标准性—— 容器保证所有配置依赖不变 隔离性与安全 和虚拟机比的优势 轻量 M G —— 资源都是钱 性能高 共享主机内核， 没有 Hypervisor 层开销 系……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/cloud/docker%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/go/channel/" title="channel 总结">channel 总结</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月21日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Go'>Go</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            1. 声明和类型 ChannelType = ( &#34;chan&#34; | &#34;chan&#34; &#34;&lt;-&#34; | &#34;&lt;-&#34; &#34;chan&#34; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &lt;- chan int 仅可写：var OnlyWriteChannel chan &lt;- int 初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer 2. 操作 c := make(chan int) 读:i := &lt;- c 写: c &lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/go/channel/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/network/tcp-udp/" title="TCP UDP 总结">TCP UDP 总结</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月18日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Network'>Network</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            UDP 用户数据报协议，是一个无连接的简单的面向数据报的运输层协议。 UDP 不提供可靠性，它只是把应用程序传给 IP 层的数据报发送出去，但是并不能保证它们能到达目的地。由于 UDP 在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快。 UDP 特点 无连接：UDP 是面向无连接……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/network/tcp-udp/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/" title="Influxdb 简介">Influxdb 简介</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月18日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            概述 使用 GO 语言开发 开源 时序数据库：适合用于处理和分析资源监控数据这种时序相关数据 SQL-like 语法 三大特性： 时序性（Time Series）：与时间相关的函数的灵活使用（诸如最大、最小、求和等）； 度量（Metrics）：对实时大量数据进行计算； 事件（Event）：支持任意的事件数据，换句话说，……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/database/influxdb%E7%AE%80%E4%BB%8B/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/leetcode/maxSumArray/" title="MaxSumArray">MaxSumArray</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月17日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/%E7%AE%97%E6%B3%95'>算法</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和 示例: Input: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/leetcode/maxSumArray/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/web/echo/" title="Echo 框架的简单使用">Echo 框架的简单使用</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月16日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Web'>Web</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            本文是工作刚接触 go 语言，需要作分享时做的一份总结，重新整理的结果。 源码 特性概述 总的来说：轻量·高效 优化的 HTTP 路由器，巧妙地确定路由优先级 构建健壮且可伸缩的 RESTful API 组 API 可扩展的中间件框架 以根，组或路径级别定义中间件 JSON，XML 和表单的数据绑定 便捷地发送各种 HTTP 响应 集中的 HTTP 错误处理 可以使……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/web/echo/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/cloud/horizon-vertical/" title="横向·纵向扩展区别">横向·纵向扩展区别</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月16日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/docker'>docker</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            经常看到容器介绍说 便于水平（横向）扩展，想想应该有纵向才对，查找发现下边这个解释真不错 横向扩展（Horizon） 也叫 水平扩展，用更多的节点支撑更大量的请求。 如成千上万的蚂蚁完成一项搬运工作 纵向扩展 又叫 垂直扩展，扩展一个点的能力支撑更大的请求。 如利用 1 个人的能力，如蜘蛛侠逼停火车……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/cloud/horizon-vertical/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/others/how-to-ask-questions/" title="How to Ask Questions—— 如何提问">How to Ask Questions—— 如何提问</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月15日
+        </date>
+        
+        <div class="post-content">
+            提问的智慧 艾瑞克。史蒂文。雷蒙德（Eric Steven Raymond） Thyrsus Enterprises esr@thyrsus.com 瑞克。莫恩（Rick Moen） respond-auto@linuxmafia.com 版权©2001, 2006 Eric S. Raymond, Rick Moen 修订历史 修订版 3.9 2013 年 4 月 23 日 esr 修正链接 修订版 3.8 2012 年 6 月 19 日 esr 修正链接 修订版 3.7 2010 年 12 月 6 日 esr 对于英语为第二语言人士的有益建议 修订版 3.7 2010 年 11 月 2 日 esr 几种翻译不……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/others/how-to-ask-questions/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/others/hugo/hugo-no-article/" title="Hugo 文章不显示">Hugo 文章不显示</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Tool'>Tool</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            draft 草稿，若为真，则不现实 所以： 将 draft:true 改为 false 即可 draft:false……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/others/hugo/hugo-no-article/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/go/translated/microservices-in-go/" title="Go 语言中的微服务">Go 语言中的微服务</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年8月14日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/GCTT'>GCTT</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。 在这里，我要介绍以下框架： Go Micro Go Kit Gizmo Kite 框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/go/translated/microservices-in-go/">阅读全文</a></p>
+    </article>
+    
+    
+    
+
+
+
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="https://tomatoares.github.io/posts/page/9/">上一页</a>
+    </li>
+    
+
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/2/">2</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/3/">3</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/4/">4</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/5/">5</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/6/">6</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/7/">7</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="https://tomatoares.github.io/posts/page/9/">9</a>
+    </li>
+    
+    <li  class="current">
+        <a href="https://tomatoares.github.io/posts/page/10/">10</a>
+    </li>
+    
+
+    
+</ol>
+
+
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
+    
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
+    
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
+    
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
+    
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
+    
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
+    
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
+    
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
+    
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
+    
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
+    
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
+    
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
+    
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
+    
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

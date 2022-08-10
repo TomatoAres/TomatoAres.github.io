@@ -2,23 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>基数树 on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+    <link>https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
     <description>Recent content in 基数树 on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Mon, 02 Sep 2019 23:10:56 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Sep 2019 23:10:56 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Radix Tree 基数树</title>
-      <link>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
+      <link>https://tomatoares.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</link>
       <pubDate>Mon, 02 Sep 2019 23:10:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
-      <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习
-定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。</description>
+      <guid>https://tomatoares.github.io/posts/leetcode/radix-tree-%E5%9F%BA%E6%95%B0%E6%A0%91/</guid>
+      <description>echo 框架高效的原因主要是路由搜索用了基数树这个数据结构，还未完全理解，先留个坑，有空再来补习 定义 在计算机科学中，radix tree (也被称为 radix trie，或者 compact prefix tree)用于表示一种空间优化的 trie(prefix tree) 数据结构。 假如树中的一个节点是父节点的唯一子节点(the only child)的话，那么该子节点将会</description>
     </item>
     
   </channel>

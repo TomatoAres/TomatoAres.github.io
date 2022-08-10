@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/Life/</link>
+    <link>https://tomatoares.github.io/categories/Life/</link>
     <description>Recent content in Life on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Mar 2020 14:02:57 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/categories/Life/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Mar 2020 14:02:57 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/Life/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://TomatoAres.github.io/posts/about/</link>
+      <link>https://tomatoares.github.io/posts/about/</link>
       <pubDate>Sun, 01 Mar 2020 14:02:57 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/about/</guid>
-      <description> 关于本站  本站基于 hugo 创建 主题是 maupassant-hugo 主要存储一些自己的总结，翻译，以及一些看到的不错的他人的文章; 文中有引用，我都会标注原文链接； 若有问题，直接站内发 issue 或者 直接 @TomatoAres  关于本人  一个梦想成为大牛的菜鸟程序员 擅长写各种语言的 helloworld，深入（工作）用过的有 python 和 golang 正在从事 kubernetes 相关开发工作  </description>
+      <guid>https://tomatoares.github.io/posts/about/</guid>
+      <description>关于本站 本站基于 hugo 创建 主题是 maupassant-hugo 主要存储一些自己的总结，翻译，以及一些看到的不错的他人的文章; 文中有引用，我都会标注原文链接； 若有问题，直接站内发 issue 或者 直接 @TomatoAres 关于本人 一个梦想成为大牛的菜鸟程序员 擅长写各种语言的 helloworld，深入（工作）用过的有 python 和 golang 正在从事 kubernetes 相关开发工作</description>
     </item>
     
   </channel>

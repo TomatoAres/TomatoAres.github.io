@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IO on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/IO/</link>
+    <link>https://tomatoares.github.io/tags/IO/</link>
     <description>Recent content in IO on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Sep 2019 14:13:45 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/IO/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Sep 2019 14:13:45 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/IO/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>常见 IO 模型研究 </title>
-      <link>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</link>
+      <link>https://tomatoares.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</link>
       <pubDate>Sun, 22 Sep 2019 14:13:45 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</guid>
-      <description>核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段：</description>
+      <guid>https://tomatoares.github.io/posts/network/%E5%B8%B8%E8%A7%81-IO-%E6%A8%A1%E5%9E%8B%E7%A0%94%E7%A9%B6/</guid>
+      <description>核心信息 IO 发生时涉及的对象和步骤。对于一个 network IO （这里我们以 read 举例），它会涉及到两个系统对象，一个是调用这个 IO 的 process (or thread)，另一个就是系统内核 (kernel)。当一个 read 操作发生时，它会经历两个阶段： 等待数据准备 (Waiting for the data to be ready) 将数据从内核拷贝到进程中 (Copying the data from the kernel to the process) 记住这两</description>
     </item>
     
   </channel>

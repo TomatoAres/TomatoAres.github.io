@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ceph on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/Ceph/</link>
+    <description>Recent content in Ceph on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 28 Dec 2019 23:42:12 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/Ceph/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</link>
+      <pubDate>Sat, 28 Dec 2019 23:42:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</guid>
+      <description>需求分析 环境 kubernetes 1.12.6 使用 storageclass 和 pvc 动态生成 pv storageclass 后端存储使用 ceph rbd 使用 kubectl edit 编辑 pvc，对已有的 pvc 进行扩容，并且容器内部文件系统自动扩容 1. kubernetes 1.12.6 环境部署 由于 1.12.6 版本比较古老，kubeadm 易用性远不如后边较新几个版本，使用方式不太一致，并且存在一定的不合理的问题 docker 版本最高 18.6:yum install -y docker-ce-18.06.0.ce-3.el7 docker-ce-cli-18.06.0.ce-3.el7 能翻墙的话，尽量</description>
+    </item>
+    
+    <item>
+      <title>Ceph 的部署</title>
+      <link>https://tomatoares.github.io/posts/storage/issue-csi/</link>
+      <pubDate>Thu, 19 Dec 2019 23:05:27 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/issue-csi/</guid>
+      <description>@cofyc Thanks to you reply! I have tried it in default namespace according to readme and in rbac mode,but I have failed [root@k8s-master01 examples]# kubectl create -f examples/class.yaml error: the path &amp;#34;examples/class.yaml&amp;#34; does not exist [root@k8s-master01 examples]# cd .. [root@k8s-master01 rbd]# kubectl create -f examples/class.yaml storageclass.storage.k8s.io/rbd created [root@k8s-master01 rbd]# kubectl create -f examples/claim.yaml persistentvolumeclaim/claim1 created [root@k8s-master01 rbd]# kubectl get pvc NAME STATUS VOLUME CAPACITY ACCESS MODES STORAGECLASS AGE claim1 Pending rbd 5s [root@k8s-master01 rbd]# kubectl describe pvc claim1 Name: claim1 Namespace: default StorageClass: rbd Status: Pending Volume: Labels: &amp;lt;none&amp;gt; Annotations: volume.beta.kubernetes.io/storage-provisioner: ceph.com/rbd Finalizers: [kubernetes.io/pvc-protection] Capacity: Access Modes: VolumeMode: Filesystem Mounted By: &amp;lt;none&amp;gt; Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal ExternalProvisioning 10s (x3 over 16s) persistentvolume-controller waiting for a volume to be created, either by external provisioner &amp;#34;ceph.com/rbd&amp;#34; or manually created by system administrator Normal Provisioning</description>
+    </item>
+    
+  </channel>
+</rss>

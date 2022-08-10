@@ -2,24 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GC on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/GC/</link>
+    <link>https://tomatoares.github.io/tags/GC/</link>
     <description>Recent content in GC on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Mon, 02 Sep 2019 19:39:18 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/GC/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Sep 2019 19:39:18 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/GC/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go GC </title>
-      <link>https://TomatoAres.github.io/posts/go/GC-Go/</link>
+      <link>https://tomatoares.github.io/posts/go/GC-Go/</link>
       <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/GC-Go/</guid>
-      <description>参考：GO GC 垃圾回收机制
-Go 作为一门高级语言，具有 自动垃圾回收 的功能。
-常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.</description>
+      <guid>https://tomatoares.github.io/posts/go/GC-Go/</guid>
+      <description>参考：GO GC 垃圾回收机制 Go 作为一门高级语言，具有 自动垃圾回收 的功能。 常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。 缺点： 1. 需要额外的空间存放</description>
     </item>
     
   </channel>

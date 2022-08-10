@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kind on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/kind/</link>
+    <description>Recent content in kind on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 01 Feb 2020 14:40:05 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/kind/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 kind 进行 e2e 测试</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/kind/</link>
+      <pubDate>Sat, 01 Feb 2020 14:40:05 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/kind/</guid>
+      <description>Kind 简介 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。 Kind 可以作为一种本地集群搭建的工具进 由于便于快速搭建环境，经常被用来做 k8s 相关测试准备 流程 构建环境 测试 手动搭建单节点环境测试 关闭 kind 自带的 kindnet 网络插件,并将其设置为 Calico 的默认子网，编写一个 kind-calico.yaml 文件 kind: Cluster apiVersion: kind.sigs.k8s.io/v1alpha3 networking: disableDefaultCNI: true # disable</description>
+    </item>
+    
+  </channel>
+</rss>

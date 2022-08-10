@@ -1,171 +1,235 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/Go/</link>
-    <description>Recent content in Go on 西红柿的博客</description>
+    <title>go on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/categories/go/</link>
+    <description>Recent content in go on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 27 Oct 2019 22:48:31 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/categories/Go/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Dec 2019 00:59:39 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>使用 Goland 安装多个版本的 go</title>
-      <link>https://TomatoAres.github.io/posts/go/mult-version-go/</link>
-      <pubDate>Sun, 27 Oct 2019 22:48:31 +0800</pubDate>
+      <title>kubectl create 和 apply 对比解读</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/mult-version-go/</guid>
-      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。
-开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本  选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可  参考 goland 官方文档</description>
-    </item>
-    
-    <item>
-      <title>Go 中 Byte Rune——类型别名</title>
-      <link>https://TomatoAres.github.io/posts/go/byte-rune/</link>
-      <pubDate>Wed, 25 Sep 2019 23:11:24 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/byte-rune/</guid>
-      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。</description>
-    </item>
-    
-    <item>
-      <title>go map 无序原因</title>
-      <link>https://TomatoAres.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
-      <pubDate>Sun, 22 Sep 2019 00:03:23 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
-      <description>连续两次被问到 map 遍历输出无序的原因
-看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。
-面试官笑得很诡异，而且就到此为止了。
-直到我看到这段代码：
-... // decide where to start r := uintptr(fastrand()) if h.</description>
-    </item>
-    
-    <item>
-      <title>goroutine 协程数目限制</title>
-      <link>https://TomatoAres.github.io/posts/go/goroutines/</link>
-      <pubDate>Sat, 21 Sep 2019 23:51:43 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/goroutines/</guid>
-      <description>协程属于用户态线程，逻辑由用户代码控制。
-系统本身不对 goroutine 数目进行限制。
-虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现：
- 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed  解决方式： buffered channel + sync.</description>
-    </item>
-    
-    <item>
-      <title>Defer Recover Panic 三剑客</title>
-      <link>https://TomatoAres.github.io/posts/go/defer-recover-panic/</link>
-      <pubDate>Thu, 19 Sep 2019 23:29:57 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/defer-recover-panic/</guid>
-      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句  总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover</description>
-    </item>
-    
-    <item>
-      <title>Defer 总结</title>
-      <link>https://TomatoAres.github.io/posts/go/defer/</link>
-      <pubDate>Thu, 19 Sep 2019 22:39:21 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/defer/</guid>
-      <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~
-面试题 下面代码输出什么？
-package main import &amp;quot;fmt&amp;quot; func calc(index string, a, b int) int { ret := a + b fmt.</description>
-    </item>
-    
-    <item>
-      <title>Go Struct Tag 是怎么玩的</title>
-      <link>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
-      <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
-      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;quot;validate&amp;quot; type employee struct { ID int `json:&amp;quot;id&amp;quot;` Name string `json:&amp;quot;名字&amp;quot; validate:&amp;quot;presence,min=2,max=40&amp;quot;` Age int `json:&amp;quot;年龄&amp;quot;` Desc string `json:&amp;quot;描述&amp;quot; back:&amp;quot;好看否&amp;quot;` weight float64 `json:&amp;quot;weight&amp;quot; 单位:&amp;quot;kg&amp;quot;` Salary float64 `json:&amp;quot;-&amp;quot;` Email string `validate:&amp;quot;email,required&amp;quot;` MateName string `json:&amp;quot;mate_name,omitempty&amp;quot;` } func test2() { zhangsan := employee{ ID: 1, Name: &amp;quot;张三&amp;quot;, Age: 18, Desc: &amp;quot;秀色可餐&amp;quot;, weight: 48.</description>
-    </item>
-    
-    <item>
-      <title>Go xml json 小结</title>
-      <link>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
-      <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
-      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问
-解析 XML，反序列化，Unmarshal  如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;rdquo;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子中的 description，最终输出为：</description>
-    </item>
-    
-    <item>
-      <title>Go 时区设置</title>
-      <link>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
-      <description>获取 time 对象 设置时区 按设置的时区输出
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) func main() { now := time.</description>
-    </item>
-    
-    <item>
-      <title>Go 逃逸分析</title>
-      <link>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
-      <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
-      <description>参考：Go 逃逸分析
-堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下：
- 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack）：由编译器进行管理，自动申请、分配、释放。 一般不会太大，因此栈的分配和回收速度非常快；我们常见的函数参数（不同平台允许存放的数量不同），局部变量等都会存放在栈上。 栈分配内存只需要两个 CPU 指令：“PUSH”和“RELEASE”，分配和释放；而堆分配内存首先需要去找到一块大小合适的内存块，之后要通过垃圾回收才能释放。  通俗比喻的说，</description>
-    </item>
-    
-    <item>
-      <title> Go 堆栈的理解</title>
-      <link>https://TomatoAres.github.io/posts/go/heap-stack/</link>
-      <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/heap-stack/</guid>
-      <description>来源：Go 堆栈的理解
-在讲 Go 的堆栈之前，先温习一下堆栈基础知识。
-什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。
-数据结构的堆栈：
-堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时间才能结束，或者某些不短小，但具有重要性的作业，同样应当具有优先权。堆即为解决此类问题设计的一种数据结构。
-栈：一种先进后出的数据结构。</description>
-    </item>
-    
-    <item>
-      <title>Go GC </title>
-      <link>https://TomatoAres.github.io/posts/go/GC-Go/</link>
-      <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/GC-Go/</guid>
-      <description>参考：GO GC 垃圾回收机制
-Go 作为一门高级语言，具有 自动垃圾回收 的功能。
-常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1.</description>
-    </item>
-    
-    <item>
-      <title>GMP</title>
-      <link>https://TomatoAres.github.io/posts/go/GMP/</link>
-      <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
-      
-      <guid>https://TomatoAres.github.io/posts/go/GMP/</guid>
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>性能测试中 allocs/op 和 B/op 的含义</title>
-      <link>https://TomatoAres.github.io/posts/go/benchmark/</link>
+      <title>Ubuntu 18.04 安装 k8s</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</guid>
+      <description>更换 软件源 翻墙 基本配置 内存交换 防火墙 selinux 安装 docker 配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install -y apt-transport-https curl curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - cat &amp;lt;&amp;lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list deb https://apt.kubernetes.io/ kubernetes-xenial main EOF sudo apt-get update sudo apt-get install -y kubelet kubeadm kubectl sudo apt-mark hold kubelet kubeadm kubectl 没有梯子的启动方法 有梯子 FAQ apt-get update locked root@ubuntu:/etc/apt# apt-get update 正在读取软件包列表。.. 完成 E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用） E: 无法对目录 /var/lib/apt/lists/ 加锁 其</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 无法远程 ssh 问题</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu 权限相关</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</guid>
+      <description>用户 who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户， 后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普</description>
+    </item>
+    
+    <item>
+      <title>使用 Goland 安装多个版本的 go</title>
+      <link>https://tomatoares.github.io/posts/go/mult-version-go/</link>
+      <pubDate>Sun, 27 Oct 2019 22:48:31 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/mult-version-go/</guid>
+      <description>前言 windows 环境上，使用安装包安装多个版本 go 时，发现必须得卸载之前的版本。 开始 发现 使用 goland 时发现，goroot 可以选择： 通过 download 添加版本 选择需要版本 go ， 选择文件夹， apply 后， goland 会去下载相应版本 go goroot 随需选择使用相应 go 版本即可 参考 goland 官方文档</description>
+    </item>
+    
+    <item>
+      <title>Go 中 Byte Rune——类型别名</title>
+      <link>https://tomatoares.github.io/posts/go/byte-rune/</link>
+      <pubDate>Wed, 25 Sep 2019 23:11:24 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/byte-rune/</guid>
+      <description>byte 实质上就是 uint8 类型。byte 用来强调数据是 raw data，而不是数字； rune 实质上就是 int32 类型。而 rune 用来表示 Unicode 的 code point。 uint8 the set of all unsigned 8-bit integers (0 to 255) int32 the set of all signed 32-bit integers (-2147483648 to 2147483647) byte alias for uint8 rune alias for int32 // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is // used, by convention, to distinguish byte values from 8-bit unsigned // integer values. type byte = uint8 // rune is an alias for int32 and is equivalent to int32 in all ways. It is</description>
+    </item>
+    
+    <item>
+      <title>Go Module 踩坑记录</title>
+      <link>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 24 Sep 2019 10:57:14 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go map 无序原因</title>
+      <link>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</link>
+      <pubDate>Sun, 22 Sep 2019 00:03:23 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/</guid>
+      <description>连续两次被问到 map 遍历输出无序的原因 看过数据结构的我自信的回答：应为底层是散列表，没有顺序表内存上的连续，也没有链表逻辑上的前后继关系。 面试官笑得很诡异，而且就到此为止了。 直到我看到这段代码： ... // decide where to start r := uintptr(fastrand()) if h.B &amp;gt; 31-bucketCntBits { r += uintptr(fastrand()) &amp;lt;&amp;lt; 31 } it.startBucket = r &amp;amp; bucketMask(h.B) it.offset = uint8(r &amp;gt;&amp;gt; h.B &amp;amp; (bucketCnt - 1)) // iterator state it.bucket = it.startBucket 遍历过程中</description>
+    </item>
+    
+    <item>
+      <title>goroutine 协程数目限制</title>
+      <link>https://tomatoares.github.io/posts/go/goroutines/</link>
+      <pubDate>Sat, 21 Sep 2019 23:51:43 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/goroutines/</guid>
+      <description>协程属于用户态线程，逻辑由用户代码控制。 系统本身不对 goroutine 数目进行限制。 虽然 golang 中协程开销很低，但是在一些情况下还是有必要限制一下协程的开启数，如果你的协程数太过庞大，可能出现： 系统资源占用率不断上涨 输出一定数量后：控制台就不再刷新输出最新的值了 信号量：signal: killed 解决方式： buffered channel +</description>
+    </item>
+    
+    <item>
+      <title>Defer Recover Panic 三剑客</title>
+      <link>https://tomatoares.github.io/posts/go/defer-recover-panic/</link>
+      <pubDate>Thu, 19 Sep 2019 23:29:57 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/defer-recover-panic/</guid>
+      <description>recover() 用于将 panic 的信息捕捉。 recover 必须定义在 panic 之前的 defer 语句中。 在这种情况下，当 panic 被触发时，该 goroutine 不会简单的终止，而是会执行在它之前定义的 defer 语句。 不再执行 panic 之后的语句 总之 使用时 recover 和 defer 搭配，就是三件套 panic-&amp;gt;defer-&amp;gt;recover 坑 函数嵌套后，defer 嵌套后就不管用 recover 必须放在 defer 中，否则只返回 nil 工作中没实际用过，有空补充点</description>
+    </item>
+    
+    <item>
+      <title>Defer 总结</title>
+      <link>https://tomatoares.github.io/posts/go/defer/</link>
+      <pubDate>Thu, 19 Sep 2019 22:39:21 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/defer/</guid>
+      <description>虽说比较常用，但是遇到一道面试题还是比较懵逼，总结一下~ 面试题 下面代码输出什么？ package main import &amp;#34;fmt&amp;#34; func calc(index string, a, b int) int { ret := a + b fmt.Println(index, a, b, ret) return ret } func main() { a := 1 b := 2 defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b)) a = 0 defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b)) b = 1 } /* output 10 1 2 3 20 0 2 2 2 0 2 2 1 1 3 4 */ 关键知识点 defer 是什么？ defer 是 Go 语言提供的一种用于注册延迟调用的</description>
+    </item>
+    
+    <item>
+      <title>Go Struct Tag 是怎么玩的</title>
+      <link>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</link>
+      <pubDate>Wed, 18 Sep 2019 21:31:09 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/Go-Struct-Tag-%E6%98%AF%E6%80%8E%E4%B9%88%E7%8E%A9%E7%9A%84/</guid>
+      <description>利用 go 反射机制，通过 不同的 tag name 进行不同的处理 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;reflect&amp;#34; // 这里引入reflect模块 ) // 自定义 tag const tagName = &amp;#34;validate&amp;#34; type employee struct { ID int `json:&amp;#34;id&amp;#34;` Name string `json:&amp;#34;名字&amp;#34; validate:&amp;#34;presence,min=2,max=40&amp;#34;` Age int `json:&amp;#34;年龄&amp;#34;` Desc string `json:&amp;#34;描述&amp;#34; back:&amp;#34;好看否&amp;#34;`</description>
+    </item>
+    
+    <item>
+      <title>Go 正则</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E6%AD%A3%E5%88%99/</link>
+      <pubDate>Wed, 11 Sep 2019 22:44:54 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E6%AD%A3%E5%88%99/</guid>
+      <description>正则作用 匹配 是否存在：match 匹配 提取：find 匹配 替换：replace 匹配 其他操作 匹配 是否存在 match matchstring matchrender re.match re.matchstring 匹配提取 find Regexp 类型提供了多达 16（2^4）个方法，用于匹配正则表达式并获取匹配的结果。它们的名字满足如下正则表达式： Find(All)?(String)?(Submatch)?(Index)? 如果&amp;rsquo;All&amp;rsquo;出现了，该方法会返</description>
+    </item>
+    
+    <item>
+      <title>Go xml json 小结</title>
+      <link>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Wed, 11 Sep 2019 19:45:08 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/Go-xml-json-%E5%B0%8F%E7%BB%93/</guid>
+      <description>最常见错误 struct 字段小写，序列化反序列化都无法访问——无法外部访问 解析 XML，反序列化，Unmarshal 如果 struct 的一个字段是 string 或者[]byt 类型且它的 tag 含有&amp;quot;,inner xml &amp;ldquo;，Unmarshal 将会将此字段所对应的元素内所有内嵌的原始 xml 累加到此字段上 比如下边例子</description>
+    </item>
+    
+    <item>
+      <title>Go 时区设置</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Wed, 11 Sep 2019 16:17:20 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE/</guid>
+      <description>获取 time 对象 设置时区 按设置的时区输出 package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) func main() { now := time.Now() // 1. 获取 time 对象 // 2. 设置时区 local1, err1 := time.LoadLocation(&amp;#34;&amp;#34;) //等同于&amp;#34;UTC&amp;#34; if err1 != nil { fmt.Println(err1) } local2, err2 := time.LoadLocation(&amp;#34;Local&amp;#34;)//本地的时区 if err2 != nil { fmt.Println(err2) } local3, err3 := time.LoadLocation(&amp;#34;America/Los_Angeles&amp;#34;) if err3 != nil { fmt.Println(err3) } // 3. 按设置的</description>
+    </item>
+    
+    <item>
+      <title>Go Http 工作过程</title>
+      <link>https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 11 Sep 2019 15:29:49 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-http-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B/</guid>
+      <description>Go 代码的执行流程 通过对 http 包的分析之后，现在让我们来梳理一下整个的代码执行过程。 首先调用 Http.HandleFunc 按顺序做了几件事： 调用了 DefaultServerMux 的 HandleFunc 调用了 DefaultServerMux 的 Handle 往 DefaultServeMux 的 map[string]muxEntry 中增加对应的 handler 和路由规则 其次调用 http.ListenAndServe(&amp;quot;:9090&amp;quot;, nil) 按顺序做了几件事情： 实例化 Server 调用 Server 的 ListenAndServe() 调用 net.Listen(&amp;ldquo;tcp&amp;rdquo;, addr) 监听端口 动一个 for 循环，在循环体中 Accept 请求 对每个请求实例化一个 C</description>
+    </item>
+    
+    <item>
+      <title>Go 逃逸分析</title>
+      <link>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 02 Sep 2019 21:07:29 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <description>参考：Go 逃逸分析 堆和栈 要理解什么是逃逸分析会涉及堆和栈的一些基本知识，如果忘记的同学我们可以简单的回顾一下： 堆（Heap）：一般来讲是人为手动进行管理，手动申请、分配、释放。 堆适合不可预知大小的内存分配，这也意味着为此付出的代价是分配速度较慢，而且会形成内存碎片。 栈（Stack</description>
+    </item>
+    
+    <item>
+      <title> Go 堆栈的理解</title>
+      <link>https://tomatoares.github.io/posts/go/heap-stack/</link>
+      <pubDate>Mon, 02 Sep 2019 20:39:15 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/heap-stack/</guid>
+      <description>来源：Go 堆栈的理解 在讲 Go 的堆栈之前，先温习一下堆栈基础知识。 什么是堆栈？在计算机中堆栈的概念分为：数据结构的堆栈和内存分配中堆栈。 数据结构的堆栈： 堆：堆可以被看成是一棵树，如：堆排序。在队列中，调度程序反复提取队列中第一个作业并运行，因为实际情况中某些时间较短的任务将等待很长时</description>
+    </item>
+    
+    <item>
+      <title>Go GC </title>
+      <link>https://tomatoares.github.io/posts/go/GC-Go/</link>
+      <pubDate>Mon, 02 Sep 2019 19:39:18 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/GC-Go/</guid>
+      <description>参考：GO GC 垃圾回收机制 Go 作为一门高级语言，具有 自动垃圾回收 的功能。 常见垃圾回收机制 1. 引用计数：引用计数通过在对象上增加自己被引用的次数，被其他对象引用时加 1，引用自己的对象被回收时减 1，引用数为 0 的对象即为可以被回收的对象 优点： 1. 方式简单，回收速度快。 缺点： 1. 需要额外的空间存放</description>
+    </item>
+    
+    <item>
+      <title>GMP</title>
+      <link>https://tomatoares.github.io/posts/go/GMP/</link>
+      <pubDate>Mon, 02 Sep 2019 11:02:52 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/GMP/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go test 工具的简单介绍和使用</title>
+      <link>https://tomatoares.github.io/posts/go/go-test/</link>
+      <pubDate>Thu, 29 Aug 2019 01:44:15 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-test/</guid>
+      <description>简单介绍 go test 子命令是 Go 语言包的测试驱动程序，在一个包目录中，以*_test.go 命名方式的文件，是 go test 编译的目标（不是 go build） 在*_test.go 文件中，三种函数需要特殊对待，即功能测试函数、基准测试函数和示例函数： 功能测试函数：以 Test 前缀命名的函数，用来检测一些程序逻辑的正</description>
+    </item>
+    
+    <item>
+      <title>golang struct 能否比较</title>
+      <link>https://tomatoares.github.io/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/</link>
       <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/benchmark/</guid>
-      <description> allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好  </description>
+      <guid>https://tomatoares.github.io/posts/go/struct%E8%83%BD%E5%90%A6%E6%AF%94%E8%BE%83/</guid>
+      <description>分情况讨论 同一个 struct 实例化出来的不同对象 关键看 里边有没有不可比较的字段类型 不同struct 实例化出来的对象 是否可以强制转换——所有字段类型都可以转 是否包含：不可比较类型 可排序、可比较和不可比较 安装官方文档，可比较的类型 必须是 Assignability 可赋值性的 可排序的数据类型有三种，Integer，Flo</description>
+    </item>
+    
+    <item>
+      <title>slice 相关一道题</title>
+      <link>https://tomatoares.github.io/posts/go/go-slice-Q/</link>
+      <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/go-slice-Q/</guid>
+      <description>package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; ) type AutoGenerated struct { Age int `json:&amp;#34;age&amp;#34;` Name string `json:&amp;#34;name&amp;#34;` Child []int `json:&amp;#34;child&amp;#34;` } func main() { jsonStr1 := `{&amp;#34;age&amp;#34;: 14,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[1,2,3]}` a := AutoGenerated{} json.Unmarshal([]byte(jsonStr1), &amp;amp;a) aa := a.Child fmt.Println(aa) // output:[1,2,3] jsonStr2 := `{&amp;#34;age&amp;#34;: 12,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[3,4,5,7,8,9]}` json.Unmarshal([]byte(jsonStr2), &amp;amp;a) fmt.Println(aa) // output: [3,4,5] // fmt.Println(a.Child) // output: [3,4,5,7,8,9] } 解释 type AutoGenerated struct { Child []int } Then you do a := AutoGenerated{} // (1) jsonStr1 := `{&amp;#34;age&amp;#34;: 14,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[1,2,3]}` json.Unmarshal([]byte(jsonStr1), &amp;amp;a) // (2) aa := a.Child // (3) fmt.Println(aa) jsonStr2 := `{&amp;#34;age&amp;#34;: 12,&amp;#34;name&amp;#34;: &amp;#34;potter&amp;#34;, &amp;#34;child&amp;#34;:[3,4,5,7,8,9]}` json.Unmarshal([]byte(jsonStr2), &amp;amp;a) // (4) fmt.Println(aa) So, what happens: You create a variable, a, of type AutoGenerated which is initialized to the zero value for its type. Because of that, its Child field, which is a slice, is initialized to the zero value</description>
+    </item>
+    
+    <item>
+      <title>性能测试中 allocs/op 和 B/op 的含义</title>
+      <link>https://tomatoares.github.io/posts/go/benchmark/</link>
+      <pubDate>Thu, 29 Aug 2019 01:42:13 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/go/benchmark/</guid>
+      <description>allocs/op 表示每个 op 发生多少个不同的内存分配（单次迭代）。越小越好 B/op 是每个操作分配了多少字节。 越小越好</description>
     </item>
     
     <item>
       <title>channel 总结</title>
-      <link>https://TomatoAres.github.io/posts/go/channel/</link>
+      <link>https://tomatoares.github.io/posts/go/channel/</link>
       <pubDate>Wed, 21 Aug 2019 16:57:56 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/channel/</guid>
-      <description>1. 声明和类型 ChannelType = ( &amp;quot;chan&amp;quot; | &amp;quot;chan&amp;quot; &amp;quot;&amp;lt;-&amp;quot; | &amp;quot;&amp;lt;-&amp;quot; &amp;quot;chan&amp;quot; ) ElementType .</description>
+      <guid>https://tomatoares.github.io/posts/go/channel/</guid>
+      <description>1. 声明和类型 ChannelType = ( &amp;#34;chan&amp;#34; | &amp;#34;chan&amp;#34; &amp;#34;&amp;lt;-&amp;#34; | &amp;#34;&amp;lt;-&amp;#34; &amp;#34;chan&amp;#34; ) ElementType . 声明 双向：var ReadAndWriteChannel chan int 仅可读：var OnlyReadChannel &amp;lt;- chan int 仅可写：var OnlyWriteChannel chan &amp;lt;- int 初始化： make(chan int) //坑：没有数据，读取阻塞，直至写入数据 make(chan int,100) // 容量 缓存 buffer 2. 操作 c := make(chan int) 读:i := &amp;lt;- c 写: c &amp;lt;- (7+2) 遍历: range c 关闭: close(c) 坑：关闭channel，可读，不可写（panic） 多值</description>
     </item>
     
   </channel>

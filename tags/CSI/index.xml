@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSI on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/tags/CSI/</link>
+    <description>Recent content in CSI on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Dec 2019 23:41:07 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/CSI/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PVC 问题解决记录</title>
+      <link>https://tomatoares.github.io/posts/storage/pvc/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/pvc/</guid>
+      <description>问题发现 github 上 16 年 12 月就提出来了 describe pod describe pvc kube-controller 日志 kubectl describe pod ceph-static Events: Type Reason Age From Message ---- ------ ---- ---- ------- Warning FailedScheduling 102s (x1480 over 15h) default-scheduler pod has unbound immediate PersistentVolumeClaims kubectl describe pvc ceph-kube-claim Type Reason Age From Message ---- ------ ---- ---- ------- Warning ProvisioningFailed 54s (x417 over 15h) persistentvolume-controller Failed to provision volume with StorageClass &amp;#34;rbd&amp;#34;: failed to create rbd image: executable file not found in $PATH, command output: Mounted By: ceph-static 已知的两种解决方式 替换 kube-controller 镜像 使用 CSI 记录 kube-controller 没有 rbd 二进制 同样的方式验证 使用镜像替换 使用 CSI in-tree&amp;ndash;&amp;gt;out-of-tree sidecar 模式 使</description>
+    </item>
+    
+  </channel>
+</rss>

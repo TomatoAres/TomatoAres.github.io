@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on 西红柿的博客</title>
+    <link>https://tomatoares.github.io/categories/kubernetes/</link>
+    <description>Recent content in kubernetes on 西红柿的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 31 Dec 2019 20:39:51 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cka 考试准备</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/cka/</link>
+      <pubDate>Tue, 31 Dec 2019 20:39:51 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/cka/</guid>
+      <description>简介 CNCF 认证 有效期 3 年 官网</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,61 +1,65 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
 
     <title>无缓冲和有缓冲通道 | 西红柿的博客</title>
     <meta property="og:title" content="无缓冲和有缓冲通道 - 西红柿的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-09-24T23:59:46&#43;08:00">
+    <meta property="article:published_time" content='2019-09-24T23:59:46&#43;08:00'>
         
         
-    <meta property="article:modified_time" content="2019-09-24T23:59:46&#43;08:00">
+    <meta property="article:modified_time" content='2019-09-24T23:59:46&#43;08:00'>
         
-    <meta name="Keywords" content="Gopher,博客,Web,Pythoner">
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
     <meta name="description" content="无缓冲和有缓冲通道">
         
-    <meta name="author" content="TomatoAres">
-    <meta property="og:url" content="https://TomatoAres.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/normalize.css">
-    
-        <link rel="stylesheet" href="/css/prism.css">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
-
-
     
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
     
 </head>
 
 <body>
-<header id="header" class="clearfix">
+    <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://TomatoAres.github.io/">
+                    <a id="logo" href="https://tomatoares.github.io">
                         西红柿的博客
                     </a>
                 
-                <p class="description">读不在三更五鼓,功只怕一曝十寒</p>
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://TomatoAres.github.io/">首页</a>
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
                     
-                    <a  href="https://TomatoAres.github.io/archives/" title="归档">归档</a>
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
                     
-                    <a  href="https://TomatoAres.github.io/posts/about/" title="关于">关于</a>
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -63,156 +67,240 @@
     </div>
 </header>
 
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
 
-<div id="body">
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#无缓冲通道">无缓冲通道</a></li>
+    <li><a href="#无缓冲通道内部结构">无缓冲通道内部结构</a></li>
+    <li><a href="#缓冲通道内部结构">缓冲通道内部结构</a></li>
+    <li><a href="#由于缓冲区大小不足造成的延迟">由于缓冲区大小不足造成的延迟</a></li>
+    <li><a href="#追踪延迟">追踪延迟</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">无缓冲和有缓冲通道</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年9月24日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/GCTT'>GCTT</a></span>
+            
+        </div>
         
         
-    <div class="container">
-        <div class="col-group">
-
-            <div class="col-8" id="main">
-                <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">无缓冲和有缓冲通道</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019年9月24日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="https://TomatoAres.github.io/categories/GCTT">GCTT</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/next-recvier.png" alt="&quot;Go 之旅 插图，由 Go Gopher 的 Renee French 创作" /></p>
-
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>
+        <img class="mx-auto" alt="&amp;ldquo;Go 之旅 插图，由 Go Gopher 的 Renee French 创作" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/next-recvier.png" />   
+    </p>
 <p>Go 中的通道（channel）机制十分强大，但是理解内在的概念甚至可以使它更强大。实际上，选择缓冲通道或无缓冲通道将改变应用程序的行为和性能。</p>
-
 <h2 id="无缓冲通道">无缓冲通道</h2>
-
 <p>无缓冲通道是在消息发送到通道时需要接收器的通道。声明一个无缓冲通道时，你不需要声明容量。例如：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;sync&quot;
-    &quot;time&quot;
-)
-
-func main() {
-    c := make(chan string)
-
-    var wg sync.WaitGroup
-    wg.Add(2)
-
-    go func() {
-        defer wg.Done()
-        c &lt;- `foo`
-    }()
-
-    go func() {
-        defer wg.Done()
-
-        time.Sleep(time.Second * 1)
-        println(`Message: `+ &lt;-c)
-    }()
-
-    wg.Wait()
-}
-</code></pre>
-
-<p>由于没有准备就绪的接收者，第一个<code>goroutine</code>在发送消息<code>foo</code>时将被阻塞。这个<a href="https://golang.org/ref/spec#Channel_types">说明文档</a>很好地解释了这种行为:</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">`foo`</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">`Message: `</span><span style="color:#f92672">+</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>由于没有准备就绪的接收者，第一个<code>goroutine</code>在发送消息<code>foo</code>时将被阻塞。这个<a href="https://golang.org/ref/spec#Channel_types">说明文档</a>很好地解释了这种行为:</p>
 <blockquote>
 <p>如果容量为零或未设置，则通道将被无缓冲，只有在发送方和接收方都准备就绪时通信才能成功。</p>
 </blockquote>
-
 <p>这一点，<a href="https://golang.org/doc/effective_go.html#channels">《Effective Go》</a>中描述的也很清晰：</p>
-
 <blockquote>
 <p>如果通道是无缓冲的，发送者将被阻塞，直到接收者接收到值。</p>
 </blockquote>
-
 <p>通道的内部描绘可以给我们更多关于此行为的有趣的细节</p>
-
 <h2 id="无缓冲通道内部结构">无缓冲通道内部结构</h2>
-
 <p><code>channel</code> 结构体 在 <code>runtime</code> 包的 <code>chan.go</code> 文件中可以找到。该结构包含与通道缓冲区相关的属性，但是为了说明无缓存的通道，我将省略我们稍后将看到的那些属性。下面是无缓冲通道的示意图：</p>
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/hchan-struct.png" alt="hchan 结构" /></p>
-
+<p>
+        <img class="mx-auto" alt="hchan 结构" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/hchan-struct.png" />   
+    </p>
 <p>通道维护了指向接收方（ <code>recvq</code> ）和发送方（ <code>sendq</code> ）列表的指针，由链表 <code>waitq.sudog</code>表示 ，包含指向下一个元素的指针（next）和指向上一个元素的指针（previous），以及与处理 <em>接收方/发送方</em> 的 goroutine 相关的信息。有了这些信息，Go 程序就很容易知道，如果没有了发送方，通道就应该阻塞接收方，反之，没有了接收方，通道就应该阻塞发送方。</p>
-
 <p>下面是我们前面示例的工作流:</p>
-
 <ol>
 <li>通道是用一个空的接收方和发送方列表创建的。</li>
 <li>第 16 行，我们的第一个 goroutine 将值 <code>foo</code> 发送到通道。</li>
 <li>通道从（缓冲）池中获取一个结构体 <code>sudog</code>，用以表示发送者。这个结构将维护对 goroutine 和值 <code>foo</code> 的引用。</li>
 <li>这个发送者现在进入队列（enqueued ） <code>sendq</code> 。</li>
-<li>由于“*chan send*”阻塞，goroutine 进入等待状态。</li>
+<li>由于“<em>chan send</em>”阻塞，goroutine 进入等待状态。</li>
 <li>第 23 行，我们的第二个 goroutine 将读取来自通道的消息。</li>
 <li>通道将弹出 <code>sendq</code> 队列，以获取步骤 3 中的等待发送的结构体。</li>
 <li>通道将使用 <code>memmove</code> 函数将发送方发送的值(封装装在 <code>sudog</code> 结构中)复制到读取的通道的变量。</li>
 <li>现在，我们的第一个 goroutine 可以恢复在第 5 步，并将释放在第 3 步获得的 <code>sudog</code>。</li>
 </ol>
-
 <p>正如我们在工作流中再次看到的，goroutine 必须切换到等待，直到接收器可用为止。但是，如果需要，这种阻塞行为可以通过缓冲通道避免。</p>
-
 <h2 id="缓冲通道内部结构">缓冲通道内部结构</h2>
-
 <p>稍微改动之前的例子，以添加一个缓冲区：</p>
-
-<pre><code class="language-go">package main
-
-import (
-    &quot;sync&quot;
-    &quot;time&quot;
-)
-
-func main() {
-    c := make(chan string, 2)
-
-    var wg sync.WaitGroup
-    wg.Add(2)
-
-    go func() {
-        defer wg.Done()
-
-        c &lt;- `foo`
-        c &lt;- `bar`
-    }()
-
-    go func() {
-        defer wg.Done()
-
-        time.Sleep(time.Second * 1)
-        println(`Message: `+ &lt;-c)
-        println(`Message: `+ &lt;-c)
-    }()
-
-    wg.Wait()
-}
-</code></pre>
-
-<p>现在让我们根据这个例子分析结构<code>hchan</code>和与缓冲区相关的字段:</p>
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/hchan%20structure%20with%20buffer%20attributes.png" alt="缓冲通道的 hchan 结构" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">`foo`</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">`bar`</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">`Message: `</span><span style="color:#f92672">+</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">`Message: `</span><span style="color:#f92672">+</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>现在让我们根据这个例子分析结构<code>hchan</code>和与缓冲区相关的字段:</p>
+<p>
+        <img class="mx-auto" alt="缓冲通道的 hchan 结构" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/hchan%20structure%20with%20buffer%20attributes.png" />   
+    </p>
 <p>buffer（缓冲）由以下五个属性组成：</p>
-
 <ul>
 <li><code>qcount</code> 存储缓冲区中元素的当前数量</li>
 <li><code>dataqsiz</code> 存储缓冲区中最大元素的数量</li>
@@ -220,129 +308,111 @@ func main() {
 <li><code>sendx</code> 存储缓冲区中的位置，以便通道接收下一个元素</li>
 <li><code>recvx</code> 在缓冲区中存储通道返回的下一个元素的位置</li>
 </ul>
-
 <p>通过<code>sendx</code>和<code>recvx</code>，这个缓冲区就像一个循环队列:</p>
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/circular%20queue%20in%20the%20channel%20struct.png" alt="通道结构中的循环队列" /></p>
-
+<p>
+        <img class="mx-auto" alt="通道结构中的循环队列" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/circular%20queue%20in%20the%20channel%20struct.png" />   
+    </p>
 <p>这个循环队列允许我们在缓冲区中维护一个顺序，而不需要在其中一个元素从缓冲区弹出时不断移动元素。</p>
-
 <p>正如我们在前一节中看到的那样，一旦达到缓冲区的上限，尝试在缓冲区中发送元素的 goroutine 将被移动到发送者列表中，并切换到等待状态。
 然后，一旦程序读取缓冲区，从缓冲区中返回位于 <code>recvx</code> 位置的元素，将释放等待的 goroutine ，它的值将被推入缓冲中。
 这种属性使 通道有<a href="http://lsm6ds3%20fifo%20pattern/">FIFO(先进先出)</a>的行为。</p>
-
 <h2 id="由于缓冲区大小不足造成的延迟">由于缓冲区大小不足造成的延迟</h2>
-
 <p>我们在通道创建期间定义的缓冲区大小可能会极大地影响性能。我使用扇出模式来密集使用通道，以查看不同缓冲区大小的影响。以下是一些压力测试:</p>
-
-<pre><code class="language-go">package bench
-
-import (
-    &quot;sync&quot;
-    &quot;sync/atomic&quot;
-    &quot;testing&quot;
-)
-
-func BenchmarkWithNoBuffer(b *testing.B) {
-    benchmarkWithBuffer(b, 0)
-}
-
-func BenchmarkWithBufferSizeOf1(b *testing.B) {
-    benchmarkWithBuffer(b, 1)
-}
-
-func BenchmarkWithBufferSizeEqualsToNumberOfWorker(b *testing.B) {
-    benchmarkWithBuffer(b, 5)
-}
-
-func BenchmarkWithBufferSizeExceedsNumberOfWorker(b *testing.B) {
-    benchmarkWithBuffer(b, 25)
-}
-
-func benchmarkWithBuffer(b *testing.B, size int) {
-    for i := 0; i &lt; b.N; i++ {
-        c := make(chan uint32, size)
-
-        var wg sync.WaitGroup
-        wg.Add(1)
-
-        go func() {
-            defer wg.Done()
-
-            for i := uint32(0); i &lt; 1000; i++ {
-                c &lt;- i%2
-            }
-            close(c)
-        }()
-
-        var total uint32
-        for w := 0; w &lt; 5; w++ {
-            wg.Add(1)
-            go func() {
-                defer wg.Done()
-
-                for {
-                    v, ok := &lt;-c
-                    if !ok {
-                        break
-                    }
-                    atomic.AddUint32(&amp;total, v)
-                }
-            }()
-        }
-
-        wg.Wait()
-    }
-}
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">bench</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync/atomic&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;testing&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkWithNoBuffer</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">benchmarkWithBuffer</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkWithBufferSizeOf1</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">benchmarkWithBuffer</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkWithBufferSizeEqualsToNumberOfWorker</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">benchmarkWithBuffer</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkWithBufferSizeExceedsNumberOfWorker</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">benchmarkWithBuffer</span>(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">25</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">benchmarkWithBuffer</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">size</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">uint32</span>, <span style="color:#a6e22e">size</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> uint32(<span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">1000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            close(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>        }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">w</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">w</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">AddUint32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">total</span>, <span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
 <p>译者注：上边代码和说明匹配，了解详情请参考原文</p>
 </blockquote>
-
 <p>在我们的基准测试中，一个生产者将在通道中注入一个 100 万个整数元素，而十个消费者将读取他们，并将它们累加到一个名为 <code>total</code> 的结果变量中。</p>
-
 <p>我使用 <code>benchstat</code> 运行他们 10 次来分析结果：</p>
-
-<pre><code class="language-shell">name                                    time/op
-WithNoBuffer-8                          306µs ± 3%
-WithBufferSizeOf1-8                     248µs ± 1%
-WithBufferSizeEqualsToNumberOfWorker-8  183µs ± 4%
-WithBufferSizeExceedsNumberOfWorker-8   134µs ± 2%
-</code></pre>
-
-<p>一个适当大小的缓冲区确实可以使您的应用程序更快！让我们跟踪分析基准测试，以确定延迟在哪里。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>name                                    time/op
+</span></span><span style="display:flex;"><span>WithNoBuffer-8                          306µs ± 3%
+</span></span><span style="display:flex;"><span>WithBufferSizeOf1-8                     248µs ± 1%
+</span></span><span style="display:flex;"><span>WithBufferSizeEqualsToNumberOfWorker-8  183µs ± 4%
+</span></span><span style="display:flex;"><span>WithBufferSizeExceedsNumberOfWorker-8   134µs ± 2%
+</span></span></code></pre></div><p>一个适当大小的缓冲区确实可以使您的应用程序更快！让我们跟踪分析基准测试，以确定延迟在哪里。</p>
 <h2 id="追踪延迟">追踪延迟</h2>
-
 <p>跟踪基准测试将使您访问同步阻塞概要文件，该概要文件显示等待同步原语的 goroutines 阻塞位于何处。
 Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的值，而 50 大小的缓冲区只等待 1.9ms:</p>
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/synchronization%20blocking%20profile.png" alt="同步阻塞概要" /></p>
-
+<p>
+        <img class="mx-auto" alt="同步阻塞概要" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/synchronization%20blocking%20profile.png" />   
+    </p>
 <p>由于缓冲的存在，来自发送值的等待延迟减小了 5 倍：</p>
-
-<p><img src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/synchronization%20blocking%20profile2.png" alt="同步阻塞概要" /></p>
-
+<p>
+        <img class="mx-auto" alt="同步阻塞概要" src="https://raw.githubusercontent.com/studygolang/gctt-images2/master/buffered-and-unbufferd-channel/synchronization%20blocking%20profile2.png" />   
+    </p>
 <p>我们现在确实证实了我们以前的怀疑。缓冲区的大小对应用程序的性能有重要影响。</p>
-
-<hr />
-
+<hr>
 <p>via: <a href="https://medium.com/a-journey-with-go/go-buffered-and-unbuffered-channels-29a107c00268">https://medium.com/a-journey-with-go/go-buffered-and-unbuffered-channels-29a107c00268</a></p>
-
 <p>作者：<a href="https://medium.com/@blanchon.vincent">Vincent Blanchon</a>
 译者：<a href="https://github.com/TomatoAres">TomatoAres</a>
 校对：<a href="https://github.com/DingdingZhou">DingdingZhou</a></p>
-
 <p>本文由 <a href="https://github.com/studygolang/GCTT">GCTT</a> 原创编译，<a href="https://studygolang.com/">Go 中文网</a> 荣誉推出</p>
 
-                        </div>
+        </div>
 
-                        
+        
 <div class="post-archive">
     <ul class="post-copyright">
-        <li><strong>原文作者：</strong><a rel="author" href="https://TomatoAres.github.io/">TomatoAres</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://TomatoAres.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/">https://TomatoAres.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</a></li>
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/">https://tomatoares.github.io/posts/go/translated/20180717-buffered-and-unbuffered-channels/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -350,11 +420,13 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
 
 
 
-                        
+        
 
 <div class="post-archive">
     <h2>See Also</h2>
     <ul class="listing">
+        
+        <li><a href="/posts/go/go-module%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">Go Module 踩坑记录</a></li>
         
         <li><a href="/posts/go/go-map-%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%9B%A0/">go map 无序原因</a></li>
         
@@ -364,45 +436,108 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
         
         <li><a href="/posts/go/defer/">Defer 总结</a></li>
         
-        <li><a href="/posts/go/translated/20161218-modern-garbage-collection/">现代垃圾收集策略 —— Go 的 GC 策略</a></li>
-        
     </ul>
 </div>
 
 
-                        <div class="post-meta meta-tags">
-                            
-                            <ul class="clearfix">
-                                
-                                <li><a href="https://TomatoAres.github.io/tags/go">go</a></li>
-                                
-                            </ul>
-                            
-                        </div>
-                    </article>
-                    
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go'>go</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
     
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     
     
     <div class="post bg-white">
       <script src="https://utteranc.es/client.js"
-            repo= "TomatoAres/TomatoAres.github.io"
-            issue-term="pathname"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
             theme="github-light"
             crossorigin="anonymous"
             async>
       </script>
     </div>
     
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
                 </div>
-            </div>
-            <div id="secondary">
+
+                <div id="secondary">
     <section class="widget">
-        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://TomatoAres.github.io/">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -412,43 +547,43 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
 <ul class="widget-list">
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/about/" title="About">About</a>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/storage/storage-cluster/" title="集群化存储课程总结">集群化存储课程总结</a>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20160828-how-to-call-privite-functions-in-go/" title="如何调用 Golang 私有函数（绑定到隐藏符号）">如何调用 Golang 私有函数（绑定到隐藏符号）</a>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/3-step-build-minix-image/" title="仅需三个步骤即可构建最小的 Docker 映像">仅需三个步骤即可构建最小的 Docker 映像</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/" title="Go 编译器概述">Go 编译器概述</a>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/translated/20190814-go-understand-the-empty-interface/" title="理解 Go 的空接口">理解 Go 的空接口</a>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
     <li>
-        <a href="https://TomatoAres.github.io/posts/go/mult-version-go/" title="使用 Goland 安装多个版本的 go">使用 Goland 安装多个版本的 go</a>
+        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
     </li>
     
 </ul>
@@ -457,253 +592,175 @@ Goroutines 在同步过程中花费了 9ms 的时间来等待无缓冲通道的�
     
 
     <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
 <ul class="widget-list">
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/GCTT/">GCTT(11)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Go/">Go(15)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Istio/">Istio(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Life/">Life(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Network/">Network(5)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Other/">Other(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Storage/">Storage(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Tool/">Tool(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/Web/">Web(9)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/docker/">docker(6)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/k8s/">k8s(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/linux/">linux(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/network/">network(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/os/">os(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统(2)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%AE%97%E6%B3%95/">算法(3)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
     
-    <li>
-        <a href="https://TomatoAres.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化(1)</a>
-    </li>
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
     
 </ul>
     </section>
 
     <section class="widget">
-        <h3 class="widget-title">标签</h3>
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
 <div class="tagcloud">
     
-    <a href="https://TomatoAres.github.io/tags/Cobra/">Cobra</a>
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
     
-    <a href="https://TomatoAres.github.io/tags/GC/">GC</a>
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
     
-    <a href="https://TomatoAres.github.io/tags/GCTT/">GCTT</a>
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
     
-    <a href="https://TomatoAres.github.io/tags/Go/">Go</a>
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
     
-    <a href="https://TomatoAres.github.io/tags/HTTP/2.0/">HTTP/2.0</a>
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
     
-    <a href="https://TomatoAres.github.io/tags/Http/">Http</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/IO/">IO</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Istio/">Istio</a>
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
     
-    <a href="https://TomatoAres.github.io/tags/Leetcode/">Leetcode</a>
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
     
-    <a href="https://TomatoAres.github.io/tags/Network/">Network</a>
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
     
-    <a href="https://TomatoAres.github.io/tags/RPC/">RPC</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/Storage/">Storage</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/TCP/">TCP</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/UDP/">UDP</a>
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
     
-    <a href="https://TomatoAres.github.io/tags/Web/">Web</a>
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
     
-    <a href="https://TomatoAres.github.io/tags/Websocket/">Websocket</a>
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
     
-    <a href="https://TomatoAres.github.io/tags/buffer/">buffer</a>
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
     
-    <a href="https://TomatoAres.github.io/tags/cache/">cache</a>
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
     
-    <a href="https://TomatoAres.github.io/tags/container/">container</a>
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
     
-    <a href="https://TomatoAres.github.io/tags/database/">database</a>
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
     
-    <a href="https://TomatoAres.github.io/tags/docker/">docker</a>
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
     
-    <a href="https://TomatoAres.github.io/tags/echo/">echo</a>
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
     
-    <a href="https://TomatoAres.github.io/tags/framework/">framework</a>
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
     
-    <a href="https://TomatoAres.github.io/tags/go/">go</a>
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
     
-    <a href="https://TomatoAres.github.io/tags/hugo/">hugo</a>
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
     
-    <a href="https://TomatoAres.github.io/tags/k8s/">k8s</a>
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
     
-    <a href="https://TomatoAres.github.io/tags/leetcode/">leetcode</a>
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
     
-    <a href="https://TomatoAres.github.io/tags/microservice/">microservice</a>
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
     
-    <a href="https://TomatoAres.github.io/tags/network/">network</a>
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
     
-    <a href="https://TomatoAres.github.io/tags/os/">os</a>
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
     
-    <a href="https://TomatoAres.github.io/tags/web/">web</a>
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
     
-    <a href="https://TomatoAres.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
     
 </div>
     </section>
 
     
-<section class="widget">
-    <h3 class="widget-title">友情链接</h3>
-    <ul class="widget-list">
-        
-        <li>
-            <a target="_blank" href="https://github.com/TomatoAres" title="github">我的 Github</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/" title="studygolang">Golang 中文网</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://studygolang.com/subject/1" title="Go 中文翻译组">GCTT</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="http://go101.studygolang.com/article/101.html" title="Go 101">Go语言101</a>
-        </li>
-        
-        <li>
-            <a target="_blank" href="https://www.12factor.net/zh_cn/" title="The twelve-factor app">12-Factors</a>
-        </li>
-        
-    </ul>
-</section>
-
 
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a href="https://TomatoAres.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
         </ul>
     </section>
 </div>
+            </div>
         </div>
     </div>
-</div>
-<footer id="footer">
-    <div class="container">
-        &copy; 2020 <a href="https://TomatoAres.github.io/">西红柿的博客 By TomatoAres</a>.
-        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
-        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
-        
-    </div>
-</footer>
-
-
-    
-    <script type="text/javascript">
-        
-        (function () {
-            $("pre code").parent().addClass("line-numbers")
-        }());
-
-        window.MathJax = {
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                processEscapes: true
-                }
-            };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-
-<a id="rocket" href="#top"></a>
-<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
-
-
-
-    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
-
-
-
 </body>
+
 </html>

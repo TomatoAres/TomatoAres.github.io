@@ -2,22 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>组成原理 on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+    <link>https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
     <description>Recent content in 组成原理 on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 20 Oct 2019 21:43:29 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 20 Oct 2019 21:43:29 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CPU 内存 显卡</title>
-      <link>https://TomatoAres.github.io/posts/composition-principle/CPU/</link>
+      <link>https://tomatoares.github.io/posts/composition-principle/CPU/</link>
       <pubDate>Sun, 20 Oct 2019 21:43:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/composition-principle/CPU/</guid>
-      <description>分类 CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。</description>
+      <guid>https://tomatoares.github.io/posts/composition-principle/CPU/</guid>
+      <description>分类 CPU 其实内部已经含有一些小指令集，我们所使用的软件都要经过 CPU 内部的微指令集来达成才行。 那这些指令集的设计主要又被分为两种设计理念，这就是目前世界上常见到的两种主要 CPU 种类： 分别是精简指令集 (RISC) 与复杂指令集 (CISC) 系统。 精简指令集 (Reduced Instruction Set Computing, RISC)： 这种 CPU 的设计中，微指令集较为精简，每个指</description>
     </item>
     
   </channel>

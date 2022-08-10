@@ -2,23 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RPC on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/RPC/</link>
+    <link>https://tomatoares.github.io/tags/RPC/</link>
     <description>Recent content in RPC on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Thu, 12 Sep 2019 11:43:50 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/RPC/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 12 Sep 2019 11:43:50 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/RPC/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rpc 标准库的几种实现方式</title>
-      <link>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <link>https://tomatoares.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Thu, 12 Sep 2019 11:43:50 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
-      <description>server server.go
-package main import ( &amp;quot;errors&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;net&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;net/rpc&amp;quot; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.</description>
+      <guid>https://tomatoares.github.io/posts/network/rpc-%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <description>server server.go package main import ( &amp;#34;errors&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;net&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;net/rpc&amp;#34; ) type Args struct { A, B int } type Quotient struct { Quo, Rem int } type Arith int func (t *Arith) Multiply(args *Args, reply *int) error { *reply = args.A * args.B return nil } func (t *Arith) Divide(args *Args, quo *Quotient) error { if args.B == 0 { return errors.New(&amp;#34;divide by zero&amp;#34;) } quo.Quo = args.A / args.B quo.Rem = args.A % args.B return nil } func main() { arith := new(Arith) rpc.Register(arith) rpc.HandleHTTP() // http 实现 err := http.ListenAndServe(&amp;#34;:1234&amp;#34;, nil) // http rpc 监听 if err != nil { fmt.Println(err.Error()) } } // TCP 实现 //func main() { // arith := new(Arith) // rpc.Register(arith) // tcpAddr, err := net.ResolveTCPAddr(&amp;#34;tcp&amp;#34;, &amp;#34;:1234&amp;#34;) // checkError(err) // listener, err := net.ListenTCP(&amp;#34;tcp&amp;#34;, tcpAddr) // checkError(err) // for</description>
     </item>
     
   </channel>

@@ -2,31 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Storage on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/Storage/</link>
+    <link>https://tomatoares.github.io/categories/Storage/</link>
     <description>Recent content in Storage on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Dec 2019 23:40:07 +0800</lastBuildDate>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Mar 2020 15:03:59 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/Storage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSI - 容器存储接口</title>
+      <link>https://tomatoares.github.io/posts/storage/CSI-spec/</link>
+      <pubDate>Sun, 01 Mar 2020 15:03:59 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/CSI-spec/</guid>
+      <description>接口规范翻译 术语 词条 定义 Volume A unit of storage that will be made available inside of a CO-managed container, via the CSI. Block Volume 在容器内以块设备形式存在的挂载卷。 Mounted Volume A volume that will be mounted using the specified file system and appear as a directory inside the container. CO 容器编排系统（Container Orchestration system）, 使用 CSI 的 RPC 和 插件通信. SP 存储供应商（Storage Provider）, CSI 的第三方实现 RPC Remote</description>
+    </item>
     
-	<atom:link href="https://TomatoAres.github.io/categories/Storage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>external-storage 探索</title>
+      <link>https://tomatoares.github.io/posts/storage/external-storage/</link>
+      <pubDate>Sun, 01 Mar 2020 14:48:40 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/external-storage/</guid>
+      <description>概述 使用 out-of-tree 形式 添加存储 不同于 in-tree 形式，需要改变 controller-manager 等核心部分 和 CSI 的关系 核心组成 provisioner 用于创建 PV ，指定 voulume 真正的后端存储 controller 包含Provisioner接口和ProvisionController，ProvisionController是一个自定义的Kubernetes 控制器，用于监视Persi</description>
+    </item>
     
+    <item>
+      <title>kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</link>
+      <pubDate>Sat, 28 Dec 2019 23:42:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph-rbd-resize/</guid>
+      <description>需求分析 环境 kubernetes 1.12.6 使用 storageclass 和 pvc 动态生成 pv storageclass 后端存储使用 ceph rbd 使用 kubectl edit 编辑 pvc，对已有的 pvc 进行扩容，并且容器内部文件系统自动扩容 1. kubernetes 1.12.6 环境部署 由于 1.12.6 版本比较古老，kubeadm 易用性远不如后边较新几个版本，使用方式不太一致，并且存在一定的不合理的问题 docker 版本最高 18.6:yum install -y docker-ce-18.06.0.ce-3.el7 docker-ce-cli-18.06.0.ce-3.el7 能翻墙的话，尽量</description>
+    </item>
+    
+    <item>
+      <title>Ceph 的部署</title>
+      <link>https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Thu, 19 Dec 2019 23:05:27 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/</guid>
+      <description>Ceph 的部署工具 ceph-deploy：官方的部署工具 ceph-ansible：红帽的部署工具 ceph-chef：利用 chef 进行自动部署 Ceph 的工具 puppet-ceph：puppet 的 ceph 模块 Public Network 192.168.200.161-164 Cluster Network 192.168.100.161-164 版本：Mimic 13 版 部署前提 这是一个前提条件 关闭 SELinux 关闭 firewalld，并禁止开机自启</description>
+    </item>
+    
+    <item>
+      <title>Ceph 的部署</title>
+      <link>https://tomatoares.github.io/posts/storage/issue-csi/</link>
+      <pubDate>Thu, 19 Dec 2019 23:05:27 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/issue-csi/</guid>
+      <description>@cofyc Thanks to you reply! I have tried it in default namespace according to readme and in rbac mode,but I have failed [root@k8s-master01 examples]# kubectl create -f examples/class.yaml error: the path &amp;#34;examples/class.yaml&amp;#34; does not exist [root@k8s-master01 examples]# cd .. [root@k8s-master01 rbd]# kubectl create -f examples/class.yaml storageclass.storage.k8s.io/rbd created [root@k8s-master01 rbd]# kubectl create -f examples/claim.yaml persistentvolumeclaim/claim1 created [root@k8s-master01 rbd]# kubectl get pvc NAME STATUS VOLUME CAPACITY ACCESS MODES STORAGECLASS AGE claim1 Pending rbd 5s [root@k8s-master01 rbd]# kubectl describe pvc claim1 Name: claim1 Namespace: default StorageClass: rbd Status: Pending Volume: Labels: &amp;lt;none&amp;gt; Annotations: volume.beta.kubernetes.io/storage-provisioner: ceph.com/rbd Finalizers: [kubernetes.io/pvc-protection] Capacity: Access Modes: VolumeMode: Filesystem Mounted By: &amp;lt;none&amp;gt; Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal ExternalProvisioning 10s (x3 over 16s) persistentvolume-controller waiting for a volume to be created, either by external provisioner &amp;#34;ceph.com/rbd&amp;#34; or manually created by system administrator Normal Provisioning</description>
+    </item>
+    
+    <item>
+      <title>Ceph 搭建网盘</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph/</link>
+      <pubDate>Wed, 18 Dec 2019 23:42:12 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph/</guid>
+      <description>云盘分解 存储 DAS NAS SAN 分布式存储 glusterfs moosefs hdfs fastdfs ceph 文件存储 块设备 核心：对象存储 应用 owncloud php 开发 nextcloud seafile 参考 ceph-两小时玩转企业级私有云盘</description>
+    </item>
+    
+    <item>
+      <title>Ceph 和 Kubernetes 集成</title>
+      <link>https://tomatoares.github.io/posts/storage/ceph&#43;k8s/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/ceph&#43;k8s/</guid>
+      <description>方式 静态 如果没有合适的 pv, pvc 会一直 pending 动态 说明 使用 RBD 做存储，因为 cephFS 不稳定 准备环境 安装 ceph 大工程，暂时跳过，有空补 有单节点的快速安装脚本 ceph 创建存储池 并启用 RBD 功能 ceph osd pool create csj 1024 查看：ceph osd pool ls 创建 Ceph 用户，提供给 K8s 使用 ceph auth get-or-create client.kube mon &#39;allow r&#39; osd &#39;allow class-read object_prefix rbd_children,allow rwx pool=rbdpool&#39; 上条命令会生产 keyring 密钥 查看用户：ceph auth ls 有</description>
+    </item>
+    
+    <item>
+      <title>PVC 问题解决记录</title>
+      <link>https://tomatoares.github.io/posts/storage/pvc/</link>
+      <pubDate>Wed, 18 Dec 2019 23:41:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/pvc/</guid>
+      <description>问题发现 github 上 16 年 12 月就提出来了 describe pod describe pvc kube-controller 日志 kubectl describe pod ceph-static Events: Type Reason Age From Message ---- ------ ---- ---- ------- Warning FailedScheduling 102s (x1480 over 15h) default-scheduler pod has unbound immediate PersistentVolumeClaims kubectl describe pvc ceph-kube-claim Type Reason Age From Message ---- ------ ---- ---- ------- Warning ProvisioningFailed 54s (x417 over 15h) persistentvolume-controller Failed to provision volume with StorageClass &amp;#34;rbd&amp;#34;: failed to create rbd image: executable file not found in $PATH, command output: Mounted By: ceph-static 已知的两种解决方式 替换 kube-controller 镜像 使用 CSI 记录 kube-controller 没有 rbd 二进制 同样的方式验证 使用镜像替换 使用 CSI in-tree&amp;ndash;&amp;gt;out-of-tree sidecar 模式 使</description>
+    </item>
+    
+    <item>
+      <title>kubernetes ceph rbd storage 源码探索</title>
+      <link>https://tomatoares.github.io/posts/storage/storage-source-code/</link>
+      <pubDate>Wed, 18 Dec 2019 23:40:07 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/storage/storage-source-code/</guid>
+      <description>概述 kubernetes 当前存储对接第三方存储后端实现有两种模式共存 in-tree：各种存储后端功能侵入式存在于源码中，耦合性高，不便于扩展与维护 out-of-tree:和源码解耦，类似于 CNI 的 CSI 有统一的接口规范，便于维护扩展 以 ceph-rbd 为例看 provisioner（github.com\kubernete</description>
+    </item>
     
     <item>
       <title>集群化存储课程总结</title>
-      <link>https://TomatoAres.github.io/posts/storage/storage-cluster/</link>
+      <link>https://tomatoares.github.io/posts/storage/storage-cluster/</link>
       <pubDate>Wed, 18 Dec 2019 23:40:07 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/storage/storage-cluster/</guid>
-      <description>概述 用于存储的网络技术：连接  DAS: Direct Attached Storage  直接附加存储 直连主机：通过数据线，光缆，SATA 优点  技术简单 传输效率高  缺点  与主机绑定太死，不易于后期扩展   NAS: Network Attached Storage  网络附加存储 通过网络与主机相连 优点  技术相对简单 不要求直连主机，局域网即可  缺点  传输效率慢   SAN: Storage Area Network  存储区域网络 隔离：生产网络——存储网络 优点  存储安全性高 存储效率高  缺点  造价高 技术相对高    实现存储技术分类  块存储  常见：  U 盘，磁盘，光驱 ISCSI  优点  可独立使用 通过 Raid，LVM 等简单技术实现高可用  缺点  不利于多台设备之间共享   文件存储、网络存储  常见  SAMBA FTP NFS  优点  便宜 可共享  缺点  读写效率低 传输效率慢   对象存储、分布式存储、存储桶  常见  CEPH MooseFS RHCS ClusterFS  优点  读写效率高 可在不同主机间共享  缺点  贵 难：技术难度高    存储技术与存储网络的关系  块存储+DAS  最常见 电脑插磁盘 是所有的基础  块存储 + NAS  局域网共享 提升空间利用率 便于后期扩展  块存储 + SAN  共享 提升效率 便于扩展 更加解耦，更易维护  文件存储 + NAS  同 2  对象存储 + SAN  利用分布式存储结构——提升读写并发效率 隔离，更易扩展   块存储——ISCSI  定义：  iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet 小型计算机系统接口，又称为 IP-SAN，是一种基于因特网及 SCSI-3 协议下的存储技术 SCSI 小型计算机系统接口（SCSI，Small Computer System Interface）是一种用于计算机及其周边设备之间（硬盘、软驱、光驱、打印机、扫描仪等）系统级接口的独立处理器标准    文件存储——NFS  是什么：网络文件系统 功能：网络共享文件 原理：RPC 负载信息的传输 优点  节省空间 共享   安装配置 跳过——暂时不用</description>
+      <guid>https://tomatoares.github.io/posts/storage/storage-cluster/</guid>
+      <description>概述 用于存储的网络技术：连接 DAS: Direct Attached Storage 直接附加存储 直连主机：通过数据线，光缆，SATA 优点 技术简单 传输效率高 缺点 与主机绑定太死，不易于后期扩展 NAS: Network Attached Storage 网络附加存储 通过网络与主机相连 优点 技术相对简单 不要求直连主机，局域网即可 缺点 传输效率慢 SAN: Storage Area Network 存储区域网络 隔离：生产网络——存储网络</description>
     </item>
     
     <item>
       <title>磁盘和文件系统</title>
-      <link>https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://tomatoares.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Sun, 20 Oct 2019 21:43:29 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
-      <description>磁盘接口分类  IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经被淘汰了，而其后发展分支出更多类型的硬盘接口，比如 ATA(Advanced Technology Attachment)、Ultra ATA、DMA、Ultra DMA 等接口都属于 IDE 硬盘。其特点为：价格低廉，兼容性强，性价比高，数据传输慢，不支持热插拔等等。</description>
+      <guid>https://tomatoares.github.io/posts/composition-principle/%E7%A3%81%E7%9B%98%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
+      <description>磁盘接口分类 IDE：全称 Integrated Drive Electronics，即“电子集成驱动器”，俗称 PATA 并口。它的本意是指把“硬盘控制器”与“盘体”集成在一起的硬盘驱动器。IDE 代表着硬盘的一种类型，但在实际的应用中，人们也习惯用 IDE 来称呼最早出现 IDE 类型硬盘 ATA-1，这种类型的接口随着接口技术的发展已经</description>
     </item>
     
   </channel>

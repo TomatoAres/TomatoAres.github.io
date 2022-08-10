@@ -2,34 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>操作系统 on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <link>https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
     <description>Recent content in 操作系统 on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Thu, 26 Sep 2019 00:13:30 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 26 Sep 2019 00:13:30 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux Control Group 简介</title>
-      <link>https://TomatoAres.github.io/posts/system/cgroup/</link>
+      <link>https://tomatoares.github.io/posts/system/cgroup/</link>
       <pubDate>Thu, 26 Sep 2019 00:13:30 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/system/cgroup/</guid>
-      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源：</description>
+      <guid>https://tomatoares.github.io/posts/system/cgroup/</guid>
+      <description>Linux Control Group(简称 cgroup)是一个用于限制、统计和隔离进程的资源的特性 在虚拟化领域，如 qemu-kvm 和 linux container，cgroup 用常用来限制以下类型的资源： CPU time：进程占用的 CPU 时间 Memory：进程占用的物理内存 Block IO：进程访问块设备的 bandwidth 或 IOPS Network IO：进程访问网络的 bandwidth 或 packages 的数</description>
     </item>
     
     <item>
       <title>进程线程协程总结</title>
-      <link>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
+      <link>https://tomatoares.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
       <pubDate>Thu, 22 Aug 2019 11:55:05 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
-      <description>一句话 CPU 占用时间间隔的单位
-通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别
- 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
- 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。</description>
+      <guid>https://tomatoares.github.io/posts/system/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
+      <description>一句话 CPU 占用时间间隔的单位 通俗易懂的例子 参考：每个程序员都会遇到的面试问题：谈谈进程和线程的区别 计算机的核心是 CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。 假定工厂的电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是</description>
     </item>
     
   </channel>

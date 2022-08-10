@@ -2,44 +2,72 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>microservice on 西红柿的博客</title>
-    <link>https://TomatoAres.github.io/tags/microservice/</link>
+    <link>https://tomatoares.github.io/tags/microservice/</link>
     <description>Recent content in microservice on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Dec 2019 00:59:39 +0800</lastBuildDate>
-    
-	<atom:link href="https://TomatoAres.github.io/tags/microservice/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 01 Dec 2019 00:59:39 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/tags/microservice/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go 编译器概述</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</link>
       <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/go-compiler-overview/</guid>
-      <description>首发于：https://studygolang.com/articles/24554
-  本文基于 Go 1.13
- Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看看它的高级操作。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/go-compiler-overview/</guid>
+      <description>首发于：https://studygolang.com/articles/24554 本文基于 Go 1.13 Go 编译器是 Go 生态系统中的一个重要工具，因为它是将程序构建为可执行二进制文件的基本步骤之一。编译器的历程是漫长的，它先用 C 语言编写，迁移到 Go，许多优化和清理将在未来继续发生，让我们来看</description>
+    </item>
+    
+    <item>
+      <title>kubectl create 和 apply 对比解读</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/apply-create/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 18.04 安装 k8s</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-k8s/</guid>
+      <description>更换 软件源 翻墙 基本配置 内存交换 防火墙 selinux 安装 docker 配置 kubernetes 源 + 安装工具 kubelet kubeadm kubectl sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install -y apt-transport-https curl curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - cat &amp;lt;&amp;lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list deb https://apt.kubernetes.io/ kubernetes-xenial main EOF sudo apt-get update sudo apt-get install -y kubelet kubeadm kubectl sudo apt-mark hold kubelet kubeadm kubectl 没有梯子的启动方法 有梯子 FAQ apt-get update locked root@ubuntu:/etc/apt# apt-get update 正在读取软件包列表。.. 完成 E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用） E: 无法对目录 /var/lib/apt/lists/ 加锁 其</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 无法远程 ssh 问题</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/Ubuntu-ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu 权限相关</title>
+      <link>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</link>
+      <pubDate>Sun, 01 Dec 2019 00:59:39 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/</guid>
+      <description>用户 who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户， 后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普</description>
     </item>
     
     <item>
       <title>为什么 Go 适合微服务</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</link>
       <pubDate>Wed, 18 Sep 2019 21:49:04 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
-      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/why-go-is-good-language-for-microservices/</guid>
+      <description>去年早些时候，我们决定改用 Go(Golang) 作为我们（SafetyCulture）开发微服务的选择。在这之前，我们的微服务使用 Node.js(CoffeeScript, Javascript 和 TypeScript 的混合 ) 编写。下来我将分享我们更改的原因。 1. 静态类型 Go 是一种静态类型语言，这意味着编译器可以为您做更多的工作。人们倾向于强调这一点的重要性。 生产事故的故事 去年，在</description>
     </item>
     
     <item>
       <title>Go 语言中的微服务</title>
-      <link>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</link>
+      <link>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</link>
       <pubDate>Wed, 14 Aug 2019 23:04:12 +0800</pubDate>
       
-      <guid>https://TomatoAres.github.io/posts/go/translated/microservices-in-go/</guid>
-      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。
-在这里，我要介绍以下框架：
- Go Micro Go Kit Gizmo Kite  框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最新更新。</description>
+      <guid>https://tomatoares.github.io/posts/go/translated/microservices-in-go/</guid>
+      <description>摘要 我最近在墨尔本 Golang 聚会上就如何开发微服务和框架做了一次演讲。在本文中，我将与您分享我的想法（此外，它对我来说是一个很好的复习）。 在这里，我要介绍以下框架： Go Micro Go Kit Gizmo Kite 框架简介 Go Micro 这是我认为最受欢迎的框架之一。有很多博客文章和简单的例子可供使用参考。您可以从 microhq 在 Medium 或 @MicroHQ 获得 Go Micro 的最</description>
     </item>
     
   </channel>
