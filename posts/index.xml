@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 01 Mar 2020 15:03:59 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Aug 2022 11:28:42 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Proust Questionnaire</title>
+      <link>https://tomatoares.github.io/posts/my-proust-questionnaire/</link>
+      <pubDate>Thu, 11 Aug 2022 11:28:42 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/posts/my-proust-questionnaire/</guid>
+      <description>背景 一直想好好了解下自己 从houmin blog 看到这个问卷 1. 你目前的心境怎样？ 处于而立之年的交叉口，技术不算扎实但也能糊口 悠闲而幸福：裸辞，回老家陪家人，暂时没有经济工作等压力，时间也很充足 迷茫：接下来要怎么走？想法很多，但是不确定该怎么走 回西安找轻松的公司，比如外企，或者不是特别忙的</description>
+    </item>
+    
     <item>
       <title>CSI - 容器存储接口</title>
       <link>https://tomatoares.github.io/posts/storage/CSI-spec/</link>

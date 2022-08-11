@@ -6,7 +6,16 @@
     <description>Recent content in Categories on 西红柿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 01 Mar 2020 15:03:59 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Aug 2022 11:28:42 +0800</lastBuildDate><atom:link href="https://tomatoares.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Life</title>
+      <link>https://tomatoares.github.io/categories/Life/</link>
+      <pubDate>Thu, 11 Aug 2022 11:28:42 +0800</pubDate>
+      
+      <guid>https://tomatoares.github.io/categories/Life/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Storage</title>
       <link>https://tomatoares.github.io/categories/Storage/</link>
@@ -40,15 +49,6 @@
       <pubDate>Sun, 01 Mar 2020 14:33:34 +0800</pubDate>
       
       <guid>https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Life</title>
-      <link>https://tomatoares.github.io/categories/Life/</link>
-      <pubDate>Sun, 01 Mar 2020 14:02:57 +0800</pubDate>
-      
-      <guid>https://tomatoares.github.io/categories/Life/</guid>
       <description></description>
     </item>
     

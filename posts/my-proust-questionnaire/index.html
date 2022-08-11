@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>My Proust Questionnaire | 西红柿的博客</title>
+    <meta property="og:title" content="My Proust Questionnaire - 西红柿的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2022-08-11T11:28:42&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2022-08-11T11:28:42&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,kubernetes,network">
+    <meta name="description" content="My Proust Questionnaire">
+        
+    <meta name="author" content="战神西红柿">
+    <meta property="og:url" content="https://tomatoares.github.io/posts/my-proust-questionnaire/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://tomatoares.github.io">
+                        西红柿的博客
+                    </a>
+                
+                <p class="description">专注于IT互联网, 包括但不限于Go语言(golang)、云计算、kubernetes、IAAS/PAAS</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://tomatoares.github.io">首页</a>
+                    
+                    <a  href="https://tomatoares.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://tomatoares.github.io/posts/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#1-你目前的心境怎样">1. 你目前的心境怎样？</a></li>
+    <li><a href="#2-你认为最完美的快乐是怎样的">2. 你认为最完美的快乐是怎样的？</a></li>
+    <li><a href="#3-你最希望拥有哪种才华">3. 你最希望拥有哪种才华？</a></li>
+    <li><a href="#4-你最恐惧的是什么">4. 你最恐惧的是什么？</a></li>
+    <li><a href="#5-你认为自己最伟大的成就是什么">5. 你认为自己最伟大的成就是什么？</a></li>
+    <li><a href="#6-还在世的人中你最钦佩的是谁">6. 还在世的人中你最钦佩的是谁？</a></li>
+    <li><a href="#7-你自己的哪个特点让你最觉得痛恨">7. 你自己的哪个特点让你最觉得痛恨？</a></li>
+    <li><a href="#8-你最喜欢的旅行是哪一次">8. 你最喜欢的旅行是哪一次？</a></li>
+    <li><a href="#9-你最痛恨别人的什么特点">9. 你最痛恨别人的什么特点？</a></li>
+    <li><a href="#10-你最珍惜的财产是什么">10. 你最珍惜的财产是什么？</a></li>
+    <li><a href="#11-你最奢侈的是什么">11. 你最奢侈的是什么？</a></li>
+    <li><a href="#12-你认为最浅的痛苦是什么">12. 你认为最浅的痛苦是什么？</a></li>
+    <li><a href="#13-你认为哪种美德是被过高评估的">13. 你认为哪种美德是被过高评估的？</a></li>
+    <li><a href="#14-你最喜欢的职业是什么">14. 你最喜欢的职业是什么？</a></li>
+    <li><a href="#15-你对自己的外表哪一点不满意">15. 你对自己的外表哪一点不满意？</a></li>
+    <li><a href="#16-你最后悔的事情是什么">16. 你最后悔的事情是什么？</a></li>
+    <li><a href="#17-还在世的人中你最鄙视的是谁">17. 还在世的人中你最鄙视的是谁？</a></li>
+    <li><a href="#18-你最喜欢男性身上的什么品质">18. 你最喜欢男性身上的什么品质？</a></li>
+    <li><a href="#19-你使用过的最多的单词或者词语是什么">19. 你使用过的最多的单词或者词语是什么？</a></li>
+    <li><a href="#20-你最喜欢女性身上什么品质">20. 你最喜欢女性身上什么品质？</a></li>
+    <li><a href="#21-你最伤痛的事是什么">21. 你最伤痛的事是什么？</a></li>
+    <li><a href="#22-你最看中朋友什么特点">22. 你最看中朋友什么特点？</a></li>
+    <li><a href="#23-你这一生最爱的人或东西">23. 你这一生最爱的人或东西？</a></li>
+    <li><a href="#24-你希望以什么样的方式死去">24. 你希望以什么样的方式死去？</a></li>
+    <li><a href="#25-如果你可以改变你的家庭一件事那会是什么">25. 如果你可以改变你的家庭一件事，那会是什么？</a></li>
+    <li><a href="#26-如果你能选择的话你希望让什么重现">26. 如果你能选择的话，你希望让什么重现？</a></li>
+    <li><a href="#27-你的座右铭是什么">27. 你的座右铭是什么？</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">My Proust Questionnaire</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2022年8月11日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Life'>Life</a></span>
+            
+        </div>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="post-content">
+            <!-- raw HTML omitted -->
+<h2 id="背景">背景</h2>
+<p>一直想好好了解下自己
+从<a href="https://houmin.cc/posts/166197e7/#more">houmin blog</a> 看到这个问卷</p>
+<h2 id="1-你目前的心境怎样">1. 你目前的心境怎样？</h2>
+<p>处于而立之年的交叉口，技术不算扎实但也能糊口</p>
+<ul>
+<li>悠闲而幸福：裸辞，回老家陪家人，暂时没有经济工作等压力，时间也很充足</li>
+<li>迷茫：接下来要怎么走？想法很多，但是不确定该怎么走
+<ul>
+<li>回西安找轻松的公司，比如外企，或者不是特别忙的公司，过个小日子</li>
+<li>去一线：定居压力太大，基本上就是赚两年钱回来</li>
+<li>润 日本、新加坡：体验下国外的环境，可能
+<ul>
+<li>赚两年钱回来(不知道能多攒多少)，到时候再考虑出路</li>
+<li>直接移民：现实矛盾 父母怎么办？</li>
+</ul>
+</li>
+<li>在家躺平：随便找个工作做着，没啥压力，平淡 or 平庸？</li>
+</ul>
+</li>
+</ul>
+<p>想不清楚，留给以后的自己解决，再休息休息。。。</p>
+<h2 id="2-你认为最完美的快乐是怎样的">2. 你认为最完美的快乐是怎样的？</h2>
+<ul>
+<li>冬天里躲在被窝里看爽文小说&ndash;爽&ndash;因寄所托，放浪形骸之外，</li>
+<li>完美完成手头任务的成就感满足感</li>
+<li>大脑完全清醒的感觉&ndash;突然感觉自己对世界的感应程度突然不一样了</li>
+<li>突然搞清楚自己一直想知道缺一直没搞清楚的一件事&ndash;朝闻道，夕可死</li>
+<li>到一个特别空旷漂亮的地方&ndash;心旷神怡，宠辱偕忘，比如 去 泸沽湖 的时候</li>
+<li>唱歌唱到high，脑子也会特别清醒</li>
+</ul>
+<h2 id="3-你最希望拥有哪种才华">3. 你最希望拥有哪种才华？</h2>
+<ul>
+<li>虚的：自强&ndash;掌控自己&ndash;人都有变好的欲望，也都有懒惰的欲望，希望自己能有掌控自己的能力，而不是被潜意识的熵增打乱</li>
+<li>实的：唱歌，之前老师带着自己唱歌，唱的很不错的感觉贼有成就感，唱完感觉脑子也特别清醒</li>
+</ul>
+<h2 id="4-你最恐惧的是什么">4. 你最恐惧的是什么？</h2>
+<p>暂时好像找不到什么实物，就死亡吧</p>
+<h2 id="5-你认为自己最伟大的成就是什么">5. 你认为自己最伟大的成就是什么？</h2>
+<p>当前的自己&ndash;一个 独立，善良，对社会的积极作用更多一些的人</p>
+<h2 id="6-还在世的人中你最钦佩的是谁">6. 还在世的人中你最钦佩的是谁？</h2>
+<p>好像没有唯一的人生导师，比较佩服的有很多，比如</p>
+<ul>
+<li>之前同事强大的心理素质，</li>
+<li>另外一个同事扎实的技术，</li>
+<li>发小幽默有趣的口才</li>
+</ul>
+<p>三人行，必有我师焉，择其善者而从之</p>
+<h2 id="7-你自己的哪个特点让你最觉得痛恨">7. 你自己的哪个特点让你最觉得痛恨？</h2>
+<p>当前应该是懒惰，应该很多人都认为我是个勤快的人，但是实际上是&ndash;<code>用战术上的勤奋掩盖战略上的懒惰</code></p>
+<ol>
+<li>增强目标感</li>
+<li>按清单执行</li>
+</ol>
+<h2 id="8-你最喜欢的旅行是哪一次">8. 你最喜欢的旅行是哪一次？</h2>
+<p>这两年才陆续有些旅行，记忆都比较深刻，不好排位，那就 下一次</p>
+<h2 id="9-你最痛恨别人的什么特点">9. 你最痛恨别人的什么特点？</h2>
+<p>不真诚&ndash;沟通成本高</p>
+<h2 id="10-你最珍惜的财产是什么">10. 你最珍惜的财产是什么？</h2>
+<ul>
+<li>还算健康的自己和家人</li>
+<li>还算够花的钱和精力</li>
+</ul>
+<h2 id="11-你最奢侈的是什么">11. 你最奢侈的是什么？</h2>
+<p>当前的休整&ndash;最好的年级</p>
+<h2 id="12-你认为最浅的痛苦是什么">12. 你认为最浅的痛苦是什么？</h2>
+<p>剁手</p>
+<h2 id="13-你认为哪种美德是被过高评估的">13. 你认为哪种美德是被过高评估的？</h2>
+<p>勤劳、努力&ndash;并不能产生很多正向价值，特别是无脑勤劳，很可能南辕北辙</p>
+<h2 id="14-你最喜欢的职业是什么">14. 你最喜欢的职业是什么？</h2>
+<p>工匠，程序员也是，专攻术业，不想其他</p>
+<h2 id="15-你对自己的外表哪一点不满意">15. 你对自己的外表哪一点不满意？</h2>
+<p>头型&ndash;不好留帅发型，更不会打理</p>
+<h2 id="16-你最后悔的事情是什么">16. 你最后悔的事情是什么？</h2>
+<p>有很多遗憾，但是好像没有什么最后悔的事情，想想经历过的不好的事情都对我产生了些正向价值，阿Q 精神。。。</p>
+<h2 id="17-还在世的人中你最鄙视的是谁">17. 还在世的人中你最鄙视的是谁？</h2>
+<p>好像也没有，命比较好，碰到的人都不算太奇怪</p>
+<p>想想 特别不喜欢华为，但是任正非我又不是特别了解</p>
+<h2 id="18-你最喜欢男性身上的什么品质">18. 你最喜欢男性身上的什么品质？</h2>
+<p>率性洒脱</p>
+<h2 id="19-你使用过的最多的单词或者词语是什么">19. 你使用过的最多的单词或者词语是什么？</h2>
+<p>私人聊天侃天侃地，工作上重复词语较多</p>
+<p>收到
+好的
+可以
+xxx哈</p>
+<h2 id="20-你最喜欢女性身上什么品质">20. 你最喜欢女性身上什么品质？</h2>
+<p>真诚，有啥说啥</p>
+<h2 id="21-你最伤痛的事是什么">21. 你最伤痛的事是什么？</h2>
+<p>好像没有。。</p>
+<h2 id="22-你最看中朋友什么特点">22. 你最看中朋友什么特点？</h2>
+<p>靠谱</p>
+<h2 id="23-你这一生最爱的人或东西">23. 你这一生最爱的人或东西？</h2>
+<p>当前应该是我妈</p>
+<h2 id="24-你希望以什么样的方式死去">24. 你希望以什么样的方式死去？</h2>
+<p>睡觉中&ndash;寿终正寝</p>
+<h2 id="25-如果你可以改变你的家庭一件事那会是什么">25. 如果你可以改变你的家庭一件事，那会是什么？</h2>
+<p>我妈换份工作，不那么累</p>
+<h2 id="26-如果你能选择的话你希望让什么重现">26. 如果你能选择的话，你希望让什么重现？</h2>
+<p>暂无</p>
+<h2 id="27-你的座右铭是什么">27. 你的座右铭是什么？</h2>
+<p>人呐，还是要有劲儿的活着</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://tomatoares.github.io">战神西红柿</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://tomatoares.github.io/posts/my-proust-questionnaire/">https://tomatoares.github.io/posts/my-proust-questionnaire/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/storage/CSI-spec/">CSI - 容器存储接口</a></li>
+        
+        <li><a href="/posts/cloud/kubelet-Q/">无法正常删除节点资源—— kubelet 问题排查</a></li>
+        
+        <li><a href="/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/">深入浅出 Istio [读书笔记]</a></li>
+        
+        <li><a href="/posts/storage/external-storage/">external-storage 探索</a></li>
+        
+        <li><a href="/posts/leetcode/flag/">立个 flag </a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/TomatoAres"
+            issue-term="https://github.com/TomatoAres/TomatoAres.github.io/issues"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2022 <a href="https://tomatoares.github.io">西红柿的博客 By 战神西红柿</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://tomatoares.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://tomatoares.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/my-proust-questionnaire/" title="My Proust Questionnaire">My Proust Questionnaire</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/kubelet-Q/" title="无法正常删除节点资源—— kubelet 问题排查">无法正常删除节点资源—— kubelet 问题排查</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAIstio/" title="深入浅出 Istio [读书笔记]">深入浅出 Istio [读书笔记]</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/external-storage/" title="external-storage 探索">external-storage 探索</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/leetcode/flag/" title="立个 flag ">立个 flag </a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/about/" title="About">About</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/kind/" title="使用 kind 进行 e2e 测试">使用 kind 进行 e2e 测试</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/cloud/k8s/cka/" title="cka 考试准备">cka 考试准备</a>
+    </li>
+    
+    <li>
+        <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://tomatoares.github.io/categories/GCTT/">GCTT (15)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (21)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Other/">Other (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Storage/">Storage (11)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Tool/">Tool (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Web/">Web (10)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/docker/">docker (7)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/go/">go (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/k8s/">k8s (5)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/kubernetes/">kubernetes (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/linux/">linux (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/microservice/">microservice (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/Network/">Network (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/os/">os (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统 (2)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库 (4)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%AE%97%E6%B3%95/">算法 (3)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理 (1)</a></li>
+    
+    <li><a href="https://tomatoares.github.io/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://tomatoares.github.io/tags/CSI/">CSI</a>
+    
+    <a href="https://tomatoares.github.io/tags/Ceph/">Ceph</a>
+    
+    <a href="https://tomatoares.github.io/tags/Cobra/">Cobra</a>
+    
+    <a href="https://tomatoares.github.io/tags/GC/">GC</a>
+    
+    <a href="https://tomatoares.github.io/tags/GCTT/">GCTT</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/Http/">Http</a>
+    
+    <a href="https://tomatoares.github.io/tags/IO/">IO</a>
+    
+    <a href="https://tomatoares.github.io/tags/Istio/">Istio</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/RPC/">RPC</a>
+    
+    <a href="https://tomatoares.github.io/tags/Storage/">Storage</a>
+    
+    <a href="https://tomatoares.github.io/tags/TCP/">TCP</a>
+    
+    <a href="https://tomatoares.github.io/tags/UDP/">UDP</a>
+    
+    <a href="https://tomatoares.github.io/tags/Unix/">Unix</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/Websocket/">Websocket</a>
+    
+    <a href="https://tomatoares.github.io/tags/buffer/">buffer</a>
+    
+    <a href="https://tomatoares.github.io/tags/cache/">cache</a>
+    
+    <a href="https://tomatoares.github.io/tags/cka/">cka</a>
+    
+    <a href="https://tomatoares.github.io/tags/container/">container</a>
+    
+    <a href="https://tomatoares.github.io/tags/database/">database</a>
+    
+    <a href="https://tomatoares.github.io/tags/docker/">docker</a>
+    
+    <a href="https://tomatoares.github.io/tags/echo/">“echo”</a>
+    
+    <a href="https://tomatoares.github.io/tags/framework/">framework</a>
+    
+    <a href="https://tomatoares.github.io/tags/go/">go</a>
+    
+    <a href="https://tomatoares.github.io/tags/hugo/">hugo</a>
+    
+    <a href="https://tomatoares.github.io/tags/k8s/">k8s</a>
+    
+    <a href="https://tomatoares.github.io/tags/kind/">kind</a>
+    
+    <a href="https://tomatoares.github.io/tags/leetcode/">leetcode</a>
+    
+    <a href="https://tomatoares.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://tomatoares.github.io/tags/microservice/">microservice</a>
+    
+    <a href="https://tomatoares.github.io/tags/Network/">Network</a>
+    
+    <a href="https://tomatoares.github.io/tags/os/">os</a>
+    
+    <a href="https://tomatoares.github.io/tags/out-of-tree/">out-of-tree</a>
+    
+    <a href="https://tomatoares.github.io/tags/test/">test</a>
+    
+    <a href="https://tomatoares.github.io/tags/tool/">tool</a>
+    
+    <a href="https://tomatoares.github.io/tags/Web/">Web</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%9F%BA%E6%95%B0%E6%A0%91/">基数树</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+    
+    <a href="https://tomatoares.github.io/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://tomatoares.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -76,6 +76,31 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://tomatoares.github.io/posts/storage/issue-csi/" title="Ceph 的部署">Ceph 的部署</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年12月19日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='/categories/Storage'>Storage</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            @cofyc Thanks to you reply! I have tried it in default namespace according to readme and in rbac mode,but I have failed [root@k8s-master01 examples]# kubectl create -f examples/class.yaml error: the path &#34;examples/class.yaml&#34; does not exist [root@k8s-master01 examples]# cd .. [root@k8s-master01 rbd]# kubectl create -f examples/class.yaml storageclass.storage.k8s.io/rbd created [root@k8s-master01 rbd]# kubectl create -f examples/claim.yaml persistentvolumeclaim/claim1 created [root@k8s-master01 rbd]# kubectl get pvc NAME STATUS VOLUME CAPACITY ACCESS MODES STORAGECLASS AGE claim1 Pending rbd 5s [root@k8s-master01 rbd]# kubectl describe pvc claim1 Name: claim1 Namespace: default StorageClass: rbd Status: Pending Volume: Labels: &lt;none&gt; Annotations: volume.beta.kubernetes.io/storage-provisioner: ceph.com/rbd Finalizers: [kubernetes.io/pvc-protection] Capacity: Access Modes: VolumeMode: Filesystem Mounted By: &lt;none&gt; Events: Type Reason Age From Message ---- ------ ---- ---- ------- Normal ExternalProvisioning 10s (x3 over 16s) persistentvolume-controller waiting for a volume to be created, either by external provisioner &#34;ceph.com/rbd&#34; or manually created by system administrator Normal Provisioning……
+        </div>
+        <p class="readmore"><a href="https://tomatoares.github.io/posts/storage/issue-csi/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
             </h1>
         </header>
@@ -298,35 +323,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/" title="ubuntu 权限相关">ubuntu 权限相关</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年12月1日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/go'>go</a></span>
-            
-            <span class="meta-category"><a href='/categories/microservice'>microservice</a></span>
-            
-            <span class="meta-category"><a href='/categories/GCTT'>GCTT</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            用户 who 命令用于查看当前所有登录系统的用户信息 whoami 该命令用户查看当前系统当前账号的用户名。 cat /etc/passwd 查看系统用户信息 su 切换用户， 后面可以加“-”。 su = su root 切换到 root 用户 su - 切换到 root 用户，同时切换目录到/root su - root 切换到 root 用户，同时切换目录到/root su - 普通用户 切换到普通用户，同时切换普……
-        </div>
-        <p class="readmore"><a href="https://tomatoares.github.io/posts/cloud/k8s/ubuntu-auth/">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -338,53 +334,64 @@
     
 
     
-    <li >
-        <a href="https://tomatoares.github.io/posts/">1</a>
-    </li>
+
     
-    <li  class="current">
-        <a href="https://tomatoares.github.io/posts/page/2/">2</a>
-    </li>
+        
     
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/3/">3</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/4/">4</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/5/">5</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/6/">6</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/7/">7</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/8/">8</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/9/">9</a>
-    </li>
-    
-    <li >
-        <a href="https://tomatoares.github.io/posts/page/10/">10</a>
-    </li>
     
 
     
+        
+        
+        <li >
+            <a href="https://tomatoares.github.io/posts/">1</a>
+        </li>
+        
+    
+        
+        
+        <li  class="current">
+            <a href="https://tomatoares.github.io/posts/page/2/">2</a>
+        </li>
+        
+    
+        
+        
+        <li >
+            <a href="https://tomatoares.github.io/posts/page/3/">3</a>
+        </li>
+        
+    
+        
+        
+        <li >
+            <a href="https://tomatoares.github.io/posts/page/4/">4</a>
+        </li>
+        
+    
+        
+        <li>
+            <span>...</span>
+        </li>
+        
+    
+        
+        
+        <li >
+            <a href="https://tomatoares.github.io/posts/page/11/">11</a>
+        </li>
+        
+    
+
+    
+    
+
     <li class="next">
         <a href="https://tomatoares.github.io/posts/page/3/">下一页</a>
     </li>
     
 </ol>
+
 
 
 
@@ -437,6 +444,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://tomatoares.github.io/posts/my-proust-questionnaire/" title="My Proust Questionnaire">My Proust Questionnaire</a>
+    </li>
+    
+    <li>
         <a href="https://tomatoares.github.io/posts/storage/CSI-spec/" title="CSI - 容器存储接口">CSI - 容器存储接口</a>
     </li>
     
@@ -472,10 +483,6 @@
         <a href="https://tomatoares.github.io/posts/storage/ceph-rbd-resize/" title="kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索">kubernetes 1.12.6 storageclass 集成 ceph rbd resize 功能探索</a>
     </li>
     
-    <li>
-        <a href="https://tomatoares.github.io/posts/storage/Ceph%E9%83%A8%E7%BD%B2/" title="Ceph 的部署">Ceph 的部署</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -491,7 +498,7 @@
     
     <li><a href="https://tomatoares.github.io/categories/Istio/">Istio (1)</a></li>
     
-    <li><a href="https://tomatoares.github.io/categories/Life/">Life (1)</a></li>
+    <li><a href="https://tomatoares.github.io/categories/Life/">Life (2)</a></li>
     
     <li><a href="https://tomatoares.github.io/categories/Network/">Network (8)</a></li>
     
